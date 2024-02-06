@@ -1513,7 +1513,7 @@ PrefabInstance:
     - target: {fileID: 7543066457891107797, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
       propertyPath: m_Name
-      value: MixamoCharacter
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7543066457891107797, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
