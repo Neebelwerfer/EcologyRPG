@@ -150,7 +150,6 @@ public class StatManager : EditorWindow
     private void GenerateCode()
     {
         StringBuilder code = new StringBuilder();
-        code.AppendLine("using System.Collections;");
         code.AppendLine("using System.Collections.Generic;");
         code.AppendLine("using UnityEngine;");
         code.AppendLine();
@@ -177,6 +176,7 @@ public class StatManager : EditorWindow
         code.AppendLine("               return stat;");
         code.AppendLine("           }");
         code.AppendLine("       }");
+        code.AppendLine("       Debug.LogError(\"Couldn't find Stat \" + name);");
         code.AppendLine("       return null;");
         code.AppendLine("   }");
         code.AppendLine("}");

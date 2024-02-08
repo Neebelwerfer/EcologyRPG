@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +12,8 @@ public class Stats
            new Stat("maxHP", 100f, "Governs the characters max hp value", "Max HP"), 
            new Stat("maxStamina", 100f, "Governs how much stamina the character have", "Max Stamina"), 
            new Stat("staminaDrain", 25f, "Governs how much stamina is lost per second of sprint", "Stamina Drain"), 
+           new Stat("sprintSpeed", 20f, "Governs the characters Sprinting speed", "Sprint Speed"), 
+           new Stat("staminaGain", 10f, "Governs how fast the character gets stamina back", "Stamina Gain"), 
        };
    }
 
@@ -25,6 +26,7 @@ public class Stats
                return stat;
            }
        }
+       Debug.LogError("Couldn't find Stat " + name);
        return null;
    }
 }

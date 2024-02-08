@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
+using UnityEngine.Events;
+
 public enum StatModType
 {
     Flat = 100,
@@ -35,8 +37,10 @@ public class Stat
 {
     public string Name;
     public string DisplayName;
-    public float baseValue;
+    public readonly float baseValue;
     public string description;
+
+    public UnityEvent<float> OnStatChanged = new UnityEvent<float>();
 
     bool isDirty = true;
 
@@ -49,6 +53,8 @@ public class Stat
             if (isDirty)
             {
                 CalculateFinalValue();
+                isDirty = false;
+                OnStatChanged.Invoke(finalValue);
             }
             return finalValue;
         }
@@ -96,7 +102,6 @@ public class Stat
                 finalValue *= 1 + mod.Value;
             }
         }
-        isDirty = false;
     }
 
     public bool RemoveAllModifiersFromSource(object source)

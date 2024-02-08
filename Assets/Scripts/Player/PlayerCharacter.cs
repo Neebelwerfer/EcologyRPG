@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerCharacter : Character
 {
     public InputActionReference Movement;
+    public InputActionReference Sprint;
 
     PlayerMovement playerMovement;
 
