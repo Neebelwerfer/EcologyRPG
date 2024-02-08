@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : Character
 {
-    public InputActionReference Movement;
-    public InputActionReference Sprint;
+    public PlayerSettings playerSettings;
 
     PlayerMovement playerMovement;
 

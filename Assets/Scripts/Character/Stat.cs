@@ -20,16 +20,15 @@ public class StatModification
     public float Value;
     public StatModType ModType;
 
-    public StatModification(string statName, float value, StatModType modType, int order, object source)
+    public StatModification(float value, StatModType modType, int order, object source)
     {
-        StatName = statName;
         Value = value;
         ModType = modType;
         this.Order = order;
         Source = source;
     }
 
-    public StatModification(string statName, float value, StatModType modType, object source) : this(statName, value, modType, (int)modType, source) { }
+    public StatModification(float value, StatModType modType, object source) : this(value, modType, (int)modType, source) { }
 
 }
 

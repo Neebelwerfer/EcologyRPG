@@ -1,6 +1,5 @@
-movementSpeed,10,Governs the characters movement speed,Movement Speed
+movementSpeed,5,Governs the characters movement speed,Movement Speed
 maxHP,100,Governs the characters max hp value,Max HP
 maxStamina,100,Governs how much stamina the character have,Max Stamina
 staminaDrain,25,Governs how much stamina is lost per second of sprint,Stamina Drain
-sprintSpeed,20,Governs the characters Sprinting speed,Sprint Speed
 staminaGain,10,Governs how fast the character gets stamina back,Stamina Gain

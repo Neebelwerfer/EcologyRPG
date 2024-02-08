@@ -1,3 +1,5 @@
+using Codice.CM.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +12,10 @@ public class PlayerMovement : IPlayerModule
 
     public float rotationSpeed = 4f;
 
-    Vector3 forward;
-    Vector3 right;
+    //Rotated forward and right vectors to match the camera
+    Vector3 forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
+    Vector3 right = Quaternion.Euler(new Vector3(0, 135, 0)) * Vector3.forward;
+
     PlayerCharacter player;
     Transform transform;
 
@@ -21,32 +25,43 @@ public class PlayerMovement : IPlayerModule
     Stat StaminaGain;
     Stat SprintingSpeed;
 
-    float _MaxStamina;
+    StatModification sprintMod;
+
     float _CurrentStamina;
 
     // Start is called before the first frame update
     public void Initialize(PlayerCharacter player)
     {
-        Movement = player.Movement;
+        Movement = player.playerSettings.Movement;
         Movement.action.Enable();
-        Sprint = player.Sprint;
+        Sprint = player.playerSettings.Sprint;
         Sprint.action.Enable();
+        Sprint.action.started += (c) => OnSprint(true);
+        Sprint.action.canceled += (c) => OnSprint(false);
+
+        sprintMod = new StatModification(player.playerSettings.SprintMultiplier, StatModType.PercentMult, this);
 
         transform = player.transform;
-        forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
         MovementSpeed = player.stats.GetStat("movementSpeed");
         MaxStamina = player.stats.GetStat("maxStamina");
         StaminaDrain = player.stats.GetStat("staminaDrain");
         StaminaGain = player.stats.GetStat("staminaGain");
-        SprintingSpeed = player.stats.GetStat("sprintSpeed");
 
-        _MaxStamina = MaxStamina.Value;
-        _CurrentStamina = _MaxStamina;
-
-        MaxStamina.OnStatChanged.AddListener((value) => _MaxStamina = value);
+        _CurrentStamina = MaxStamina.Value;
     }
+
+    private void OnSprint(bool start)
+    {
+        if(start)
+        {
+            MovementSpeed.AddModifier(sprintMod);
+        } else
+        {
+            MovementSpeed.RemoveModifier(sprintMod);
+        }
+    }
+
 
     // Update is called once per frame
     public void Update()
@@ -57,30 +72,29 @@ public class PlayerMovement : IPlayerModule
 
         if (movement.magnitude > 0)
         {
-            var speed = 0f;
             if (Sprint.action.IsPressed())
             {
-                speed = SprintingSpeed.Value * Time.deltaTime;
-                _CurrentStamina -= StaminaDrain.Value * Time.deltaTime;
-                _CurrentStamina = Mathf.Clamp(_CurrentStamina, 0, _MaxStamina);
+                _CurrentStamina -= StaminaDrain.Value * TimeManager.IngameDeltaTime;
+                _CurrentStamina = Mathf.Clamp(_CurrentStamina, 0, MaxStamina.Value);
                 if(_CurrentStamina == 0)
                 {
                     Sprint.action.Disable();
                 }
             } else
             {
-                speed = MovementSpeed.Value * Time.deltaTime;
-                _CurrentStamina += StaminaGain.Value * Time.deltaTime;
-                _CurrentStamina = Mathf.Clamp(_CurrentStamina, 0, _MaxStamina);
-                if(!Sprint.action.enabled && _CurrentStamina == _MaxStamina)
+                _CurrentStamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
+                _CurrentStamina = Mathf.Clamp(_CurrentStamina, 0, MaxStamina.Value);
+                if(!Sprint.action.enabled && _CurrentStamina == MaxStamina.Value)
                 {
                     Sprint.action.Enable();
                 }
 
             }
+
+            var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
             var dir = (movement.y * forward + movement.x * right);
             transform.position += speed * dir;
-            var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
+            var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
             transform.rotation = rot;
 
         }
@@ -91,7 +105,7 @@ public class PlayerMovement : IPlayerModule
                 var lookAt = hit.point;
                 lookAt.y = transform.position.y;
                 var dir = (lookAt - transform.position).normalized;
-                var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
+                var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
                 transform.rotation = rot;
             }
         }
