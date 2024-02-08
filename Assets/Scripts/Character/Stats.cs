@@ -9,7 +9,7 @@ public class Stats : MonoBehaviour
    {
        StatList = new List<Stat>()
        {
-           new Stat("Movement Speed", 100f, "Governs the characters movement speed."), 
+           new Stat("movementSpeed", 100f, "Governs the characters movement speed", "Movement Speed"), 
        };
    }
 

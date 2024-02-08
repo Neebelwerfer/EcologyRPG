@@ -34,6 +34,7 @@ public class StatModification
 public class Stat
 {
     public string Name;
+    public string DisplayName;
     public float baseValue;
     public string description;
 
@@ -56,11 +57,12 @@ public class Stat
     public ReadOnlyCollection<StatModification> StatModifiers;
     List<StatModification> Modifiers;
 
-    public Stat(string name, float baseValue, string description)
+    public Stat(string name , float baseValue, string description, string displayName)
     {
         Modifiers = new List<StatModification>();
         StatModifiers = Modifiers.AsReadOnly();
         this.description = description;
+        DisplayName = displayName;
     }
 
     void CalculateFinalValue()

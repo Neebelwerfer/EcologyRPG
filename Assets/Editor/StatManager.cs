@@ -9,6 +9,7 @@ using UnityEngine;
 public class StatData
 {
     public string name;
+    public string displayName;
     public float baseValue;
     [TextArea(3, 10)]
     public string description;
@@ -74,6 +75,7 @@ public class StatManager : EditorWindow
             stat.name = data[0];
             stat.baseValue = float.Parse(data[1]);
             stat.description = parseDescription(data[2]);
+            stat.displayName = data[3];
             stats.Add(stat);
         }
     }
@@ -161,7 +163,7 @@ public class StatManager : EditorWindow
         code.AppendLine("       {");
         for (int i = 0; i < stats.Count; i++)
         {
-            code.AppendLine("           new Stat(\"" + stats[i].name + "\", " + stats[i].baseValue + "f, \"" + stats[i].description.Replace("\n",";") + "\")"+ ", ");
+            code.AppendLine("           new Stat(\"" + stats[i].name + "\", " + stats[i].baseValue + "f, \"" + stats[i].description.Replace("\n",";") + "\", \"" + stats[i].displayName + "\")"+ ", ");
         }
         code.AppendLine("       };");
         code.AppendLine("   }");

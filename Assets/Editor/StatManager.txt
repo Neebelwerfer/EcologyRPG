@@ -1,1 +1,1 @@
-Movement Speed,100,Governs the characters movement speed.
+movementSpeed,100,Governs the characters movement speed
