@@ -9,11 +9,19 @@ public class Stats : MonoBehaviour
    {
        StatList = new List<Stat>()
        {
+           new Stat("Movement Speed", 100f, "Governs the characters movement speed."), 
        };
    }
 
    public Stat GetStat(string name)
    {
-       return StatList.Find(x => x.Name == name);
+       foreach (Stat stat in StatList)
+       {
+           if (stat.Name == name)
+           {
+               return stat;
+           }
+       }
+       return null;
    }
 }

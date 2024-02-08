@@ -35,6 +35,7 @@ public class Stat
 {
     public string Name;
     public float baseValue;
+    public string description;
 
     bool isDirty = true;
 
@@ -55,10 +56,11 @@ public class Stat
     public ReadOnlyCollection<StatModification> StatModifiers;
     List<StatModification> Modifiers;
 
-    public Stat(string name, float baseValue)
+    public Stat(string name, float baseValue, string description)
     {
         Modifiers = new List<StatModification>();
         StatModifiers = Modifiers.AsReadOnly();
+        this.description = description;
     }
 
     void CalculateFinalValue()

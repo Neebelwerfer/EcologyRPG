@@ -10,6 +10,8 @@ public class StatData
 {
     public string name;
     public float baseValue;
+    [TextArea(3, 10)]
+    public string description;
 }
 
 public class StatManager : EditorWindow
@@ -50,7 +52,16 @@ public class StatManager : EditorWindow
 
         stats.Clear();
         StreamReader reader = new StreamReader(path);
-        ParseFile(reader);
+        try
+        {
+            ParseFile(reader);
+        } catch (System.Exception e)
+        {
+            Debug.LogError(e);
+        } finally
+        {
+            reader.Dispose();
+        }
     }
 
     private void ParseFile(StreamReader reader)
@@ -62,9 +73,14 @@ public class StatManager : EditorWindow
             StatData stat = new StatData();
             stat.name = data[0];
             stat.baseValue = float.Parse(data[1]);
+            stat.description = parseDescription(data[2]);
             stats.Add(stat);
         }
-        reader.Close();
+    }
+
+    string parseDescription(string description)
+    {
+        return description.Replace(";", "\n");
     }
 
     private void SaveFile()
@@ -73,7 +89,8 @@ public class StatManager : EditorWindow
 
         for (int i = 0; i < stats.Count; i++)
         {
-            writer.WriteLine(stats[i].name + "," + stats[i].baseValue);
+            var description = stats[i].description.Replace("\n", ";");
+            writer.WriteLine(stats[i].name + "," + stats[i].baseValue + "," + description);
         }
         writer.Close();
         AssetDatabase.ImportAsset(path);
@@ -99,7 +116,7 @@ public class StatManager : EditorWindow
                 Debug.LogError("Invalid data");
             }
         }
-        if (GUILayout.Button("Discard"))
+        if (GUILayout.Button("Discard Changes"))
         {
             LoadFile();
         }
@@ -144,14 +161,21 @@ public class StatManager : EditorWindow
         code.AppendLine("       {");
         for (int i = 0; i < stats.Count; i++)
         {
-            code.AppendLine("           new Stat(\"" + stats[i].name + "\", " + stats[i].baseValue + "f)"+ ", ");
+            code.AppendLine("           new Stat(\"" + stats[i].name + "\", " + stats[i].baseValue + "f, \"" + stats[i].description.Replace("\n",";") + "\")"+ ", ");
         }
         code.AppendLine("       };");
         code.AppendLine("   }");
         code.AppendLine();
         code.AppendLine("   public Stat GetStat(string name)");
         code.AppendLine("   {");
-        code.AppendLine("       return StatList.Find(x => x.Name == name);");
+        code.AppendLine("       foreach (Stat stat in StatList)");
+        code.AppendLine("       {");
+        code.AppendLine("           if (stat.Name == name)");
+        code.AppendLine("           {");
+        code.AppendLine("               return stat;");
+        code.AppendLine("           }");
+        code.AppendLine("       }");
+        code.AppendLine("       return null;");
         code.AppendLine("   }");
         code.AppendLine("}");
         File.WriteAllText(codePath, code.ToString());
