@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -5,23 +6,13 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-[System.Serializable]
-public class StatData
-{
-    public string name;
-    public string displayName;
-    public float baseValue;
-    [TextArea(3, 10)]
-    public string description;
-}
-
+[Serializable]
 public class StatManager : EditorWindow
 {
     [SerializeField]
     public List<StatData> stats;
 
-    const string path = "Assets/Editor/StatManager.txt";
-    const string codePath = "Assets/Scripts/Character/Stats.cs";
+    const string path = "Assets/Resources/Stats.txt";
 
     SerializedObject so;
 
@@ -37,7 +28,6 @@ public class StatManager : EditorWindow
         stats = new List<StatData>();
     }
 
-
     private void OnEnable()
     {
         LoadFile();
@@ -51,12 +41,11 @@ public class StatManager : EditorWindow
             File.Create(path).Dispose();
         }
 
-        stats.Clear();
         StreamReader reader = new StreamReader(path);
         try
         {
             ParseFile(reader);
-        } catch (System.Exception e)
+        } catch (Exception e)
         {
             Debug.LogError(e);
         } finally
@@ -67,33 +56,16 @@ public class StatManager : EditorWindow
 
     private void ParseFile(StreamReader reader)
     {
-        string line;
-        while ((line = reader.ReadLine()) != null)
-        {
-            string[] data = line.Split(',');
-            StatData stat = new StatData();
-            stat.name = data[0];
-            stat.baseValue = float.Parse(data[1]);
-            stat.description = parseDescription(data[2]);
-            stat.displayName = data[3];
-            stats.Add(stat);
-        }
-    }
-
-    string parseDescription(string description)
-    {
-        return description.Replace(";", "\n");
+        var json = reader.ReadToEnd();
+        var newList = JsonUtility.FromJson<SerializableList<StatData>>(json);
+        stats = newList.list;
     }
 
     private void SaveFile()
     {
         StreamWriter writer = new StreamWriter(path, false);
-
-        for (int i = 0; i < stats.Count; i++)
-        {
-            var description = stats[i].description.Replace("\n", ";");
-            writer.WriteLine(stats[i].name + "," + stats[i].baseValue + "," + description + "," + stats[i].displayName);
-        }
+        var json = JsonUtility.ToJson(stats.ToSerializable(), true);
+        writer.Write(json);
         writer.Close();
         AssetDatabase.ImportAsset(path);
     }
@@ -103,15 +75,13 @@ public class StatManager : EditorWindow
         so.Update();
         var serializedList = so.FindProperty("stats");
         EditorGUILayout.PropertyField(serializedList, true);
-
-
+        GUILayout.FlexibleSpace();
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Save"))
         {
             if (CheckConstraints())
             {
                 SaveFile();
-                GenerateCode();
             }
             else
             {
@@ -145,43 +115,6 @@ public class StatManager : EditorWindow
             }
         }
         return true;
-    }
-
-    private void GenerateCode()
-    {
-        StringBuilder code = new StringBuilder();
-        code.AppendLine("using System.Collections.Generic;");
-        code.AppendLine("using UnityEngine;");
-        code.AppendLine();
-        code.AppendLine("public class Stats");
-        code.AppendLine("{");
-        code.AppendLine("   List<Stat> StatList;");
-        code.AppendLine("   public Stats()");
-        code.AppendLine("   {");
-        code.AppendLine("       StatList = new List<Stat>()");
-        code.AppendLine("       {");
-        for (int i = 0; i < stats.Count; i++)
-        {
-            code.AppendLine("           new Stat(\"" + stats[i].name + "\", " + stats[i].baseValue + "f, \"" + stats[i].description.Replace("\n",";") + "\", \"" + stats[i].displayName + "\")"+ ", ");
-        }
-        code.AppendLine("       };");
-        code.AppendLine("   }");
-        code.AppendLine();
-        code.AppendLine("   public Stat GetStat(string name)");
-        code.AppendLine("   {");
-        code.AppendLine("       foreach (Stat stat in StatList)");
-        code.AppendLine("       {");
-        code.AppendLine("           if (stat.Name == name)");
-        code.AppendLine("           {");
-        code.AppendLine("               return stat;");
-        code.AppendLine("           }");
-        code.AppendLine("       }");
-        code.AppendLine("       Debug.LogError(\"Couldn't find Stat \" + name);");
-        code.AppendLine("       return null;");
-        code.AppendLine("   }");
-        code.AppendLine("}");
-        File.WriteAllText(codePath, code.ToString());
-        AssetDatabase.ImportAsset(codePath);
     }
 }
 

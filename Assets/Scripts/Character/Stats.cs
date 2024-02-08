@@ -1,19 +1,30 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class StatData
+{
+    public string name;
+    public string displayName;
+    public float baseValue;
+    [TextArea(3, 10)]
+    public string description;
+}
 
 public class Stats
 {
    List<Stat> StatList;
    public Stats()
    {
-       StatList = new List<Stat>()
-       {
-           new Stat("movementSpeed", 5f, "Governs the characters movement speed", "Movement Speed"), 
-           new Stat("maxHP", 100f, "Governs the characters max hp value", "Max HP"), 
-           new Stat("maxStamina", 100f, "Governs how much stamina the character have", "Max Stamina"), 
-           new Stat("staminaDrain", 25f, "Governs how much stamina is lost per second of sprint", "Stamina Drain"), 
-           new Stat("staminaGain", 10f, "Governs how fast the character gets stamina back", "Stamina Gain"), 
-       };
+        var json = Resources.Load<TextAsset>("Stats").text;
+        var newList = JsonUtility.FromJson<SerializableList<StatData>>(json);
+
+        StatList = new List<Stat>();
+        foreach (StatData stat in newList.list)
+        {
+            StatList.Add(new Stat(stat.name, stat.baseValue, stat.description, stat.displayName));
+        }
    }
 
    public Stat GetStat(string name)

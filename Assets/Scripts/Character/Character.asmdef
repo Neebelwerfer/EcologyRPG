@@ -1,7 +1,9 @@
 {
     "name": "Character",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:4aafcecd01a78eb4b9237855ed825fe6"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

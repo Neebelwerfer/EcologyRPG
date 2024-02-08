@@ -1,0 +1,34 @@
+{
+    "list": [
+        {
+            "name": "movementSpeed",
+            "displayName": "Movement Speed",
+            "baseValue": 5.0,
+            "description": "Governs the characters movement speed"
+        },
+        {
+            "name": "maxHP",
+            "displayName": "Max HP",
+            "baseValue": 100.0,
+            "description": "Governs the characters maximum hitpoints"
+        },
+        {
+            "name": "maxStamina",
+            "displayName": "Max Stamina",
+            "baseValue": 100.0,
+            "description": "Govern the cap on stamina"
+        },
+        {
+            "name": "staminaDrain",
+            "displayName": "Stamina Drain",
+            "baseValue": 25.0,
+            "description": "Governs how fast stamina gets used"
+        },
+        {
+            "name": "staminaGain",
+            "displayName": "Stamina Gain",
+            "baseValue": 10.0,
+            "description": "Governs how fast stamina gets back"
+        }
+    ]
+}
