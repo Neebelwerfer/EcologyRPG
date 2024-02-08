@@ -8,5 +8,6 @@ public abstract class Character : MonoBehaviour
 
     public Character()
     {
+        stats = new Stats();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Stats
 {
    List<Stat> StatList;
    public Stats()
@@ -10,6 +10,7 @@ public class Stats : MonoBehaviour
        StatList = new List<Stat>()
        {
            new Stat("movementSpeed", 100f, "Governs the characters movement speed", "Movement Speed"), 
+           new Stat("maxHP", 100f, "Governs the characters max hp value", "Max HP"), 
        };
    }
 

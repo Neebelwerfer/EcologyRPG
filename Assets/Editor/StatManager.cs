@@ -92,7 +92,7 @@ public class StatManager : EditorWindow
         for (int i = 0; i < stats.Count; i++)
         {
             var description = stats[i].description.Replace("\n", ";");
-            writer.WriteLine(stats[i].name + "," + stats[i].baseValue + "," + description);
+            writer.WriteLine(stats[i].name + "," + stats[i].baseValue + "," + description + "," + stats[i].displayName);
         }
         writer.Close();
         AssetDatabase.ImportAsset(path);
@@ -154,7 +154,7 @@ public class StatManager : EditorWindow
         code.AppendLine("using System.Collections.Generic;");
         code.AppendLine("using UnityEngine;");
         code.AppendLine();
-        code.AppendLine("public class Stats : MonoBehaviour");
+        code.AppendLine("public class Stats");
         code.AppendLine("{");
         code.AppendLine("   List<Stat> StatList;");
         code.AppendLine("   public Stats()");
