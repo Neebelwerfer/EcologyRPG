@@ -9,8 +9,10 @@ public class Stats
    {
        StatList = new List<Stat>()
        {
-           new Stat("movementSpeed", 100f, "Governs the characters movement speed", "Movement Speed"), 
+           new Stat("movementSpeed", 10f, "Governs the characters movement speed", "Movement Speed"), 
            new Stat("maxHP", 100f, "Governs the characters max hp value", "Max HP"), 
+           new Stat("maxStamina", 100f, "Governs how much stamina the character have", "Max Stamina"), 
+           new Stat("staminaDrain", 25f, "Governs how much stamina is lost per second of sprint", "Stamina Drain"), 
        };
    }
 

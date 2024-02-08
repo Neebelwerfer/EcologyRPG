@@ -59,6 +59,8 @@ public class Stat
 
     public Stat(string name , float baseValue, string description, string displayName)
     {
+        this.Name = name;
+        this.baseValue = baseValue;
         Modifiers = new List<StatModification>();
         StatModifiers = Modifiers.AsReadOnly();
         this.description = description;

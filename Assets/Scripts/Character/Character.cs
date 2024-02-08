@@ -6,7 +6,7 @@ public abstract class Character : MonoBehaviour
 {
     public Stats stats;
 
-    public Character()
+    public virtual void Start()
     {
         stats = new Stats();
     }
