@@ -20,4 +20,14 @@ public class PlayerCharacter : Character
     {
         playerMovement.Update();
     }
+
+    void FixedUpdate()
+    {
+        playerMovement.FixedUpdate();
+    }
+
+    void LateUpdate()
+    {
+        playerMovement.LateUpdate();
+    }
 }

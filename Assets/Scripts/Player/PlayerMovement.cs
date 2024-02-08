@@ -1,3 +1,4 @@
+using Codice.Client.Commands;
 using Codice.CM.Common;
 using System;
 using System.Collections;
@@ -19,11 +20,11 @@ public class PlayerMovement : IPlayerModule
     PlayerCharacter player;
     Transform transform;
 
+    //Cached Stat references
     Stat MovementSpeed;
     Stat MaxStamina;
     Stat StaminaDrain;
     Stat StaminaGain;
-    Stat SprintingSpeed;
 
     StatModification sprintMod;
 
@@ -62,13 +63,10 @@ public class PlayerMovement : IPlayerModule
         }
     }
 
-
-    // Update is called once per frame
-    public void Update()
+    public void FixedUpdate()
     {
         Vector2 movement = Movement.action.ReadValue<Vector2>();
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        var mousePoint = Camera.main.ScreenPointToRay(mousePosition);
+
 
         if (movement.magnitude > 0)
         {
@@ -100,15 +98,31 @@ public class PlayerMovement : IPlayerModule
         }
         else
         {
-            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Player")))
-            {
-                var lookAt = hit.point;
-                lookAt.y = transform.position.y;
-                var dir = (lookAt - transform.position).normalized;
-                var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
-                transform.rotation = rot;
-            }
+            UpdateRotationBasedOnMouse();
         }
-       
+    }
+
+    public void UpdateRotationBasedOnMouse()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        var mousePoint = Camera.main.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Player")))
+        {
+            var lookAt = hit.point;
+            lookAt.y = transform.position.y;
+            var dir = (lookAt - transform.position).normalized;
+            var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
+            transform.rotation = rot;
+        }
+    }
+
+    public void Update()
+    {
+
+    }
+
+    public void LateUpdate()
+    {
+
     }
 }
