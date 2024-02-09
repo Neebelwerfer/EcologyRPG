@@ -32,6 +32,14 @@ namespace Character
         public float Value;
         public StatModType ModType;
 
+        public UnityEvent OnStatModChanged = new();
+
+        public void UpdateValue(float newValue)
+        {
+            Value = newValue;
+            OnStatModChanged.Invoke();
+        }
+
         public StatModification(float value, StatModType modType, int order, object source)
         {
             Value = value;
@@ -140,18 +148,19 @@ namespace Character
         {
             if (Modifiers.Remove(mod))
             {
+                mod.OnStatModChanged.RemoveAllListeners();
                 isDirty = true;
                 return true;
             }
             return false;
         }
 
-
         public void AddModifier(StatModification mod)
         {
             isDirty = true;
             Modifiers.Add(mod);
             Modifiers.Sort(CompareModifierOrder);
+            mod.OnStatModChanged.AddListener(() => isDirty = true);
         }
 
         private int CompareModifierOrder(StatModification a, StatModification b)
