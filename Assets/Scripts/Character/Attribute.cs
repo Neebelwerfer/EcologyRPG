@@ -42,17 +42,18 @@ public class AttributeData
 public class Attribute
 {
     readonly AttributeData data;
-
     public List<AttributeModification> modifiers;
 
-    public int currentValue;
+    int currentValue;
+    bool isDirty = false;
+    Stats Stats;
 
-    public bool isDirty = true;
-
-    public Attribute(AttributeData data)
+    public Attribute(AttributeData data, Stats stats)
     {
         this.data = data;
+        Stats = stats;
         modifiers = new List<AttributeModification>();
+        CalculateValue();
     }
 
     public int Value
@@ -99,7 +100,13 @@ public class Attribute
 
     public void UpdateStatModifiers()
     {
-
+        for (int i = 0; i < data.statProgressions.Count; i++)
+        {
+            var progression = data.statProgressions[i];
+            var stat = Stats.GetStat(progression.statName);
+            stat.RemoveAllModifiersFromSource(this);
+            stat.AddModifier(new StatModification(progression.startValue + (currentValue * progression.changePerPoint), progression.modType, this));
+        }
     }
 
 }

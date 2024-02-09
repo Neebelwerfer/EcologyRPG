@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using Utility;
 
@@ -20,24 +21,31 @@ namespace Character
 
     public class Stats
     {
+        public ReadOnlyCollection<Stat> _stats;
+        public ReadOnlyCollection<Attribute> _attributes;
+
         List<Stat> StatList;
         List<Attribute> AttributeList;
 
         public Stats()
         {
+            StatList = new List<Stat>();
+            _stats = StatList.AsReadOnly();
+
+            AttributeList = new List<Attribute>();
+            _attributes = AttributeList.AsReadOnly();
+
             var json = Resources.Load<TextAsset>("CharacterStats").text;
             var newList = JsonUtility.FromJson<SerializableStats>(json);
 
-            StatList = new List<Stat>();
             foreach (StatData data in newList.Stats)
             {
                 StatList.Add(new Stat(data));
             }
 
-            AttributeList = new List<Attribute>();
             foreach (AttributeData data in newList.Attributes)
             {
-                AttributeList.Add(new Attribute(data));
+                AttributeList.Add(new Attribute(data, this));
             }
         }
 
