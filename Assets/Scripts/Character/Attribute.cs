@@ -1,4 +1,5 @@
 using Character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,15 @@ public class AttributeModification
     public int Value;
 }
 
+[Serializable]
+public class AttributeStatMod
+{
+    public string statName;
+    public float baseValue;
+    public float changePerPoint;
+}
+
+[Serializable]
 public class AttributeData
 {
     public string name;
@@ -16,7 +26,7 @@ public class AttributeData
     public string description;
     public int defaultValue = 10;
 
-    public List<StatModification> statMods;
+    public List<AttributeStatMod> statMods;
 }
 
 public class Attribute

@@ -12,6 +12,9 @@ public class StatManager : EditorWindow
     [SerializeField]
     public List<StatData> stats;
 
+    [SerializeField]
+    public List<AttributeData> attributes;
+
     const string path = "Assets/Resources/Stats.txt";
 
     SerializedObject so;
@@ -27,6 +30,7 @@ public class StatManager : EditorWindow
     public StatManager()
     {
         stats = new List<StatData>();
+        attributes = new List<AttributeData>();
     }
 
     private void OnEnable()
@@ -74,9 +78,11 @@ public class StatManager : EditorWindow
     private void OnGUI()
     {
         so.Update();
-        var serializedList = so.FindProperty("stats");
+        var serializedStatList = so.FindProperty("stats");
+        var serializedAttributeList = so.FindProperty("attributes");
         scrollPos = GUILayout.BeginScrollView(scrollPos);
-        EditorGUILayout.PropertyField(serializedList, true);
+        EditorGUILayout.PropertyField(serializedStatList, true);
+        EditorGUILayout.PropertyField(serializedAttributeList, true);
         GUILayout.EndScrollView();
         GUILayout.FlexibleSpace();
         EditorGUILayout.BeginHorizontal();
