@@ -2318,8 +2318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4357573941c1ad49904bdb7e3c142ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Movement: {fileID: 2064913705141883547, guid: d845ac9316e93d841aad5e9d3451edb0,
-    type: 3}
+  playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
 --- !u!54 &8168942657948853474
 Rigidbody:
   m_ObjectHideFlags: 0
