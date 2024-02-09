@@ -1,10 +1,10 @@
+using Character;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
+using Utility;
 
 [Serializable]
 public class StatManager : EditorWindow

@@ -2,40 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class TimeManager
+namespace Utility
 {
-    static float MenuTimeScale = 1f;
-    static float IngameTimeScale = 1f;
-
-    public static float TimeScale
+    public static class TimeManager
     {
-        get
+        static float MenuTimeScale = 1f;
+        static float IngameTimeScale = 1f;
+
+        public static float TimeScale
         {
-            return Time.timeScale;
+            get
+            {
+                return Time.timeScale;
+            }
         }
-    }
 
-    public static float IngameDeltaTime
-    {
-        get
+        public static float IngameDeltaTime
         {
-            return Time.deltaTime * IngameTimeScale;
+            get
+            {
+                return Time.deltaTime * IngameTimeScale;
+            }
         }
-    }
 
-    public static float MenuDeltaTime
-    {
-        get
+        public static float MenuDeltaTime
         {
-            return Time.deltaTime * MenuTimeScale;
+            get
+            {
+                return Time.deltaTime * MenuTimeScale;
+            }
         }
-    }
 
-    public static float DefaultDeltaTime
-    {
-        get
+        public static float DefaultDeltaTime
         {
-            return Time.deltaTime;
+            get
+            {
+                return Time.deltaTime;
+            }
         }
     }
 }

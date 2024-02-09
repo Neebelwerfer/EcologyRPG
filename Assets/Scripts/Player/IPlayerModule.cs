@@ -1,8 +1,11 @@
-public interface IPlayerModule
+namespace Player
 {
-    public void Initialize(PlayerCharacter player);
+    public interface IPlayerModule
+    {
+        public void Initialize(PlayerCharacter player);
 
-    public void Update();
-    public void FixedUpdate();
-    public void LateUpdate();
+        public void Update();
+        public void FixedUpdate();
+        public void LateUpdate();
+    }
 }

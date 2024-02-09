@@ -1,33 +1,38 @@
+using Character;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCharacter : Character
+namespace Player
 {
-    public PlayerSettings playerSettings;
-
-    PlayerMovement playerMovement;
-
-    public override void Start()
+    public class PlayerCharacter : BaseCharacter
     {
-        base.Start();
-        playerMovement = new PlayerMovement();
-        playerMovement.Initialize(this);
+        public PlayerSettings playerSettings;
+
+        PlayerMovement playerMovement;
+
+        public override void Start()
+        {
+            base.Start();
+            playerMovement = new PlayerMovement();
+            playerMovement.Initialize(this);
+        }
+
+        void Update()
+        {
+            playerMovement.Update();
+        }
+
+        void FixedUpdate()
+        {
+            playerMovement.FixedUpdate();
+        }
+
+        void LateUpdate()
+        {
+            playerMovement.LateUpdate();
+        }
     }
 
-    void Update()
-    {
-        playerMovement.Update();
-    }
-
-    void FixedUpdate()
-    {
-        playerMovement.FixedUpdate();
-    }
-
-    void LateUpdate()
-    {
-        playerMovement.LateUpdate();
-    }
 }
