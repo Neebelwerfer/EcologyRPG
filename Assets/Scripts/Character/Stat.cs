@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +14,18 @@ namespace Character
         PercentMult = 300
     }
 
+    [Serializable]
+    public class StatData
+    {
+        public string name;
+        public string displayName;
+        public float baseValue;
+        [TextArea(3, 10)]
+        public string description;
+    }
+
     public class StatModification
     {
-        public string StatName;
         public object Source;
 
         public int Order;
@@ -36,10 +46,7 @@ namespace Character
 
     public class Stat
     {
-        public string Name;
-        public string DisplayName;
-        public readonly float baseValue;
-        public string description;
+        public StatData Data;
 
         public UnityEvent<float> OnStatChanged = new UnityEvent<float>();
 
@@ -66,17 +73,25 @@ namespace Character
 
         public Stat(string name, float baseValue, string description, string displayName)
         {
-            this.Name = name;
-            this.baseValue = baseValue;
+            Data = new StatData();
+            Data.name = name;
+            Data.baseValue = baseValue;
+            Data.description = description;
+            Data.displayName = displayName;
             Modifiers = new List<StatModification>();
             StatModifiers = Modifiers.AsReadOnly();
-            this.description = description;
-            DisplayName = displayName;
+        }
+
+        public Stat(StatData Data)
+        {
+            this.Data = Data;
+            Modifiers = new List<StatModification>();
+            StatModifiers = Modifiers.AsReadOnly();
         }
 
         void CalculateFinalValue()
         {
-            finalValue = baseValue;
+            finalValue = Data.baseValue;
             float sumPercentAdd = 0;
 
             for (int i = 0; i < Modifiers.Count; i++)

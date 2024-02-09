@@ -5,16 +5,6 @@ using Utility;
 
 namespace Character
 {
-    [Serializable]
-    public class StatData
-    {
-        public string name;
-        public string displayName;
-        public float baseValue;
-        [TextArea(3, 10)]
-        public string description;
-    }
-
     public class Stats
     {
         List<Stat> StatList;
@@ -24,9 +14,9 @@ namespace Character
             var newList = JsonUtility.FromJson<SerializableList<StatData>>(json);
 
             StatList = new List<Stat>();
-            foreach (StatData stat in newList.list)
+            foreach (StatData data in newList.list)
             {
-                StatList.Add(new Stat(stat.name, stat.baseValue, stat.description, stat.displayName));
+                StatList.Add(new Stat(data));
             }
         }
 
@@ -34,7 +24,7 @@ namespace Character
         {
             foreach (Stat stat in StatList)
             {
-                if (stat.Name == name)
+                if (stat.Data.name == name)
                 {
                     return stat;
                 }

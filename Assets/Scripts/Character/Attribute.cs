@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class AttributeModifier
+{
+    public object Source;
+    public int Value;
+}
+
 public class Attribute
 {
     public string Name;
-    public int defaultValue = 10;
+    public string DisplayName;
+    public string Description;
+    public int DefaultValue = 10;
 
-    public Dictionary<string, int> modifiers;
+    public List<AttributeModifier> modifiers;
 
     public int currentValue;
 
@@ -17,24 +25,36 @@ public class Attribute
     {
         get
         {
-            CalculateValue();
+            if(isDirty)
+            {
+                CalculateValue();
+                isDirty = false;
+            };
             return currentValue;
         }
     }
 
-    public void AddModifier(string name, int value)
+    public void AddModifier(AttributeModifier modifier)
     {
-        modifiers.Add(name, value);
+        modifiers.Add(modifier);
+        isDirty = true;
     }
 
-    public void RemoveModifier(string name)
+    public void RemoveModifier(AttributeModifier modifier)
     {
-        modifiers.Remove(name);
+        modifiers.Remove(modifier);
+        isDirty = true;
+    }
+
+    public void RemoveAllModifiersFromSource(object source)
+    {
+        modifiers.RemoveAll(x => x.Source == source);
+        isDirty = true;
     }
 
     void CalculateValue()
     {
-        var v = defaultValue;
+        var v = DefaultValue;
         foreach (var item in modifiers)
         {
             v += item.Value;
