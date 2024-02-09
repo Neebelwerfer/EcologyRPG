@@ -17,10 +17,14 @@ namespace Character
     [Serializable]
     public class StatData
     {
+        [Tooltip("The name of the stat")]
         public string name;
+        [Tooltip("The display name of the stat")]
         public string displayName;
+        [Tooltip("The default value of this stat")]
         public float baseValue;
         [TextArea(3, 10)]
+        [Tooltip("A description of what this stat does")]
         public string description;
     }
 
