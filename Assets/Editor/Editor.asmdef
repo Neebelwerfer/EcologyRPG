@@ -1,10 +1,10 @@
 {
-    "name": "Player",
+    "name": "Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:f48955dd5eb492442ac0e292d6310e8a",
-        "GUID:4aafcecd01a78eb4b9237855ed825fe6"
+        "GUID:4aafcecd01a78eb4b9237855ed825fe6",
+        "GUID:e6f13cce094af9f4ea8f5503e2368926",
+        "GUID:f48955dd5eb492442ac0e292d6310e8a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -12,7 +12,9 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_EDITOR"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

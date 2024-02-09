@@ -1,0 +1,70 @@
+{
+    "Attributes": [
+        {
+            "name": "agility",
+            "displayName": "Agility",
+            "description": "",
+            "defaultValue": 5,
+            "statProgressions": [
+                {
+                    "statName": "movementSpeed",
+                    "modType": 200,
+                    "baseValue": 0.0,
+                    "changePerPoint": 0.05000000074505806
+                }
+            ]
+        },
+        {
+            "name": "vitality",
+            "displayName": "Vitality",
+            "description": "",
+            "defaultValue": 5,
+            "statProgressions": [
+                {
+                    "statName": "maxHP",
+                    "modType": 100,
+                    "baseValue": 0.0,
+                    "changePerPoint": 5.0
+                },
+                {
+                    "statName": "maxStamina",
+                    "modType": 200,
+                    "baseValue": 0.0,
+                    "changePerPoint": 0.05000000074505806
+                }
+            ]
+        }
+    ],
+    "Stats": [
+        {
+            "name": "movementSpeed",
+            "displayName": "Movement Speed",
+            "baseValue": 5.0,
+            "description": "Governs a characters movement speed"
+        },
+        {
+            "name": "maxHP",
+            "displayName": "Max HP",
+            "baseValue": 100.0,
+            "description": "Governs a characters maximum hp"
+        },
+        {
+            "name": "maxStamina",
+            "displayName": "Stamina",
+            "baseValue": 100.0,
+            "description": "Governs a characters stamina"
+        },
+        {
+            "name": "staminaDrain",
+            "displayName": "Stamina Drain",
+            "baseValue": 25.0,
+            "description": "Governs a characters stamina loss when sprinting"
+        },
+        {
+            "name": "staminaGain",
+            "displayName": "Stamina Gain",
+            "baseValue": 10.0,
+            "description": "Governs a characters stamina recovery"
+        }
+    ]
+}
