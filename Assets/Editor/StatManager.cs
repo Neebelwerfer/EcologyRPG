@@ -86,10 +86,6 @@ public class StatManager : EditorWindow
             {
                 SaveFile();
             }
-            else
-            {
-                Debug.LogError("Invalid data");
-            }
         }
         if (GUILayout.Button("Discard Changes"))
         {
@@ -106,6 +102,7 @@ public class StatManager : EditorWindow
         {
             if (stats[i].name == "")
             {
+                Debug.LogError("Stat name cannot be empty");
                 return false;
             }
 
@@ -113,6 +110,7 @@ public class StatManager : EditorWindow
             {
                 if (i != j && stats[i].name == stats[j].name)
                 {
+                    Debug.LogError("Duplicate stat name: " + stats[i].name);
                     return false;
                 }
             }
