@@ -15,6 +15,7 @@ public class StatManager : EditorWindow
     const string path = "Assets/Resources/Stats.txt";
 
     SerializedObject so;
+    Vector2 scrollPos = Vector2.zero;
 
 
     [MenuItem("Character/StatManager")]
@@ -74,7 +75,9 @@ public class StatManager : EditorWindow
     {
         so.Update();
         var serializedList = so.FindProperty("stats");
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
         EditorGUILayout.PropertyField(serializedList, true);
+        GUILayout.EndScrollView();
         GUILayout.FlexibleSpace();
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Save"))
