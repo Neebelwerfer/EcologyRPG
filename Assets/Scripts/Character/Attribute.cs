@@ -11,9 +11,10 @@ public class AttributeModification
 }
 
 [Serializable]
-public class AttributeStatMod
+public class AttributeProgression
 {
     public string statName;
+    public StatModType modType;
     public float baseValue;
     public float changePerPoint;
 }
@@ -26,7 +27,7 @@ public class AttributeData
     public string description;
     public int defaultValue = 10;
 
-    public List<AttributeStatMod> statMods;
+    public List<AttributeProgression> statProgressions;
 }
 
 public class Attribute

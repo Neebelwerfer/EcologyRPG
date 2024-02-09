@@ -5,6 +5,19 @@ using Utility;
 
 namespace Character
 {
+    [Serializable]
+    public class SerializableStats
+    {
+        public List<AttributeData> Attributes;
+        public List<StatData> Stats;
+
+        public SerializableStats(List<StatData> stats, List<AttributeData> attributes)
+        {
+            Stats = stats;
+            Attributes = attributes;
+        }
+    }
+
     public class Stats
     {
         List<Stat> StatList;

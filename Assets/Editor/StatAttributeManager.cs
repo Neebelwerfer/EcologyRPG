@@ -7,7 +7,7 @@ using UnityEngine;
 using Utility;
 
 [Serializable]
-public class StatManager : EditorWindow
+public class StatAttributeManager : EditorWindow
 {
     [SerializeField]
     public List<StatData> stats;
@@ -15,19 +15,20 @@ public class StatManager : EditorWindow
     [SerializeField]
     public List<AttributeData> attributes;
 
-    const string path = "Assets/Resources/Stats.txt";
+    const string path = "Assets/Resources/CharacterStats&Attributes.txt";
+
 
     SerializedObject so;
     Vector2 scrollPos = Vector2.zero;
 
 
-    [MenuItem("Character/StatManager")]
+    [MenuItem("Character/Manage Stats and Attributes")]
     public static void ShowWindow()
     {
-        GetWindow<StatManager>("StatManager");
+        GetWindow<StatAttributeManager>("Stats and Attributes manager");
     }
 
-    public StatManager()
+    public StatAttributeManager()
     {
         stats = new List<StatData>();
         attributes = new List<AttributeData>();
@@ -62,14 +63,15 @@ public class StatManager : EditorWindow
     private void ParseFile(StreamReader reader)
     {
         var json = reader.ReadToEnd();
-        var newList = JsonUtility.FromJson<SerializableList<StatData>>(json);
-        stats = newList.list;
+        var newList = JsonUtility.FromJson<SerializableStats>(json);
+        stats = newList.Stats;
+        attributes = newList.Attributes;
     }
 
     private void SaveFile()
     {
         StreamWriter writer = new StreamWriter(path, false);
-        var json = JsonUtility.ToJson(stats.ToSerializable(), true);
+        var json = JsonUtility.ToJson(new SerializableStats(stats, attributes), true);
         writer.Write(json);
         writer.Close();
         AssetDatabase.ImportAsset(path);
@@ -121,7 +123,54 @@ public class StatManager : EditorWindow
                 }
             }
         }
+
+        for (int i = 0; i < attributes.Count; i++)
+        {
+            if (attributes[i].name == "")
+            {
+                Debug.LogError("Attribute name cannot be empty");
+                return false;
+            }
+
+            for (int j = i; j < attributes.Count; j++)
+            {
+                if (i != j && attributes[i].name == attributes[j].name)
+                {
+                    Debug.LogError("Duplicate attribute name: " + attributes[i].name);
+                    return false;
+                }
+            }
+
+            if (attributes[i].statProgressions.Count == 0)
+            {
+                Debug.LogError("Attribute " + attributes[i].name + " has no stat progressions");
+                return false;
+            }
+
+            for (int j = 0; j < attributes[i].statProgressions.Count; j++)
+            {
+                var statProgression = attributes[i].statProgressions[j];
+                if (statProgression.statName == "")
+                {
+                    Debug.LogError("Attribute " + attributes[i].name + " has a stat progression with no stat name");
+                    return false;
+                }
+                
+                for (int s = 0; s < stats.Count; s++)
+                {
+                    if (stats[s].name == statProgression.statName)
+                    {
+                        break;
+                    }
+                    if (s == stats.Count - 1)
+                    {
+                        Debug.LogError("Attribute " + attributes[i].name + " has a stat progression with a non-existent stat name: " + statProgression.statName);
+                        return false;
+                    }
+                }
+            }
+          
+        }
         return true;
     }
 }
-
