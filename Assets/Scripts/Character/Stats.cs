@@ -21,15 +21,23 @@ namespace Character
     public class Stats
     {
         List<Stat> StatList;
+        List<Attribute> AttributeList;
+
         public Stats()
         {
-            var json = Resources.Load<TextAsset>("Stats").text;
-            var newList = JsonUtility.FromJson<SerializableList<StatData>>(json);
+            var json = Resources.Load<TextAsset>("CharacterStats").text;
+            var newList = JsonUtility.FromJson<SerializableStats>(json);
 
             StatList = new List<Stat>();
-            foreach (StatData data in newList.list)
+            foreach (StatData data in newList.Stats)
             {
                 StatList.Add(new Stat(data));
+            }
+
+            AttributeList = new List<Attribute>();
+            foreach (AttributeData data in newList.Attributes)
+            {
+                AttributeList.Add(new Attribute(data));
             }
         }
 

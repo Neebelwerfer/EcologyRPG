@@ -27,7 +27,7 @@
                     "changePerPoint": 5.0
                 },
                 {
-                    "statName": "stamina",
+                    "statName": "maxStamina",
                     "modType": 200,
                     "baseValue": 0.0,
                     "changePerPoint": 0.05000000074505806
@@ -49,7 +49,7 @@
             "description": "Governs a characters maximum hp"
         },
         {
-            "name": "stamina",
+            "name": "maxStamina",
             "displayName": "Stamina",
             "baseValue": 100.0,
             "description": "Governs a characters stamina"

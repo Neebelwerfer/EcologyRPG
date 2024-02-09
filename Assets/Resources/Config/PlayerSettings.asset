@@ -15,4 +15,4 @@ MonoBehaviour:
   Movement: {fileID: 2064913705141883547, guid: d845ac9316e93d841aad5e9d3451edb0,
     type: 3}
   Sprint: {fileID: 2140197903572249435, guid: d845ac9316e93d841aad5e9d3451edb0, type: 3}
-  SprintMultiplier: 1.2
+  SprintMultiplier: 0.5

@@ -15,7 +15,7 @@ public class StatAttributeManager : EditorWindow
     [SerializeField]
     public List<AttributeData> attributes;
 
-    const string path = "Assets/Resources/CharacterStats&Attributes.txt";
+    const string path = "Assets/Resources/CharacterStats.txt";
 
 
     SerializedObject so;
