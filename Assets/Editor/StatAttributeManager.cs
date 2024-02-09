@@ -75,6 +75,7 @@ public class StatAttributeManager : EditorWindow
         writer.Write(json);
         writer.Close();
         AssetDatabase.ImportAsset(path);
+        Debug.Log("Successfully saved to " + path);
     }
 
     private void OnGUI()
