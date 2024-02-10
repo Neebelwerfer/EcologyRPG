@@ -41,12 +41,12 @@ public class AttributeData
 
 public class Attribute
 {
-    readonly AttributeData data;
+    public readonly AttributeData data;
     public List<AttributeModification> modifiers;
 
     int currentValue;
     bool isDirty = false;
-    Stats Stats;
+    readonly Stats Stats;
 
     public Attribute(AttributeData data, Stats stats)
     {

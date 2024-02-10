@@ -24,15 +24,13 @@ namespace Player
         PlayerCharacter player;
         Transform transform;
 
-        //Cached Stat references
+        //Cached Character references
         Stat MovementSpeed;
-        Stat MaxStamina;
+        Resource Stamina;
         Stat StaminaDrain;
         Stat StaminaGain;
 
         StatModification sprintMod;
-
-        float _CurrentStamina;
 
         // Start is called before the first frame update
         public void Initialize(PlayerCharacter player)
@@ -49,11 +47,9 @@ namespace Player
             transform = player.transform;
 
             MovementSpeed = player.stats.GetStat("movementSpeed");
-            MaxStamina = player.stats.GetStat("maxStamina");
+            Stamina = player.stats.GetResource("stamina");
             StaminaDrain = player.stats.GetStat("staminaDrain");
             StaminaGain = player.stats.GetStat("staminaGain");
-
-            _CurrentStamina = MaxStamina.Value;
         }
 
         private void OnSprint(bool start)
@@ -77,18 +73,16 @@ namespace Player
             {
                 if (Sprint.action.IsPressed())
                 {
-                    _CurrentStamina -= StaminaDrain.Value * TimeManager.IngameDeltaTime;
-                    _CurrentStamina = Mathf.Clamp(_CurrentStamina, 0, MaxStamina.Value);
-                    if (_CurrentStamina == 0)
+                    Stamina -= StaminaDrain.Value * TimeManager.IngameDeltaTime;
+                    if (Stamina == 0)
                     {
                         Sprint.action.Disable();
                     }
                 }
                 else
                 {
-                    _CurrentStamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
-                    _CurrentStamina = Mathf.Clamp(_CurrentStamina, 0, MaxStamina.Value);
-                    if (!Sprint.action.enabled && _CurrentStamina == MaxStamina.Value)
+                    Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
+                    if (!Sprint.action.enabled && Stamina == Stamina.MaxValue)
                     {
                         Sprint.action.Enable();
                     }
