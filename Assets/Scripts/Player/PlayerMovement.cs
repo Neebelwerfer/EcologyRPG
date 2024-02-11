@@ -23,6 +23,7 @@ namespace Player
 
         PlayerCharacter player;
         Transform transform;
+        Rigidbody rb;
 
         //Cached Character references
         Stat MovementSpeed;
@@ -45,6 +46,7 @@ namespace Player
             sprintMod = new StatModification(player.playerSettings.SprintMultiplier, StatModType.PercentMult, this);
 
             transform = player.transform;
+            rb = player.GetComponent<Rigidbody>();
 
             MovementSpeed = player.stats.GetStat("movementSpeed");
             Stamina = player.stats.GetResource("stamina");
@@ -74,7 +76,7 @@ namespace Player
                 if (Sprint.action.IsPressed())
                 {
                     Stamina -= StaminaDrain.Value * TimeManager.IngameDeltaTime;
-                    if (Stamina == 0)
+                    if (Stamina < 0.1f)
                     {
                         Sprint.action.Disable();
                     }
@@ -92,8 +94,7 @@ namespace Player
                 var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
                 var dir = (movement.y * forward + movement.x * right);
                 transform.position += speed * dir;
-                var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
-                transform.rotation = rot;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
 
             }
             else
@@ -106,12 +107,12 @@ namespace Player
         {
             Vector2 mousePosition = Mouse.current.position.ReadValue();
             var mousePoint = Camera.main.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Player")))
+            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Entity")))
             {
                 var lookAt = hit.point;
                 lookAt.y = transform.position.y;
                 var dir = (lookAt - transform.position).normalized;
-                var rot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
+                var rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
                 transform.rotation = rot;
             }
         }
