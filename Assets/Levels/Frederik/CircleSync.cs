@@ -25,7 +25,6 @@ public class CircleSync : MonoBehaviour
         else
         {
             WallMaterial.SetFloat (SizeID, 0);
-
         }
 
         var view =  Camera.WorldToViewportPoint(transform.position);
