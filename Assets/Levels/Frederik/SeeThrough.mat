@@ -12,10 +12,12 @@ Material:
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: 3ceebb68003e9094c84972a59b0dc6e4,
     type: 3}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 2
   m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_InvalidKeywords:
+  - _ALPHAPREMULTIPLY_ON
+  - _SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -27,9 +29,13 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Size: 1
+    - _Alpha: 255
+    - _DstBlend: 10
+    - _QueueControl: 0
+    - _Size: 0
     m_Colors:
-    - _Position: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Position: {r: 0.56225544, g: 0.6077293, b: 11.012217, a: 0}
+    - _Tint: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6747632152193565570
 MonoBehaviour:
