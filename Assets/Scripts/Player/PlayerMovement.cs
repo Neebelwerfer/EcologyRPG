@@ -45,7 +45,7 @@ namespace Player
 
             sprintMod = new StatModification(player.playerSettings.SprintMultiplier, StatModType.PercentMult, this);
 
-            transform = player.transform;
+            transform = player.transform.Find("VisualPlayer");
             rb = player.GetComponent<Rigidbody>();
 
             MovementSpeed = player.stats.GetStat("movementSpeed");
