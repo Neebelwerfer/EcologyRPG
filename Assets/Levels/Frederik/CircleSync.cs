@@ -18,6 +18,7 @@ public class CircleSync : MonoBehaviour
     private void Start()
     {
         _Materials = new List<Material>();
+        Camera = Camera.main;
     }
 
     void Update()
