@@ -12,12 +12,12 @@ public class SeeThroughMaterial
     public SeeThroughMaterial(Material material, float CircleSize)
     {
         this.material = material;
-        material.SetFloat(CircleSync.SizeID, CircleSize);
+        material.SetFloat(SeeThroughSync.SizeID, CircleSize);
         counter = 1;
     }
 }
 
-public class CircleSync : MonoBehaviour
+public class SeeThroughSync : MonoBehaviour
 {
     public static int PosID = Shader.PropertyToID("_Position");
     public static int SizeID = Shader.PropertyToID("_Size");
