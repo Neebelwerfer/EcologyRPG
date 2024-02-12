@@ -92,9 +92,10 @@ namespace Player
                 }
 
                 var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
-                var dir = (movement.y * forward + movement.x * right);
-                transform.position += speed * dir;
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
+                var dir = (movement.y * forward + movement.x * right).normalized;
+                rb.velocity += speed * 100 * dir;
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, MovementSpeed.Value);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rb.velocity), TimeManager.IngameDeltaTime * rotationSpeed);
 
             }
             else

@@ -2283,6 +2283,7 @@ GameObject:
   - component: {fileID: 3357981947105634421}
   - component: {fileID: 8168942657948853474}
   - component: {fileID: 7276982710180602258}
+  - component: {fileID: 9184275195013381854}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -2318,6 +2319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4357573941c1ad49904bdb7e3c142ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
 --- !u!54 &8168942657948853474
 Rigidbody:
@@ -2328,7 +2330,7 @@ Rigidbody:
   m_GameObject: {fileID: 8923750589016168859}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -2343,8 +2345,8 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
+  m_Interpolate: 1
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &7276982710180602258
 CapsuleCollider:
@@ -2369,3 +2371,21 @@ CapsuleCollider:
   m_Height: 2.09
   m_Direction: 1
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &9184275195013381854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8923750589016168859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ab507ba9ecbc8488c20b9757d24436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SphereCastRadius: 1
+  CircleSize: 2
+  Camera: {fileID: 0}
+  Mask:
+    serializedVersion: 2
+    m_Bits: 1
