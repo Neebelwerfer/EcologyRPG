@@ -6,7 +6,7 @@ public static class EventManager
 {
     public static Dictionary<string, UnityEvent> events = new Dictionary<string, UnityEvent>();
 
-    public static void Listen(string eventName, UnityAction listener)
+    public static void AddListener(string eventName, UnityAction listener)
     {
         UnityEvent thisEvent = null;
         if (events.TryGetValue(eventName, out thisEvent))
@@ -21,7 +21,7 @@ public static class EventManager
         }
     }
 
-    public static void Stoplisten(string eventName, UnityAction listener)
+    public static void RemoveListener(string eventName, UnityAction listener)
     {
         if (events.TryGetValue(eventName, out var thisEvent))
         {
