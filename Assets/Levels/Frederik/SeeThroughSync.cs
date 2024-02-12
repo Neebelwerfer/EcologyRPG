@@ -9,11 +9,25 @@ public class SeeThroughMaterial
     public Material material;
     public int counter;
 
-    public SeeThroughMaterial(Material material, float CircleSize)
+    public SeeThroughMaterial(SeeThroughSync seeThroughSync, Material material, float CircleSize)
     {
         this.material = material;
-        material.SetFloat(SeeThroughSync.SizeID, CircleSize);
         counter = 1;
+        material.SetFloat(SeeThroughSync.SizeID, 0.5f);
+        seeThroughSync.StartCoroutine(ScaleCircle(CircleSize));
+    }
+
+
+    public IEnumerator ScaleCircle (float targetSize)
+    {
+        float size = material.GetFloat(SeeThroughSync.SizeID);
+        float time = 0;
+        while (time < 1)
+        {
+            time += Time.deltaTime;
+            material.SetFloat(SeeThroughSync.SizeID, Mathf.Lerp(size, targetSize, time));
+            yield return null;
+        }
     }
 }
 
@@ -28,6 +42,7 @@ public class SeeThroughSync : MonoBehaviour
     public LayerMask Mask;
 
     Dictionary<Collider, SeeThroughMaterial> _MaterialsByName;
+    Dictionary<SeeThroughMaterial, Coroutine> _CoroutinesByMaterial;
 
     RaycastHit[] hits;
 
@@ -55,7 +70,7 @@ public class SeeThroughSync : MonoBehaviour
                 if (!_MaterialsByName.ContainsKey(hit.collider))
                 {
                     Material mat = hit.collider.gameObject.GetComponent<MeshRenderer>().material;
-                    _MaterialsByName.Add(hit.collider, new SeeThroughMaterial(mat, CircleSize));
+                    _MaterialsByName.Add(hit.collider, new SeeThroughMaterial(this, mat, CircleSize));
                 }
                 else
                 {
@@ -82,7 +97,8 @@ public class SeeThroughSync : MonoBehaviour
         {
             if (_MaterialsByName[col].counter == 0)
             {
-                _MaterialsByName[col].material.SetFloat(SizeID, 0);
+                var stMat = _MaterialsByName[col];
+                StartCoroutine(stMat.ScaleCircle(0));
                 _MaterialsByName.Remove(col);
             }
         }
@@ -92,7 +108,7 @@ public class SeeThroughSync : MonoBehaviour
     {
         var view = Camera.WorldToViewportPoint(transform.position);
 
-        foreach (var (col, stMat) in _MaterialsByName)
+        foreach (var (_, stMat) in _MaterialsByName)
         {
             stMat.material.SetVector(PosID, view);
         }
