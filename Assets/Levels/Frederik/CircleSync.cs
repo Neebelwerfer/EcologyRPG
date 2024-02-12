@@ -16,13 +16,16 @@ public class CircleSync : MonoBehaviour
         var dir = Camera.transform.position - transform.position;
         Ray ray = new Ray(transform.position, dir.normalized);
 
-        if(Physics.Raycast(ray, 30, Mask))
+        if(Physics.Raycast(ray, out RaycastHit hitinfo, 3000, Mask))
         {
-            WallMaterial.SetFloat(SizeID, 1);
+            WallMaterial.SetFloat(SizeID, 0);
+            WallMaterial = hitinfo.collider.gameObject.GetComponent<MeshRenderer>().material;
+            WallMaterial.SetFloat(SizeID, 2);
         }
         else
         {
             WallMaterial.SetFloat (SizeID, 0);
+
         }
 
         var view =  Camera.WorldToViewportPoint(transform.position);
