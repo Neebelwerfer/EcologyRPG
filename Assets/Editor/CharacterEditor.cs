@@ -7,13 +7,16 @@ using UnityEngine;
 using Utility;
 
 [Serializable]
-public class StatAttributeManager : EditorWindow
+public class CharacterEditor : EditorWindow
 {
     [SerializeField]
     public List<StatData> stats;
 
     [SerializeField]
     public List<AttributeData> attributes;
+
+    [SerializeField]
+    public List<ResourceData> resources;
 
     const string path = "Assets/Resources/CharacterStats.txt";
 
@@ -22,16 +25,17 @@ public class StatAttributeManager : EditorWindow
     Vector2 scrollPos = Vector2.zero;
 
 
-    [MenuItem("Character/Manage Stats and Attributes")]
+    [MenuItem("Character/Character Editor")]
     public static void ShowWindow()
     {
-        GetWindow<StatAttributeManager>("Stats and Attributes manager");
+        GetWindow<CharacterEditor>("Character Editor");
     }
 
-    public StatAttributeManager()
+    public CharacterEditor()
     {
         stats = new List<StatData>();
         attributes = new List<AttributeData>();
+        resources = new List<ResourceData>();
     }
 
     private void OnEnable()
@@ -45,6 +49,7 @@ public class StatAttributeManager : EditorWindow
         if (!File.Exists(path))
         {
             File.Create(path).Dispose();
+            SaveFile();
         }
 
         StreamReader reader = new StreamReader(path);
@@ -66,12 +71,13 @@ public class StatAttributeManager : EditorWindow
         var newList = JsonUtility.FromJson<SerializableStats>(json);
         stats = newList.Stats;
         attributes = newList.Attributes;
+        resources = newList.Resources;
     }
 
     private void SaveFile()
     {
         StreamWriter writer = new StreamWriter(path, false);
-        var json = JsonUtility.ToJson(new SerializableStats(stats, attributes), true);
+        var json = JsonUtility.ToJson(new SerializableStats(stats, attributes, resources), true);
         writer.Write(json);
         writer.Close();
         AssetDatabase.ImportAsset(path);
@@ -83,9 +89,11 @@ public class StatAttributeManager : EditorWindow
         so.Update();
         var serializedStatList = so.FindProperty("stats");
         var serializedAttributeList = so.FindProperty("attributes");
+        var serializedResourceList = so.FindProperty("resources");
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         EditorGUILayout.PropertyField(serializedStatList, true);
         EditorGUILayout.PropertyField(serializedAttributeList, true);
+        EditorGUILayout.PropertyField(serializedResourceList, true);
         GUILayout.EndScrollView();
         GUILayout.FlexibleSpace();
         EditorGUILayout.BeginHorizontal();
@@ -171,6 +179,43 @@ public class StatAttributeManager : EditorWindow
                 }
             }
           
+        }
+
+        for (int i = 0; i < resources.Count; i++)
+        {
+            if (resources[i].name == "")
+            {
+                Debug.LogError("Resource name cannot be empty");
+                return false;
+            }
+
+            for (int j = i; j < resources.Count; j++)
+            {
+                if (i != j && resources[i].name == resources[j].name)
+                {
+                    Debug.LogError("Duplicate resource name: " + resources[i].name);
+                    return false;
+                }
+            }
+
+            if (resources[i].MaxValueStat == "")
+            {
+                Debug.LogError("Resource " + resources[i].name + " has no max value stat");
+                return false;
+            }
+
+            for (int j = 0; j < stats.Count; j++)
+            {
+                if (stats[j].name == resources[i].MaxValueStat)
+                {
+                    break;
+                }
+                if (j == stats.Count - 1)
+                {
+                    Debug.LogError("Resource " + resources[i].name + " has a non-existent max value stat: " + resources[i].MaxValueStat);
+                    return false;
+                }
+            }
         }
         return true;
     }

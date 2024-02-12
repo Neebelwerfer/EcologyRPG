@@ -11,11 +11,13 @@ namespace Character
     {
         public List<AttributeData> Attributes;
         public List<StatData> Stats;
+        public List<ResourceData> Resources;
 
-        public SerializableStats(List<StatData> stats, List<AttributeData> attributes)
+        public SerializableStats(List<StatData> stats, List<AttributeData> attributes, List<ResourceData> resources)
         {
             Stats = stats;
             Attributes = attributes;
+            Resources = resources;
         }
     }
 
@@ -23,9 +25,11 @@ namespace Character
     {
         public ReadOnlyCollection<Stat> _stats;
         public ReadOnlyCollection<Attribute> _attributes;
+        public ReadOnlyCollection<Resource> _resources;
 
         List<Stat> StatList;
         List<Attribute> AttributeList;
+        List<Resource> ResourceList;
 
         public Stats()
         {
@@ -34,6 +38,9 @@ namespace Character
 
             AttributeList = new List<Attribute>();
             _attributes = AttributeList.AsReadOnly();
+
+            ResourceList = new List<Resource>();
+            _resources = ResourceList.AsReadOnly();
 
             var json = Resources.Load<TextAsset>("CharacterStats").text;
             var newList = JsonUtility.FromJson<SerializableStats>(json);
@@ -47,6 +54,12 @@ namespace Character
             {
                 AttributeList.Add(new Attribute(data, this));
             }
+
+            foreach (ResourceData data in newList.Resources)
+            {
+                ResourceList.Add(new Resource(data, this));
+            }
+
         }
 
         public Stat GetStat(string name)
@@ -59,6 +72,32 @@ namespace Character
                 }
             }
             Debug.LogError("Couldn't find Stat " + name);
+            return null;
+        }
+
+        public Attribute GetAttribute(string name)
+        {
+            foreach (Attribute attribute in AttributeList)
+            {
+                if (attribute.data.name == name)
+                {
+                    return attribute;
+                }
+            }
+            Debug.LogError("Couldn't find Attribute " + name);
+            return null;
+        }
+
+        public Resource GetResource(string name)
+        {
+            foreach (Resource resource in ResourceList)
+            {
+                if (resource.Data.name == name)
+                {
+                    return resource;
+                }
+            }
+            Debug.LogError("Couldn't find Resource " + name);
             return null;
         }
     }

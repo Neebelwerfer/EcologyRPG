@@ -9,7 +9,7 @@
                 {
                     "statName": "movementSpeed",
                     "modType": 200,
-                    "baseValue": 0.0,
+                    "startValue": 0.0,
                     "changePerPoint": 0.05000000074505806
                 }
             ]
@@ -23,13 +23,13 @@
                 {
                     "statName": "maxHP",
                     "modType": 100,
-                    "baseValue": 0.0,
+                    "startValue": 0.0,
                     "changePerPoint": 5.0
                 },
                 {
                     "statName": "maxStamina",
                     "modType": 200,
-                    "baseValue": 0.0,
+                    "startValue": 0.0,
                     "changePerPoint": 0.05000000074505806
                 }
             ]
@@ -65,6 +65,18 @@
             "displayName": "Stamina Gain",
             "baseValue": 10.0,
             "description": "Governs a characters stamina recovery"
+        }
+    ],
+    "Resources": [
+        {
+            "name": "health",
+            "DisplayName": "Health",
+            "MaxValueStat": "maxHP"
+        },
+        {
+            "name": "stamina",
+            "DisplayName": "Stamina",
+            "MaxValueStat": "maxStamina"
         }
     ]
 }
