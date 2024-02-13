@@ -11,25 +11,25 @@ public class PlayerAbilitiesHandler : IPlayerModule
 
     BaseAbility[] abilitySlots = new BaseAbility[4];
     BaseAbility dodgeAbility;
-    Sprint Test;
+    BaseAbility sprintAbility;
 
     PlayerCharacter Player;
 
     public void Initialize(PlayerCharacter player)
     {
-        Test = new Sprint();
         Player = player;
         settings = player.playerSettings;
-        //settings.Dodge.action.Enable();
-        //settings.Ability1.action.Enable();
-        //settings.Ability2.action.Enable();
-        //settings.Ability3.action.Enable();
-        //settings.Ability4.action.Enable();
-        Player.playerSettings.Sprint.action.Enable();
-        settings.Sprint.action.started += (ctx) => {
-            Debug.Log("Sprint started");
-            Test.Activate(new CasterInfo { owner = Player, activationInput = settings.Sprint });
-            };
+        settings.Sprint.action.Enable();
+        settings.Dodge.action.Enable();
+        settings.Ability1.action.Enable();
+        settings.Ability2.action.Enable();
+        settings.Ability3.action.Enable();
+        settings.Ability4.action.Enable();
+
+        sprintAbility = settings.SprintAbility;
+        dodgeAbility = settings.DodgeAbility;
+
+        settings.Sprint.action.performed += ctx => sprintAbility.Activate(new CasterInfo { activationInput = settings.Sprint, castPos = player.transform.position, owner = Player });
 
     }
 

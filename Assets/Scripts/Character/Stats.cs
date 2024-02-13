@@ -74,9 +74,10 @@ namespace Character
 
         public Stat GetStat(string name)
         {
+            name = name.ToLower();
             foreach (Stat stat in StatList)
             {
-                if (stat.Data.name == name)
+                if (stat.Data.name.ToLower() == name)
                 {
                     return stat;
                 }
@@ -87,9 +88,10 @@ namespace Character
 
         public Attribute GetAttribute(string name)
         {
+            name = name.ToLower();
             foreach (Attribute attribute in AttributeList)
             {
-                if (attribute.data.name == name)
+                if (attribute.data.name.ToLower() == name)
                 {
                     return attribute;
                 }
@@ -100,9 +102,10 @@ namespace Character
 
         public Resource GetResource(string name)
         {
+            name = name.ToLower();
             foreach (Resource resource in ResourceList)
             {
-                if (resource.Data.name == name)
+                if (resource.Data.name.ToLower() == name)
                 {
                     return resource;
                 }

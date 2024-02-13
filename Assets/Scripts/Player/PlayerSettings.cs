@@ -1,3 +1,4 @@
+using Character.Abilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,5 +20,9 @@ namespace Player
 
         [Header("Movement Settings")]
         public float SprintMultiplier = 1.2f;
+
+        [Header("Sprint & Dodge Definitions")]
+        public BaseAbility SprintAbility;
+        public BaseAbility DodgeAbility;
     }
 }

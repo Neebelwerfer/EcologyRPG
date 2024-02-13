@@ -1,17 +1,16 @@
 using Character;
 using Character.Abilities;
 using System.Collections;
+using UnityEngine;
 using Utility;
 
+[CreateAssetMenu(fileName = "Sprint", menuName = "Abilities/Sprint")]
 public class Sprint : BaseAbility
 {
-    StatModification sprintSpeed;
+    readonly StatModification sprintSpeed;
+
     public Sprint()
     {
-        name = "Sprint";
-        ResourceCost = 25;
-        ResourceName = "stamina";
-        Cooldown = 0;
         sprintSpeed = new StatModification(1f, StatModType.PercentMult, this);
     }
     public override IEnumerator Cast(CasterInfo caster)

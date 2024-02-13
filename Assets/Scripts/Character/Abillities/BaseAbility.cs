@@ -20,14 +20,13 @@ namespace Character.Abilities
         public InputActionReference activationInput;
     }
 
-    public abstract class BaseAbility
+    public abstract class BaseAbility : ScriptableObject
     {
-        public string name;
+        public string DisplayName;
         public float ResourceCost;
         public string ResourceName;
         public float Cooldown;
         public float remainingCooldown = 0;
-        public bool AllowHold = false;
         public AbilityStates state = AbilityStates.ready;
 
         public virtual void UpdateCooldown(float deltaTime)
@@ -48,7 +47,7 @@ namespace Character.Abilities
         public virtual void Activate(CasterInfo caster)
         {
             if (!CanActivate(caster)) return;
-            Debug.Log("CASTING " + name);   
+            Debug.Log("CASTING " + DisplayName);   
             caster.owner.StartCoroutine(Cast(caster));
         }   
 
