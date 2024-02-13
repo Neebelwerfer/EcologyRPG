@@ -28,7 +28,6 @@ namespace Player
         //Cached Character references
         Stat MovementSpeed;
         Resource Stamina;
-        Stat StaminaDrain;
         Stat StaminaGain;
 
         StatModification sprintMod;
@@ -38,19 +37,12 @@ namespace Player
         {
             Movement = player.playerSettings.Movement;
             Movement.action.Enable();
-            Sprint = player.playerSettings.Sprint;
-            Sprint.action.Enable();
-            Sprint.action.started += (c) => OnSprint(true);
-            Sprint.action.canceled += (c) => OnSprint(false);
-
-            sprintMod = new StatModification(player.playerSettings.SprintMultiplier, StatModType.PercentMult, this);
 
             transform = player.transform.Find("VisualPlayer");
             rb = player.GetComponent<Rigidbody>();
 
             MovementSpeed = player.stats.GetStat("movementSpeed");
             Stamina = player.stats.GetResource("stamina");
-            StaminaDrain = player.stats.GetStat("staminaDrain");
             StaminaGain = player.stats.GetStat("staminaGain");
         }
 
@@ -69,28 +61,10 @@ namespace Player
         public void FixedUpdate()
         {
             Vector2 movement = Movement.action.ReadValue<Vector2>();
-
+            Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
 
             if (movement.magnitude > 0)
             {
-                if (Sprint.action.IsPressed())
-                {
-                    Stamina -= StaminaDrain.Value * TimeManager.IngameDeltaTime;
-                    if (Stamina < 0.1f)
-                    {
-                        Sprint.action.Disable();
-                    }
-                }
-                else
-                {
-                    Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
-                    if (!Sprint.action.enabled && Stamina == Stamina.MaxValue)
-                    {
-                        Sprint.action.Enable();
-                    }
-
-                }
-
                 var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
                 var dir = (movement.y * forward + movement.x * right).normalized;
                 rb.velocity += speed * 100 * dir;

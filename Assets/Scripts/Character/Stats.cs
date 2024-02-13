@@ -62,6 +62,16 @@ namespace Character
 
         }
 
+        public void AddStatModifier(string name, StatModification mod)
+        {
+            GetStat(name).AddModifier(mod);
+        }
+
+        public void RemoveStatModifier(string name, StatModification mod)
+        {
+            GetStat(name).RemoveModifier(mod);
+        }
+
         public Stat GetStat(string name)
         {
             foreach (Stat stat in StatList)

@@ -11,12 +11,15 @@ namespace Player
         public PlayerSettings playerSettings;
 
         PlayerMovement playerMovement;
+        PlayerAbilitiesHandler playerAbilitiesHandler;
 
         public override void Start()
         {
             base.Start();
             playerMovement = new PlayerMovement();
             playerMovement.Initialize(this);
+            playerAbilitiesHandler = new PlayerAbilitiesHandler();
+            playerAbilitiesHandler.Initialize(this);
         }
 
         void Update()

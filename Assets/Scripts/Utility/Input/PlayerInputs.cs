@@ -53,6 +53,51 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""6743c0fe-e168-4ed0-9588-9e2e9e02fef8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability Slot 1"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e39e262-085b-484e-a98c-c9a0d3306151"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability Slot 2"",
+                    ""type"": ""Button"",
+                    ""id"": ""71c924c9-8f86-49e0-a102-5ce44570cd3f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability Slot 3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a028e4c9-d8af-4847-b2a0-5f78b4306947"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability Slot 4"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa19a886-2a3a-47fb-be06-e7d93c578927"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +177,61 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b92d4d53-0c85-4847-abf5-7f22d6fb5d4d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6970a6dc-a22a-469b-aa72-90e2718642b6"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability Slot 1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d914869-1440-4b05-a982-9af2f1e0a2f1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability Slot 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1719eda-1d6a-4c0c-8c4b-efdfd34ca531"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability Slot 3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94d2461c-abf7-4d75-a834-006f937df54b"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability Slot 4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +243,11 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_InGame_Movement = m_InGame.FindAction("Movement", throwIfNotFound: true);
         m_InGame_Pointer = m_InGame.FindAction("Pointer", throwIfNotFound: true);
         m_InGame_Sprint = m_InGame.FindAction("Sprint", throwIfNotFound: true);
+        m_InGame_Dodge = m_InGame.FindAction("Dodge", throwIfNotFound: true);
+        m_InGame_AbilitySlot1 = m_InGame.FindAction("Ability Slot 1", throwIfNotFound: true);
+        m_InGame_AbilitySlot2 = m_InGame.FindAction("Ability Slot 2", throwIfNotFound: true);
+        m_InGame_AbilitySlot3 = m_InGame.FindAction("Ability Slot 3", throwIfNotFound: true);
+        m_InGame_AbilitySlot4 = m_InGame.FindAction("Ability Slot 4", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +312,11 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Movement;
     private readonly InputAction m_InGame_Pointer;
     private readonly InputAction m_InGame_Sprint;
+    private readonly InputAction m_InGame_Dodge;
+    private readonly InputAction m_InGame_AbilitySlot1;
+    private readonly InputAction m_InGame_AbilitySlot2;
+    private readonly InputAction m_InGame_AbilitySlot3;
+    private readonly InputAction m_InGame_AbilitySlot4;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -214,6 +324,11 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_InGame_Movement;
         public InputAction @Pointer => m_Wrapper.m_InGame_Pointer;
         public InputAction @Sprint => m_Wrapper.m_InGame_Sprint;
+        public InputAction @Dodge => m_Wrapper.m_InGame_Dodge;
+        public InputAction @AbilitySlot1 => m_Wrapper.m_InGame_AbilitySlot1;
+        public InputAction @AbilitySlot2 => m_Wrapper.m_InGame_AbilitySlot2;
+        public InputAction @AbilitySlot3 => m_Wrapper.m_InGame_AbilitySlot3;
+        public InputAction @AbilitySlot4 => m_Wrapper.m_InGame_AbilitySlot4;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +347,21 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Dodge.started += instance.OnDodge;
+            @Dodge.performed += instance.OnDodge;
+            @Dodge.canceled += instance.OnDodge;
+            @AbilitySlot1.started += instance.OnAbilitySlot1;
+            @AbilitySlot1.performed += instance.OnAbilitySlot1;
+            @AbilitySlot1.canceled += instance.OnAbilitySlot1;
+            @AbilitySlot2.started += instance.OnAbilitySlot2;
+            @AbilitySlot2.performed += instance.OnAbilitySlot2;
+            @AbilitySlot2.canceled += instance.OnAbilitySlot2;
+            @AbilitySlot3.started += instance.OnAbilitySlot3;
+            @AbilitySlot3.performed += instance.OnAbilitySlot3;
+            @AbilitySlot3.canceled += instance.OnAbilitySlot3;
+            @AbilitySlot4.started += instance.OnAbilitySlot4;
+            @AbilitySlot4.performed += instance.OnAbilitySlot4;
+            @AbilitySlot4.canceled += instance.OnAbilitySlot4;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -245,6 +375,21 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Dodge.started -= instance.OnDodge;
+            @Dodge.performed -= instance.OnDodge;
+            @Dodge.canceled -= instance.OnDodge;
+            @AbilitySlot1.started -= instance.OnAbilitySlot1;
+            @AbilitySlot1.performed -= instance.OnAbilitySlot1;
+            @AbilitySlot1.canceled -= instance.OnAbilitySlot1;
+            @AbilitySlot2.started -= instance.OnAbilitySlot2;
+            @AbilitySlot2.performed -= instance.OnAbilitySlot2;
+            @AbilitySlot2.canceled -= instance.OnAbilitySlot2;
+            @AbilitySlot3.started -= instance.OnAbilitySlot3;
+            @AbilitySlot3.performed -= instance.OnAbilitySlot3;
+            @AbilitySlot3.canceled -= instance.OnAbilitySlot3;
+            @AbilitySlot4.started -= instance.OnAbilitySlot4;
+            @AbilitySlot4.performed -= instance.OnAbilitySlot4;
+            @AbilitySlot4.canceled -= instance.OnAbilitySlot4;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -267,5 +412,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnPointer(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
+        void OnAbilitySlot1(InputAction.CallbackContext context);
+        void OnAbilitySlot2(InputAction.CallbackContext context);
+        void OnAbilitySlot3(InputAction.CallbackContext context);
+        void OnAbilitySlot4(InputAction.CallbackContext context);
     }
 }

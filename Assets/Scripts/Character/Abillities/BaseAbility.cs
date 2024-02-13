@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Character.Abilities
 {
@@ -11,20 +13,50 @@ namespace Character.Abilities
         cooldown
     }
 
-    public class BaseAbility
+    public class CasterInfo
+    {
+        public BaseCharacter owner;
+        public Vector3 castPos;
+        public InputActionReference activationInput;
+    }
+
+    public abstract class BaseAbility
     {
         public string name;
-
+        public float ResourceCost;
+        public string ResourceName;
+        public float Cooldown;
+        public float remainingCooldown = 0;
+        public bool AllowHold = false;
         public AbilityStates state = AbilityStates.ready;
 
-        public void Activate(BaseCharacter caster)
+        public virtual void UpdateCooldown(float deltaTime)
         {
-            if (!CanActivate(caster)) return;
+            if (state == AbilityStates.ready) return;
+
+            if (remainingCooldown > 0)
+            {
+                remainingCooldown -= deltaTime;
+                if (remainingCooldown <= 0)
+                {
+                    remainingCooldown = 0;
+                    state = AbilityStates.ready;
+                }
+            }
         }
 
-        public bool CanActivate(BaseCharacter caster)
+        public virtual void Activate(CasterInfo caster)
         {
-            return state == AbilityStates.ready && caster.state == CharacterStates.active;
+            if (!CanActivate(caster)) return;
+            Debug.Log("CASTING " + name);   
+            caster.owner.StartCoroutine(Cast(caster));
+        }   
+
+        public virtual bool CanActivate(CasterInfo caster)
+        {
+            return state == AbilityStates.ready && caster.owner.state == CharacterStates.active && remainingCooldown == 0 && caster.owner.stats.GetResource(ResourceName) > ResourceCost;
         }
+
+        public abstract IEnumerator Cast(CasterInfo caster);
     }
 }
