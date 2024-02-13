@@ -47,6 +47,7 @@ public class UIBar : MonoBehaviour
         barSlider.value = barSlider.maxValue;
         easeSlider.maxValue = barSlider.maxValue;
         easeSlider.value = easeSlider.maxValue;
+        if(maxValue != 0) initialized = true;
     }
     public void UpdateBar(PlayerCharacter player, string resourceName)
     {
