@@ -22,8 +22,9 @@ namespace Player
             playerAbilitiesHandler.Initialize(this);
         }
 
-        void Update()
+        public override void Update()
         {
+            base.Update();
             playerMovement.Update();
         }
 
