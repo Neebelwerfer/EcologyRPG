@@ -24,7 +24,7 @@ public class Sprint : BaseAbility
 
     public override void OnHold(CasterInfo caster)
     {
-        if (stamina < ResourceCost)
+        if (stamina < ResourceCost * TimeManager.IngameDeltaTime)
         {
             caster.owner.ApplyDebuff(new NoSprint(caster.activationInput, stamina));
         }
@@ -60,7 +60,7 @@ public class NoSprint : Debuff
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
     {
-        if(Stamina.CurrentValue == Stamina.MaxValue)
+        if(Stamina.CurrentValue == Stamina.MaxValue * 0.75)
         {
             remainingDuration = 0;
         }

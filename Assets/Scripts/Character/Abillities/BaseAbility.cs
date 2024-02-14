@@ -87,6 +87,9 @@ namespace Character.Abilities
             caster.owner.state = CharacterStates.casting;
             state = AbilityStates.casting;
 
+            var resource = caster.owner.stats.GetResource(ResourceName);
+            resource -= ResourceCost;
+
             CastStarted(caster);
 
             yield return null;
