@@ -27,5 +27,8 @@ MonoBehaviour:
   Ability4: {fileID: 1777515439438545690, guid: d845ac9316e93d841aad5e9d3451edb0,
     type: 3}
   SprintMultiplier: 0.5
+  GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: a557d0b85e2f4d945a798fdda9244e31, type: 2}
+  WeaponAttackAbility: {fileID: 11400000, guid: c768c2c27164cdf4d95c4fb8f47c6906,
+    type: 2}
