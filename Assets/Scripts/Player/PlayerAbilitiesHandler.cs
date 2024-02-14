@@ -11,10 +11,10 @@ public class PlayerAbilitiesHandler : IPlayerModule
 {
     PlayerSettings settings;
 
+    
 
-    BaseAbility[] abilitySlots = new BaseAbility[4];
-    BaseAbility dodgeAbility;
-    BaseAbility sprintAbility;
+
+    BaseAbility[] abilitySlots = new BaseAbility[7];
 
     PlayerCharacter Player;
 
@@ -34,29 +34,31 @@ public class PlayerAbilitiesHandler : IPlayerModule
         settings.Ability3.action.Enable();
         settings.Ability4.action.Enable();
 
-        sprintAbility = settings.SprintAbility;
-        dodgeAbility = settings.DodgeAbility;
 
-        sprintAction = (ctx) => ActivateSprint();
-        dodgeAction = (ctx) => ActivateDodge();
+        abilitySlots[5] = settings.DodgeAbility;
+        dodgeAction = (ctx) => ActivateAbility(5);
+        abilitySlots[6] = settings.SprintAbility;
+        sprintAction = (ctx) => ActivateAbility(6);
+
 
         settings.Sprint.action.started += sprintAction;
         settings.Dodge.action.started += dodgeAction;
 
     }
 
-    void ActivateSprint()
+    void ActivateAbility(int slot)
     {
-        sprintAbility.Activate(new CasterInfo { activationInput = settings.Sprint, castPos = Player.transform.position, owner = Player });
-    }
+        var ability = abilitySlots[slot];
+        if (ability == null) return;
+        if(ability.Activate(new CasterInfo { activationInput = settings.Ability1, castPos = Player.transform.position, owner = Player }))
+        {
 
-    void ActivateDodge()
-    {
-        dodgeAbility.Activate(new CasterInfo { activationInput = settings.Dodge, castPos = Player.transform.position, owner = Player });
+        }
     }
 
     public void Update()
     {
+
     }
 
     public void FixedUpdate()

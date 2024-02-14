@@ -22,7 +22,8 @@ namespace Player
         [Header("Movement Settings")]
         public float SprintMultiplier = 1.2f;
 
-        [Header("Sprint & Dodge Definitions")]
+        [Header("Ability Settings")]
+        public float GlobalCooldown = 0.5f;
         public BaseAbility SprintAbility;
         public BaseAbility DodgeAbility;
     }

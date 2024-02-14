@@ -27,6 +27,7 @@ namespace Character.Abilities
         public string ResourceName;
         public float Cooldown = 0;
         public float CastTime = 0;
+        public bool IgnoreGlobalCooldown;
         public bool AllowHolding;
 
         public float remainingCooldown = 0;
@@ -47,11 +48,12 @@ namespace Character.Abilities
             }
         }
 
-        public virtual void Activate(CasterInfo caster)
+        public virtual bool Activate(CasterInfo caster)
         {
-            if (!CanActivate(caster)) return;
+            if (!CanActivate(caster)) return false;
             Debug.Log("CASTING " + DisplayName);
             caster.owner.StartCoroutine(HandleCast(caster));
+            return true;
         }   
 
         public virtual bool CanActivate(CasterInfo caster)

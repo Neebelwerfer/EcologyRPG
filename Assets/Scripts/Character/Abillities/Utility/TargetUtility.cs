@@ -1,0 +1,27 @@
+using Character;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public static class TargetUtility
+{
+    static readonly RaycastHit[] rayCastHits = new RaycastHit[5];
+    static readonly Collider[] colliderHits = new Collider[5];
+
+    public static BaseCharacter[] GetTargetsInLine(Vector3 origin, Vector3 direction, Vector3 halfExtents, LayerMask mask)
+    {
+        var numHits = Physics.OverlapBoxNonAlloc(origin + (direction * halfExtents.z), halfExtents, colliderHits, Quaternion.LookRotation(direction, Vector3.up), mask);
+        BaseCharacter[] targets = new BaseCharacter[numHits];
+
+
+        for (int i = 0; i < numHits; i++)
+        {
+            if (colliderHits[i].TryGetComponent<BaseCharacter>(out var character))
+            {
+                targets[i] = character;
+            }
+        }
+        return targets;
+    }
+}

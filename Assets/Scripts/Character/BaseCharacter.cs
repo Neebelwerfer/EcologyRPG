@@ -35,8 +35,9 @@ namespace Character
             rb = GetComponent<Rigidbody>();
         }
 
-        public virtual void TakeDamage(float damage)
+        public virtual void ApplyDamage(float damage)
         {
+            Debug.Log("Applying " + damage + " damage to " + gameObject.name);
             Health -= damage;
             if (Health.CurrentValue <= 0)
             {
