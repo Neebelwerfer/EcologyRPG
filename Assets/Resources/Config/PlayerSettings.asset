@@ -15,4 +15,17 @@ MonoBehaviour:
   Movement: {fileID: 2064913705141883547, guid: d845ac9316e93d841aad5e9d3451edb0,
     type: 3}
   Sprint: {fileID: 2140197903572249435, guid: d845ac9316e93d841aad5e9d3451edb0, type: 3}
+  Dodge: {fileID: -8084089780320487438, guid: d845ac9316e93d841aad5e9d3451edb0, type: 3}
+  WeaponAttack: {fileID: -2476249760773831401, guid: d845ac9316e93d841aad5e9d3451edb0,
+    type: 3}
+  Ability1: {fileID: 2032102144293404719, guid: d845ac9316e93d841aad5e9d3451edb0,
+    type: 3}
+  Ability2: {fileID: -5366440501562555127, guid: d845ac9316e93d841aad5e9d3451edb0,
+    type: 3}
+  Ability3: {fileID: -1868040417888403486, guid: d845ac9316e93d841aad5e9d3451edb0,
+    type: 3}
+  Ability4: {fileID: 1777515439438545690, guid: d845ac9316e93d841aad5e9d3451edb0,
+    type: 3}
   SprintMultiplier: 0.5
+  SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
+  DodgeAbility: {fileID: 11400000, guid: a557d0b85e2f4d945a798fdda9244e31, type: 2}

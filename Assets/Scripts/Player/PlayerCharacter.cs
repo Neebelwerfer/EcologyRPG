@@ -11,16 +11,20 @@ namespace Player
         public PlayerSettings playerSettings;
 
         PlayerMovement playerMovement;
+        PlayerAbilitiesHandler playerAbilitiesHandler;
 
         public override void Start()
         {
             base.Start();
             playerMovement = new PlayerMovement();
             playerMovement.Initialize(this);
+            playerAbilitiesHandler = new PlayerAbilitiesHandler();
+            playerAbilitiesHandler.Initialize(this);
         }
 
-        void Update()
+        public override void Update()
         {
+            base.Update();
             playerMovement.Update();
         }
 
@@ -32,6 +36,12 @@ namespace Player
         void LateUpdate()
         {
             playerMovement.LateUpdate();
+        }
+
+        private void OnDestroy()
+        {
+            playerMovement.OnDestroy();
+            playerAbilitiesHandler.OnDestroy();
         }
     }
 

@@ -154,6 +154,7 @@ namespace Character
             {
                 mod.OnStatModChanged.RemoveAllListeners();
                 isDirty = true;
+                Debug.Log("Removed modifier: " + mod.Value);
                 return true;
             }
             return false;
