@@ -26,6 +26,7 @@ namespace Player
         {
             base.Update();
             playerMovement.Update();
+            playerAbilitiesHandler.Update();
         }
 
         void FixedUpdate()

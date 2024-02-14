@@ -114,7 +114,6 @@ namespace Character.Abilities
             {
                 state = AbilityStates.cooldown;
                 remainingCooldown = Cooldown;
-                caster.owner.StartCoroutine(CooldownTimer());
             } else
             {
                 state = AbilityStates.ready;
@@ -149,17 +148,5 @@ namespace Character.Abilities
         /// </summary>
         /// <param name="caster"></param>
         public abstract void CastEnded(CasterInfo caster);
-
-
-        IEnumerator CooldownTimer()
-        {
-            while (remainingCooldown > 0)
-            {
-                remainingCooldown -= Time.deltaTime;
-                yield return null;
-            }
-            remainingCooldown = 0;
-            state = AbilityStates.ready;
-        }
     }
 }

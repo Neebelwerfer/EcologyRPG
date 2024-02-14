@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Utility;
 
 public class PlayerAbilitiesHandler : IPlayerModule
 {
@@ -59,7 +60,13 @@ public class PlayerAbilitiesHandler : IPlayerModule
 
     public void Update()
     {
-
+        for (int i = 0; i < abilitySlots.Length; i++)
+        {
+            if (abilitySlots[i] != null)
+            {
+                abilitySlots[i].UpdateCooldown(TimeManager.IngameDeltaTime);
+            }
+        }
     }
 
     public void FixedUpdate()
