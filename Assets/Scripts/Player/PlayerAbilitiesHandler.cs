@@ -37,22 +37,22 @@ public class PlayerAbilitiesHandler : IPlayerModule
         settings.Ability4.action.Enable();
 
         abilitySlots[4] = settings.WeaponAttackAbility;
-        WeaponAttackAction = (ctx) => ActivateAbility(4);
+        WeaponAttackAction = (ctx) => ActivateAbility(4, ctx);
         abilitySlots[5] = settings.DodgeAbility;
-        dodgeAction = (ctx) => ActivateAbility(5);
+        dodgeAction = (ctx) => ActivateAbility(5, ctx);
         abilitySlots[6] = settings.SprintAbility;
-        sprintAction = (ctx) => ActivateAbility(6);
+        sprintAction = (ctx) => ActivateAbility(6, ctx);
 
         settings.WeaponAttack.action.started += WeaponAttackAction;
         settings.Sprint.action.started += sprintAction;
         settings.Dodge.action.started += dodgeAction;
     }
 
-    void ActivateAbility(int slot)
+    void ActivateAbility(int slot, InputAction.CallbackContext context)
     {
         var ability = abilitySlots[slot];
         if (ability == null) return;
-        if(ability.Activate(new CasterInfo { activationInput = settings.Ability1, castPos = Player.AbilityPoint.transform.position, owner = Player }))
+        if(ability.Activate(new CasterInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
         {
 
         }

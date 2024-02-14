@@ -2,7 +2,7 @@ using Character.Abilities;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/SimpleProjectileAttack")]
-public class SimpleProjectileAttack : AttackAbility
+public class SimpleProjectileAttack : ProjectileAbility
 {
     public float BaseDamage;
     public float Range;
@@ -16,7 +16,7 @@ public class SimpleProjectileAttack : AttackAbility
     {
         var dir = (MousePoint - caster.castPos).normalized;
         dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, true, targetMask, caster.owner);
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, destroyOnHit, targetMask, caster.owner);
     }
 
     public override void CastStarted(CasterInfo caster)
