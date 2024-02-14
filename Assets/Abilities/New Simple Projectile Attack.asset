@@ -16,15 +16,16 @@ MonoBehaviour:
   ResourceCost: 5
   ResourceName: Stamina
   Cooldown: 0.25
-  CastTime: 0.2
+  CastTime: 0.25
   AllowHolding: 0
   remainingCooldown: 0
   state: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  BaseDamage: 5
-  Range: 5
+  destroyOnHit: 1
+  BaseDamage: 10
+  Range: 7
   Speed: 5
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}

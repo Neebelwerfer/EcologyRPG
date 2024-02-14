@@ -17,7 +17,7 @@ namespace Character.Abilities
     {
         public BaseCharacter owner;
         public Vector3 castPos;
-        public InputActionReference activationInput;
+        public InputAction activationInput;
     }
 
     public abstract class BaseAbility : ScriptableObject
@@ -69,12 +69,6 @@ namespace Character.Abilities
                 return false;
             }
 
-            if(caster.owner.state != CharacterStates.active)
-            {
-                Debug.Log("Character not active");
-                return false;
-            }
-
             if (caster.owner.stats.GetResource(ResourceName) < ResourceCost)
             {
                 Debug.Log("Not enough resource");
@@ -95,13 +89,13 @@ namespace Character.Abilities
 
             CastStarted(caster);
 
+            Debug.Log("Cast time: " + CastTime);
             yield return new WaitForSeconds(CastTime);
 
             if(AllowHolding && CastTime == 0)
             {
-                while(caster.activationInput.action.IsPressed())
+                while(caster.activationInput.IsPressed())
                 {
-                    Debug.Log("Holding");
                     OnHold(caster);
                     yield return null;
                 }
@@ -114,7 +108,6 @@ namespace Character.Abilities
             {
                 state = AbilityStates.cooldown;
                 remainingCooldown = Cooldown;
-                caster.owner.StartCoroutine(CooldownTimer());
             } else
             {
                 state = AbilityStates.ready;
@@ -149,17 +142,5 @@ namespace Character.Abilities
         /// </summary>
         /// <param name="caster"></param>
         public abstract void CastEnded(CasterInfo caster);
-
-
-        IEnumerator CooldownTimer()
-        {
-            while (remainingCooldown > 0)
-            {
-                remainingCooldown -= Time.deltaTime;
-                yield return null;
-            }
-            remainingCooldown = 0;
-            state = AbilityStates.ready;
-        }
     }
 }

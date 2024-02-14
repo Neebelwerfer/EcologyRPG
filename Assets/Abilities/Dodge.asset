@@ -16,6 +16,7 @@ MonoBehaviour:
   ResourceCost: 50
   ResourceName: Stamina
   Cooldown: 5
+  CastTime: 0
   AllowHolding: 0
   remainingCooldown: 0
   state: 0
