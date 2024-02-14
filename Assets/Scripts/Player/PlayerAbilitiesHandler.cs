@@ -1,8 +1,11 @@
 using Character.Abilities;
 using Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlayerAbilitiesHandler : IPlayerModule
 {
@@ -14,6 +17,10 @@ public class PlayerAbilitiesHandler : IPlayerModule
     BaseAbility sprintAbility;
 
     PlayerCharacter Player;
+
+    Action<InputAction.CallbackContext> sprintAction;
+    Action<InputAction.CallbackContext> dodgeAction;
+
 
     public void Initialize(PlayerCharacter player)
     {
@@ -30,8 +37,11 @@ public class PlayerAbilitiesHandler : IPlayerModule
         sprintAbility = settings.SprintAbility;
         dodgeAbility = settings.DodgeAbility;
 
-        settings.Sprint.action.started += ctx => ActivateSprint();
-        settings.Dodge.action.started += ctx => ActivateDodge();
+        sprintAction = (ctx) => ActivateSprint();
+        dodgeAction = (ctx) => ActivateDodge();
+
+        settings.Sprint.action.started += sprintAction;
+        settings.Dodge.action.started += dodgeAction;
 
     }
 
@@ -59,7 +69,7 @@ public class PlayerAbilitiesHandler : IPlayerModule
 
     public void OnDestroy()
     {
-        settings.Sprint.action.started -= ctx => ActivateSprint();
-        settings.Dodge.action.started -= ctx => ActivateDodge();
+        settings.Sprint.action.started -= sprintAction;
+        settings.Dodge.action.started -= dodgeAction;
     }
 }

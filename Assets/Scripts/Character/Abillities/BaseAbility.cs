@@ -87,8 +87,10 @@ namespace Character.Abilities
             caster.owner.state = CharacterStates.casting;
             state = AbilityStates.casting;
 
-            var resource = caster.owner.stats.GetResource(ResourceName);
-            resource -= ResourceCost;
+            if(ResourceCost > 0)
+            {
+                InitialCastCost(caster);
+            }
 
             CastStarted(caster);
 
@@ -116,6 +118,12 @@ namespace Character.Abilities
             {
                 state = AbilityStates.ready;
             }
+        }
+
+        public virtual void InitialCastCost(CasterInfo caster)
+        {
+            var resource = caster.owner.stats.GetResource(ResourceName);
+            resource -= ResourceCost;
         }
 
         public abstract void CastStarted(CasterInfo caster);
