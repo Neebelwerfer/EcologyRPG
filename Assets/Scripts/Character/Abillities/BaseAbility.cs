@@ -23,9 +23,10 @@ namespace Character.Abilities
     public abstract class BaseAbility : ScriptableObject
     {
         public string DisplayName;
-        public float ResourceCost;
+        public float ResourceCost = 0;
         public string ResourceName;
-        public float Cooldown;
+        public float Cooldown = 0;
+        public float CastTime = 0;
         public bool AllowHolding;
 
         public float remainingCooldown = 0;
@@ -55,9 +56,15 @@ namespace Character.Abilities
 
         public virtual bool CanActivate(CasterInfo caster)
         {
-            if (state != AbilityStates.ready)
+            if (state == AbilityStates.cooldown)
             {
-                Debug.Log("Ability not ready");
+                Debug.Log("On cooldown");
+                return false;
+            }
+
+            if (state == AbilityStates.casting)
+            {
+                Debug.Log("Ability already casting");
                 return false;
             }
 
@@ -72,13 +79,6 @@ namespace Character.Abilities
                 Debug.Log("Not enough resource");
                 return false;
             }
-
-            if (remainingCooldown > 0)
-            {
-                Debug.Log("On cooldown");
-                return false;
-            }
-
             return true;
         }
 
@@ -94,9 +94,9 @@ namespace Character.Abilities
 
             CastStarted(caster);
 
-            yield return null;
+            yield return new WaitForSeconds(CastTime);
 
-            if(AllowHolding)
+            if(AllowHolding && CastTime == 0)
             {
                 while(caster.activationInput.action.IsPressed())
                 {
@@ -120,17 +120,35 @@ namespace Character.Abilities
             }
         }
 
+
+        /// <summary>
+        /// Called when the cast is started to deduct the resource cost
+        /// </summary>
+        /// <param name="caster"></param>
         public virtual void InitialCastCost(CasterInfo caster)
         {
             var resource = caster.owner.stats.GetResource(ResourceName);
             resource -= ResourceCost;
         }
 
+        /// <summary>
+        /// Called when the cast is started
+        /// </summary>
+        /// <param name="caster"></param>
         public abstract void CastStarted(CasterInfo caster);
 
+        /// <summary>
+        /// Called when the cast is held
+        /// </summary>
+        /// <param name="caster"></param>
         public abstract void OnHold(CasterInfo caster);
 
+        /// <summary>
+        /// Called when the cast has ended
+        /// </summary>
+        /// <param name="caster"></param>
         public abstract void CastEnded(CasterInfo caster);
+
 
         IEnumerator CooldownTimer()
         {
