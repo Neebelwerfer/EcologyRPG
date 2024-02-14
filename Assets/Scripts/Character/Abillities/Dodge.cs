@@ -26,7 +26,7 @@ public class Dodge : BaseAbility
 
     public override void CastStarted(CasterInfo caster)
     {
-        caster.owner.ApplyBuff(new Dodging(caster, directionMode, dodgeSpeed, dodgeDuration));
+        caster.owner.ApplyCharacterModification(new Dodging(caster, directionMode, dodgeSpeed, dodgeDuration));
     }
 
     public override void OnHold(CasterInfo caster)
@@ -34,12 +34,12 @@ public class Dodge : BaseAbility
     }
 }
 
-public class Dodging : Buff
+public class Dodging : CharacterModification
 {
     float dodgeSpeed;
     Vector3 direction;
 
-    public Dodging(CasterInfo caster, DirectionMode directionMode, float dodgeSpeed, float duration) : base("Dodging", duration)
+    public Dodging(CasterInfo caster, DirectionMode directionMode, float dodgeSpeed, float duration) : base("Dodging", duration, CharacterModificationType.Buff)
     {
         this.dodgeSpeed = dodgeSpeed;
 

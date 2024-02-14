@@ -21,8 +21,7 @@ namespace Character
         public Rigidbody Rigidbody { get { return rb; } }
         public CharacterStates state = CharacterStates.active;
 
-        List<Debuff> debuffs = new List<Debuff>();
-        List<Buff> buffs = new List<Buff>();
+        List<CharacterModification> debuffs = new List<CharacterModification>();
 
         Resource Health;
 
@@ -50,67 +49,31 @@ namespace Character
             state = CharacterStates.dead;
         }
 
-        public virtual void ApplyDebuff(Debuff debuff)
+        public virtual void ApplyCharacterModification(CharacterModification mod)
         {
-            Debug.Log("Applying Debuff");
-            debuffs.Add(debuff);
-            debuff.OnApply(this);
+            Debug.Log("Applying CharacterModification " + mod.displayName);
+            debuffs.Add(mod);
+            mod.OnApply(this);
         }
 
-        public virtual void RemoveDebuff(Debuff debuff)
+        public virtual void RemoveCharacterModification(CharacterModification mod)
         {
-            Debug.Log("Removing Debuff");
-            debuffs.Remove(debuff);
-            debuff.OnRemoved(this);
-        }
-
-        public virtual void ApplyBuff(Buff buff)
-        {
-            Debug.Log("Applying Buff");
-            buffs.Add(buff);
-            buff.OnApply(this);
-        }
-
-        public virtual void RemoveBuff(Buff buff)
-        {
-            Debug.Log("Removing Buff");
-            buffs.Remove(buff);
-            buff.OnRemoved(this);
+            Debug.Log("Removing CharacterModification " + mod.displayName);
+            debuffs.Remove(mod);
+            mod.OnRemoved(this);
         }
 
         public virtual void Update()
         {
-            List<Debuff> debuffsToRemove = new List<Debuff>();
-            List<Buff> buffsToRemove = new List<Buff>();
-
-            foreach (Debuff debuff in debuffs)
+            for (int i = debuffs.Count -1 ; i >= 0; i--)
             {
+                CharacterModification debuff = debuffs[i];
                 debuff.OnUpdate(this, Time.deltaTime);
                 debuff.remainingDuration -= Time.deltaTime;
                 if (debuff.remainingDuration <= 0)
                 {
-                    debuffsToRemove.Add(debuff);
+                    RemoveCharacterModification(debuff);
                 }
-            }
-
-            foreach (Buff buff in buffs)
-            {
-                buff.OnUpdate(this, Time.deltaTime);
-                buff.remainingDuration -= Time.deltaTime;
-                if (buff.remainingDuration <= 0)
-                {
-                    buffsToRemove.Add(buff);
-                }
-            }
-
-            foreach (Debuff debuff in debuffsToRemove)
-            {
-                RemoveDebuff(debuff);
-            }
-
-            foreach (Buff buff in buffsToRemove)
-            {
-                RemoveBuff(buff);
             }
         }
     }

@@ -26,7 +26,7 @@ public class Sprint : BaseAbility
     {
         if (stamina < ResourceCost * TimeManager.IngameDeltaTime)
         {
-            caster.owner.ApplyDebuff(new NoSprint(caster.activationInput, stamina));
+            caster.owner.ApplyCharacterModification(new NoSprint(caster.activationInput, stamina));
         }
 
         stamina -= ResourceCost * TimeManager.IngameDeltaTime;
@@ -38,12 +38,12 @@ public class Sprint : BaseAbility
     }
 }
 
-public class NoSprint : Debuff
+public class NoSprint : CharacterModification
 {
     readonly InputActionReference sprintInput;
     readonly Resource Stamina;
 
-    public NoSprint(InputActionReference input, Resource stamina) : base("Exhausted", 100000)
+    public NoSprint(InputActionReference input, Resource stamina) : base("Exhausted", 100000, CharacterModificationType.Debuff)
     {
         sprintInput = input;
         Stamina = stamina;
@@ -60,7 +60,7 @@ public class NoSprint : Debuff
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
     {
-        if(Stamina.CurrentValue == Stamina.MaxValue * 0.75)
+        if(Stamina.CurrentValue > Stamina.MaxValue * 0.75)
         {
             remainingDuration = 0;
         }
