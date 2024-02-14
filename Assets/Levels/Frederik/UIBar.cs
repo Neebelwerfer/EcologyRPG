@@ -13,7 +13,6 @@ public class UIBar : MonoBehaviour
     private PlayerCharacter character;
     private bool initialized = false;
 
-    
     public float maxValue;
     public float statValue; 
     
