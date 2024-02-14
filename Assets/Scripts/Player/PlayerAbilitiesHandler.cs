@@ -21,6 +21,7 @@ public class PlayerAbilitiesHandler : IPlayerModule
         settings = player.playerSettings;
         settings.Sprint.action.Enable();
         settings.Dodge.action.Enable();
+        settings.WeaponAttack.action.Enable();
         settings.Ability1.action.Enable();
         settings.Ability2.action.Enable();
         settings.Ability3.action.Enable();
@@ -29,13 +30,23 @@ public class PlayerAbilitiesHandler : IPlayerModule
         sprintAbility = settings.SprintAbility;
         dodgeAbility = settings.DodgeAbility;
 
-        settings.Sprint.action.performed += ctx => sprintAbility.Activate(new CasterInfo { activationInput = settings.Sprint, castPos = player.transform.position, owner = Player });
+        settings.Sprint.action.started += ctx => ActivateSprint();
+        settings.Dodge.action.started += ctx => ActivateDodge();
 
+    }
+
+    void ActivateSprint()
+    {
+        sprintAbility.Activate(new CasterInfo { activationInput = settings.Sprint, castPos = Player.transform.position, owner = Player });
+    }
+
+    void ActivateDodge()
+    {
+        dodgeAbility.Activate(new CasterInfo { activationInput = settings.Dodge, castPos = Player.transform.position, owner = Player });
     }
 
     public void Update()
     {
-        throw new System.NotImplementedException();
     }
 
     public void FixedUpdate()
@@ -46,4 +57,9 @@ public class PlayerAbilitiesHandler : IPlayerModule
     {
     }
 
+    public void OnDestroy()
+    {
+        settings.Sprint.action.started -= ctx => ActivateSprint();
+        settings.Dodge.action.started -= ctx => ActivateDodge();
+    }
 }

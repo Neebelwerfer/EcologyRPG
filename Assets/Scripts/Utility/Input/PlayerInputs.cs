@@ -98,11 +98,20 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WeaponAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""1edbaee2-38d2-410b-903e-38a86da0bd3c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""WASD"",
                     ""id"": ""6fda9619-5038-4bae-9db9-0fc1feba0e9a"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -232,6 +241,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Ability Slot 4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7423610d-6a6e-4f5e-b1a5-8a0f9810a773"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_InGame_AbilitySlot2 = m_InGame.FindAction("Ability Slot 2", throwIfNotFound: true);
         m_InGame_AbilitySlot3 = m_InGame.FindAction("Ability Slot 3", throwIfNotFound: true);
         m_InGame_AbilitySlot4 = m_InGame.FindAction("Ability Slot 4", throwIfNotFound: true);
+        m_InGame_WeaponAttack = m_InGame.FindAction("WeaponAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_AbilitySlot2;
     private readonly InputAction m_InGame_AbilitySlot3;
     private readonly InputAction m_InGame_AbilitySlot4;
+    private readonly InputAction m_InGame_WeaponAttack;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @AbilitySlot2 => m_Wrapper.m_InGame_AbilitySlot2;
         public InputAction @AbilitySlot3 => m_Wrapper.m_InGame_AbilitySlot3;
         public InputAction @AbilitySlot4 => m_Wrapper.m_InGame_AbilitySlot4;
+        public InputAction @WeaponAttack => m_Wrapper.m_InGame_WeaponAttack;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @AbilitySlot4.started += instance.OnAbilitySlot4;
             @AbilitySlot4.performed += instance.OnAbilitySlot4;
             @AbilitySlot4.canceled += instance.OnAbilitySlot4;
+            @WeaponAttack.started += instance.OnWeaponAttack;
+            @WeaponAttack.performed += instance.OnWeaponAttack;
+            @WeaponAttack.canceled += instance.OnWeaponAttack;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -390,6 +416,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @AbilitySlot4.started -= instance.OnAbilitySlot4;
             @AbilitySlot4.performed -= instance.OnAbilitySlot4;
             @AbilitySlot4.canceled -= instance.OnAbilitySlot4;
+            @WeaponAttack.started -= instance.OnWeaponAttack;
+            @WeaponAttack.performed -= instance.OnWeaponAttack;
+            @WeaponAttack.canceled -= instance.OnWeaponAttack;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -417,5 +446,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnAbilitySlot2(InputAction.CallbackContext context);
         void OnAbilitySlot3(InputAction.CallbackContext context);
         void OnAbilitySlot4(InputAction.CallbackContext context);
+        void OnWeaponAttack(InputAction.CallbackContext context);
     }
 }

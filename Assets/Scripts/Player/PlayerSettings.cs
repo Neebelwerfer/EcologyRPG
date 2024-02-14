@@ -13,6 +13,7 @@ namespace Player
         public InputActionReference Movement;
         public InputActionReference Sprint;
         public InputActionReference Dodge;
+        public InputActionReference WeaponAttack;
         public InputActionReference Ability1;
         public InputActionReference Ability2;
         public InputActionReference Ability3;

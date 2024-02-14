@@ -37,6 +37,12 @@ namespace Player
         {
             playerMovement.LateUpdate();
         }
+
+        private void OnDestroy()
+        {
+            playerMovement.OnDestroy();
+            playerAbilitiesHandler.OnDestroy();
+        }
     }
 
 }

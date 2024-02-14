@@ -23,7 +23,6 @@ namespace Player
 
         PlayerCharacter player;
         Transform transform;
-        Rigidbody rb;
 
         //Cached Character references
         Stat MovementSpeed;
@@ -35,33 +34,27 @@ namespace Player
         // Start is called before the first frame update
         public void Initialize(PlayerCharacter player)
         {
+            this.player = player;
             Movement = player.playerSettings.Movement;
             Movement.action.Enable();
 
             transform = player.transform.Find("VisualPlayer");
-            rb = player.GetComponent<Rigidbody>();
 
             MovementSpeed = player.stats.GetStat("movementSpeed");
             Stamina = player.stats.GetResource("stamina");
             StaminaGain = player.stats.GetStat("staminaGain");
         }
 
-        private void OnSprint(bool start)
-        {
-            if (start)
-            {
-                MovementSpeed.AddModifier(sprintMod);
-            }
-            else
-            {
-                MovementSpeed.RemoveModifier(sprintMod);
-            }
-        }
-
         public void FixedUpdate()
         {
+            var rb = player.Rigidbody;
             Vector2 movement = Movement.action.ReadValue<Vector2>();
             Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
+
+            if(player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
+            {
+                return;
+            }
 
             if (movement.magnitude > 0)
             {
@@ -98,6 +91,11 @@ namespace Player
         }
 
         public void LateUpdate()
+        {
+
+        }
+
+        public void OnDestroy()
         {
 
         }

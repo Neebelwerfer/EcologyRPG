@@ -26,6 +26,8 @@ namespace Character.Abilities
         public float ResourceCost;
         public string ResourceName;
         public float Cooldown;
+        public bool AllowHolding;
+
         public float remainingCooldown = 0;
         public AbilityStates state = AbilityStates.ready;
 
@@ -47,15 +49,87 @@ namespace Character.Abilities
         public virtual void Activate(CasterInfo caster)
         {
             if (!CanActivate(caster)) return;
-            Debug.Log("CASTING " + DisplayName);   
-            caster.owner.StartCoroutine(Cast(caster));
+            Debug.Log("CASTING " + DisplayName);
+            caster.owner.StartCoroutine(HandleCast(caster));
         }   
 
         public virtual bool CanActivate(CasterInfo caster)
         {
-            return state == AbilityStates.ready && caster.owner.state == CharacterStates.active && remainingCooldown == 0 && caster.owner.stats.GetResource(ResourceName) > ResourceCost;
+            if (state != AbilityStates.ready)
+            {
+                Debug.Log("Ability not ready");
+                return false;
+            }
+
+            if(caster.owner.state != CharacterStates.active)
+            {
+                Debug.Log("Character not active");
+                return false;
+            }
+
+            if (caster.owner.stats.GetResource(ResourceName) < ResourceCost)
+            {
+                Debug.Log("Not enough resource");
+                return false;
+            }
+
+            if (remainingCooldown > 0)
+            {
+                Debug.Log("On cooldown");
+                return false;
+            }
+
+            return true;
         }
 
-        public abstract IEnumerator Cast(CasterInfo caster);
+        public virtual IEnumerator HandleCast(CasterInfo caster)
+        {
+            caster.owner.state = CharacterStates.casting;
+            state = AbilityStates.casting;
+
+            CastStarted(caster);
+
+            yield return null;
+
+            if(AllowHolding)
+            {
+                while(caster.activationInput.action.IsPressed())
+                {
+                    Debug.Log("Holding");
+                    OnHold(caster);
+                    yield return null;
+                }
+            }
+            CastEnded(caster);
+
+            caster.owner.state = CharacterStates.active;
+            
+            if(Cooldown > 0)
+            {
+                state = AbilityStates.cooldown;
+                remainingCooldown = Cooldown;
+                caster.owner.StartCoroutine(CooldownTimer());
+            } else
+            {
+                state = AbilityStates.ready;
+            }
+        }
+
+        public abstract void CastStarted(CasterInfo caster);
+
+        public abstract void OnHold(CasterInfo caster);
+
+        public abstract void CastEnded(CasterInfo caster);
+
+        IEnumerator CooldownTimer()
+        {
+            while (remainingCooldown > 0)
+            {
+                remainingCooldown -= Time.deltaTime;
+                yield return null;
+            }
+            remainingCooldown = 0;
+            state = AbilityStates.ready;
+        }
     }
 }

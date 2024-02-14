@@ -6,12 +6,13 @@ using UnityEngine;
 
 public abstract class Debuff
 {
+    public string displayName;
     public float duration;
-
     public float remainingDuration;
 
-    public Debuff(float duration)
+    public Debuff(string name, float duration)
     {
+        this.displayName = name;
         this.duration = duration;
         remainingDuration = duration;
     }

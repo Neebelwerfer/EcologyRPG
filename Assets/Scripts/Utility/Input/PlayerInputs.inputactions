@@ -76,11 +76,20 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponAttack",
+                    "type": "Button",
+                    "id": "1edbaee2-38d2-410b-903e-38a86da0bd3c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
+                    "name": "WASD",
                     "id": "6fda9619-5038-4bae-9db9-0fc1feba0e9a",
                     "path": "2DVector",
                     "interactions": "",
@@ -208,6 +217,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ability Slot 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7423610d-6a6e-4f5e-b1a5-8a0f9810a773",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

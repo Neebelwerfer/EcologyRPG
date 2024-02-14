@@ -10,27 +10,30 @@ public class Sprint : BaseAbility
 {
     readonly StatModification sprintSpeed;
 
+    Resource stamina;
+
     public Sprint()
     {
         sprintSpeed = new StatModification(1f, StatModType.PercentMult, this);
     }
-    public override IEnumerator Cast(CasterInfo caster)
+    public override void CastStarted(CasterInfo caster)
     {
-        var stamina = caster.owner.stats.GetResource(ResourceName);
         caster.owner.stats.AddStatModifier("movementSpeed", sprintSpeed);
+        stamina = caster.owner.stats.GetResource(ResourceName);
+    }
 
-        while(caster.activationInput.action.IsPressed())
+    public override void OnHold(CasterInfo caster)
+    {
+        if (stamina < ResourceCost)
         {
-            if (stamina < ResourceCost)
-            {
-                caster.owner.ApplyDebuff(new NoSprint(caster.activationInput, stamina));
-                break;
-            }
-
-            stamina -= ResourceCost * TimeManager.IngameDeltaTime;
-            yield return null;
+            caster.owner.ApplyDebuff(new NoSprint(caster.activationInput, stamina));
         }
 
+        stamina -= ResourceCost * TimeManager.IngameDeltaTime;
+    }
+
+    public override void CastEnded(CasterInfo caster)
+    {
         caster.owner.stats.RemoveStatModifier("movementSpeed", sprintSpeed);
     }
 }
@@ -40,7 +43,7 @@ public class NoSprint : Debuff
     readonly InputActionReference sprintInput;
     readonly Resource Stamina;
 
-    public NoSprint(InputActionReference input, Resource stamina) : base(100000)
+    public NoSprint(InputActionReference input, Resource stamina) : base("Exhausted", 100000)
     {
         sprintInput = input;
         Stamina = stamina;

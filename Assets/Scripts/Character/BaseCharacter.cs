@@ -8,6 +8,7 @@ namespace Character
     {
         active,
         casting,
+        dodging,
         disabled,
         dead
     }
@@ -17,16 +18,22 @@ namespace Character
     public abstract class BaseCharacter : MonoBehaviour
     {
         public Stats stats;
+        public Rigidbody Rigidbody { get { return rb; } }
         public CharacterStates state = CharacterStates.active;
 
         List<Debuff> debuffs = new List<Debuff>();
+        List<Buff> buffs = new List<Buff>();
 
         Resource Health;
+
+        Rigidbody rb;
+
 
         public virtual void Start()
         {
             stats = new Stats();
             Health = stats.GetResource("health");
+            rb = GetComponent<Rigidbody>();
         }
 
         public virtual void TakeDamage(float damage)
@@ -57,9 +64,24 @@ namespace Character
             debuff.OnRemoved(this);
         }
 
+        public virtual void ApplyBuff(Buff buff)
+        {
+            Debug.Log("Applying Buff");
+            buffs.Add(buff);
+            buff.OnApply(this);
+        }
+
+        public virtual void RemoveBuff(Buff buff)
+        {
+            Debug.Log("Removing Buff");
+            buffs.Remove(buff);
+            buff.OnRemoved(this);
+        }
+
         public virtual void Update()
         {
             List<Debuff> debuffsToRemove = new List<Debuff>();
+            List<Buff> buffsToRemove = new List<Buff>();
 
             foreach (Debuff debuff in debuffs)
             {
@@ -71,9 +93,24 @@ namespace Character
                 }
             }
 
+            foreach (Buff buff in buffs)
+            {
+                buff.OnUpdate(this, Time.deltaTime);
+                buff.remainingDuration -= Time.deltaTime;
+                if (buff.remainingDuration <= 0)
+                {
+                    buffsToRemove.Add(buff);
+                }
+            }
+
             foreach (Debuff debuff in debuffsToRemove)
             {
                 RemoveDebuff(debuff);
+            }
+
+            foreach (Buff buff in buffsToRemove)
+            {
+                RemoveBuff(buff);
             }
         }
     }
