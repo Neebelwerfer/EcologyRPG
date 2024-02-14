@@ -17,6 +17,8 @@ namespace Character
     [RequireComponent(typeof(Collider))]
     public abstract class BaseCharacter : MonoBehaviour
     {
+        public GameObject AbilityPoint;
+
         public Stats stats;
         public Rigidbody Rigidbody { get { return rb; } }
         public CharacterStates state = CharacterStates.active;
@@ -33,9 +35,10 @@ namespace Character
             stats = new Stats();
             Health = stats.GetResource("health");
             rb = GetComponent<Rigidbody>();
+            if(AbilityPoint == null) AbilityPoint = gameObject;
         }
 
-        public virtual void ApplyDamage(float damage)
+        public virtual void ApplyDamage(BaseCharacter damageDealer, float damage)
         {
             Debug.Log("Applying " + damage + " damage to " + gameObject.name);
             Health -= damage;

@@ -27,7 +27,6 @@ namespace Character.Abilities
         public string ResourceName;
         public float Cooldown = 0;
         public float CastTime = 0;
-        public bool IgnoreGlobalCooldown;
         public bool AllowHolding;
 
         public float remainingCooldown = 0;

@@ -26,5 +26,6 @@ namespace Player
         public float GlobalCooldown = 0.5f;
         public BaseAbility SprintAbility;
         public BaseAbility DodgeAbility;
+        public BaseAbility WeaponAttackAbility;
     }
 }

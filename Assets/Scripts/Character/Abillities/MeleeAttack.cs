@@ -21,7 +21,7 @@ public class MeleeAttack : AttackAbility
         {
             if (target != null && target != caster.owner)
             {
-                target.ApplyDamage(BaseDamage);
+                target.ApplyDamage(caster.owner, BaseDamage);
             }
         }
     }

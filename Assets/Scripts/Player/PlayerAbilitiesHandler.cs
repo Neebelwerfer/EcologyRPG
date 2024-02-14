@@ -20,6 +20,7 @@ public class PlayerAbilitiesHandler : IPlayerModule
 
     Action<InputAction.CallbackContext> sprintAction;
     Action<InputAction.CallbackContext> dodgeAction;
+    Action<InputAction.CallbackContext> WeaponAttackAction;
 
 
     public void Initialize(PlayerCharacter player)
@@ -34,23 +35,23 @@ public class PlayerAbilitiesHandler : IPlayerModule
         settings.Ability3.action.Enable();
         settings.Ability4.action.Enable();
 
-
+        abilitySlots[4] = settings.WeaponAttackAbility;
+        WeaponAttackAction = (ctx) => ActivateAbility(4);
         abilitySlots[5] = settings.DodgeAbility;
         dodgeAction = (ctx) => ActivateAbility(5);
         abilitySlots[6] = settings.SprintAbility;
         sprintAction = (ctx) => ActivateAbility(6);
 
-
+        settings.WeaponAttack.action.started += WeaponAttackAction;
         settings.Sprint.action.started += sprintAction;
         settings.Dodge.action.started += dodgeAction;
-
     }
 
     void ActivateAbility(int slot)
     {
         var ability = abilitySlots[slot];
         if (ability == null) return;
-        if(ability.Activate(new CasterInfo { activationInput = settings.Ability1, castPos = Player.transform.position, owner = Player }))
+        if(ability.Activate(new CasterInfo { activationInput = settings.Ability1, castPos = Player.AbilityPoint.transform.position, owner = Player }))
         {
 
         }
@@ -73,5 +74,6 @@ public class PlayerAbilitiesHandler : IPlayerModule
     {
         settings.Sprint.action.started -= sprintAction;
         settings.Dodge.action.started -= dodgeAction;
+        settings.WeaponAttack.action.started -= WeaponAttackAction;
     }
 }
