@@ -54,8 +54,8 @@
             "name": "movementSpeed",
             "displayName": "Movement Speed",
             "baseValue": 5.0,
-            "MaxValue": 3.4028234663852887e38,
-            "MinValue": -3.4028234663852887e38,
+            "MaxValue": 20.0,
+            "MinValue": 0.0,
             "description": "Governs a characters movement speed"
         },
         {
@@ -88,6 +88,14 @@
             "baseValue": 50.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 10.0,
+            "description": "Governs a characters carry weight"
+        },
+        {
+            "name": "weaponDamage",
+            "displayName": "Weapon Damage",
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
             "description": "Governs a characters carry weight"
         }
     ],

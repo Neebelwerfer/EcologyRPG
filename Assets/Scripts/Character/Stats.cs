@@ -62,14 +62,14 @@ namespace Character
 
         }
 
-        public void AddStatModifier(string name, StatModification mod)
+        public void AddStatModifier(StatModification mod)
         {
-            GetStat(name).AddModifier(mod);
+            GetStat(mod.StatName).AddModifier(mod);
         }
 
-        public void RemoveStatModifier(string name, StatModification mod)
+        public void RemoveStatModifier(StatModification mod)
         {
-            GetStat(name).RemoveModifier(mod);
+            GetStat(mod.StatName).RemoveModifier(mod);
         }
 
         public Stat GetStat(string name)
