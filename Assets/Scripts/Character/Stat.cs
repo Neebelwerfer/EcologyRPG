@@ -23,6 +23,10 @@ namespace Character
         public string displayName;
         [Tooltip("The default value of this stat")]
         public float baseValue;
+        [Tooltip("The maximum value this stat can have")]
+        public float MaxValue = float.MaxValue;
+        [Tooltip("The minimum value this stat can have")]
+        public float MinValue = float.MinValue;
         [TextArea(3, 10)]
         [Tooltip("A description of what this stat does")]
         public string description;
