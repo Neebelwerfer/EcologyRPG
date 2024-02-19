@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Utility;
 
 public class DialogueWindow : MonoBehaviour
 {
+    //testing
     [SerializeField] private DialoguePathLine testPath;
     [SerializeField] private DialogueChoices testChoices;
 
@@ -24,9 +24,9 @@ public class DialogueWindow : MonoBehaviour
     [SerializeField] private TextMeshProUGUI option3Text;
     [SerializeField] private TextMeshProUGUI option4Text;
     [SerializeField] private bool ChoicesDialogue = false;
-    [SerializeField] private bool InPathDialogue = false;
-    [SerializeField] private bool InChoiceDialogue = false;
 
+
+    //TODO: Add something for making the dialogue box appear, maybe animation, maybe simply activate
     private int currentPathDialogueIndex = 0;
 
 
@@ -38,12 +38,12 @@ public class DialogueWindow : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Open(testChoices);
+            Open(testChoices); 
         }
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            if (InPathDialogue)
+            if (GameManager.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
             {
 
 
@@ -65,7 +65,7 @@ public class DialogueWindow : MonoBehaviour
 
                 }
             }
-            if (InChoiceDialogue)
+            else if (GameManager.Instance.CurrentState.Equals(Game_State.DialogueChoices))
             {
                 Close();
             }
@@ -76,6 +76,7 @@ public class DialogueWindow : MonoBehaviour
 
     public void Open(DialoguePathLine pathToPlay)
     {
+        GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
         ActivateForDialoguePath();
         currentPath = pathToPlay;
         currentPathDialogueIndex = 0;
@@ -84,6 +85,7 @@ public class DialogueWindow : MonoBehaviour
     }
     public void Open(DialogueChoices choices)
     {
+        GameManager.Instance.CurrentState = Game_State.DialogueChoices;
         ActivateForDialogueChoices();
         currentChoices = choices;
         DisplayChoices(currentChoices);
@@ -92,20 +94,22 @@ public class DialogueWindow : MonoBehaviour
 
     public void TransistionToDialoguePlay(DialoguePathLine pathToPlay)
     {
+        GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
         ChoicesDialogue = true;
-        ActivateForDialoguePath();
         DeactivateForDialogueChoices();
+        ActivateForDialoguePath();
         currentPath = pathToPlay;
         currentPathDialogueIndex = 0;
         DisplayDialogue(currentPath.Dialogues[currentPathDialogueIndex]);
     }
     public void TransistionToDialogueChoices(DialogueChoices choices)
     {
-        ActivateForDialogueChoices();
+        GameManager.Instance.CurrentState = Game_State.DialogueChoices;
+        ChoicesDialogue = false;
         DeactivateForDialoguePath();
+        ActivateForDialogueChoices();
         currentChoices = choices;
         DisplayChoices(currentChoices);
-        ChoicesDialogue = false;
     }
 
     private void DisplayDialogue(Dialogue dialogue)
@@ -132,21 +136,22 @@ public class DialogueWindow : MonoBehaviour
             DeactivateForDialoguePath();
         
             DeactivateForDialogueChoices();
-        
+
+
+        GameManager.Instance.CurrentState = Game_State.Menu;
+
     }
     private void ActivateForDialoguePath()
     {
         portrait.gameObject.SetActive(true);
         moniker.gameObject.SetActive(true);
         message.gameObject.SetActive(true);
-        InPathDialogue = true;
     }
     private void DeactivateForDialoguePath()
     {
         portrait.gameObject.SetActive(false);
         moniker.gameObject.SetActive(false);
         message.gameObject.SetActive(false);
-        InPathDialogue = false;
     }
     private void ActivateForDialogueChoices()
     {
@@ -154,7 +159,6 @@ public class DialogueWindow : MonoBehaviour
         option2.gameObject.SetActive(true);
         option3.gameObject.SetActive(true);
         option4.gameObject.SetActive(true);
-        InChoiceDialogue = true;
     }
     private void DeactivateForDialogueChoices()
     {
@@ -162,6 +166,5 @@ public class DialogueWindow : MonoBehaviour
         option2.gameObject.SetActive(false);
         option3.gameObject.SetActive(false);
         option4.gameObject.SetActive(false);
-        InChoiceDialogue = false;
     }
 }
