@@ -34,10 +34,7 @@ public class UIBar : MonoBehaviour
         }
         UpdateBar(character, resourceName);
     }
-    public void LowerValue(float deplete)
-    {
-        statValue -= deplete;
-    }
+
     public void InitializeBar(PlayerCharacter player, string resourceName)
     {
         maxValue = player.stats.GetResource(resourceName).MaxValue;
