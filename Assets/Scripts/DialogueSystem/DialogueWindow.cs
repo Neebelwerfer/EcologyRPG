@@ -25,10 +25,17 @@ public class DialogueWindow : MonoBehaviour
     [SerializeField] private TextMeshProUGUI option4Text;
     [SerializeField] private bool ChoicesDialogue = false;
 
+    private Animator animator;
+    private string dialogueOpenParameter = "DialogueOpen";
+
 
     //TODO: Add something for making the dialogue box appear, maybe animation, maybe simply activate
     private int currentPathDialogueIndex = 0;
 
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -81,6 +88,7 @@ public class DialogueWindow : MonoBehaviour
         currentPath = pathToPlay;
         currentPathDialogueIndex = 0;
         DisplayDialogue(currentPath.Dialogues[currentPathDialogueIndex]);
+        animator.SetBool(dialogueOpenParameter, true);
 
     }
     public void Open(DialogueChoices choices)
@@ -89,6 +97,7 @@ public class DialogueWindow : MonoBehaviour
         ActivateForDialogueChoices();
         currentChoices = choices;
         DisplayChoices(currentChoices);
+        animator.SetBool(dialogueOpenParameter, true);
 
     }
 
@@ -139,6 +148,8 @@ public class DialogueWindow : MonoBehaviour
 
 
         GameManager.Instance.CurrentState = Game_State.Menu;
+
+        animator.SetBool(dialogueOpenParameter, false);
 
     }
     private void ActivateForDialoguePath()

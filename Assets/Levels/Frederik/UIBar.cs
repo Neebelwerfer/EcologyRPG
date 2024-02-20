@@ -14,8 +14,7 @@ public class UIBar : MonoBehaviour
     private bool initialized = false;
 
     public float maxValue;
-    public float statValue; 
-    
+    public float statValue;
  
     // Start is called before the first frame update
     void Start()
