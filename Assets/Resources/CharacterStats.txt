@@ -65,6 +65,30 @@
             "displayName": "Stamina Gain",
             "baseValue": 10.0,
             "description": "Governs a characters stamina recovery"
+        },
+        {
+            "name": "maxFood",
+            "displayName": "Food",
+            "baseValue": 100.0,
+            "description": "Governs a characters nutrition"
+        },
+        {
+            "name": "foodDrain",
+            "displayName": "Food Drain",
+            "baseValue": 0.5,
+            "description": "Governs a how quickly a characters nutrition drains at baseline, while not moving"
+        },
+        {
+            "name": "maxWater",
+            "displayName": "Water",
+            "baseValue": 100.0,
+            "description": "Governs a characters water"
+        },
+        {
+            "name": "waterDrain",
+            "displayName": "water Drain",
+            "baseValue": 1.0,
+            "description": "Governs a how quickly a characters water drains when not using abilities"
         }
     ],
     "Resources": [
@@ -77,6 +101,16 @@
             "name": "stamina",
             "DisplayName": "Stamina",
             "MaxValueStat": "maxStamina"
+        },
+        {
+            "name": "food",
+            "DisplayName": "Food",
+            "MaxValueStat": "maxFood"
+        },
+        {
+            "name": "water",
+            "DisplayName": "Water",
+            "MaxValueStat": "maxWater"
         }
     ]
 }
