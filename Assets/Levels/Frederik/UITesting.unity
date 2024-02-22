@@ -1580,7 +1580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a64a53681d73d468526dff52001a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 526711092}
 --- !u!114 &1611056545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1884,11 +1883,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player UI
       objectReference: {fileID: 0}
-    - target: {fileID: 1051584214945211370, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
-        type: 3}
-      propertyPath: resourceName
-      value: food
-      objectReference: {fileID: 0}
     - target: {fileID: 1653435830246461739, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1909,11 +1903,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4117120732319499165, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
-        type: 3}
-      propertyPath: resourceName
-      value: water
-      objectReference: {fileID: 0}
     - target: {fileID: 5248481381019977494, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1933,11 +1922,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011909065889709918, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6125364299530110093, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
         type: 3}
@@ -2058,11 +2042,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7267576468152327977, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9010089692938014856, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
         type: 3}
@@ -2211,6 +2190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397699070084822120, guid: 87662c87a5bd5214aa3bc44677214369,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3911717603804866433, guid: 87662c87a5bd5214aa3bc44677214369,
         type: 3}
