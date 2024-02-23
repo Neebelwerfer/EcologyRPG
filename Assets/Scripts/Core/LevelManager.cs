@@ -14,7 +14,16 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        if(Instance == null)
+        OnLevelStart.Invoke();
+    }
+
+    void Awake()
+    {
+        if (GameManager.Instance == null)
+        {
+            SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        }
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -22,17 +31,6 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (GameManager.Instance == null)
-        {
-            SceneManager.LoadScene(0, LoadSceneMode.Additive);
-        }
-
-        OnLevelStart.Invoke();
-    }
-
-    void Awake()
-    {
         OnLevelAwake.Invoke();
     }
 }

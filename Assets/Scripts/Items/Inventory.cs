@@ -1,6 +1,7 @@
 using Character;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Items
@@ -27,11 +28,17 @@ namespace Items
         float currentWeight;
         public float CurrentWeight { get { return currentWeight; } }
 
-        public Inventory(BaseCharacter Owner)
+        public Inventory(BaseCharacter Owner, Item[] startingItems)
         {
             this.Owner = Owner;
             CarryWeight = Owner.stats.GetStat("CarryWeight");
             items = new List<InventoryItem>();
+            foreach (Item item in startingItems)
+            {
+                if(item != null)
+                    AddItem(item);
+            }
+            Debug.Log("Inventory created");
         }
 
         public bool ContainsItem(Item item)

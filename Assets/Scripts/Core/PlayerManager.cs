@@ -1,5 +1,7 @@
+using Player;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
@@ -8,7 +10,12 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject PlayerPrefab;
 
-    private void Start()
+    public UnityEvent OnPlayerSpawned;
+
+    GameObject Player;
+    PlayerCharacter playerCharacter;
+
+    public void Init()
     {
         if (Instance == null)
         {
@@ -19,6 +26,7 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(this);
         }
+        SpawnPlayer();
     }
 
     public void SpawnPlayer()
@@ -27,11 +35,23 @@ public class PlayerManager : MonoBehaviour
 
         if (spawn != null)
         {
-            Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
+            Player = Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
+            playerCharacter = Player.GetComponent<PlayerCharacter>();
+            OnPlayerSpawned?.Invoke();
         }
         else
         {
             Debug.LogError("No player spawn found in scene");
         }
+    }
+
+    public GameObject GetPlayer()
+    {
+        return Player;
+    }
+
+    public PlayerCharacter GetPlayerCharacter()
+    {
+        return playerCharacter;
     }
 }

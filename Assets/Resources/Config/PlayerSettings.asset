@@ -32,3 +32,8 @@ MonoBehaviour:
   DodgeAbility: {fileID: 11400000, guid: a557d0b85e2f4d945a798fdda9244e31, type: 2}
   WeaponAttackAbility: {fileID: 11400000, guid: c768c2c27164cdf4d95c4fb8f47c6906,
     type: 2}
+  StartingItems:
+  - {fileID: 11400000, guid: 80c2d0b652b09dd488fd91db9ee5e3c2, type: 2}
+  - {fileID: 11400000, guid: 32080647b3d06b4469cbb17300d241b3, type: 2}
+  - {fileID: 11400000, guid: 32080647b3d06b4469cbb17300d241b3, type: 2}
+  - {fileID: 11400000, guid: 32080647b3d06b4469cbb17300d241b3, type: 2}

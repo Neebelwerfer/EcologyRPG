@@ -1,4 +1,5 @@
 using Character;
+using Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Player
 
         PlayerMovement playerMovement;
         PlayerAbilitiesHandler playerAbilitiesHandler;
+        public Inventory Inventory { get; private set; }
 
         public override void Start()
         {
@@ -20,6 +22,7 @@ namespace Player
             playerMovement.Initialize(this);
             playerAbilitiesHandler = new PlayerAbilitiesHandler();
             playerAbilitiesHandler.Initialize(this);
+            Inventory = new Inventory(this, playerSettings.StartingItems);
         }
 
         public override void Update()

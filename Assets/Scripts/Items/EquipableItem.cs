@@ -54,4 +54,16 @@ namespace Items
             damageMod = new StatModification("weaponDamage", damage, StatModType.Flat, this);
         }
     }
+
+    [CreateAssetMenu(fileName = "New Mask", menuName = "Items/Mask")]
+    public class Mask :EquipableItem
+    {
+        
+    }
+
+    [CreateAssetMenu(fileName = "New Water Tank", menuName = "Items/Water Tank")]
+    public class WaterTank : EquipableItem
+    {
+
+    }
 }

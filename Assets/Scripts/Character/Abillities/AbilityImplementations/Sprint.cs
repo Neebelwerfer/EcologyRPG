@@ -38,12 +38,12 @@ public class Sprint : BaseAbility
     }
 }
 
-public class Exhaustion : CharacterModification
+public class Exhaustion : CharacterEffect
 {
     readonly InputAction sprintInput;
     readonly Resource Stamina;
 
-    public Exhaustion(InputAction input, Resource stamina) : base("Exhausted", 100000, CharacterModificationType.Debuff)
+    public Exhaustion(InputAction input, Resource stamina) : base("Exhausted", 100000, EffectType.Debuff)
     {
         sprintInput = input;
         Stamina = stamina;
