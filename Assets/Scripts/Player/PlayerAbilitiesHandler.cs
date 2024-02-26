@@ -4,18 +4,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Utility;
 
+public enum AbilitySlots
+{
+    Ability1,
+    Ability2,
+    Ability3,
+    Ability4,
+    WeaponAttack,
+    Dodge,
+    Sprint
+}
+
 public class PlayerAbilitiesHandler : IPlayerModule
 {
     PlayerSettings settings;
-
-    
-
-
-    BaseAbility[] abilitySlots = new BaseAbility[7];
+    readonly BaseAbility[] abilitySlots = new BaseAbility[7];
 
     PlayerCharacter Player;
 
@@ -23,6 +31,7 @@ public class PlayerAbilitiesHandler : IPlayerModule
     Action<InputAction.CallbackContext> dodgeAction;
     Action<InputAction.CallbackContext> WeaponAttackAction;
 
+    public UnityEvent<BaseAbility>[] OnAbilityChange = new UnityEvent<BaseAbility>[7];
 
     public void Initialize(PlayerCharacter player)
     {
@@ -48,6 +57,11 @@ public class PlayerAbilitiesHandler : IPlayerModule
         settings.Dodge.action.started += dodgeAction;
     }
 
+    public BaseAbility GetAbility(AbilitySlots slot)
+    {
+        return abilitySlots[(int)slot];
+    }
+
     void ActivateAbility(int slot, InputAction.CallbackContext context)
     {
         var ability = abilitySlots[slot];
@@ -67,6 +81,15 @@ public class PlayerAbilitiesHandler : IPlayerModule
                 abilitySlots[i].UpdateCooldown(TimeManager.IngameDeltaTime);
             }
         }
+    }
+
+    public void AddListener(AbilitySlots slot, UnityAction<BaseAbility> action)
+    {
+        if (OnAbilityChange[(int)slot] == null)
+        {
+            OnAbilityChange[(int)slot] = new UnityEvent<BaseAbility>();
+        }
+        OnAbilityChange[(int)slot].AddListener(action);
     }
 
     public void FixedUpdate()

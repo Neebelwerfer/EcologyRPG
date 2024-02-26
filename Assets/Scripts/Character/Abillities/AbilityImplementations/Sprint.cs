@@ -14,11 +14,11 @@ public class Sprint : BaseAbility
 
     public Sprint()
     {
-        sprintSpeed = new StatModification(1f, StatModType.PercentMult, this);
+        sprintSpeed = new StatModification("movementSpeed", 1f, StatModType.PercentMult, this);
     }
     public override void CastStarted(CasterInfo caster)
     {
-        caster.owner.stats.AddStatModifier("movementSpeed", sprintSpeed);
+        caster.owner.stats.AddStatModifier(sprintSpeed);
         stamina = caster.owner.stats.GetResource(ResourceName);
     }
 
@@ -34,16 +34,16 @@ public class Sprint : BaseAbility
 
     public override void CastEnded(CasterInfo caster)
     {
-        caster.owner.stats.RemoveStatModifier("movementSpeed", sprintSpeed);
+        caster.owner.stats.RemoveStatModifier(sprintSpeed);
     }
 }
 
-public class Exhaustion : CharacterModification
+public class Exhaustion : CharacterEffect
 {
     readonly InputAction sprintInput;
     readonly Resource Stamina;
 
-    public Exhaustion(InputAction input, Resource stamina) : base("Exhausted", 100000, CharacterModificationType.Debuff)
+    public Exhaustion(InputAction input, Resource stamina) : base("Exhausted", 100000, EffectType.Debuff)
     {
         sprintInput = input;
         Stamina = stamina;

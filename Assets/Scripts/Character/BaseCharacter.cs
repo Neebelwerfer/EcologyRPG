@@ -23,7 +23,7 @@ namespace Character
         public Rigidbody Rigidbody { get { return rb; } }
         public CharacterStates state = CharacterStates.active;
 
-        List<CharacterModification> debuffs = new List<CharacterModification>();
+        List<CharacterEffect> debuffs = new List<CharacterEffect>();
 
         Resource Health;
 
@@ -53,14 +53,14 @@ namespace Character
             state = CharacterStates.dead;
         }
 
-        public virtual void ApplyCharacterModification(CharacterModification mod)
+        public virtual void ApplyCharacterModification(CharacterEffect mod)
         {
             Debug.Log("Applying CharacterModification " + mod.displayName);
             debuffs.Add(mod);
             mod.OnApply(this);
         }
 
-        public virtual void RemoveCharacterModification(CharacterModification mod)
+        public virtual void RemoveCharacterModification(CharacterEffect mod)
         {
             Debug.Log("Removing CharacterModification " + mod.displayName);
             debuffs.Remove(mod);
@@ -71,7 +71,7 @@ namespace Character
         {
             for (int i = debuffs.Count -1 ; i >= 0; i--)
             {
-                CharacterModification debuff = debuffs[i];
+                CharacterEffect debuff = debuffs[i];
                 debuff.OnUpdate(this, Time.deltaTime);
                 debuff.remainingDuration -= Time.deltaTime;
                 if (debuff.remainingDuration <= 0)

@@ -27,5 +27,8 @@ namespace Player
         public BaseAbility SprintAbility;
         public BaseAbility DodgeAbility;
         public BaseAbility WeaponAttackAbility;
+
+        [Header("Inventory Settings")]
+        public Item[] StartingItems = new Item[5];
     }
 }
