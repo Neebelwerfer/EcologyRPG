@@ -9,6 +9,8 @@ namespace Items
     {
         Armour,
         Weapon,
+        Mask,
+        WaterTank
     }
     public abstract class EquipableItem : Item
     {
@@ -18,10 +20,19 @@ namespace Items
 
         public virtual void Equip(BaseCharacter character)
         {
+            if(statModifiers == null)
+            {
+                return;
+            }
             foreach (StatModification mod in statModifiers)
             {
                 character.stats.AddStatModifier(mod);
             }
+        }
+
+        public virtual void Unequip(BaseCharacter character)
+        {
+            character.stats.RemoveStatModifiersFromSource(this);
         }
     }
 

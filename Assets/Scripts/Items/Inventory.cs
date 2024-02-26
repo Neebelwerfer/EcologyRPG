@@ -21,6 +21,7 @@ namespace Items
     public class Inventory
     {
         public List<InventoryItem> items;
+        public Equipment equipment;
 
         Stat CarryWeight;
         BaseCharacter Owner;
@@ -38,7 +39,7 @@ namespace Items
                 if(item != null)
                     AddItem(item);
             }
-            Debug.Log("Inventory created");
+            equipment = new Equipment(Owner);
         }
 
         public bool ContainsItem(Item item)
@@ -94,9 +95,37 @@ namespace Items
                 if (items[i].item == item)
                 {
                     currentWeight -= item.Weight;
-                    items.RemoveAt(i);
+                    items[i].amount--;
+                    if (items[i].amount <= 0)
+                    {
+                        items.RemoveAt(i);
+                    }
                 }
             }
+        }
+
+        public void EquipItem(EquipableItem equip)
+        {
+            if(equipment.GetEquipment(equip.equipmentType) != null)
+            {
+                UnequipItem(equipment.GetEquipment(equip.equipmentType));
+            }
+            RemoveItem(equip);
+            currentWeight += equip.Weight;
+            equipment.EquipItem(equip);
+        }
+
+        public void UnequipItem(EquipableItem equip)
+        {
+            equipment.UnequipItem(equip);
+            currentWeight -= equip.Weight;
+            AddItem(equip);
+        }
+
+        public void ConsumeItem(ConsumableItem consumable)
+        {
+            consumable.Use(Owner);
+            RemoveItem(consumable);
         }
     }
 }

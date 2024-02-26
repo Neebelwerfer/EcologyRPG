@@ -15,6 +15,7 @@ public class CharacterUIManager : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Character UI Manager Started");
+        characterUI.SetActive(false);
         CharacterUIButton.action.Enable();
         toggleCharacterAction = _ => ToggleCharacterUI();
         CharacterUIButton.action.started += toggleCharacterAction;

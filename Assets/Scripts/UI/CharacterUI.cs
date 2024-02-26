@@ -14,7 +14,7 @@ public class CharacterUI : MonoBehaviour
     public GameObject StatTextPrefab;
 
 
-    PlayerCharacter player;
+    Player.PlayerCharacter player;
     TextMeshProUGUI[] AttributeTexts;
     TextMeshProUGUI[] StatsTexts;
 

@@ -13,6 +13,7 @@ namespace Player
 
         PlayerMovement playerMovement;
         PlayerAbilitiesHandler playerAbilitiesHandler;
+
         public Inventory Inventory { get; private set; }
 
         public override void Start()

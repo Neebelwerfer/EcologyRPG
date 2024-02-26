@@ -113,6 +113,14 @@ namespace Character
             Debug.LogError("Couldn't find Resource " + name);
             return null;
         }
+
+        public void RemoveStatModifiersFromSource(object soruce)
+        {
+            foreach (Stat stat in StatList)
+            {
+                stat.RemoveAllModifiersFromSource(soruce);
+            }
+        }
     }
 
 }

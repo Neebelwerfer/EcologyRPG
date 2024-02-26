@@ -32,6 +32,7 @@ namespace Character
         public string description;
     }
 
+    [Serializable]
     public class StatModification
     {
         public string StatName;
@@ -39,7 +40,7 @@ namespace Character
         public int Order;
         public float Value;
         public StatModType ModType;
-
+        [HideInInspector]
         public UnityEvent OnStatModChanged = new();
 
         public void UpdateValue(float newValue)
