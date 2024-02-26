@@ -11,6 +11,7 @@ public class AbilityUI : MonoBehaviour
     private string abilityName;
     private PlayerCharacter player;
     private float cooldown;
+    [SerializeField] private AbilitySlots abilitySlot;
     [SerializeField] private BaseAbility ability;
     [SerializeField] private Image abilityImage;
     [SerializeField] private Image backgroundImage;
@@ -20,11 +21,16 @@ public class AbilityUI : MonoBehaviour
     void Start()
     {
         abilityImage.fillAmount = 1;
+        player = PlayerManager.Instance.GetPlayerCharacter();
+        player.playerAbilitiesHandler.AddListener(abilitySlot, SetAbility);
+        ability = player.playerAbilitiesHandler.GetAbility(abilitySlot);
         SetUpAbilityUI();
     }
 
     void Update()
     {
+        if(ability == null) return;
+
         UpdateCooldown();
     }
     private void UpdateCooldown()
@@ -40,6 +46,7 @@ public class AbilityUI : MonoBehaviour
     }
     public void SetUpAbilityUI()
     {
+        if (ability == null) return;
         abilityName = ability.name;
         cooldown = ability.Cooldown;
         abilityImage.sprite = abilitySprite;
@@ -48,7 +55,6 @@ public class AbilityUI : MonoBehaviour
     public void SetAbility(BaseAbility newAbility)
     {
         ability = newAbility;
-        //TODO: GET SPRITE FROM ABILITY
         SetUpAbilityUI();
     }
 }

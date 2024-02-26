@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -12,7 +13,7 @@ namespace Player
         public PlayerSettings playerSettings;
 
         PlayerMovement playerMovement;
-        PlayerAbilitiesHandler playerAbilitiesHandler;
+        public PlayerAbilitiesHandler playerAbilitiesHandler;
 
         public Inventory Inventory { get; private set; }
 
@@ -24,6 +25,8 @@ namespace Player
             playerAbilitiesHandler = new PlayerAbilitiesHandler();
             playerAbilitiesHandler.Initialize(this);
             Inventory = new Inventory(this, playerSettings.StartingItems);
+
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         }
 
         public override void Update()
