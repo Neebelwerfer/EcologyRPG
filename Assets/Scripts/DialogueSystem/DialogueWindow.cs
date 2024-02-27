@@ -10,7 +10,7 @@ public class DialogueWindow : MonoBehaviour
     //testing
     [SerializeField] private DialoguePathLine testPath;
     [SerializeField] private DialogueChoices testChoices;
-
+    [SerializeField] private PlayerUIHandler playerUIHandler;
     [SerializeField] private DialoguePathLine currentPath;
     [SerializeField] private DialogueChoices currentChoices;
     [SerializeField] private Image portrait;
@@ -26,11 +26,10 @@ public class DialogueWindow : MonoBehaviour
     [SerializeField] private TextMeshProUGUI option4Text;
     [SerializeField] private bool ChoicesDialogue = false;
 
+
     private Animator animator;
     private string dialogueOpenParameter = "DialogueOpen";
 
-
-    //TODO: Add something for making the dialogue box appear, maybe animation, maybe simply activate
     private int currentPathDialogueIndex = 0;
 
     private void Awake()
@@ -70,7 +69,6 @@ public class DialogueWindow : MonoBehaviour
                     {
                         Close();
                     }
-
                 }
             }
             else if (GameManager.Instance.CurrentState.Equals(Game_State.DialogueChoices))
@@ -78,28 +76,28 @@ public class DialogueWindow : MonoBehaviour
                 Close();
             }
         }
-
-
     }
 
     public void Open(DialoguePathLine pathToPlay)
     {
+        playerUIHandler.ToggleUI(false);        
         GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
         ActivateForDialoguePath();
         currentPath = pathToPlay;
         currentPathDialogueIndex = 0;
         DisplayDialogue(currentPath.Dialogues[currentPathDialogueIndex]);
-        animator.SetBool(dialogueOpenParameter, true);
 
+        animator.SetBool(dialogueOpenParameter, true);
     }
     public void Open(DialogueChoices choices)
     {
+        playerUIHandler.ToggleUI(false);
         GameManager.Instance.CurrentState = Game_State.DialogueChoices;
         ActivateForDialogueChoices();
         currentChoices = choices;
         DisplayChoices(currentChoices);
-        animator.SetBool(dialogueOpenParameter, true);
 
+        animator.SetBool(dialogueOpenParameter, true);
     }
 
     public void TransistionToDialoguePlay(DialoguePathLine pathToPlay)
@@ -143,15 +141,13 @@ public class DialogueWindow : MonoBehaviour
     private void Close()
     {
         
-            DeactivateForDialoguePath();
-        
-            DeactivateForDialogueChoices();
-
+        DeactivateForDialoguePath();
+        DeactivateForDialogueChoices();
 
         GameManager.Instance.CurrentState = Game_State.Menu;
+        playerUIHandler.ToggleUI(true);
 
         animator.SetBool(dialogueOpenParameter, false);
-
     }
     private void ActivateForDialoguePath()
     {

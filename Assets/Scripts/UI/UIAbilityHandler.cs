@@ -27,19 +27,20 @@ public class UIAbilityHandler : MonoBehaviour
     {
         
         player = FindObjectOfType<PlayerCharacter>();
-        weaponAttack = player.playerSettings.WeaponAttackAbility;
+        weaponAttack = player.playerAbilitiesHandler.GetAbility(AbilitySlots.WeaponAttack);
         weaponAttackUI.SetAbility(weaponAttack);
-        dodgeAbility = player.playerSettings.DodgeAbility;
+        dodgeAbility = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Dodge);
         dodgeAbilityUI.SetAbility(dodgeAbility);
-        // this is might be better in a foreach, but that would require a list, it might not be the best since we have a set amount of abilities
-        //ability1 = player.playerSettings.Ability1;
-        //ability1UI.SetAbility(ability1);
-        //ability2 = player.playerSettings.Ability2;
-        //ability2UI.SetAbility(ability2);
-        //ability3 = player.playerSettings.Ability3;
-        //ability3UI.SetAbility(ability3);
-        //ability4 = player.playerSettings.Ability4;
-        //ability4UI.SetAbility(ability4);
+        
+        ability1 = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Ability1);
+        ability1UI.SetAbility(ability1);
+        ability2 = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Ability2);
+        ability2UI.SetAbility(ability2);
+        ability3 = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Ability3);
+        ability3UI.SetAbility(ability3);
+        ability4 = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Ability4);
+        ability4UI.SetAbility(ability4);
+
     }
 
     public void SetAbilitySlot(AbilityUI abilitySlot, BaseAbility ability)

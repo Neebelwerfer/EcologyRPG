@@ -18,6 +18,7 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] private Sprite abilitySprite;
     [SerializeField] private bool isCoolDown;
     
+    
     void Start()
     {
         abilityImage.fillAmount = 1;
@@ -49,6 +50,7 @@ public class AbilityUI : MonoBehaviour
         if (ability == null) return;
         abilityName = ability.name;
         cooldown = ability.Cooldown;
+        abilitySprite = ability.Icon;
         abilityImage.sprite = abilitySprite;
         backgroundImage.sprite = abilitySprite;
     }
