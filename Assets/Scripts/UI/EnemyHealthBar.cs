@@ -28,12 +28,8 @@ public class EnemyHealthBar : MonoBehaviour
     }
     private void Update()
     {
-        if(!initialized) InitializeBar(character, resourceName);
+        if (!initialized) InitializeBar(character, resourceName);
 
-        if (barSlider.value != currentHealth)
-        {
-            barSlider.value = currentHealth;
-        }
         UpdateBar(character, resourceName);
         VisibleBar();
     }

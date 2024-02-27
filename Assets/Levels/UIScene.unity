@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2247,6 +2247,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1f77df1b9c6408645a8d1e4c01b58e11,
         type: 2}
+    - target: {fileID: 8591858009222166608, guid: 657346ddae1955e41a91bd315dc386c1,
+        type: 3}
+      propertyPath: playerUIHandler
+      value: 
+      objectReference: {fileID: 2945935296592383268}
     - target: {fileID: 9018815885163074218, guid: 657346ddae1955e41a91bd315dc386c1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6101,6 +6106,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8700605816581246910, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811268437150678469, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9010089692938014856, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6126,6 +6141,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b9d24c708142284f8cb3a1c212cb2cb, type: 3}
+--- !u!114 &2945935296592383268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4894500749204058217, guid: 0b9d24c708142284f8cb3a1c212cb2cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2945935296592383267}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f23d9c13fee734fb12441a5d81daac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
