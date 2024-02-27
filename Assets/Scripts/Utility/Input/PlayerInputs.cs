@@ -107,6 +107,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CharacterMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b92afc99-0d81-4f05-b821-ecb2059d305c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +261,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c0e3f3f-f5ac-4c95-bbe8-a8427c735f09"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CharacterMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e561aa5-ca17-4009-8f32-74499663e59a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CharacterMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +300,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_InGame_AbilitySlot3 = m_InGame.FindAction("Ability Slot 3", throwIfNotFound: true);
         m_InGame_AbilitySlot4 = m_InGame.FindAction("Ability Slot 4", throwIfNotFound: true);
         m_InGame_WeaponAttack = m_InGame.FindAction("WeaponAttack", throwIfNotFound: true);
+        m_InGame_CharacterMenu = m_InGame.FindAction("CharacterMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +371,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_AbilitySlot3;
     private readonly InputAction m_InGame_AbilitySlot4;
     private readonly InputAction m_InGame_WeaponAttack;
+    private readonly InputAction m_InGame_CharacterMenu;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -352,6 +385,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @AbilitySlot3 => m_Wrapper.m_InGame_AbilitySlot3;
         public InputAction @AbilitySlot4 => m_Wrapper.m_InGame_AbilitySlot4;
         public InputAction @WeaponAttack => m_Wrapper.m_InGame_WeaponAttack;
+        public InputAction @CharacterMenu => m_Wrapper.m_InGame_CharacterMenu;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +422,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @WeaponAttack.started += instance.OnWeaponAttack;
             @WeaponAttack.performed += instance.OnWeaponAttack;
             @WeaponAttack.canceled += instance.OnWeaponAttack;
+            @CharacterMenu.started += instance.OnCharacterMenu;
+            @CharacterMenu.performed += instance.OnCharacterMenu;
+            @CharacterMenu.canceled += instance.OnCharacterMenu;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -419,6 +456,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @WeaponAttack.started -= instance.OnWeaponAttack;
             @WeaponAttack.performed -= instance.OnWeaponAttack;
             @WeaponAttack.canceled -= instance.OnWeaponAttack;
+            @CharacterMenu.started -= instance.OnCharacterMenu;
+            @CharacterMenu.performed -= instance.OnCharacterMenu;
+            @CharacterMenu.canceled -= instance.OnCharacterMenu;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -447,5 +487,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnAbilitySlot3(InputAction.CallbackContext context);
         void OnAbilitySlot4(InputAction.CallbackContext context);
         void OnWeaponAttack(InputAction.CallbackContext context);
+        void OnCharacterMenu(InputAction.CallbackContext context);
     }
 }

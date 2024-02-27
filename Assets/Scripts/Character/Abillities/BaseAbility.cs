@@ -28,6 +28,7 @@ namespace Character.Abilities
         public float Cooldown = 0;
         public float CastTime = 0;
         public bool AllowHolding;
+        public Sprite Icon;
 
         public float remainingCooldown = 0;
         public AbilityStates state = AbilityStates.ready;

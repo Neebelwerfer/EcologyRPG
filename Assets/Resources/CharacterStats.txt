@@ -33,6 +33,20 @@
                     "changePerPoint": 0.05000000074505806
                 }
             ]
+        },
+        {
+            "name": "strength",
+            "displayName": "Strength",
+            "description": "",
+            "defaultValue": 5,
+            "statProgressions": [
+                {
+                    "statName": "carryWeight",
+                    "modType": 100,
+                    "startValue": 0.0,
+                    "changePerPoint": 5.0
+                }
+            ]
         }
     ],
     "Stats": [
@@ -40,31 +54,49 @@
             "name": "movementSpeed",
             "displayName": "Movement Speed",
             "baseValue": 5.0,
+            "MaxValue": 20.0,
+            "MinValue": 0.0,
             "description": "Governs a characters movement speed"
         },
         {
             "name": "maxHP",
             "displayName": "Max HP",
             "baseValue": 100.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 1.0,
             "description": "Governs a characters maximum hp"
         },
         {
             "name": "maxStamina",
             "displayName": "Stamina",
             "baseValue": 100.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 1.0,
             "description": "Governs a characters stamina"
-        },
-        {
-            "name": "staminaDrain",
-            "displayName": "Stamina Drain",
-            "baseValue": 25.0,
-            "description": "Governs a characters stamina loss when sprinting"
         },
         {
             "name": "staminaGain",
             "displayName": "Stamina Gain",
             "baseValue": 10.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a characters stamina recovery"
+        },
+        {
+            "name": "carryWeight",
+            "displayName": "Carry Weight",
+            "baseValue": 50.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 10.0,
+            "description": "Governs a characters carry weight"
+        },
+        {
+            "name": "weaponDamage",
+            "displayName": "Weapon Damage",
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters carry weight"
         },
         {
             "name": "maxFood",

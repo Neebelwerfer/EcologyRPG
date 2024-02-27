@@ -23,19 +23,24 @@ namespace Character
         public string displayName;
         [Tooltip("The default value of this stat")]
         public float baseValue;
+        [Tooltip("The maximum value this stat can have")]
+        public float MaxValue = float.MaxValue;
+        [Tooltip("The minimum value this stat can have")]
+        public float MinValue = float.MinValue;
         [TextArea(3, 10)]
         [Tooltip("A description of what this stat does")]
         public string description;
     }
 
+    [Serializable]
     public class StatModification
     {
+        public string StatName;
         public object Source;
-
         public int Order;
         public float Value;
         public StatModType ModType;
-
+        [HideInInspector]
         public UnityEvent OnStatModChanged = new();
 
         public void UpdateValue(float newValue)
@@ -44,15 +49,16 @@ namespace Character
             OnStatModChanged.Invoke();
         }
 
-        public StatModification(float value, StatModType modType, int order, object source)
+        public StatModification(string name, float value, StatModType modType, int order, object source)
         {
+            StatName = name;
             Value = value;
             ModType = modType;
             this.Order = order;
             Source = source;
         }
 
-        public StatModification(float value, StatModType modType, object source) : this(value, modType, (int)modType, source) { }
+        public StatModification(string name, float value, StatModType modType, object source) : this(name, value, modType, (int)modType, source) { }
 
     }
 
@@ -130,6 +136,7 @@ namespace Character
                     finalValue *= 1 + mod.Value;
                 }
             }
+            finalValue = Mathf.Clamp(finalValue, Data.MinValue, Data.MaxValue);
         }
 
         public bool RemoveAllModifiersFromSource(object source)

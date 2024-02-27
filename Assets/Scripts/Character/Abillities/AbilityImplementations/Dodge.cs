@@ -34,12 +34,12 @@ public class Dodge : BaseAbility
     }
 }
 
-public class Dodging : CharacterModification
+public class Dodging : CharacterEffect
 {
     float dodgeSpeed;
     Vector3 direction;
 
-    public Dodging(CasterInfo caster, DirectionMode directionMode, float dodgeSpeed, float duration) : base("Dodging", duration, CharacterModificationType.Buff)
+    public Dodging(CasterInfo caster, DirectionMode directionMode, float dodgeSpeed, float duration) : base("Dodging", duration, EffectType.Buff)
     {
         this.dodgeSpeed = dodgeSpeed;
 

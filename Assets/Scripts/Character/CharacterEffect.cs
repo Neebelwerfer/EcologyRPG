@@ -4,20 +4,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CharacterModificationType
+public enum EffectType
 {
     Buff,
     Debuff
 }
 
-public abstract class CharacterModification
+public abstract class CharacterEffect
 {
     public string displayName;
-    public CharacterModificationType type;
+    public EffectType type;
     public float duration;
     public float remainingDuration;
 
-    public CharacterModification(string name, float duration, CharacterModificationType type)
+    public CharacterEffect(string name, float duration, EffectType type)
     {
         this.displayName = name;
         this.duration = duration;

@@ -105,7 +105,7 @@ public class Attribute
             var progression = data.statProgressions[i];
             var stat = Stats.GetStat(progression.statName);
             stat.RemoveAllModifiersFromSource(this);
-            stat.AddModifier(new StatModification(progression.startValue + (currentValue * progression.changePerPoint), progression.modType, this));
+            stat.AddModifier(new StatModification(progression.statName, progression.startValue + (currentValue * progression.changePerPoint), progression.modType, this));
         }
     }
 
