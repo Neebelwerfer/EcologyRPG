@@ -40,7 +40,7 @@ public class EnemyNPC : BaseCharacter
 
     public void UpdateBehaviour()
     {
-        if(behaviour != null)
+        if (behaviour != null && (state != CharacterStates.disabled || state != CharacterStates.dead))
         {
             behaviour.UpdateBehaviour(this);
         }
