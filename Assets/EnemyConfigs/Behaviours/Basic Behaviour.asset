@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Basic Behaviour
   m_EditorClassIdentifier: 
   UpdatePerSecond: 0
+  attackAbilityReference: {fileID: 11400000, guid: 03e8ada12fecdff42addd59ae0dc3ffa,
+    type: 2}
+  targetSearchCooldown: 0.5
   AggroRange: 20
   WanderRadius: 10
-  attackAbility: {fileID: 11400000, guid: 03e8ada12fecdff42addd59ae0dc3ffa, type: 2}
   MaxLeashRange: 20
   targetMask:
     serializedVersion: 2

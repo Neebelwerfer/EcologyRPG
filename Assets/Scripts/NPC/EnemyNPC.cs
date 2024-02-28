@@ -7,18 +7,23 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyNPC : BaseCharacter
 {
-    public NPCBehaviour behaviour;
+    [SerializeField] NPCBehaviour behaviourReference;
     public NavMeshAgent Agent { get; private set; }
     EnemySpawner spawner;
+
+    [HideInInspector]public NPCBehaviour behaviour = null;
 
     public override void Start()
     {
         base.Start();
         Agent = GetComponent<NavMeshAgent>();
-        if(behaviour != null)
+        if(behaviourReference != null)
         {
+            behaviour = Instantiate(behaviourReference);
             behaviour.Init(this);
         }
+        Agent.speed = stats.GetStat("movementSpeed").Value;
+        stats.GetStat("movementSpeed").OnStatChanged.AddListener((value) => Agent.speed = value);
     }
     
     public override void Die()

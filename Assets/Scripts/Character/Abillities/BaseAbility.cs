@@ -109,6 +109,7 @@ namespace Character.Abilities
             {
                 state = AbilityStates.cooldown;
                 remainingCooldown = Cooldown;
+                AbilityManager.instance.RegisterAbilityOnCooldown(this);
             } else
             {
                 state = AbilityStates.ready;

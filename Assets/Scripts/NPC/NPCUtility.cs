@@ -20,6 +20,6 @@ public static class NPCUtility
                 randomPoint.y = 1000;
             }
         }
-        return randomPoint;
+        return point;
     }
 }

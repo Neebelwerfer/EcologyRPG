@@ -298,6 +298,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterList: []
+--- !u!114 &1268858970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268858966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc61fcac252aa574181f20eb7f18bffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CooldownAbilities: []
 --- !u!1 &1414282316
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +623,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 548688104669468024, guid: ccf287b5bc91dd74f9fb642822fe9480,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.94
+      objectReference: {fileID: 0}
     - target: {fileID: 1434802821726953085, guid: ccf287b5bc91dd74f9fb642822fe9480,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -618,7 +636,7 @@ PrefabInstance:
     - target: {fileID: 1434802821726953085, guid: ccf287b5bc91dd74f9fb642822fe9480,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.203
+      value: 0.363
       objectReference: {fileID: 0}
     - target: {fileID: 1434802821726953085, guid: ccf287b5bc91dd74f9fb642822fe9480,
         type: 3}
@@ -796,6 +814,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1268858969}
+    - targetCorrespondingSourceObject: {fileID: 6859839487391953796, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1268858970}
   m_SourcePrefab: {fileID: 100100000, guid: cb2bd010f0bc1b84bbb2cea084ae15ec, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

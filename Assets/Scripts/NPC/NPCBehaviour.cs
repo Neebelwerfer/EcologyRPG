@@ -23,7 +23,7 @@ public abstract class NPCBehaviour : ScriptableObject
 
     public void UpdateBehaviour(EnemyNPC character)
     {
-        currState.Update(character);
+        currState?.Update(character);
     }
 }
 

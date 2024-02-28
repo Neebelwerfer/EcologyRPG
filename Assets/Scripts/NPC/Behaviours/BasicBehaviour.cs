@@ -6,18 +6,21 @@ using Utility;
 [CreateAssetMenu(fileName = "Basic Behaviour", menuName = "NPC/Behaviours/BasicBehaviour")]
 public class BasicBehaviour : NPCBehaviour
 {
+    public AttackAbility attackAbilityReference;
+
     public float targetSearchCooldown = 0.5f;
     public float AggroRange;
     public float WanderRadius;
-    public AttackAbility attackAbility;
     public float MaxLeashRange;
     public LayerMask targetMask;
 
     BaseCharacter target;
+    AttackAbility attackAbility;
     float targetSearchTimer = 0f;
     
     public override void Init(EnemyNPC character)
     {
+        attackAbility = Instantiate(attackAbilityReference);
         var aggroState = new State("Aggro");
         var passiveState = new State("Passive");
 
@@ -87,6 +90,7 @@ public class BasicBehaviour : NPCBehaviour
         {
             var agent = npc.Agent;
             if (agent.remainingDistance > 0.1f) return;
+            Debug.Log("Wandering");
             var wanderPos = NPCUtility.GetRandomPointInRadius(npc.GetSpawner().transform.position, WanderRadius);
             agent.SetDestination(wanderPos);
         });
