@@ -74,13 +74,6 @@ public class PlayerAbilitiesHandler : IPlayerModule
 
     public void Update()
     {
-        for (int i = 0; i < abilitySlots.Length; i++)
-        {
-            if (abilitySlots[i] != null)
-            {
-                abilitySlots[i].UpdateCooldown(TimeManager.IngameDeltaTime);
-            }
-        }
     }
 
     public void AddListener(AbilitySlots slot, UnityAction<BaseAbility> action)

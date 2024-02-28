@@ -10,7 +10,7 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] private Slider easeSlider;
     [SerializeField] private float lerpSpeed;
     [SerializeField] private string resourceName;
-    [SerializeField] private NPCCharacter character;
+    [SerializeField] private EnemyNPC character;
     [SerializeField] private GameObject easingBar;
     [SerializeField] private GameObject healthBar;
 
@@ -34,7 +34,7 @@ public class EnemyHealthBar : MonoBehaviour
         VisibleBar();
     }
 
-    public void InitializeBar(NPCCharacter nPC, string resourceName)
+    public void InitializeBar(EnemyNPC nPC, string resourceName)
     {
         maxHealth = nPC.stats.GetResource(resourceName).MaxValue;
         barSlider.maxValue = maxHealth;
@@ -43,7 +43,7 @@ public class EnemyHealthBar : MonoBehaviour
         easeSlider.value = easeSlider.maxValue;
         if (maxHealth != 0) initialized = true;
     }
-    public void UpdateBar(NPCCharacter nPC, string resourceName)
+    public void UpdateBar(EnemyNPC nPC, string resourceName)
     {
         currentHealth = nPC.stats.GetResource(resourceName).CurrentValue;
         if (barSlider.value != currentHealth)
