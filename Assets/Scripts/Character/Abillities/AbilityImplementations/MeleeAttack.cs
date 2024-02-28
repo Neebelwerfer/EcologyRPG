@@ -18,7 +18,7 @@ public class MeleeAttack : AttackAbility
     {
         foreach (var target in targets)
         {
-            if (target != null && target != caster.owner)
+            if (target != null && target.Faction != caster.owner.Faction)
             {
                 target.ApplyDamage(caster.owner, BaseDamage);
             }

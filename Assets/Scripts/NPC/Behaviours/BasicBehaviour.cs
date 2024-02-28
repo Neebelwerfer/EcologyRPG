@@ -115,6 +115,7 @@ public class BasicBehaviour : NPCBehaviour
                 if (c.TryGetComponent<BaseCharacter>(out var baseCharacter))
                 {
                     if (baseCharacter.Faction != Faction.player) continue;
+                    if (Vector3.Distance(npc.GetSpawner().transform.position , c.transform.position) > MaxLeashRange) continue;
                     target = c.GetComponent<BaseCharacter>();
                     return true;
                 }

@@ -44,23 +44,16 @@ public class AbilityManager : MonoBehaviour
             if (CooldownAbilities[i] == null)
             {
                 CooldownAbilities.RemoveAt(i);
+                continue;
             }
 
             if (CooldownAbilities[i].state == AbilityStates.ready)
             {
                 CooldownAbilities.RemoveAt(i);
+                continue;
             }
 
-            if (CooldownAbilities[i].state == AbilityStates.cooldown)
-            {
-                CooldownAbilities[i].remainingCooldown -= TimeManager.IngameDeltaTime;
-                if (CooldownAbilities[i].remainingCooldown <= 0)
-                {
-                    CooldownAbilities[i].remainingCooldown = 0;
-                    CooldownAbilities[i].state = AbilityStates.ready;
-                    CooldownAbilities.RemoveAt(i);
-                }
-            }
+            CooldownAbilities[i].UpdateCooldown(Time.deltaTime);
         }
     }
 
