@@ -28,7 +28,7 @@ public static class TargetUtility
     public static Vector3 GetMouseDirection(Vector3 origin, Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Default")))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Ground")))
         {
             return (hit.point - origin).normalized;
         }
@@ -38,7 +38,7 @@ public static class TargetUtility
     public static Vector3 GetMousePoint(Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Default")))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Ground")))
         {
             return hit.point;
         }

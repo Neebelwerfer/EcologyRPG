@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
     
-    [SerializeField] List<EnemySpawner> spawners = new List<EnemySpawner>();
+    [SerializeField] List<EnemyNPC> characterList = new List<EnemyNPC>();
 
     private void Awake()
     {
@@ -20,8 +20,35 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void AddSpawner(EnemySpawner spawner)
+    private void Update()
     {
-        spawners.Add(spawner);
+         foreach (var character in characterList)
+         {
+             character.UpdateBehaviour();
+         }
     }
+
+    public void AddCharacter(EnemyNPC character)
+    {
+        characterList.Add(character);
+    }
+
+    public void RemoveCharacter(EnemyNPC character)
+    {
+        characterList.Remove(character);
+    }
+
+    public void AddCharacters(EnemyNPC[] characters)
+    {
+        characterList.AddRange(characters);
+    }
+
+    public void RemoveCharacters(EnemyNPC[] characters)
+    {
+        foreach (var character in characters)
+        {
+            characterList.Remove(character);
+        }
+    }
+
 }

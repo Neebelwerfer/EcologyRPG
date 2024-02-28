@@ -145,8 +145,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2300530453157254747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a116cffc76aa24187f54d9c5fd6737, type: 3}
+  m_Script: {fileID: 11500000, guid: 1157d09cc5d511d4fa8719200c83dd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityPoint: {fileID: 0}
+  AbilityPoint: {fileID: 2300530453157254747}
+  faction: 2
   state: 0
+  behaviour: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}

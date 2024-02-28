@@ -6,5 +6,5 @@ public abstract class AttackAbility : BaseAbility
 {
     [Header("Attack Ability")]
     public LayerMask targetMask;
-
+    public float attackRange;
 }

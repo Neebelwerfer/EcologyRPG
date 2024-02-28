@@ -13,11 +13,21 @@ namespace Character
         dead
     }
 
+    public enum Faction
+    {
+        player,
+        enemy,
+        neutral
+    }
+
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     public abstract class BaseCharacter : MonoBehaviour
     {
         public GameObject AbilityPoint;
+        [SerializeField] Faction faction = Faction.neutral;
+
+        public Faction Faction { get { return faction; } }
 
         public Stats stats;
         public Rigidbody Rigidbody { get { return rb; } }

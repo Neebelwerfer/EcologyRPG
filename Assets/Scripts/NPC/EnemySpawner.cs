@@ -12,17 +12,16 @@ public class EnemySpawner : MonoBehaviour
     public int numberOfEnemies = 5;
     public LayerMask GroundMask;
 
-    NPCCharacter[] Enemies;
+    EnemyNPC[] Enemies;
     int currentEnemies;
 
     Collider col;
     void Start()
     {
-        Enemies = new NPCCharacter[numberOfEnemies];
+        Enemies = new EnemyNPC[numberOfEnemies];
         currentEnemies = 0;
         col = GetComponent<Collider>();
         col.isTrigger = true;
-        EnemyManager.instance.AddSpawner(this);
     }
 
     Vector3 SpawnablePoint()
@@ -46,21 +45,22 @@ public class EnemySpawner : MonoBehaviour
         return spawnPoint;
     }
 
-    public NPCCharacter[] SpawnEnemies(int amount)
+    public EnemyNPC[] SpawnEnemies(int amount)
     {
-        NPCCharacter[] enemies = new NPCCharacter[amount];
+        EnemyNPC[] enemies = new EnemyNPC[amount];
         for (int i = 0; i < amount; i++)
         {
             var spawnPoint = SpawnablePoint();
             var enemy = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
-            enemies[i] = enemy.GetComponent<NPCCharacter>();
+            enemies[i] = enemy.GetComponent<EnemyNPC>();
             enemies[i].SetSpawner(this);
         }
         currentEnemies += amount;
+        EnemyManager.instance.AddCharacters(enemies);
         return enemies;
     }
 
-    public void RemoveEnemy(NPCCharacter enemy)
+    public void RemoveEnemy(EnemyNPC enemy)
     {
         for (int i = 0; i < Enemies.Length; i++)
         {
@@ -71,6 +71,7 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
         }
+        EnemyManager.instance.RemoveCharacter(enemy);
     }
 
     private void OnTriggerEnter(Collider other)
