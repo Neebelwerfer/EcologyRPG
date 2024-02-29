@@ -58,7 +58,7 @@ namespace Player
                 Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Ground"));
                 dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
                 rb.MovePosition(transform.position + speed * dir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rb.velocity), TimeManager.IngameDeltaTime * rotationSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
 
             }
             else
