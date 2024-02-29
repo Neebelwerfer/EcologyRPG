@@ -60,8 +60,9 @@ namespace Player
             {
                 var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
                 var dir = (movement.y * forward + movement.x * right).normalized;
-                rb.velocity += speed * 100 * dir;
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, MovementSpeed.Value);
+                Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Ground"));
+                dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
+                rb.MovePosition(transform.position + speed * dir);
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rb.velocity), TimeManager.IngameDeltaTime * rotationSpeed);
 
             }
@@ -73,13 +74,11 @@ namespace Player
 
         public void UpdateRotationBasedOnMouse()
         {
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-            var mousePoint = Camera.main.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Entity")))
+            var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hit, 100f, LayerMask.GetMask("Ground")))
             {
-                var lookAt = hit.point;
-                lookAt.y = transform.position.y;
-                var dir = (lookAt - transform.position).normalized;
+                var dir = (hit.point - transform.position).normalized;
+                dir = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
                 var rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
                 transform.rotation = rot;
             }
