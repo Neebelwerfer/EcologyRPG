@@ -48,6 +48,7 @@ public class InventoryUI : MonoBehaviour
         player.Inventory.InventoryChanged.AddListener(UpdateReferences);
         player.Inventory.ItemAdded.AddListener(OnItemAdded);
         player.Inventory.ItemRemoved.AddListener(OnItemRemoved);
+        player.Inventory.equipment.EquipmentUpdated.AddListener((int type) => GetEquipmentInfo());
     }
 
     private void OnDisable()

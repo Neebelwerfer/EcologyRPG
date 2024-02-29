@@ -80,12 +80,14 @@ public class EnemySpawner : MonoBehaviour
         {
             if(currentEnemies != numberOfEnemies)
             {
+                var counter = 0;
                 var enemies = SpawnEnemies(numberOfEnemies - currentEnemies);
                 for(int i = 0; i < Enemies.Length; i++)
                 {
                     if (Enemies[i] == null)
                     {
-                        Enemies[i] = enemies[i];
+                        Enemies[i] = enemies[counter];
+                        counter++;
                     }
                 }
             }
