@@ -35,18 +35,21 @@ public class InventoryUI : MonoBehaviour
     List<BindedButton> BindedButtons;
 
     InventoryItem selectedItem;
+    PlayerCharacter player;
+
+    private void Awake()
+    {
+        player = PlayerManager.Instance.GetPlayerCharacter();
+        player.Inventory.InventoryChanged.AddListener(UpdateReferences);
+        BindedButtons ??= new List<BindedButton>();
+    }
 
     private void OnEnable()
     {
-        BindedButtons ??= new List<BindedButton>();
-
-        var player = PlayerManager.Instance.GetPlayerCharacter();
-
         for (int i = 0; i < player.Inventory.items.Count; i++)
         {
             CreateInventoryItemButton(player.Inventory.items[i], i+1);
         }
-        InvokeRepeating(nameof(UpdateReferences), 0.3f, 0.3f);
     }
 
     private void OnDisable()
@@ -57,12 +60,10 @@ public class InventoryUI : MonoBehaviour
         }
         HideMenuView();
         BindedButtons.Clear();
-        CancelInvoke(nameof(UpdateReferences));
     }
 
     void GetEquipmentInfo()
     {
-        var player = PlayerManager.Instance.GetPlayerCharacter();
         var mask = player.Inventory.equipment.GetEquipment(EquipmentType.Mask);
         MaskText.text = mask == null ? "No Mask" : mask.Name;
 
@@ -116,8 +117,6 @@ public class InventoryUI : MonoBehaviour
         InventoryMenuView.SetActive(true);
         UseButton.onClick.RemoveAllListeners();
 
-        var player = PlayerManager.Instance.GetPlayerCharacter();
-
         if (item.item is ConsumableItem ci)
         {
             UseButton.gameObject.SetActive(true);
@@ -145,6 +144,6 @@ public class InventoryUI : MonoBehaviour
 
     public void DropOneSelectedItem()
     {
-        PlayerManager.Instance.GetPlayerCharacter().Inventory.DropItem(selectedItem.item);
+        player.Inventory.DropItem(selectedItem.item);
     }
 }
