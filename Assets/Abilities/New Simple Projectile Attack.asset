@@ -24,6 +24,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 8
+  attackRange: 0
   destroyOnHit: 1
   BaseDamage: 10
   Range: 7
