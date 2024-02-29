@@ -36,7 +36,7 @@ public class ItemPickup : Button
     {
         if (inventory.AddItems(Item, Amount))
         {
-            Destroy(gameObject);
+            Destroy(transform.root.gameObject);
         }
     }
 
