@@ -70,7 +70,7 @@ namespace Character.Abilities
                 return false;
             }
 
-            if (caster.owner.stats.GetResource(ResourceName) < ResourceCost)
+            if (ResourceName != "" && caster.owner.stats.GetResource(ResourceName) < ResourceCost)
             {
                 Debug.Log("Not enough resource");
                 return false;
@@ -109,6 +109,7 @@ namespace Character.Abilities
             {
                 state = AbilityStates.cooldown;
                 remainingCooldown = Cooldown;
+                AbilityManager.instance.RegisterAbilityOnCooldown(this);
             } else
             {
                 state = AbilityStates.ready;

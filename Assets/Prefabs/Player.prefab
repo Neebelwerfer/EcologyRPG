@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 4873096029965989401}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -917,6 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityPoint: {fileID: 6579097318845773308}
+  faction: 0
   state: 0
   playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
 --- !u!136 &6162241161689435313
