@@ -25,6 +25,8 @@ namespace Items
         public List<InventoryItem> items;
         public Equipment equipment;
         public UnityEvent InventoryChanged;
+        public UnityEvent<Item> ItemRemoved;
+        public UnityEvent<Item> ItemAdded;
 
         GameObject ItemPrefab;
         Stat CarryWeight;
@@ -47,6 +49,8 @@ namespace Items
             }
             equipment = new Equipment(Owner);
             InventoryChanged = new UnityEvent();
+            ItemRemoved = new UnityEvent<Item>();
+            ItemAdded = new UnityEvent<Item>();
         }
 
         public bool CanCarry(Item item, int amount)
@@ -97,7 +101,7 @@ namespace Items
             else
             {
                 items.Add(new InventoryItem(item, amount));
-                InventoryChanged?.Invoke();
+                ItemAdded?.Invoke(item);
                 return true;
             }
         }
@@ -122,13 +126,13 @@ namespace Items
                     if (items[i].amount <= 0)
                     {
                         items.RemoveAt(i);
-                    }
+                        ItemRemoved?.Invoke(item);
+                    } else InventoryChanged?.Invoke();
                     
                     Physics.Raycast(Owner.transform.position + new Vector3(0, 1, 0), -Owner.transform.up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
                     GameObject droppedItem = Object.Instantiate(ItemPrefab, null);
                     droppedItem.transform.position = hit.point;
                     droppedItem.GetComponentInChildren<ItemPickup>().Setup(this, item, amount);
-                    InventoryChanged?.Invoke();
                     break;
                 }
             }
@@ -147,6 +151,11 @@ namespace Items
                     if (items[i].amount <= 0)
                     {
                         items.RemoveAt(i);
+                        ItemRemoved?.Invoke(item);
+                        break;
+                    }
+                    else
+                    {
                         InventoryChanged?.Invoke();
                         break;
                     }
@@ -163,7 +172,6 @@ namespace Items
             RemoveItem(equip);
             currentWeight += equip.Weight;
             equipment.EquipItem(equip);
-            InventoryChanged?.Invoke();
         }
 
         public void UnequipItem(EquipableItem equip)
@@ -171,14 +179,12 @@ namespace Items
             equipment.UnequipItem(equip);
             currentWeight -= equip.Weight;
             AddItem(equip);
-            InventoryChanged?.Invoke();
         }
 
         public void ConsumeItem(ConsumableItem consumable)
         {
             consumable.Use(Owner);
             RemoveItem(consumable);
-            InventoryChanged?.Invoke();
         }
     }
 }

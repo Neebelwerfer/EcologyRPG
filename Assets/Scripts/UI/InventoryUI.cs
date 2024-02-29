@@ -39,27 +39,38 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        player = PlayerManager.Instance.GetPlayerCharacter();
-        player.Inventory.InventoryChanged.AddListener(UpdateReferences);
         BindedButtons ??= new List<BindedButton>();
-    }
-
-    private void OnEnable()
-    {
+        player = PlayerManager.Instance.GetPlayerCharacter();
         for (int i = 0; i < player.Inventory.items.Count; i++)
         {
-            CreateInventoryItemButton(player.Inventory.items[i], i+1);
+            CreateInventoryItemButton(player.Inventory.items[i], i + 1);
         }
+        player.Inventory.InventoryChanged.AddListener(UpdateReferences);
+        player.Inventory.ItemAdded.AddListener(OnItemAdded);
+        player.Inventory.ItemRemoved.AddListener(OnItemRemoved);
     }
 
     private void OnDisable()
     {
-        foreach (BindedButton button in BindedButtons)
-        {
-            Destroy(button.button.gameObject);
-        }
         HideMenuView();
-        BindedButtons.Clear();
+    }
+
+    void OnItemAdded(Item item)
+    {
+        CreateInventoryItemButton(player.Inventory.GetInventoryItem(item), BindedButtons.Count + 1);
+    }
+
+    void OnItemRemoved(Item item)
+    {
+        for (int i = BindedButtons.Count - 1; i >= 0; i--)
+        {
+            if (BindedButtons[i].item.item == item)
+            {
+                Destroy(BindedButtons[i].button.gameObject);
+                BindedButtons.RemoveAt(i);
+                break;
+            }
+        }
     }
 
     void GetEquipmentInfo()
