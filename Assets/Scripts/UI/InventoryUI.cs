@@ -145,6 +145,6 @@ public class InventoryUI : MonoBehaviour
 
     public void DropOneSelectedItem()
     {
-        PlayerManager.Instance.GetPlayerCharacter().Inventory.RemoveItem(selectedItem.item);
+        PlayerManager.Instance.GetPlayerCharacter().Inventory.DropItem(selectedItem.item);
     }
 }

@@ -1,6 +1,7 @@
 using Character;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace Items
         public List<InventoryItem> items;
         public Equipment equipment;
 
+        GameObject ItemPrefab;
         Stat CarryWeight;
         BaseCharacter Owner;
 
@@ -34,12 +36,19 @@ namespace Items
             this.Owner = Owner;
             CarryWeight = Owner.stats.GetStat("CarryWeight");
             items = new List<InventoryItem>();
+            ItemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefab");
+
             foreach (Item item in startingItems)
             {
                 if(item != null)
                     AddItem(item);
             }
             equipment = new Equipment(Owner);
+        }
+
+        public bool CanCarry(Item item, int amount)
+        {
+            return item.Weight * amount + currentWeight <= CarryWeight.Value;
         }
 
         public bool ContainsItem(Item item)
@@ -66,6 +75,28 @@ namespace Items
             return null;
         }
 
+        public bool AddItems(Item item, int amount)
+        {
+            if (item.Weight * amount + currentWeight > CarryWeight.Value)
+            {
+                return false;
+            }
+
+            var getInventoryItem = GetInventoryItem(item);
+            currentWeight += item.Weight * amount;
+
+            if (getInventoryItem != null)
+            {
+                GetInventoryItem(item).amount += amount;
+                return true;
+            }
+            else
+            {
+                items.Add(new InventoryItem(item, amount));
+                return true;
+            }
+        }
+
         public bool AddItem(Item item)
         {
             if (item.Weight + currentWeight > CarryWeight.Value)
@@ -87,6 +118,34 @@ namespace Items
                 return true;
             }
         }
+
+        public void DropItem(Item item, int amount)
+        {
+            for (int i = items.Count - 1; i >= 0; i--)
+            {
+                if (items[i].item == item)
+                {
+                    if (items[i].amount < amount)
+                    {
+                        amount = items[i].amount;
+                    }
+                    currentWeight -= item.Weight * amount;
+                    items[i].amount -= amount;
+                    if (items[i].amount <= 0)
+                    {
+                        items.RemoveAt(i);
+                    }
+                    
+                    Physics.Raycast(Owner.transform.position + new Vector3(0, 1, 0), -Owner.transform.up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
+                    GameObject droppedItem = Object.Instantiate(ItemPrefab, null);
+                    droppedItem.transform.position = hit.point;
+                    droppedItem.GetComponentInChildren<ItemPickup>().Setup(this, item, amount);
+                    break;
+                }
+            }
+        }
+
+        public void DropItem(Item item) => DropItem(item, 1);
 
         public void RemoveItem(Item item)
         {

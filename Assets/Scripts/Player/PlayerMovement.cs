@@ -13,7 +13,6 @@ namespace Player
     public class PlayerMovement : IPlayerModule
     {
         InputActionReference Movement;
-        InputActionReference Sprint;
 
         public float rotationSpeed = 4f;
 
