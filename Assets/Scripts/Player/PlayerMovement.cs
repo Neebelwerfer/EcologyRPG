@@ -10,7 +10,7 @@ using Utility;
 
 namespace Player
 {
-    public class PlayerMovement : IPlayerModule
+    public class PlayerMovement : PlayerModule
     {
         InputActionReference Movement;
 
@@ -25,13 +25,11 @@ namespace Player
 
         //Cached Character references
         Stat MovementSpeed;
-        Resource Stamina;
-        Stat StaminaGain;
 
         StatModification sprintMod;
 
         // Start is called before the first frame update
-        public void Initialize(PlayerCharacter player)
+        public override void Initialize(PlayerCharacter player)
         {
             this.player = player;
             Movement = player.playerSettings.Movement;
@@ -40,15 +38,13 @@ namespace Player
             transform = player.transform.Find("VisualPlayer");
 
             MovementSpeed = player.stats.GetStat("movementSpeed");
-            Stamina = player.stats.GetResource("stamina");
-            StaminaGain = player.stats.GetStat("staminaGain");
+
         }
 
-        public void FixedUpdate()
+        public override void FixedUpdate()
         {
             var rb = player.Rigidbody;
             Vector2 movement = Movement.action.ReadValue<Vector2>();
-            Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
 
             if(player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
             {
@@ -83,17 +79,7 @@ namespace Player
             }
         }
 
-        public void Update()
-        {
-
-        }
-
-        public void LateUpdate()
-        {
-
-        }
-
-        public void OnDestroy()
+        public override void OnDestroy()
         {
 
         }

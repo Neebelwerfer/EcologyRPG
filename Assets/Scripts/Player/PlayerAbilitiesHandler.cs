@@ -20,7 +20,7 @@ public enum AbilitySlots
     Sprint
 }
 
-public class PlayerAbilitiesHandler : IPlayerModule
+public class PlayerAbilitiesHandler : PlayerModule
 {
     PlayerSettings settings;
     readonly BaseAbility[] abilitySlots = new BaseAbility[7];
@@ -33,7 +33,7 @@ public class PlayerAbilitiesHandler : IPlayerModule
 
     public UnityEvent<BaseAbility>[] OnAbilityChange = new UnityEvent<BaseAbility>[7];
 
-    public void Initialize(PlayerCharacter player)
+    public override void Initialize(PlayerCharacter player)
     {
         Player = player;
         settings = player.playerSettings;
@@ -72,10 +72,6 @@ public class PlayerAbilitiesHandler : IPlayerModule
         }
     }
 
-    public void Update()
-    {
-    }
-
     public void AddListener(AbilitySlots slot, UnityAction<BaseAbility> action)
     {
         if (OnAbilityChange[(int)slot] == null)
@@ -85,15 +81,7 @@ public class PlayerAbilitiesHandler : IPlayerModule
         OnAbilityChange[(int)slot].AddListener(action);
     }
 
-    public void FixedUpdate()
-    {
-    }
-
-    public void LateUpdate()
-    {
-    }
-
-    public void OnDestroy()
+    public override void OnDestroy()
     {
         settings.Sprint.action.started -= sprintAction;
         settings.Dodge.action.started -= dodgeAction;

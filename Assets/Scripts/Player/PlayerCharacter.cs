@@ -13,6 +13,7 @@ namespace Player
         public PlayerSettings playerSettings;
 
         PlayerMovement playerMovement;
+        PlayerResourceManager playerResourceManager;
         public PlayerAbilitiesHandler playerAbilitiesHandler;
 
         public Inventory Inventory { get; private set; }
@@ -24,6 +25,8 @@ namespace Player
             playerMovement.Initialize(this);
             playerAbilitiesHandler = new PlayerAbilitiesHandler();
             playerAbilitiesHandler.Initialize(this);
+            playerResourceManager = new PlayerResourceManager();
+            playerResourceManager.Initialize(this);
             Inventory = new Inventory(this, playerSettings.StartingItems);
 
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
@@ -34,6 +37,7 @@ namespace Player
             base.Update();
             playerMovement.Update();
             playerAbilitiesHandler.Update();
+            playerResourceManager.Update();
         }
 
         void FixedUpdate()
