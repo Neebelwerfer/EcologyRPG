@@ -37,7 +37,7 @@ public class UIBar : MonoBehaviour
 
     public void InitializeBar(PlayerCharacter player, string resourceName)
     {
-        maxValue = player.stats.GetResource(resourceName).MaxValue;
+        maxValue = player.Stats.GetResource(resourceName).MaxValue;
         barSlider.maxValue = maxValue;
         barSlider.value = barSlider.maxValue;
         easeSlider.maxValue = barSlider.maxValue;
@@ -46,7 +46,7 @@ public class UIBar : MonoBehaviour
     }
     public void UpdateBar(PlayerCharacter player, string resourceName)
     {
-        statValue = player.stats.GetResource(resourceName).CurrentValue;
+        statValue = player.Stats.GetResource(resourceName).CurrentValue;
         if (barSlider.value != statValue)
         {
             barSlider.value = statValue;

@@ -39,3 +39,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32080647b3d06b4469cbb17300d241b3, type: 2}
   - {fileID: 11400000, guid: 531fb923a21fd9548970374a68b464f7, type: 2}
   - {fileID: 11400000, guid: a146f8a6359d8334aa05ca80a82fec49, type: 2}
+  XpRequiredPerLevel:
+  - 10
+  - 100
+  - 5000
+  - 10000

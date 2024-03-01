@@ -17,6 +17,6 @@ public class HealingPotion : ConsumableItem
     public override void Use(BaseCharacter player)
     {
         base.Use(player);
-        player.stats.GetResource("Health").ModifyCurrentValue(20);
+        player.Stats.GetResource("Health").ModifyCurrentValue(20);
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class EnemyNPC : BaseCharacter
 {
     [SerializeField] NPCBehaviour behaviourReference;
+    [SerializeField] float XpOnDeath = 10;
     public NavMeshAgent Agent { get; private set; }
     EnemySpawner spawner;
 
@@ -22,14 +23,15 @@ public class EnemyNPC : BaseCharacter
             behaviour = Instantiate(behaviourReference);
             behaviour.Init(this);
         }
-        Agent.speed = stats.GetStat("movementSpeed").Value;
-        stats.GetStat("movementSpeed").OnStatChanged.AddListener((value) => Agent.speed = value);
+        Agent.speed = Stats.GetStat("movementSpeed").Value;
+        Stats.GetStat("movementSpeed").OnStatChanged.AddListener((value) => Agent.speed = value);
     }
     
     public override void Die()
     {
         base.Die();
         spawner.RemoveEnemy(this);
+        EventManager.Dispatch("XP", XpOnDeath);
         Destroy(gameObject);
     }
 

@@ -26,13 +26,13 @@ namespace Items
             }
             foreach (StatModification mod in statModifiers)
             {
-                character.stats.AddStatModifier(mod);
+                character.Stats.AddStatModifier(mod);
             }
         }
 
         public virtual void Unequip(BaseCharacter character)
         {
-            character.stats.RemoveStatModifiersFromSource(this);
+            character.Stats.RemoveStatModifiersFromSource(this);
         }
     }
 

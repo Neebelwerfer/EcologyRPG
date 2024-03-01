@@ -70,18 +70,34 @@ public class CharacterUI : MonoBehaviour
         StatBindings = new List<StatBinding>();
         AttributeBindings = new List<AttributeBinding>();
 
-        for (int i = 0; i < player.stats._stats.Count; i++)
+        for (int i = 0; i < player.Stats._stats.Count; i++)
         {
-            if (player.stats._stats[i].Data.HideInUI)
+            if (IsStatHidden(player.Stats._stats[i]))
                 continue;
-            CreateStatText(player.stats._stats[i]);
+            CreateStatText(player.Stats._stats[i]);
         }
 
-        for (int i = 0; i < player.stats._attributes.Count; i++)
+        for (int i = 0; i < player.Stats._attributes.Count; i++)
         {
-            CreateAttributeText(player.stats._attributes[i]);
+            CreateAttributeText(player.Stats._attributes[i]);
         }
-    }    
+    }   
+    
+    bool IsStatHidden(Stat stat)
+    {
+        if(stat.Data.ShowOptions == ShowOptions.Always)
+        {
+            return false;
+        } 
+        else if (stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+        {
+            return stat.Value == 0;
+        } 
+        else
+        {
+            return true;
+        }
+    }
 
     void CreateAttributeText(Attribute attribute)
     {

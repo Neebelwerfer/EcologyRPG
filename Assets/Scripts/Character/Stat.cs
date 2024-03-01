@@ -14,6 +14,13 @@ namespace Character
         PercentMult = 300
     }
 
+    public enum ShowOptions
+    {
+        Always,
+        Never,
+        WhenNonZero,
+    }
+
     [Serializable]
     public class StatData
     {
@@ -21,7 +28,7 @@ namespace Character
         public string name;
         [Tooltip("The display name of the stat")]
         public string displayName;
-        public bool HideInUI = false;
+        public ShowOptions ShowOptions;
         [Tooltip("The default value of this stat")]
         public float baseValue;
         [Tooltip("The maximum value this stat can have")]

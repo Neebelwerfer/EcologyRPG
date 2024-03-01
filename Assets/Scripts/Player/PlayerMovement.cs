@@ -25,6 +25,8 @@ namespace Player
 
         //Cached Character references
         Stat MovementSpeed;
+        Resource Stamina;
+        Stat StaminaGain;
 
         StatModification sprintMod;
 
@@ -37,14 +39,16 @@ namespace Player
 
             transform = player.transform.Find("VisualPlayer");
 
-            MovementSpeed = player.stats.GetStat("movementSpeed");
-
+            MovementSpeed = player.Stats.GetStat("movementSpeed");
+            Stamina = player.Stats.GetResource("stamina");
+            StaminaGain = player.Stats.GetStat("staminaGain");
         }
 
         public override void FixedUpdate()
         {
             var rb = player.Rigidbody;
             Vector2 movement = Movement.action.ReadValue<Vector2>();
+            Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
 
             if(player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
             {
@@ -58,7 +62,7 @@ namespace Player
                 Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Ground"));
                 dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
                 rb.MovePosition(transform.position + speed * dir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rb.velocity), TimeManager.IngameDeltaTime * rotationSpeed);
 
             }
             else
@@ -81,7 +85,6 @@ namespace Player
 
         public override void OnDestroy()
         {
-
         }
     }
 }

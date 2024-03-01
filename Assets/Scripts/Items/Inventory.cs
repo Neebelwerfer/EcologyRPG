@@ -38,7 +38,7 @@ namespace Items
         public Inventory(BaseCharacter Owner, Item[] startingItems)
         {
             this.Owner = Owner;
-            CarryWeight = Owner.stats.GetStat("CarryWeight");
+            CarryWeight = Owner.Stats.GetStat("CarryWeight");
             items = new List<InventoryItem>();
             ItemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefab");
 

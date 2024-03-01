@@ -18,8 +18,8 @@ public class Sprint : BaseAbility
     }
     public override void CastStarted(CasterInfo caster)
     {
-        caster.owner.stats.AddStatModifier(sprintSpeed);
-        stamina = caster.owner.stats.GetResource(ResourceName);
+        caster.owner.Stats.AddStatModifier(sprintSpeed);
+        stamina = caster.owner.Stats.GetResource(ResourceName);
     }
 
     public override void OnHold(CasterInfo caster)
@@ -34,7 +34,7 @@ public class Sprint : BaseAbility
 
     public override void CastEnded(CasterInfo caster)
     {
-        caster.owner.stats.RemoveStatModifier(sprintSpeed);
+        caster.owner.Stats.RemoveStatModifier(sprintSpeed);
     }
 }
 
