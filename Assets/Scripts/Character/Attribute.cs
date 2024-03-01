@@ -2,6 +2,7 @@ using Character;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AttributeModification
 {
@@ -43,6 +44,7 @@ public class Attribute
 {
     public readonly AttributeData data;
     public List<AttributeModification> modifiers;
+    public UnityEvent<int> OnAttributeChanged;
 
     int currentValue;
     bool isDirty = false;
@@ -53,6 +55,7 @@ public class Attribute
         this.data = data;
         Stats = stats;
         modifiers = new List<AttributeModification>();
+        OnAttributeChanged = new UnityEvent<int>();
         CalculateValue();
     }
 
@@ -63,6 +66,7 @@ public class Attribute
             if(isDirty)
             {
                 CalculateValue();
+                OnAttributeChanged.Invoke(currentValue);
                 isDirty = false;
             };
             return currentValue;

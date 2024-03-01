@@ -53,6 +53,7 @@
         {
             "name": "movementSpeed",
             "displayName": "Movement Speed",
+            "HideInUI": false,
             "baseValue": 5.0,
             "MaxValue": 20.0,
             "MinValue": 0.0,
@@ -61,6 +62,7 @@
         {
             "name": "maxHP",
             "displayName": "Max HP",
+            "HideInUI": false,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
@@ -69,6 +71,7 @@
         {
             "name": "maxStamina",
             "displayName": "Stamina",
+            "HideInUI": false,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
@@ -77,6 +80,7 @@
         {
             "name": "staminaGain",
             "displayName": "Stamina Gain",
+            "HideInUI": false,
             "baseValue": 10.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -85,6 +89,7 @@
         {
             "name": "carryWeight",
             "displayName": "Carry Weight",
+            "HideInUI": true,
             "baseValue": 50.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 10.0,
@@ -93,6 +98,7 @@
         {
             "name": "weaponDamage",
             "displayName": "Weapon Damage",
+            "HideInUI": true,
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
@@ -101,26 +107,47 @@
         {
             "name": "maxFood",
             "displayName": "Food",
+            "HideInUI": false,
             "baseValue": 100.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a characters nutrition"
         },
         {
             "name": "foodDrain",
             "displayName": "Food Drain",
+            "HideInUI": false,
             "baseValue": 0.5,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters nutrition drains at baseline, while not moving"
         },
         {
             "name": "maxWater",
             "displayName": "Water",
+            "HideInUI": false,
             "baseValue": 100.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a characters water"
         },
         {
             "name": "waterDrain",
             "displayName": "water Drain",
+            "HideInUI": false,
             "baseValue": 1.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters water drains when not using abilities"
+        },
+        {
+            "name": "healthRegen",
+            "displayName": "Health Regen",
+            "HideInUI": false,
+            "baseValue": 1.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 1.0,
+            "description": "Governs a how quickly a characters health regens when water and food is available"
         }
     ],
     "Resources": [
