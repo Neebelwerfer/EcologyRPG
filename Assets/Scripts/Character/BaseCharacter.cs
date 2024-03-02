@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = Unity.Mathematics.Random;
 
 namespace Character
 {
@@ -25,6 +28,9 @@ namespace Character
     public abstract class BaseCharacter : MonoBehaviour
     {
         public GameObject AbilityPoint;
+        [CharacterTag]
+        public List<string> Tags = new List<string>();
+
         [SerializeField] Faction faction = Faction.neutral;
 
         public Faction Faction { get { return faction; } }
@@ -32,6 +38,13 @@ namespace Character
         public Rigidbody Rigidbody { get { return rb; } }
 
         public Stats Stats { get; private set; }
+
+        public Random Random { get 
+            {
+                return new Random((uint)UnityEngine.Random.Range(uint.MinValue, uint.MaxValue));
+            }
+        }
+
         public CharacterStates state = CharacterStates.active;
 
         readonly List<CharacterEffect> debuffs = new List<CharacterEffect>();
@@ -44,6 +57,7 @@ namespace Character
 
         public virtual void Start()
         {
+            CharacterManager.Instance.AddCharacter(this);
             Stats = new Stats();
             Health = Stats.GetResource("health");
             rb = GetComponent<Rigidbody>();

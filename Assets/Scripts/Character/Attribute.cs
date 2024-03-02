@@ -134,7 +134,6 @@ public class Attribute
             stat.AddModifier(new StatModification(progression.statName, progression.startValue + (currentValue * progression.changePerPoint), progression.modType, this));
         }
     }
-
 }
 
 

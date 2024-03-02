@@ -917,6 +917,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityPoint: {fileID: 6579097318845773308}
+  Tags:
+  - Player
   faction: 0
   state: 0
   playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}

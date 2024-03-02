@@ -77,16 +77,16 @@ public class InventoryUI : MonoBehaviour
     void GetEquipmentInfo()
     {
         var mask = player.Inventory.equipment.GetEquipment(EquipmentType.Mask);
-        MaskText.text = mask == null ? "No Mask" : mask.Name;
+        MaskText.text = mask == null ? "Empty" : mask.Name;
 
         var armor = player.Inventory.equipment.GetEquipment(EquipmentType.Armour);
-        ArmorText.text = armor == null ? "No Armor" : armor.Name;
+        ArmorText.text = armor == null ? "Empty" : armor.Name;
 
         var waterTank = player.Inventory.equipment.GetEquipment(EquipmentType.WaterTank);
-        WaterTankText.text = waterTank == null ? "No Water Tank" : waterTank.Name;
+        WaterTankText.text = waterTank == null ? "Empty" : waterTank.Name;
 
         var weapon = player.Inventory.equipment.GetEquipment(EquipmentType.Weapon);
-        WeaponText.text = weapon == null ? "No Weapon" : weapon.Name;
+        WeaponText.text = weapon == null ? "Empty" : weapon.Name;
 
     }
 

@@ -14,7 +14,7 @@ public class PlayerLevelHandler : PlayerModule
         xpRequiredPerLevel = player.playerSettings.XpRequiredPerLevel;
     }
 
-    void OnXpGain(object data)
+    void OnXpGain(object data, object Sender)
     {
         if (data is float xp)
         {

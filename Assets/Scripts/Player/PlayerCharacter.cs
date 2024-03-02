@@ -49,7 +49,6 @@ namespace Player
 
         public virtual void LevelUp()
         {
-            Debug.Log("Leveling up " + gameObject.name);
             level++;
             foreach (var mod in levelMods)
             {

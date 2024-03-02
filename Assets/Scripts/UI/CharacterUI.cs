@@ -20,7 +20,14 @@ class StatBinding
         Text = text;
         Stat = stat;
 
-        OnStatChanged = (value) => Text.text = stat.Data.displayName + ": " + value;
+        OnStatChanged = (value) =>
+        {
+            Text.text = stat.Data.displayName + ": " + value.ToString("#.#");
+            if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+            {
+                Text.gameObject.SetActive(value != 0);
+            }
+        };
         Stat.OnStatChanged.AddListener(OnStatChanged);
     }
 
@@ -91,7 +98,7 @@ public class CharacterUI : MonoBehaviour
         } 
         else if (stat.Data.ShowOptions == ShowOptions.WhenNonZero)
         {
-            return stat.Value == 0;
+            return false;
         } 
         else
         {
@@ -114,8 +121,15 @@ public class CharacterUI : MonoBehaviour
         var text = Instantiate(StatTextPrefab, StatView.transform);
         text.transform.position = StatView.transform.position;
         var comp = text.GetComponent<TextMeshProUGUI>();
-        comp.text = stat.Data.displayName + ": " + stat.Value;
-
+        comp.text = stat.Data.displayName + ": " + stat.Value.ToString("#.#");
+        if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+        {
+            text.SetActive(stat.Value != 0);
+        }
+        else
+        {
+            text.SetActive(true);
+        }
         StatBindings.Add(new StatBinding(comp, stat));
     }
 

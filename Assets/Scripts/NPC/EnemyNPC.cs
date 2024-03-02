@@ -4,14 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyQuality
+{
+    Normal,
+    Elite,
+    Boss
+}
+
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyNPC : BaseCharacter
 {
     [SerializeField] NPCBehaviour behaviourReference;
     [SerializeField] float XpOnDeath = 10;
-    public NavMeshAgent Agent { get; private set; }
-    EnemySpawner spawner;
 
+    public EnemyQuality Quality { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
+
+    EnemySpawner spawner;
     [HideInInspector]public NPCBehaviour behaviour = null;
 
     public override void Start()
@@ -31,7 +40,8 @@ public class EnemyNPC : BaseCharacter
     {
         base.Die();
         spawner.RemoveEnemy(this);
-        EventManager.Dispatch("XP", XpOnDeath);
+        LootGenerator.Instance.GenerateLootOnKill(this);
+        EventManager.Dispatch("XP", XpOnDeath, this);
         Destroy(gameObject);
     }
 

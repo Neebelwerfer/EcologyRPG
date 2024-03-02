@@ -10,9 +10,7 @@ public class ItemPickup : Button
 {
     public float pickupRadius = 5;
 
-    Inventory inventory;
-    Item Item;
-    int Amount;
+    InventoryItem InventoryItem;
     GameObject PlayerObject;
 
     protected override void Start()
@@ -22,7 +20,7 @@ public class ItemPickup : Button
         onClick.AddListener(OnClicked);
 
         var text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = Item.Name + " x" + Amount;
+        text.text = InventoryItem.item.Name + " x" + InventoryItem.amount;
     }
     public override void OnPointerClick(PointerEventData eventData)
     {
@@ -34,16 +32,11 @@ public class ItemPickup : Button
 
     void OnClicked()
     {
-        if (inventory.AddItems(Item, Amount))
-        {
-            Destroy(transform.root.gameObject);
-        }
+        EventManager.Dispatch("ItemPickup", InventoryItem, this);
     }
 
-    public void Setup(Inventory inventory, Item item, int amount)
+    public void Setup(Item item, int amount)
     {
-        this.inventory = inventory;
-        Item = item;
-        Amount = amount;
+        InventoryItem = new InventoryItem(item, amount);
     }
 }
