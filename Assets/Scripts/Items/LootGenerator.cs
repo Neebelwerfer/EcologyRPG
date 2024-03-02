@@ -2,6 +2,7 @@ using Character;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LootGenerator
@@ -43,6 +44,7 @@ public class LootGenerator
         {
             var lootLevel = Player.Random.NextInt(deadNPC.Level > 1 ? deadNPC.Level - 1 : 1, Player.Level + 1);
             var ListOfLoot = lootDatabase.GetRandomCategory(Player.Random, deadNPC.Tags);
+            ListOfLoot = ListOfLoot.Where(loot => loot.allowedTags.Count == 0 || loot.allowedTags.Any((tag) => deadNPC.Tags.Contains(tag))).ToList();
             var loot = ListOfLoot[Player.Random.NextInt(0, ListOfLoot.Count)].ItemTemplate.GenerateItem(lootLevel);
 
             var origin = deadNPC.transform.position;
