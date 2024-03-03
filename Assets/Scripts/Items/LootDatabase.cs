@@ -44,22 +44,30 @@ public class LootDatabase : ScriptableObject
 
     public LootDatabase()
     {
-        CategoryOdds.Add(new CategoryOdds("Basic Items", 75));
-        CategoryOdds.Add(new CategoryOdds("Equipable Items", 25));
+        CategoryOdds.Add(new CategoryOdds("Basic Items", 70));
+        CategoryOdds.Add(new CategoryOdds("Consumable Items", 25));
+        CategoryOdds.Add(new CategoryOdds("Equipable Items", 5));
     }
 
     private void OnValidate()
     {
         var basicItems = CategoryOdds[0];
-        var EquipableItems = CategoryOdds[1];
+        var consumableItems = CategoryOdds[1];
+        var EquipableItems = CategoryOdds[2];
+
         basicItems.items.Clear();
         EquipableItems.items.Clear();
+        consumableItems.items.Clear();
 
         foreach (Loot loot in items)
         {
             if (loot.ItemTemplate is BasicItem)
             {
-                CategoryOdds[0].items.Add(loot);
+                basicItems.items.Add(loot);
+            }
+            else if (loot.ItemTemplate is ConsumableItemTemplate)
+            {
+                consumableItems.items.Add(loot);
             }
             else if (loot.ItemTemplate is EquipableItemTemplate)
             {
