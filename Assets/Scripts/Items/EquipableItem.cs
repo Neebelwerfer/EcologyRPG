@@ -16,8 +16,7 @@ namespace Items
     {
         [Header("Equipable Item Properties")]
         public EquipmentType equipmentType;
-        public List<StatModification> statModifiers;
-
+        public List<StatModification> statModifiers = new List<StatModification>();
         public virtual void Equip(BaseCharacter character)
         {
             if(statModifiers == null)
@@ -26,13 +25,13 @@ namespace Items
             }
             foreach (StatModification mod in statModifiers)
             {
-                character.stats.AddStatModifier(mod);
+                character.Stats.AddStatModifier(mod);
             }
         }
 
         public virtual void Unequip(BaseCharacter character)
         {
-            character.stats.RemoveStatModifiersFromSource(this);
+            character.Stats.RemoveStatModifiersFromSource(this);
         }
     }
 
@@ -54,15 +53,14 @@ namespace Items
     [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Weapon")]
     public class Weapon : EquipableItem
     {
-        public float damage;
+        public float minDamage;
+        public float maxDamage;
 
-        StatModification damageMod;
         BaseAbility WeaponAbility;
 
         public Weapon()
         {
             equipmentType = EquipmentType.Weapon;
-            damageMod = new StatModification("weaponDamage", damage, StatModType.Flat, this);
         }
     }
 

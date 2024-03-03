@@ -4,24 +4,24 @@ using UnityEngine.Events;
 
 public static class EventManager
 {
-    public static Dictionary<string, UnityEvent<object>> events = new Dictionary<string, UnityEvent<object>>();
+    public static Dictionary<string, UnityEvent<object, object>> events = new Dictionary<string, UnityEvent<object, object>>();
 
-    public static void AddListener(string eventName, UnityAction<object> listener)
+    public static void AddListener(string eventName, UnityAction<object, object> listener)
     {
-        UnityEvent<object> thisEvent = null;
+        UnityEvent<object, object> thisEvent = null;
         if (events.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
         else
         {
-            thisEvent = new UnityEvent<object>();
+            thisEvent = new UnityEvent<object, object>();
             thisEvent.AddListener(listener);
             events.Add(eventName, thisEvent);
         }
     }
 
-    public static void RemoveListener(string eventName, UnityAction<object> listener)
+    public static void RemoveListener(string eventName, UnityAction<object, object> listener)
     {
         if (events.TryGetValue(eventName, out var thisEvent))
         {
@@ -29,11 +29,11 @@ public static class EventManager
         }
     }
 
-    public static void Dispatch(string eventName, object data)
+    public static void Dispatch(string eventName, object data, object sender)
     {
         if (events.TryGetValue(eventName, out var thisEvent))
         {
-            thisEvent.Invoke(data);
+            thisEvent.Invoke(data, sender);
             Debug.Log("Event Dispatched: " + eventName);
         }
     }   

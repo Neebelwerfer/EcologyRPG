@@ -7,7 +7,22 @@ using UnityEngine.Events;
 public class AttributeModification
 {
     public object Source;
-    public int Value;
+
+    int _value;
+    public int Value
+    {
+        get 
+        {
+            return _value; 
+        }
+        set
+        {
+            _value = value;
+            OnValueChange.Invoke();
+        }
+    }
+
+    public UnityEvent OnValueChange = new();
 }
 
 [Serializable]
@@ -76,12 +91,19 @@ public class Attribute
     public void AddModifier(AttributeModification modifier)
     {
         modifiers.Add(modifier);
+        modifier.OnValueChange.AddListener(() =>
+        {
+            CalculateValue();
+            OnAttributeChanged.Invoke(currentValue);
+            isDirty = false;
+        });
         isDirty = true;
     }
 
     public void RemoveModifier(AttributeModification modifier)
     {
         modifiers.Remove(modifier);
+        modifier.OnValueChange.RemoveAllListeners();
         isDirty = true;
     }
 
@@ -112,7 +134,6 @@ public class Attribute
             stat.AddModifier(new StatModification(progression.statName, progression.startValue + (currentValue * progression.changePerPoint), progression.modType, this));
         }
     }
-
 }
 
 

@@ -30,5 +30,8 @@ namespace Player
 
         [Header("Inventory Settings")]
         public Item[] StartingItems = new Item[5];
+
+        [Header("Level Settings")]
+        public List<float> XpRequiredPerLevel = new List<float>(10);
     }
 }
