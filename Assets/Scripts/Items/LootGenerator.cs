@@ -42,7 +42,8 @@ public class LootGenerator
 
         for (int i = 0; i < lootAmount; i++)
         {
-            var lootLevel = Player.Random.NextInt(deadNPC.Level > 1 ? deadNPC.Level - 1 : 1, Player.Level + 1);
+            var level = (Player.Level + deadNPC.Level) / 2;
+            var lootLevel = Player.Random.NextInt(level > 1 ? level - 1 : level, level + 1);
             var ListOfLoot = lootDatabase.GetRandomCategory(Player.Random, deadNPC.Tags);
             ListOfLoot = ListOfLoot.Where(loot => loot.allowedTags.Count == 0 || loot.allowedTags.Any((tag) => deadNPC.Tags.Contains(tag))).ToList();
             var loot = ListOfLoot[Player.Random.NextInt(0, ListOfLoot.Count)].ItemTemplate.GenerateItem(lootLevel);

@@ -8,7 +8,7 @@ namespace Items.ItemTemplates
     {
         [Header("Equipable Item Properties")]
         public EquipmentType equipmentType;
-        public List<StatRanges> statModifiers = new();
+        public List<Ranges> Modifiers = new();
 
     }
 }

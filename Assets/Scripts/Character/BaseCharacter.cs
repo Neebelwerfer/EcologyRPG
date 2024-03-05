@@ -87,9 +87,7 @@ namespace Character
             levelMods = new AttributeModification[Stats._attributes.Count];
             for (int i = 0; i < Stats._attributes.Count; i++)
             {
-                AttributeModification attMod = new AttributeModification();
-                attMod.Source = gameObject;
-                attMod.Value = Level;
+                AttributeModification attMod = new AttributeModification(Stats._attributes[i].data.name, Level, gameObject);
                 Stats._attributes[i].AddModifier(attMod);
                 levelMods[i] = attMod;
             }

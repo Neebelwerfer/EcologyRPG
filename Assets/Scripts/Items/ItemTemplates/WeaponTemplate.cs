@@ -25,24 +25,9 @@ namespace Items.ItemTemplates
             item.minDamage = minDamage;
             item.maxDamage = maxDamage;
 
-            foreach (var mod in statModifiers)
+            foreach (var mod in Modifiers)
             {
-                var value = mod.GrowthPerLevel * level;
-                float min;
-                float max;
-                if (mod.growthType == GrowthType.Percentage)
-                {
-                    value /= 100;
-                    min = mod.minValue + mod.minValue * value;
-                    max = mod.maxValue + mod.maxValue * value;
-                }
-                else
-                {
-                    min = mod.minValue + value;
-                    max = mod.maxValue + value;
-                }
-
-                item.statModifiers.Add(new StatModification(mod.statName, Random.Range(min, max), mod.modType, item));
+                mod.ApplyMod(level, item);
             }
 
             return new InventoryItem(item, 1);

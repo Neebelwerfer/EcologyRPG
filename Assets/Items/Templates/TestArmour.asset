@@ -17,16 +17,18 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Weight: 0
   equipmentType: 0
-  statModifiers:
-  - statName: armor
+  Modifiers:
+  - name: armor
+    type: 1
     modType: 100
     minValue: 1
     maxValue: 5
     GrowthPerLevel: 5
     growthType: 0
-  - statName: movementSpeed
-    modType: 200
-    minValue: 0.05
-    maxValue: 0.1
-    GrowthPerLevel: 0.05
+  - name: strength
+    type: 0
+    modType: 100
+    minValue: 1
+    maxValue: 5
+    GrowthPerLevel: 1
     growthType: 0
