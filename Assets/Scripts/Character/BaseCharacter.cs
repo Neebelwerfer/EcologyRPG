@@ -1,3 +1,4 @@
+using Character.Abilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,12 @@ namespace Character
         player,
         enemy,
         neutral
+    }
+    public class DamageEvent
+    {
+        public BaseCharacter target;
+        public BaseCharacter source;
+        public float damageTaken;
     }
 
     [RequireComponent(typeof(Rigidbody))]
@@ -47,7 +54,7 @@ namespace Character
 
         public CharacterStates state = CharacterStates.active;
 
-        readonly List<CharacterEffect> debuffs = new List<CharacterEffect>();
+        readonly List<CharacterEffect> effects = new List<CharacterEffect>();
 
         protected int level;
         protected AttributeModification[] levelMods;
@@ -67,10 +74,13 @@ namespace Character
             InitLevel();
         }
 
-        public virtual void ApplyDamage(BaseCharacter damageDealer, float damage)
+        public virtual void ApplyDamage(DamageInfo damageInfo)
         {
-            Debug.Log("Applying " + damage + " damage to " + gameObject.name);
-            Health -= damage;
+            Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
+            Health -= damageInfo.damage;
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this };
+            //EventManager.Dispatch("DamgeEvent", damageEvent);
+
             if (Health.CurrentValue <= 0)
             {
                 Die();
@@ -96,27 +106,28 @@ namespace Character
         public virtual void ApplyCharacterModification(CharacterEffect mod)
         {
             Debug.Log("Applying CharacterModification " + mod.displayName);
-            debuffs.Add(mod);
+            effects.Add(mod);
             mod.OnApply(this);
         }
 
         public virtual void RemoveCharacterModification(CharacterEffect mod)
         {
             Debug.Log("Removing CharacterModification " + mod.displayName);
-            debuffs.Remove(mod);
+            effects.Remove(mod);
             mod.OnRemoved(this);
         }
 
         public virtual void Update()
         {
-            for (int i = debuffs.Count -1 ; i >= 0; i--)
+            for (int i = effects.Count -1 ; i >= 0; i--)
             {
-                CharacterEffect debuff = debuffs[i];
-                debuff.OnUpdate(this, Time.deltaTime);
-                debuff.remainingDuration -= Time.deltaTime;
-                if (debuff.remainingDuration <= 0)
+                CharacterEffect effect = effects[i];
+                Debug.Log("Updating CharacterModification " + effect.displayName);
+                effect.OnUpdate(this, Time.deltaTime);
+                effect.remainingDuration -= Time.deltaTime;
+                if (effect.remainingDuration <= 0)
                 {
-                    RemoveCharacterModification(debuff);
+                    RemoveCharacterModification(effect);
                 }
             }
         }

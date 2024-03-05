@@ -20,7 +20,12 @@ public class MeleeAttack : AttackAbility
         {
             if (target != null && target.Faction != caster.owner.Faction)
             {
-                target.ApplyDamage(caster.owner, BaseDamage);
+                target.ApplyDamage(new DamageInfo
+                {
+                    damage = BaseDamage,
+                    source = caster.owner,
+                    type = DamageType.Physical
+                });
             }
         }
     }

@@ -48,7 +48,7 @@ public class Dodging : CharacterEffect
             var mouseVector = Mouse.current.position.ReadValue();
             var mousePoint = Camera.main.ScreenPointToRay(mouseVector);
 
-            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Entity")))
+            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Ground")))
             {
                 var lookAt = hit.point;
                 lookAt.y = caster.owner.transform.position.y;
@@ -58,17 +58,9 @@ public class Dodging : CharacterEffect
         } 
         else
         {
-            var rb = caster.owner.Rigidbody;
-            if(rb.velocity == Vector3.zero)
-            {
-                direction = caster.owner.transform.forward.normalized;
-            }
-            else
-            {
-                direction = rb.velocity.normalized;
-            }
+            direction = caster.owner.transform.forward.normalized;
         }
-       
+
 
     }
 
@@ -79,18 +71,19 @@ public class Dodging : CharacterEffect
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
     {
-        if(target.state == CharacterStates.disabled)
+        if (target.state == CharacterStates.disabled)
         {
             remainingDuration = 0;
             return;
         }
         target.state = CharacterStates.dodging;
-        target.Rigidbody.velocity = direction.normalized * dodgeSpeed;
-
+        target.Rigidbody.isKinematic = false;
+        target.Rigidbody.velocity = dodgeSpeed * direction.normalized;
     }
 
     public override void OnRemoved(BaseCharacter target)
     {
         target.state = CharacterStates.active;
+        target.Rigidbody.isKinematic = true;
     }
 }

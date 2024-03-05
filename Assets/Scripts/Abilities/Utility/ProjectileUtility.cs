@@ -7,12 +7,13 @@ using UnityEngine;
 using static UnityEngine.UI.CanvasScaler;
 using static UnityEngine.UI.GridLayoutGroup;
 using UnityEngine.UI;
+using Character.Abilities;
 
 public static class ProjectileUtility
 {
-    public static readonly Action<BaseCharacter, BaseCharacter, float> DefaultOnHit = (Castee, target, damage) =>
+    public static readonly Action<BaseCharacter, DamageInfo> DefaultOnHit = (target, damageInfo) =>
     {
-        target.ApplyDamage(Castee, damage);
+        target.ApplyDamage(damageInfo);
     };
 
     public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, float damage, bool destroyOnhit, LayerMask mask, BaseCharacter owner)
@@ -32,7 +33,7 @@ public static class ProjectileUtility
         projectile.OnHit = ProjectileUtility.DefaultOnHit;
     }
 
-    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, float damage, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter, BaseCharacter, float> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, float damage, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter, DamageInfo> onHit)
     {
         GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
         Projectile projectile = projectileObj.AddComponent<Projectile>();
@@ -61,7 +62,7 @@ public static class ProjectileUtility
         projectile.OnHit = ProjectileUtility.DefaultOnHit;
     }
 
-    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, float damage, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter, BaseCharacter, float> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, float damage, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter, DamageInfo> onHit)
     {
         GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
         Projectile projectile = projectileObj.AddComponent<Projectile>();
@@ -85,7 +86,7 @@ public class Projectile : MonoBehaviour
     public LayerMask layerMask;
     public BaseCharacter owner;
 
-    public Action<BaseCharacter, BaseCharacter, float> OnHit;
+    public Action<BaseCharacter, DamageInfo> OnHit;
 
     int counter = 0;
 
@@ -122,7 +123,13 @@ public class Projectile : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent<BaseCharacter>(out var character))
             {
-                OnHit(owner, character, damage);
+                DamageInfo damageInfo = new DamageInfo
+                {
+                    damage = damage,
+                    source = owner,
+                    type = DamageType.Physical
+                };
+                OnHit(character, damageInfo);
             }
 
             if (DestroyOnCollision)
