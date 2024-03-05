@@ -79,7 +79,7 @@ namespace Character
             Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
             Health -= damageInfo.damage;
             var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this };
-            //EventManager.Dispatch("DamgeEvent", damageEvent);
+            EventManager.Dispatch("DamageEvent", damageEvent, this);
 
             if (Health.CurrentValue <= 0)
             {
