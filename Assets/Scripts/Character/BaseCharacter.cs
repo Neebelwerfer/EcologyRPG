@@ -27,6 +27,7 @@ namespace Character
     {
         public BaseCharacter target;
         public BaseCharacter source;
+        public float premitigationDamage;
         public float damageTaken;
     }
 
@@ -78,7 +79,7 @@ namespace Character
         {
             Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
             Health -= damageInfo.damage;
-            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this };
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, premitigationDamage = damageInfo.damage };
             EventManager.Dispatch("DamageEvent", damageEvent, this);
 
             if (Health.CurrentValue <= 0)
