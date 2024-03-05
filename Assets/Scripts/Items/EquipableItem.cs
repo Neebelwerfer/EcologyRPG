@@ -17,6 +17,8 @@ namespace Items
         [Header("Equipable Item Properties")]
         public EquipmentType equipmentType;
         public List<StatModification> statModifiers = new List<StatModification>();
+        public List<AttributeModification> attributeModifiers = new List<AttributeModification>();
+
         public virtual void Equip(BaseCharacter character)
         {
             if(statModifiers == null)
@@ -27,11 +29,17 @@ namespace Items
             {
                 character.Stats.AddStatModifier(mod);
             }
+
+            foreach (AttributeModification mod in attributeModifiers)
+            {
+                character.Stats.AddAttributeModifier(mod);
+            }
         }
 
         public virtual void Unequip(BaseCharacter character)
         {
             character.Stats.RemoveStatModifiersFromSource(this);
+            character.Stats.RemoveAttributeModifiersFromSource(this);
         }
     }
 

@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class AttributeModification
 {
     public object Source;
+    public string name;
 
     int _value;
     public int Value
@@ -23,6 +24,13 @@ public class AttributeModification
     }
 
     public UnityEvent OnValueChange = new();
+
+    public AttributeModification(string name, int value, object source)
+    {
+        this.name = name;
+        _value = value;
+        Source = source;
+    }
 }
 
 [Serializable]

@@ -52,6 +52,11 @@ class AttributeBinding
         Attribute.OnAttributeChanged.AddListener(OnAttributeChanged);
     }
 
+    public void UpdateText()
+    {
+        Text.text = Attribute.data.displayName + ": " + Attribute.Value;
+    }
+
     public void Destroy()
     {
         Attribute.OnAttributeChanged.RemoveListener(OnAttributeChanged);
@@ -103,6 +108,17 @@ public class CharacterUI : MonoBehaviour
         else
         {
             return true;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if(AttributeBindings != null)
+        {
+            foreach (var binding in AttributeBindings)
+            {
+                binding.UpdateText();
+            }
         }
     }
 
