@@ -20,14 +20,14 @@ namespace Character.Abilities
         Toxic
     }
 
-    public class CasterInfo
+    public struct CasterInfo
     {
         public BaseCharacter owner;
         public Vector3 castPos;
         public InputAction activationInput;
     }
 
-    public class DamageInfo
+    public struct DamageInfo
     {
         public DamageType type;
         public float damage;

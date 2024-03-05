@@ -25,6 +25,21 @@ public static class TargetUtility
         return targets;
     }
 
+    public static BaseCharacter[] GetTargetsInRadius(Vector3 origin, float radius, LayerMask mask)
+    {
+        var numHits = Physics.OverlapSphereNonAlloc(origin, radius, colliderHits, mask);
+        BaseCharacter[] targets = new BaseCharacter[numHits];
+
+        for (int i = 0; i < numHits; i++)
+        {
+            if (colliderHits[i].TryGetComponent<BaseCharacter>(out var character))
+            {
+                targets[i] = character;
+            }
+        }
+        return targets;
+    }
+
     public static Vector3 GetMouseDirection(Vector3 origin, Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);

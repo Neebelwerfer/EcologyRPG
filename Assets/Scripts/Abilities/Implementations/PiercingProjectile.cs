@@ -1,14 +1,16 @@
 using Character.Abilities;
+using Codice.Client.Commands;
+using Codice.CM.Common;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/SimpleProjectileAttack")]
-public class SimpleProjectileAttack : ProjectileAbility
+[CreateAssetMenu(menuName = "Abilities/PiercingProjectile", fileName = "New Piercing Projectile")]
+public class PiercingProjectile : ProjectileAbility
 {
     public float BaseDamage;
     public DamageType damageType;
     public float Range;
     public float Speed;
-    
+
     public GameObject ProjectilePrefab;
 
     Vector3 MousePoint;
@@ -17,7 +19,7 @@ public class SimpleProjectileAttack : ProjectileAbility
     {
         var dir = (MousePoint - caster.castPos).normalized;
         dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, damageType, destroyOnHit, targetMask, caster.owner);
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, damageType, false, targetMask, caster.owner);
     }
 
     public override void CastStarted(CasterInfo caster)
@@ -29,4 +31,4 @@ public class SimpleProjectileAttack : ProjectileAbility
     {
 
     }
-} 
+}

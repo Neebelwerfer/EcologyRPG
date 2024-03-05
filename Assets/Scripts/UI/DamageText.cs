@@ -22,7 +22,7 @@ public class DamageText : MonoBehaviour
 
         if (Duration <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject.transform.root.gameObject);
         }
     }
 }

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65317f221aed94a4fa3ad715a7b44417, type: 3}
+  m_Name: New Explosive Projectile
+  m_EditorClassIdentifier: 
+  DisplayName: Explosive Projectile
+  ResourceCost: 20
+  ResourceName: water
+  Cooldown: 2
+  CastTime: 0
+  AllowHolding: 0
+  Icon: {fileID: 0}
+  remainingCooldown: 0
+  state: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  attackRange: 0
+  destroyOnHit: 1
+  Range: 10
+  Speed: 5
+  ExplosionRadius: 5
+  ExplosionDamage: 10
+  TargetHitExtraDamage: 5
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}

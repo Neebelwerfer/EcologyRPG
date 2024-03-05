@@ -30,7 +30,7 @@ MonoBehaviour:
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: a557d0b85e2f4d945a798fdda9244e31, type: 2}
-  WeaponAttackAbility: {fileID: 11400000, guid: c768c2c27164cdf4d95c4fb8f47c6906,
+  WeaponAttackAbility: {fileID: 11400000, guid: f10e5df216b7bd24d892da6ce0f7ae51,
     type: 2}
   StartingItems:
   - {fileID: 11400000, guid: 80c2d0b652b09dd488fd91db9ee5e3c2, type: 2}

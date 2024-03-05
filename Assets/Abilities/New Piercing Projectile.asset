@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e81eeb34b6252a429468e5cb61b8de0, type: 3}
+  m_Name: New Piercing Projectile
+  m_EditorClassIdentifier: 
+  DisplayName: Piercing Projectile
+  ResourceCost: 5
+  ResourceName: Water
+  Cooldown: 0.5
+  CastTime: 0.3
+  AllowHolding: 0
+  Icon: {fileID: 0}
+  remainingCooldown: 0
+  state: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  attackRange: 0
+  destroyOnHit: 1
+  BaseDamage: 5
+  damageType: 1
+  Range: 10
+  Speed: 10
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
