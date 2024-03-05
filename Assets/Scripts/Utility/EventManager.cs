@@ -73,6 +73,15 @@ public static class EventManager
         }
     }   
 
+    /// <summary>
+    /// Allows for deferring events to be dispatched at a later time (e.g. in the next update, fixed update, or late update).
+    /// The event will be added to a queue and dispatched when it is next in line.
+    /// Only use this if you need to defer the event, otherwise use Dispatch.
+    /// Only works when game is in playing state.
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="data"></param>
+    /// <param name="deferredEventType"></param>
     public static void Defer(string eventName, EventData data, DeferredEventType deferredEventType)
     {
         if(deferredEventType == DeferredEventType.Update)
