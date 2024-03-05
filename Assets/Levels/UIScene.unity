@@ -5892,6 +5892,8 @@ MonoBehaviour:
   CharacterUIButton: {fileID: 7477748582021791194, guid: d845ac9316e93d841aad5e9d3451edb0,
     type: 3}
   characterUI: {fileID: 444516288}
+  DamageNumberPrefab: {fileID: 2305737771314566666, guid: efec25c1ce7247f49bb93b0ad1040910,
+    type: 3}
 --- !u!4 &2065505548
 Transform:
   m_ObjectHideFlags: 0

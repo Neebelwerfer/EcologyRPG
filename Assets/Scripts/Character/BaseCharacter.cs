@@ -3,7 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
+using Utility;
 using Random = Unity.Mathematics.Random;
 
 namespace Character
@@ -23,10 +27,11 @@ namespace Character
         enemy,
         neutral
     }
-    public class DamageEvent
+    public class DamageEvent : EventData
     {
         public BaseCharacter target;
-        public BaseCharacter source;
+        public new BaseCharacter source;
+        public DamageType damageType;
         public float premitigationDamage;
         public float damageTaken;
     }
@@ -65,6 +70,7 @@ namespace Character
 
         public virtual void Start()
         {
+            
             CharacterManager.Instance.AddCharacter(this);
             Stats = new Stats();
             Health = Stats.GetResource("health");
@@ -79,8 +85,8 @@ namespace Character
         {
             Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
             Health -= damageInfo.damage;
-            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, premitigationDamage = damageInfo.damage };
-            EventManager.Dispatch("DamageEvent", damageEvent, this);
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage };
+            EventManager.Defer("DamageEvent", damageEvent, DeferredEventType.Update);
 
             if (Health.CurrentValue <= 0)
             {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sprint
   m_EditorClassIdentifier: 
   DisplayName: Sprint
-  ResourceCost: 5
+  ResourceCost: 25
   ResourceName: Stamina
   Cooldown: 0
   CastTime: 0

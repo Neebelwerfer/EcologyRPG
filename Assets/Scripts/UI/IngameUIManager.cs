@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterUIManager : MonoBehaviour
+public class IngameUIManager : MonoBehaviour
 {
     public InputActionReference CharacterUIButton;
 
     public GameObject characterUI;
+    public GameObject DamageNumberPrefab;
 
     Action<InputAction.CallbackContext> toggleCharacterAction;
 
@@ -19,6 +20,7 @@ public class CharacterUIManager : MonoBehaviour
         CharacterUIButton.action.Enable();
         toggleCharacterAction = _ => ToggleCharacterUI();
         CharacterUIButton.action.started += toggleCharacterAction;
+        DamageNumberHandler.Instance.Init(DamageNumberPrefab);
     }
 
     private void ToggleCharacterUI()
