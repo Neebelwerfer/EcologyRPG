@@ -13,7 +13,7 @@ public class MeleeAttack : AttackAbility
     public override void CastStarted(CasterInfo caster)
     {
 
-        targets = TargetUtility.GetTargetsInLine(caster.owner.Position, caster.owner.Forward, new Vector3(width/2, 2, attackRange/2), targetMask);
+        targets = TargetUtility.GetTargetsInLine(caster.owner.Position, caster.owner.Forward, new Vector3(width/2, 2, Range/2), targetMask);
     }
 
     public override void CastEnded(CasterInfo caster)

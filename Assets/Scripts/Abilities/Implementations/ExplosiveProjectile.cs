@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/ExplosiveProjectile", fileName = "New Explosive Projectile")]
 public class ExplosiveProjectile : ProjectileAbility
 {
-    public float Range;
     public float Speed;
 
     [Header("Explosive Projectile")]

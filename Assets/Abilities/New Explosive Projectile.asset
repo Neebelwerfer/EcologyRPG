@@ -24,13 +24,12 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  attackRange: 0
-  destroyOnHit: 1
   Range: 10
+  destroyOnHit: 1
   Speed: 5
   ExplosionRadius: 5
   ExplosionDamage: 10
   TargetHitExtraDamage: 5
-  damageType: 0
+  damageType: 1
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}

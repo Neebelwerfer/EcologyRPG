@@ -8,7 +8,6 @@ public class PiercingProjectile : ProjectileAbility
 {
     public float BaseDamage;
     public DamageType damageType;
-    public float Range;
     public float Speed;
 
     public GameObject ProjectilePrefab;

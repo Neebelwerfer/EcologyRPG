@@ -24,6 +24,6 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  attackRange: 3
+  Range: 3
   BaseDamage: 15
   width: 2
