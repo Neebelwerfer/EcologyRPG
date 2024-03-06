@@ -18,11 +18,12 @@ MonoBehaviour:
   Cooldown: 0
   CastTime: 0.25
   AllowHolding: 0
+  Icon: {fileID: 0}
   remainingCooldown: 0
   state: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  BaseDamage: 5
-  range: 2
+  attackRange: 2
+  BaseDamage: 15
   width: 2

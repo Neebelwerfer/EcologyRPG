@@ -27,6 +27,7 @@ MonoBehaviour:
   attackRange: 0
   destroyOnHit: 1
   BaseDamage: 10
+  damageType: 1
   Range: 7
   Speed: 5
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
