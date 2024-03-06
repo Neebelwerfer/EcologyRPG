@@ -28,4 +28,4 @@ MonoBehaviour:
   BaseDamage: 15
   damageType: 1
   effectsOnHit:
-  - {fileID: 11400000, guid: 49edde9de501bc347ab523e1404b5465, type: 2}
+  - {fileID: 11400000, guid: 4ecc93d66fc30ce4c8bbf550ce8bcfb9, type: 2}

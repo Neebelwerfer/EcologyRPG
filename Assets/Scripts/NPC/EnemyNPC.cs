@@ -33,7 +33,6 @@ public class EnemyNPC : BaseCharacter
             behaviour.Init(this);
         }
         Agent.speed = Stats.GetStat("movementSpeed").Value;
-        Stats.GetStat("movementSpeed").OnStatChanged.AddListener((value) => Agent.speed = value);
     }
     
     public override void Die()
@@ -55,6 +54,7 @@ public class EnemyNPC : BaseCharacter
     {
         if (behaviour != null && (state != CharacterStates.disabled || state != CharacterStates.dead))
         {
+            Agent.speed = Stats.GetStat("movementSpeed").Value;
             behaviour.UpdateBehaviour(this);
         }
     }

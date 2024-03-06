@@ -115,7 +115,7 @@ namespace Character
 
         public virtual void ApplyEffect(CasterInfo caster, CharacterEffect mod)
         {
-            Debug.Log("Applying CharacterModification " + mod.displayName);
+            Debug.Log("Applying CharacterModification " + mod.displayName + " with duration " + mod.duration);
             effects.Add(mod);
             mod.OnApply(caster, this);
         }
@@ -132,7 +132,6 @@ namespace Character
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
                 CharacterEffect effect = effects[i];
-                Debug.Log("Updating CharacterModification " + effect.displayName);
                 effect.OnUpdate(this, Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)

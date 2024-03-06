@@ -28,7 +28,7 @@ public class BasicProjectile : ProjectileAbility
             target.ApplyDamage(info);
             foreach (var effect in Effects)
             {
-                target.ApplyEffect(caster, effect);
+                target.ApplyEffect(caster, Instantiate(effect));
             }
         });
     }

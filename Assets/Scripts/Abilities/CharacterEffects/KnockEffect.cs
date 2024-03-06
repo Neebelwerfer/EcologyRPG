@@ -2,10 +2,17 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "KnockBackEffect", menuName = "Abilities/CharacterEffects/KnockBackEffect")]
-public class KnockBackEffect : CharacterEffect
+[CreateAssetMenu(fileName = "KnockEffect", menuName = "Abilities/CharacterEffects/KnockEffect")]
+public class KnockEffect : CharacterEffect
 {
+    enum KnockType
+    {
+        Away,
+        Towards
+    }
+
     public float KnockBackDistance;
+    [SerializeField] KnockType knockType;
 
     Vector3 startPos;
     Vector3 targetPos;
@@ -16,7 +23,13 @@ public class KnockBackEffect : CharacterEffect
     public override void OnApply(CasterInfo caster, BaseCharacter target)
     {
         startPos = target.Position;
-        targetPos = KnockBackEffect.CalculateTargetPos(target, (target.Position - caster.castPos).normalized, KnockBackDistance);
+        Vector3 dir;
+        if(knockType == KnockType.Away)
+            dir = (target.Position - caster.castPos).normalized;
+        else
+            dir = (caster.castPos - target.Position).normalized;
+
+        targetPos = KnockEffect.CalculateTargetPos(target, dir, KnockBackDistance);
         timer = 0;
         target.state = CharacterStates.disabled;
     }

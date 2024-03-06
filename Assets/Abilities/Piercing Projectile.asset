@@ -31,4 +31,5 @@ MonoBehaviour:
   Speed: 15
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
-  Effects: []
+  Effects:
+  - {fileID: 11400000, guid: a6279860be1699a469a64a8d7aba91ad, type: 2}
