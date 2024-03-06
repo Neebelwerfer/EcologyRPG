@@ -45,20 +45,14 @@ public class Dodging : CharacterEffect
 
         if(directionMode == DirectionMode.Mouse)
         {
-            var mouseVector = Mouse.current.position.ReadValue();
-            var mousePoint = Camera.main.ScreenPointToRay(mouseVector);
-
-            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Ground")))
-            {
-                var lookAt = hit.point;
-                lookAt.y = caster.owner.transform.position.y;
-                direction = (lookAt - caster.owner.transform.position);
-                Debug.DrawRay(caster.owner.transform.position, direction, Color.red, 1f);
-            }
+            var lookAt = TargetUtility.GetMousePoint(Camera.main);
+            lookAt.y = caster.owner.Position.y;
+            direction = (lookAt - caster.owner.Position);
+            Debug.DrawRay(caster.owner.Position, direction, Color.red, 1f);
         } 
         else
         {
-            direction = caster.owner.transform.forward.normalized;
+            direction = caster.owner.Forward.normalized;
         }
 
 

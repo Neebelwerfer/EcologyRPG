@@ -47,6 +47,9 @@ namespace Character
         [SerializeField] Faction faction = Faction.neutral;
 
         public Faction Faction { get { return faction; } }
+        public virtual Vector3 Forward { get { return transform.forward; } }
+        public virtual Vector3 Position { get { return transform.position; } }
+
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return rb; } }
 

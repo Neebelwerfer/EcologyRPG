@@ -12,9 +12,8 @@ public class MeleeAttack : AttackAbility
 
     public override void CastStarted(CasterInfo caster)
     {
-        var MousePoint = TargetUtility.GetMousePoint(Camera.main);
-        var dir = (MousePoint - caster.castPos).normalized;
-        targets = TargetUtility.GetTargetsInLine(caster.owner.transform.position, dir, new Vector3(width/2, 2, attackRange/2), targetMask);
+
+        targets = TargetUtility.GetTargetsInLine(caster.owner.Position, caster.owner.Forward, new Vector3(width/2, 2, attackRange/2), targetMask);
     }
 
     public override void CastEnded(CasterInfo caster)
