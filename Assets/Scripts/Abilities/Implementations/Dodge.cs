@@ -24,7 +24,7 @@ public class Dodge : BaseAbility
     public override void CastStarted(CasterInfo caster)
     {
         
-        caster.owner.ApplyCharacterModification(caster, Instantiate(dodgeEffect));
+        caster.owner.ApplyEffect(caster, Instantiate(dodgeEffect));
     }
 
     public override void OnHold(CasterInfo caster)

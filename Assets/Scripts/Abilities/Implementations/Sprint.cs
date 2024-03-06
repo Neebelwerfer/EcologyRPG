@@ -26,7 +26,7 @@ public class Sprint : BaseAbility
     {
         if (stamina < ResourceCost * TimeManager.IngameDeltaTime)
         {
-            caster.owner.ApplyCharacterModification(caster, Instantiate(Exhaustion));
+            caster.owner.ApplyEffect(caster, Instantiate(Exhaustion));
         }
 
         stamina -= ResourceCost * TimeManager.IngameDeltaTime;

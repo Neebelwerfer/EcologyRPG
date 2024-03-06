@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/PlayerExplosion", fileName = "New Player Explosion")]
-public class PlayerExplosion : BaseAbility
+public class CenteredExplosion : BaseAbility
 {
     public LayerMask targetMask;
     public float Radius;
@@ -30,7 +30,7 @@ public class PlayerExplosion : BaseAbility
 
                 foreach (var effect in effectsOnHit)
                 {
-                    t.ApplyCharacterModification(caster, Instantiate(effect));
+                    t.ApplyEffect(caster, Instantiate(effect));
                 }
 
                 t.ApplyDamage(info);

@@ -9,26 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e81eeb34b6252a429468e5cb61b8de0, type: 3}
-  m_Name: New Piercing Projectile
+  m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
+  m_Name: Piercing Projectile
   m_EditorClassIdentifier: 
-  DisplayName: Piercing Projectile
+  DisplayName: Piercing Attack
   ResourceCost: 5
   ResourceName: Water
-  Cooldown: 0.5
-  CastTime: 0.3
+  Cooldown: 0.25
+  CastTime: 0.25
   AllowHolding: 0
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 4e1bf72f28f587a4ea42f55e9cd7eaf4, type: 3}
   remainingCooldown: 0
   state: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  Range: 10
+  Range: 7
   destroyOnHit: 0
-  BaseDamage: 5
+  BaseDamage: 10
   damageType: 1
-  Range: 10
-  Speed: 10
+  Speed: 15
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}

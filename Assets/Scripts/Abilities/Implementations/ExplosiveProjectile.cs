@@ -21,7 +21,7 @@ public class ExplosiveProjectile : ProjectileAbility
     {
         var dir = (MousePoint - caster.castPos).normalized;
         dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, ExplosionDamage, damageType, destroyOnHit, targetMask, caster.owner, (target, damageInfo) =>
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, ExplosionDamage, damageType, destroyOnHit, targetMask, caster.owner, (target) =>
         {
             var targets = TargetUtility.GetTargetsInRadius(target.transform.position, ExplosionRadius, targetMask);
 
@@ -31,7 +31,7 @@ public class ExplosiveProjectile : ProjectileAbility
                 {
                     damage = ExplosionDamage,
                     source = caster.owner,
-                    type = DamageType.Water
+                    type = damageType
                 };
                 if (t.Faction != caster.owner.Faction)
                 {
