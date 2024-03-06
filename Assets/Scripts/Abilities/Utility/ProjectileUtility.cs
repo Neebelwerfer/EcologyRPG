@@ -1,12 +1,6 @@
 using Character;
-using Codice.CM.Common;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
-using static UnityEngine.UI.GridLayoutGroup;
-using UnityEngine.UI;
 using Character.Abilities;
 
 public static class ProjectileUtility
@@ -15,7 +9,7 @@ public static class ProjectileUtility
     public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, float damage, DamageType damageType, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
     {
         GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
-        Projectile projectile = projectileObj.AddComponent<Projectile>();
+        ProjectileBehaviour projectile = projectileObj.AddComponent<ProjectileBehaviour>();
         projectile.path = new Vector3[]
         {
             targetPos
@@ -32,7 +26,7 @@ public static class ProjectileUtility
     public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, float damage, DamageType damageType, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
     {
         GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
-        Projectile projectile = projectileObj.AddComponent<Projectile>();
+        ProjectileBehaviour projectile = projectileObj.AddComponent<ProjectileBehaviour>();
         projectile.path = path;
         projectile.speed = speed;
         projectile.damage = damage;
@@ -42,63 +36,65 @@ public static class ProjectileUtility
         projectile.owner = owner;
         projectile.OnHit = onHit;
     }
+
+    public static void CreateCurvedProjectile(GameObject prefab, Vector3 targetPos, float time, float angle, LayerMask IgnoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit)
+    {
+        GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+        CurvedProjectileBehaviour projectile = projectileObj.AddComponent<CurvedProjectileBehaviour>();
+        projectile.target = targetPos;
+        projectile.time = time;
+        projectile.angle = angle;
+        projectile.IgnoreMask = IgnoreMask;
+        projectile.owner = owner;
+        projectile.OnGroundHit = OnGroundHit;
+    }
 }
 
 [RequireComponent(typeof(Collider))]
-public class Projectile : MonoBehaviour
+public class CurvedProjectileBehaviour : MonoBehaviour
 {
-    public Vector3[] path;
-    public float speed;
-    public float damage;
-    public DamageType damageType;
-    public bool DestroyOnCollision;
-    public LayerMask layerMask;
+    public Vector3 target;
+    public float time;
+    public float angle;
+    public LayerMask IgnoreMask;
     public BaseCharacter owner;
 
-    public Action<BaseCharacter> OnHit;
+    public Action<GameObject> OnGroundHit;
 
-    int counter = 0;
-
-    public void Start()
+    Rigidbody rb;
+    Collider col;
+    private void Start()
     {
-        if (path.Length == 0)
+        if(TryGetComponent<Rigidbody>(out var body))
         {
-            Destroy(gameObject);
+            rb = body;
         }
+        else
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
+        }
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.mass = 0;
+        rb.drag = 0.5f;
+        col = GetComponent<Collider>();
+        col.isTrigger = false;
+        col.excludeLayers = IgnoreMask;
+        transform.rotation = Quaternion.LookRotation(target - transform.position);
+        transform.Rotate(angle, 0, 0);
+        rb.velocity = CalculateInitialVelocity(Vector3.Distance(owner.Position, target), time, angle) * transform.forward;
 
-        GetComponent<Collider>().isTrigger = true;
-        gameObject.layer = LayerMask.NameToLayer("Projectile");
+    }
+
+    float CalculateInitialVelocity(float distance, float time, float angle)
+    {
+        return distance / (time * Mathf.Cos(angle));
     }
 
 
-    public void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        transform.position = Vector3.MoveTowards(transform.position, path[counter], speed * Time.deltaTime);
-
-        if(transform.position == path[counter])
-        {
-            counter++;
-        }
-
-        if(counter == path.Length)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject != owner.gameObject && other.gameObject.layer == LayerMask.NameToLayer("Entity"))
-        {
-            if (other.gameObject.TryGetComponent<BaseCharacter>(out var character))
-            {
-                OnHit(character);
-            }
-
-            if (DestroyOnCollision)
-            {
-                Destroy(gameObject);
-            }
-        }
+        OnGroundHit?.Invoke(gameObject);
+        Destroy(gameObject);
     }
 }
