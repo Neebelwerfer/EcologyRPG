@@ -113,11 +113,11 @@ namespace Character
             }
         }
 
-        public virtual void ApplyCharacterModification(CharacterEffect mod)
+        public virtual void ApplyCharacterModification(CasterInfo caster, CharacterEffect mod)
         {
             Debug.Log("Applying CharacterModification " + mod.displayName);
             effects.Add(mod);
-            mod.OnApply(this);
+            mod.OnApply(caster, this);
         }
 
         public virtual void RemoveCharacterModification(CharacterEffect mod)

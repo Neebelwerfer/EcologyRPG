@@ -15,9 +15,7 @@ public enum DirectionMode
 public class Dodge : BaseAbility
 {
     [Header("Dodge Settings")]
-    public DirectionMode directionMode = DirectionMode.Mouse;
-    public float dodgeSpeed = 10f;
-    public float dodgeDuration = 0.3f;
+    public DodgeEffect dodgeEffect;
 
     public override void CastEnded(CasterInfo caster)
     {
@@ -25,7 +23,8 @@ public class Dodge : BaseAbility
 
     public override void CastStarted(CasterInfo caster)
     {
-        caster.owner.ApplyCharacterModification(new DodgeEffect(caster, directionMode, dodgeSpeed, dodgeDuration));
+        
+        caster.owner.ApplyCharacterModification(caster, Instantiate(dodgeEffect));
     }
 
     public override void OnHold(CasterInfo caster)

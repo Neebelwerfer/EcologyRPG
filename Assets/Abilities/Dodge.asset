@@ -21,6 +21,4 @@ MonoBehaviour:
   Icon: {fileID: 0}
   remainingCooldown: 0
   state: 0
-  directionMode: 1
-  dodgeSpeed: 10
-  dodgeDuration: 0.3
+  dodgeEffect: {fileID: 11400000, guid: 7f0ef87f74a2bb2418cfcd1e33fef131, type: 2}

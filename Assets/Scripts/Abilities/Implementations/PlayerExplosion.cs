@@ -1,5 +1,6 @@
 using Character;
 using Character.Abilities;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/PlayerExplosion", fileName = "New Player Explosion")]
@@ -9,8 +10,8 @@ public class PlayerExplosion : BaseAbility
     public float Radius;
     public float BaseDamage;
     public DamageType damageType;
-    public float KnockBackDistance;
     BaseCharacter[] targets;
+    public List<CharacterEffect> effectsOnHit;
 
     public override void CastEnded(CasterInfo caster)
     {
@@ -27,8 +28,11 @@ public class PlayerExplosion : BaseAbility
                     type = damageType
                 };
 
-                var targetPos = KnockBackEffect.CalculateTargetPos(t, (t.transform.position - caster.castPos).normalized, KnockBackDistance);
-                t.ApplyCharacterModification(new KnockBackEffect("KnockBack", t.transform.position, targetPos, 0.5f, EffectType.Debuff));
+                foreach (var effect in effectsOnHit)
+                {
+                    t.ApplyCharacterModification(caster, Instantiate(effect));
+                }
+
                 t.ApplyDamage(info);
             }
         }

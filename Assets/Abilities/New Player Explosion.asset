@@ -27,4 +27,5 @@ MonoBehaviour:
   Radius: 10
   BaseDamage: 15
   damageType: 1
-  KnockBackDistance: 2
+  effectsOnHit:
+  - {fileID: 11400000, guid: 49edde9de501bc347ab523e1404b5465, type: 2}

@@ -21,3 +21,4 @@ MonoBehaviour:
   Icon: {fileID: 0}
   remainingCooldown: 0
   state: 0
+  Exhaustion: {fileID: 11400000, guid: 910f9321d358b5342a4b5bf1e45da3e1, type: 2}

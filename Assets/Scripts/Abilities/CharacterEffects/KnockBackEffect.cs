@@ -1,21 +1,23 @@
 ﻿using Character;
+using Character.Abilities;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "KnockBackEffect", menuName = "Abilities/CharacterEffects/KnockBackEffect")]
 public class KnockBackEffect : CharacterEffect
 {
+    public float KnockBackDistance;
+
     Vector3 startPos;
     Vector3 targetPos;
 
     float timer;
-    public KnockBackEffect(string name, Vector3 startPos, Vector3 targetPos, float duration, EffectType type) : base(name, duration, type)
-    {
-        this.startPos = startPos;
-        this.targetPos = targetPos;
-        timer = 0;
-    }
 
-    public override void OnApply(BaseCharacter target)
+
+    public override void OnApply(CasterInfo caster, BaseCharacter target)
     {
+        startPos = target.Position;
+        targetPos = KnockBackEffect.CalculateTargetPos(target, (target.Position - caster.castPos).normalized, KnockBackDistance);
+        timer = 0;
         target.state = CharacterStates.disabled;
     }
 

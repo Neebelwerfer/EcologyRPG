@@ -2,33 +2,28 @@
 using Character.Abilities;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "DodgeEffect", menuName = "Abilities/CharacterEffects/DodgeEffect")]
 public class DodgeEffect : CharacterEffect
 {
-    float dodgeSpeed;
+    public DirectionMode directionMode = DirectionMode.Mouse;
+    public float dodgeSpeed = 10f;
+    public float dodgeDuration = 0.3f;
+
     Vector3 direction;
 
-    public DodgeEffect(CasterInfo caster, DirectionMode directionMode, float dodgeSpeed, float duration) : base("Dodging", duration, EffectType.Buff)
+    public override void OnApply(CasterInfo caster, BaseCharacter target)
     {
-        this.dodgeSpeed = dodgeSpeed;
-
-        if(directionMode == DirectionMode.Mouse)
+        if (directionMode == DirectionMode.Mouse)
         {
             var lookAt = TargetUtility.GetMousePoint(Camera.main);
             lookAt.y = caster.owner.Position.y;
             direction = (lookAt - caster.owner.Position);
             Debug.DrawRay(caster.owner.Position, direction, Color.red, 1f);
-        } 
+        }
         else
         {
             direction = caster.owner.Forward.normalized;
         }
-
-
-    }
-
-    public override void OnApply(BaseCharacter target)
-    {
-
     }
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
