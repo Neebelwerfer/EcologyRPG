@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Ranged Attack
   ResourceCost: 5
-  ResourceName: Stamina
+  ResourceName: Water
   Cooldown: 0.25
   CastTime: 0.25
   AllowHolding: 0
@@ -27,6 +27,7 @@ MonoBehaviour:
   attackRange: 0
   destroyOnHit: 1
   BaseDamage: 10
+  damageType: 1
   Range: 7
   Speed: 5
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,

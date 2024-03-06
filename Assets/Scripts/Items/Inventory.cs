@@ -20,6 +20,11 @@ namespace Items
         }
     }
 
+    public class ItemPickupEvent: EventData
+    {
+        public InventoryItem item;
+    }
+
     public class Inventory
     {
         public List<InventoryItem> items;
@@ -55,12 +60,13 @@ namespace Items
             EventManager.AddListener("ItemPickup", OnItemPickup);
         }
 
-        private void OnItemPickup(object arg0, object Sender)
+        private void OnItemPickup(EventData data)
         {
-            if(arg0 is InventoryItem item)
+            if (data is ItemPickupEvent ipEvent)
             {
-                if(AddItems(item.item, item.amount))
-                    Object.Destroy((Sender as ItemPickup).transform.root.gameObject);
+                var item = ipEvent.item;
+                if (AddItems(item.item, item.amount))
+                    Object.Destroy((data.source as ItemPickup).transform.root.gameObject);
             }
         }
 

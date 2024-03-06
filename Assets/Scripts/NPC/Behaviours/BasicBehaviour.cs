@@ -56,7 +56,7 @@ public class BasicBehaviour : NPCBehaviour
         var inAttackRange = new DecisionNode((npc) =>
         {
             var dist = Vector3.Distance(npc.transform.position, target.transform.position);
-            return dist < attackAbility.attackRange;
+            return dist < attackAbility.Range;
 
         }, Attack, Chase);
 

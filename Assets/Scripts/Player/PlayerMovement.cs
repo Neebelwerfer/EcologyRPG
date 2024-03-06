@@ -21,7 +21,7 @@ namespace Player
         Vector3 right = Quaternion.Euler(new Vector3(0, 135, 0)) * Vector3.forward;
 
         PlayerCharacter player;
-        Transform transform;
+        public Transform transform;
 
         //Cached Character references
         Stat MovementSpeed;

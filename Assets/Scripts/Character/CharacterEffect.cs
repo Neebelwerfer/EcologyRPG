@@ -1,4 +1,5 @@
 using Character;
+using Character.Abilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,22 +11,22 @@ public enum EffectType
     Debuff
 }
 
-public abstract class CharacterEffect
+public abstract class CharacterEffect : ScriptableObject
 {
     public string displayName;
     public EffectType type;
-    public float duration;
-    public float remainingDuration;
+    [Min(0)] public float duration;
+    [HideInInspector] public float remainingDuration;
 
-    public CharacterEffect(string name, float duration, EffectType type)
+    private void OnValidate()
     {
-        this.displayName = name;
-        this.duration = duration;
-        remainingDuration = duration;
-        this.type = type;
+        if (remainingDuration != duration)
+        {
+            remainingDuration = duration;
+        }
     }
 
-    public abstract void OnApply(BaseCharacter target);
+    public abstract void OnApply(CasterInfo Caster, BaseCharacter target);
 
     public abstract void OnUpdate(BaseCharacter target, float deltaTime);
 

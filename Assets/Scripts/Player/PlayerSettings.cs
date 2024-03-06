@@ -26,6 +26,10 @@ namespace Player
         public float GlobalCooldown = 0.5f;
         public BaseAbility SprintAbility;
         public BaseAbility DodgeAbility;
+        public BaseAbility Ability1Reference;
+        public BaseAbility Ability2Reference;
+        public BaseAbility Ability3Reference;
+        public BaseAbility Ability4Reference;
         public BaseAbility WeaponAttackAbility;
 
         [Header("Inventory Settings")]

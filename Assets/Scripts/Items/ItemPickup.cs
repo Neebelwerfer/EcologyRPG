@@ -32,7 +32,7 @@ public class ItemPickup : Button
 
     void OnClicked()
     {
-        EventManager.Dispatch("ItemPickup", InventoryItem, this);
+        EventManager.Dispatch("ItemPickup", new ItemPickupEvent() { source = this, item = InventoryItem });
     }
 
     public void Setup(Item item, int amount)

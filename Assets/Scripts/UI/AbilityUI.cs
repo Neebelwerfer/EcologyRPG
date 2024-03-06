@@ -50,7 +50,8 @@ public class AbilityUI : MonoBehaviour
         if (ability == null) return;
         abilityName = ability.name;
         cooldown = ability.Cooldown;
-        abilitySprite = ability.Icon;
+        if (ability.Icon != null)
+            abilitySprite = ability.Icon;
         abilityImage.sprite = abilitySprite;
         backgroundImage.sprite = abilitySprite;
     }

@@ -13,11 +13,25 @@ namespace Character.Abilities
         cooldown
     }
 
-    public class CasterInfo
+    public enum DamageType
+    {
+        Physical,
+        Water,
+        Toxic
+    }
+
+    public struct CasterInfo
     {
         public BaseCharacter owner;
         public Vector3 castPos;
         public InputAction activationInput;
+    }
+
+    public struct DamageInfo
+    {
+        public DamageType type;
+        public float damage;
+        public BaseCharacter source;
     }
 
     public abstract class BaseAbility : ScriptableObject

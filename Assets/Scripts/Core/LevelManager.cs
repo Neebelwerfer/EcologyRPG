@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         OnLevelStart.Invoke();
+        GameManager.Instance.CurrentState = Game_State.Playing;
     }
 
     void Awake()
