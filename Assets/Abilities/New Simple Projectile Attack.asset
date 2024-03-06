@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Ranged Attack
   ResourceCost: 5
-  ResourceName: Stamina
+  ResourceName: Water
   Cooldown: 0.25
   CastTime: 0.25
   AllowHolding: 0

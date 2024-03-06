@@ -15,7 +15,7 @@ MonoBehaviour:
   DisplayName: MeleeAttack
   ResourceCost: 5
   ResourceName: Stamina
-  Cooldown: 0
+  Cooldown: 0.2
   CastTime: 0.25
   AllowHolding: 0
   Icon: {fileID: 0}
