@@ -19,6 +19,9 @@ namespace Player
 
         public Inventory Inventory { get; private set; }
 
+        public override Vector3 Forward => playerMovement.transform.forward;
+        public override Vector3 Position => playerMovement.transform.position;
+
         readonly List<PlayerModule> modules = new();
 
         public override void Start()

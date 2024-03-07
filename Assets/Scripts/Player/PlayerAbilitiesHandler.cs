@@ -30,6 +30,10 @@ public class PlayerAbilitiesHandler : PlayerModule
     Action<InputAction.CallbackContext> sprintAction;
     Action<InputAction.CallbackContext> dodgeAction;
     Action<InputAction.CallbackContext> WeaponAttackAction;
+    Action<InputAction.CallbackContext> Ability1Action;
+    Action<InputAction.CallbackContext> Ability2Action;
+    Action<InputAction.CallbackContext> Ability3Action;
+    Action<InputAction.CallbackContext> Ability4Action;
 
     public UnityEvent<BaseAbility>[] OnAbilityChange = new UnityEvent<BaseAbility>[7];
 
@@ -45,16 +49,29 @@ public class PlayerAbilitiesHandler : PlayerModule
         settings.Ability3.action.Enable();
         settings.Ability4.action.Enable();
 
-        abilitySlots[4] = settings.WeaponAttackAbility;
+        abilitySlots[0] = UnityEngine.Object.Instantiate(settings.Ability1Reference);
+        Ability1Action = (ctx) => ActivateAbility(0, ctx);
+        abilitySlots[1] = UnityEngine.Object.Instantiate(settings.Ability2Reference);
+        Ability2Action = (ctx) => ActivateAbility(1, ctx);
+        abilitySlots[2] = UnityEngine.Object.Instantiate(settings.Ability3Reference);
+        Ability3Action = (ctx) => ActivateAbility(2, ctx);
+        abilitySlots[3] = UnityEngine.Object.Instantiate(settings.Ability4Reference);
+        Ability4Action = (ctx) => ActivateAbility(3, ctx);
+
+        abilitySlots[4] = UnityEngine.Object.Instantiate(settings.WeaponAttackAbility);
         WeaponAttackAction = (ctx) => ActivateAbility(4, ctx);
-        abilitySlots[5] = settings.DodgeAbility;
+        abilitySlots[5] = UnityEngine.Object.Instantiate(settings.DodgeAbility);
         dodgeAction = (ctx) => ActivateAbility(5, ctx);
-        abilitySlots[6] = settings.SprintAbility;
+        abilitySlots[6] = UnityEngine.Object.Instantiate(settings.SprintAbility);
         sprintAction = (ctx) => ActivateAbility(6, ctx);
 
         settings.WeaponAttack.action.started += WeaponAttackAction;
         settings.Sprint.action.started += sprintAction;
         settings.Dodge.action.started += dodgeAction;
+        settings.Ability1.action.started += Ability1Action;
+        settings.Ability2.action.started += Ability2Action;
+        settings.Ability3.action.started += Ability3Action;
+        settings.Ability4.action.started += Ability4Action;
     }
 
     public BaseAbility GetAbility(AbilitySlots slot)
@@ -86,5 +103,9 @@ public class PlayerAbilitiesHandler : PlayerModule
         settings.Sprint.action.started -= sprintAction;
         settings.Dodge.action.started -= dodgeAction;
         settings.WeaponAttack.action.started -= WeaponAttackAction;
+        settings.Ability1.action.started -= Ability1Action;
+        settings.Ability2.action.started -= Ability2Action;
+        settings.Ability3.action.started -= Ability3Action;
+        settings.Ability4.action.started -= Ability4Action;
     }
 }

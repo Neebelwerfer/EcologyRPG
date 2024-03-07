@@ -16,7 +16,7 @@ namespace Items.ItemTemplates
 
         public override InventoryItem GenerateItem(int level)
         {
-            var item = new ReplenishingPotion();
+            var item = CreateInstance<ReplenishingPotion>();
             item.Name = Name;
             item.Description = Description;
             item.Icon = Icon;

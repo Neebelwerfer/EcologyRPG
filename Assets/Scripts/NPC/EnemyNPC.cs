@@ -33,7 +33,6 @@ public class EnemyNPC : BaseCharacter
             behaviour.Init(this);
         }
         Agent.speed = Stats.GetStat("movementSpeed").Value;
-        Stats.GetStat("movementSpeed").OnStatChanged.AddListener((value) => Agent.speed = value);
     }
     
     public override void Die()
@@ -41,8 +40,9 @@ public class EnemyNPC : BaseCharacter
         base.Die();
         spawner.RemoveEnemy(this);
         LootGenerator.Instance.GenerateLootOnKill(this);
-        EventManager.Dispatch("XP", XpOnDeath, this);
-        Destroy(gameObject);
+        EventManager.Defer("XP", new DefaultEventData { data = XpOnDeath, source = this }, DeferredEventType.Update);
+        gameObject.SetActive(false);
+        Destroy(gameObject, 1);
     }
 
     public void SetSpawner(EnemySpawner spawner)
@@ -54,6 +54,7 @@ public class EnemyNPC : BaseCharacter
     {
         if (behaviour != null && (state != CharacterStates.disabled || state != CharacterStates.dead))
         {
+            Agent.speed = Stats.GetStat("movementSpeed").Value;
             behaviour.UpdateBehaviour(this);
         }
     }

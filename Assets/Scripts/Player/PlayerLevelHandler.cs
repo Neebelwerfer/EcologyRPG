@@ -14,16 +14,19 @@ public class PlayerLevelHandler : PlayerModule
         xpRequiredPerLevel = player.playerSettings.XpRequiredPerLevel;
     }
 
-    void OnXpGain(object data, object Sender)
+    void OnXpGain(EventData data)
     {
-        if (data is float xp)
+        if (data is DefaultEventData eventData)
         {
-            currentXp += xp;
-            var xpRequired = xpRequiredPerLevel[player.Level - 1];
-            if (currentXp >= xpRequired)
+            if (eventData.data is float xp)
             {
-                currentXp -= xpRequired;
-                player.LevelUp();
+                currentXp += xp;
+                var xpRequired = xpRequiredPerLevel[player.Level - 1];
+                if (currentXp >= xpRequired)
+                {
+                    currentXp -= xpRequired;
+                    player.LevelUp();
+                }
             }
         }
     }
