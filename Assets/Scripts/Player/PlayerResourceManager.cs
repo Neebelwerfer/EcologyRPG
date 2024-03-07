@@ -19,14 +19,14 @@ public class PlayerResourceManager : PlayerModule
 
     public override void Initialize(PlayerCharacter player)
     {
-        Health = player.stats.GetResource("health");
-        HealthRegen = player.stats.GetStat("healthRegen");
-        Stamina = player.stats.GetResource("stamina");
-        StaminaGain = player.stats.GetStat("staminaGain");
-        Water = player.stats.GetResource("water");
-        WaterDrain = player.stats.GetStat("waterDrain");
-        Food = player.stats.GetResource("food");
-        FoodDrain = player.stats.GetStat("foodDrain");
+        Health = player.Stats.GetResource("health");
+        HealthRegen = player.Stats.GetStat("healthRegen");
+        Stamina = player.Stats.GetResource("stamina");
+        StaminaGain = player.Stats.GetStat("staminaGain");
+        Water = player.Stats.GetResource("water");
+        WaterDrain = player.Stats.GetStat("waterDrain");
+        Food = player.Stats.GetResource("food");
+        FoodDrain = player.Stats.GetStat("foodDrain");
     }
     public override void Update()
     {

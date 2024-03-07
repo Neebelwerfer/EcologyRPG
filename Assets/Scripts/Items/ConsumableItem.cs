@@ -11,12 +11,15 @@ public class ConsumableItem : Item
     }
 }
 
-[CreateAssetMenu(fileName = "Healing Potion", menuName = "Items/Consumable/HealingPotion")]
-public class HealingPotion : ConsumableItem
+[CreateAssetMenu(fileName = "replenishing Potion", menuName = "Items/Consumable/replenishingPotion")]
+public class ReplenishingPotion : ConsumableItem
 {
+    public string ResourceName;
+    public float AmountToReplenish;
+
     public override void Use(BaseCharacter player)
     {
         base.Use(player);
-        player.stats.GetResource("Health").ModifyCurrentValue(20);
+        player.Stats.GetResource(ResourceName).ModifyCurrentValue(AmountToReplenish);
     }
 }

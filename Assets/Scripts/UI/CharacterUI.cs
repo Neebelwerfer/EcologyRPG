@@ -20,7 +20,14 @@ class StatBinding
         Text = text;
         Stat = stat;
 
-        OnStatChanged = (value) => Text.text = stat.Data.displayName + ": " + value;
+        OnStatChanged = (value) =>
+        {
+            Text.text = stat.Data.displayName + ": " + value.ToString("#.#");
+            if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+            {
+                Text.gameObject.SetActive(value != 0);
+            }
+        };
         Stat.OnStatChanged.AddListener(OnStatChanged);
     }
 
@@ -43,6 +50,11 @@ class AttributeBinding
         Attribute = attribute;
         OnAttributeChanged = (value) => Text.text = attribute.data.displayName + ": " + value;
         Attribute.OnAttributeChanged.AddListener(OnAttributeChanged);
+    }
+
+    public void UpdateText()
+    {
+        Text.text = Attribute.data.displayName + ": " + Attribute.Value;
     }
 
     public void Destroy()
@@ -70,18 +82,45 @@ public class CharacterUI : MonoBehaviour
         StatBindings = new List<StatBinding>();
         AttributeBindings = new List<AttributeBinding>();
 
-        for (int i = 0; i < player.stats._stats.Count; i++)
+        for (int i = 0; i < player.Stats._stats.Count; i++)
         {
-            if (player.stats._stats[i].Data.HideInUI)
+            if (IsStatHidden(player.Stats._stats[i]))
                 continue;
-            CreateStatText(player.stats._stats[i]);
+            CreateStatText(player.Stats._stats[i]);
         }
 
-        for (int i = 0; i < player.stats._attributes.Count; i++)
+        for (int i = 0; i < player.Stats._attributes.Count; i++)
         {
-            CreateAttributeText(player.stats._attributes[i]);
+            CreateAttributeText(player.Stats._attributes[i]);
         }
-    }    
+    }   
+    
+    bool IsStatHidden(Stat stat)
+    {
+        if(stat.Data.ShowOptions == ShowOptions.Always)
+        {
+            return false;
+        } 
+        else if (stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+        {
+            return false;
+        } 
+        else
+        {
+            return true;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if(AttributeBindings != null)
+        {
+            foreach (var binding in AttributeBindings)
+            {
+                binding.UpdateText();
+            }
+        }
+    }
 
     void CreateAttributeText(Attribute attribute)
     {
@@ -98,8 +137,15 @@ public class CharacterUI : MonoBehaviour
         var text = Instantiate(StatTextPrefab, StatView.transform);
         text.transform.position = StatView.transform.position;
         var comp = text.GetComponent<TextMeshProUGUI>();
-        comp.text = stat.Data.displayName + ": " + stat.Value;
-
+        comp.text = stat.Data.displayName + ": " + stat.Value.ToString("#.#");
+        if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+        {
+            text.SetActive(stat.Value != 0);
+        }
+        else
+        {
+            text.SetActive(true);
+        }
         StatBindings.Add(new StatBinding(comp, stat));
     }
 

@@ -20,6 +20,11 @@ namespace Items
         }
     }
 
+    public class ItemPickupEvent: EventData
+    {
+        public InventoryItem item;
+    }
+
     public class Inventory
     {
         public List<InventoryItem> items;
@@ -38,7 +43,7 @@ namespace Items
         public Inventory(BaseCharacter Owner, Item[] startingItems)
         {
             this.Owner = Owner;
-            CarryWeight = Owner.stats.GetStat("CarryWeight");
+            CarryWeight = Owner.Stats.GetStat("CarryWeight");
             items = new List<InventoryItem>();
             ItemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefab");
 
@@ -51,6 +56,18 @@ namespace Items
             InventoryChanged = new UnityEvent();
             ItemRemoved = new UnityEvent<Item>();
             ItemAdded = new UnityEvent<Item>();
+
+            EventManager.AddListener("ItemPickup", OnItemPickup);
+        }
+
+        private void OnItemPickup(EventData data)
+        {
+            if (data is ItemPickupEvent ipEvent)
+            {
+                var item = ipEvent.item;
+                if (AddItems(item.item, item.amount))
+                    Object.Destroy((data.source as ItemPickup).transform.root.gameObject);
+            }
         }
 
         public bool CanCarry(Item item, int amount)
@@ -74,7 +91,7 @@ namespace Items
         {
             foreach (InventoryItem inventoryItem in items)
             {
-                if (inventoryItem.item == item)
+                if (inventoryItem.item.Name == item.Name)
                 {
                     return inventoryItem;
                 }
@@ -132,7 +149,7 @@ namespace Items
                     Physics.Raycast(Owner.transform.position + new Vector3(0, 1, 0), -Owner.transform.up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
                     GameObject droppedItem = Object.Instantiate(ItemPrefab, null);
                     droppedItem.transform.position = hit.point;
-                    droppedItem.GetComponentInChildren<ItemPickup>().Setup(this, item, amount);
+                    droppedItem.GetComponentInChildren<ItemPickup>().Setup(item, amount);
                     break;
                 }
             }

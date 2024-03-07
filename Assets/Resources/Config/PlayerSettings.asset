@@ -30,7 +30,11 @@ MonoBehaviour:
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: a557d0b85e2f4d945a798fdda9244e31, type: 2}
-  WeaponAttackAbility: {fileID: 11400000, guid: c768c2c27164cdf4d95c4fb8f47c6906,
+  Ability1Reference: {fileID: 11400000, guid: c99c32628609b0d489ea8f453b2aaad7, type: 2}
+  Ability2Reference: {fileID: 11400000, guid: fb9d448fda73aea4db9d05322bbd60b7, type: 2}
+  Ability3Reference: {fileID: 11400000, guid: 136f0991db253804f8513d49a5038276, type: 2}
+  Ability4Reference: {fileID: 11400000, guid: 70d0b028feb0d9346b0531ddde3cb8a4, type: 2}
+  WeaponAttackAbility: {fileID: 11400000, guid: 52f914c673ce61a4c8887f89e89f98d6,
     type: 2}
   StartingItems:
   - {fileID: 11400000, guid: 80c2d0b652b09dd488fd91db9ee5e3c2, type: 2}
@@ -38,4 +42,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32080647b3d06b4469cbb17300d241b3, type: 2}
   - {fileID: 11400000, guid: 32080647b3d06b4469cbb17300d241b3, type: 2}
   - {fileID: 11400000, guid: 531fb923a21fd9548970374a68b464f7, type: 2}
-  - {fileID: 11400000, guid: a146f8a6359d8334aa05ca80a82fec49, type: 2}
+  XpRequiredPerLevel:
+  - 10
+  - 100
+  - 5000
+  - 10000

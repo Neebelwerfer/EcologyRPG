@@ -21,10 +21,12 @@ namespace Player
         Vector3 right = Quaternion.Euler(new Vector3(0, 135, 0)) * Vector3.forward;
 
         PlayerCharacter player;
-        Transform transform;
+        public Transform transform;
 
         //Cached Character references
         Stat MovementSpeed;
+        Resource Stamina;
+        Stat StaminaGain;
 
         StatModification sprintMod;
 
@@ -37,14 +39,16 @@ namespace Player
 
             transform = player.transform.Find("VisualPlayer");
 
-            MovementSpeed = player.stats.GetStat("movementSpeed");
-
+            MovementSpeed = player.Stats.GetStat("movementSpeed");
+            Stamina = player.Stats.GetResource("stamina");
+            StaminaGain = player.Stats.GetStat("staminaGain");
         }
 
         public override void FixedUpdate()
         {
             var rb = player.Rigidbody;
             Vector2 movement = Movement.action.ReadValue<Vector2>();
+            Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
 
             if(player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
             {
@@ -81,7 +85,6 @@ namespace Player
 
         public override void OnDestroy()
         {
-
         }
     }
 }

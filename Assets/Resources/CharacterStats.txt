@@ -4,7 +4,7 @@
             "name": "agility",
             "displayName": "Agility",
             "description": "",
-            "defaultValue": 5,
+            "defaultValue": 0,
             "statProgressions": [
                 {
                     "statName": "movementSpeed",
@@ -18,7 +18,7 @@
             "name": "vitality",
             "displayName": "Vitality",
             "description": "",
-            "defaultValue": 5,
+            "defaultValue": 0,
             "statProgressions": [
                 {
                     "statName": "maxHP",
@@ -38,7 +38,7 @@
             "name": "strength",
             "displayName": "Strength",
             "description": "",
-            "defaultValue": 5,
+            "defaultValue": 0,
             "statProgressions": [
                 {
                     "statName": "carryWeight",
@@ -53,7 +53,7 @@
         {
             "name": "movementSpeed",
             "displayName": "Movement Speed",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 5.0,
             "MaxValue": 20.0,
             "MinValue": 0.0,
@@ -62,7 +62,7 @@
         {
             "name": "maxHP",
             "displayName": "Max HP",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
@@ -71,7 +71,7 @@
         {
             "name": "maxStamina",
             "displayName": "Stamina",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
@@ -80,7 +80,7 @@
         {
             "name": "staminaGain",
             "displayName": "Stamina Gain",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 10.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -89,7 +89,7 @@
         {
             "name": "carryWeight",
             "displayName": "Carry Weight",
-            "HideInUI": true,
+            "ShowOptions": 1,
             "baseValue": 50.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 10.0,
@@ -98,7 +98,7 @@
         {
             "name": "weaponDamage",
             "displayName": "Weapon Damage",
-            "HideInUI": true,
+            "ShowOptions": 1,
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
@@ -107,7 +107,7 @@
         {
             "name": "maxFood",
             "displayName": "Food",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -116,7 +116,7 @@
         {
             "name": "foodDrain",
             "displayName": "Food Drain",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 0.5,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -125,7 +125,7 @@
         {
             "name": "maxWater",
             "displayName": "Water",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -134,7 +134,7 @@
         {
             "name": "waterDrain",
             "displayName": "water Drain",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -143,11 +143,20 @@
         {
             "name": "healthRegen",
             "displayName": "Health Regen",
-            "HideInUI": false,
+            "ShowOptions": 0,
             "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
             "description": "Governs a how quickly a characters health regens when water and food is available"
+        },
+        {
+            "name": "armor",
+            "displayName": "Armor",
+            "ShowOptions": 2,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters armor value used for physical damage reduction"
         }
     ],
     "Resources": [

@@ -13,11 +13,25 @@ namespace Character.Abilities
         cooldown
     }
 
-    public class CasterInfo
+    public enum DamageType
+    {
+        Physical,
+        Water,
+        Toxic
+    }
+
+    public struct CasterInfo
     {
         public BaseCharacter owner;
         public Vector3 castPos;
         public InputAction activationInput;
+    }
+
+    public struct DamageInfo
+    {
+        public DamageType type;
+        public float damage;
+        public BaseCharacter source;
     }
 
     public abstract class BaseAbility : ScriptableObject
@@ -70,7 +84,7 @@ namespace Character.Abilities
                 return false;
             }
 
-            if (ResourceName != "" && caster.owner.stats.GetResource(ResourceName) < ResourceCost)
+            if (ResourceName != "" && caster.owner.Stats.GetResource(ResourceName) < ResourceCost)
             {
                 Debug.Log("Not enough resource");
                 return false;
@@ -123,7 +137,7 @@ namespace Character.Abilities
         /// <param name="caster"></param>
         public virtual void InitialCastCost(CasterInfo caster)
         {
-            var resource = caster.owner.stats.GetResource(ResourceName);
+            var resource = caster.owner.Stats.GetResource(ResourceName);
             resource -= ResourceCost;
         }
 
