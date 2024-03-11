@@ -25,6 +25,10 @@ public class DodgeEffect : CharacterEffect
             direction = caster.owner.Forward.normalized;
         }
     }
+    public override void OnReapply(BaseCharacter target)
+    {
+        throw new System.NotImplementedException();
+    }
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
     {
@@ -43,4 +47,6 @@ public class DodgeEffect : CharacterEffect
         target.state = CharacterStates.active;
         target.Rigidbody.isKinematic = true;
     }
+
+
 }

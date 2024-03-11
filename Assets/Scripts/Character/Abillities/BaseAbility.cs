@@ -44,8 +44,8 @@ namespace Character.Abilities
         public bool AllowHolding;
         public Sprite Icon;
 
-        public float remainingCooldown = 0;
-        public AbilityStates state = AbilityStates.ready;
+        [HideInInspector] public float remainingCooldown = 0;
+        [HideInInspector] public AbilityStates state = AbilityStates.ready;
 
         public virtual void UpdateCooldown(float deltaTime)
         {
@@ -90,6 +90,15 @@ namespace Character.Abilities
                 return false;
             }
             return true;
+        }
+
+        public virtual IEnumerator HandleAsSecondaryCast(CasterInfo caster)
+        {
+            CastStarted(caster);
+
+            yield return new WaitForSeconds(CastTime);
+
+            CastEnded(caster);
         }
 
         public virtual IEnumerator HandleCast(CasterInfo caster)

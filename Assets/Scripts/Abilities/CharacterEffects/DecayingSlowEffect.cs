@@ -6,7 +6,7 @@ using UnityEngine;
 public class DecayingSlowEffect : CharacterEffect
 {
     [BoundedCurve(0, 0, 1, 1)]
-    public AnimationCurve SlowCurve = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 0.2f));
+    public AnimationCurve SlowCurve = new(new Keyframe(0, 0.5f), new Keyframe(1, 0.2f));
 
     Stat movementSpeed;
     StatModification movementSpeedModifier;
@@ -16,6 +16,11 @@ public class DecayingSlowEffect : CharacterEffect
         movementSpeed = target.Stats.GetStat("movementSpeed");
         movementSpeedModifier = new StatModification("movementSpeed", SlowCurve.Evaluate(0), StatModType.PercentMinus, this);
         movementSpeed.AddModifier(movementSpeedModifier);
+    }
+
+    public override void OnReapply(BaseCharacter target)
+    {
+        remainingDuration = duration;
     }
 
     public override void OnRemoved(BaseCharacter target)

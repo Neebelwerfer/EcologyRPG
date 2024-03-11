@@ -20,6 +20,11 @@ public class ExhaustionEffect : CharacterEffect
         sprintInput.Disable();
     }
 
+    public override void OnReapply(BaseCharacter target)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnRemoved(BaseCharacter target)
     {
         sprintInput.Enable();

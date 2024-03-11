@@ -17,6 +17,11 @@ public class SlowEffect : CharacterEffect
         movementSpeed.AddModifier(movementSpeedModifier);
     }
 
+    public override void OnReapply(BaseCharacter target)
+    {
+        remainingDuration = duration;
+    }
+
     public override void OnRemoved(BaseCharacter target)
     {
         movementSpeed.RemoveAllModifiersFromSource(this);

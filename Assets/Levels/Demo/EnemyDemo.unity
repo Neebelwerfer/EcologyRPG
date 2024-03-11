@@ -306,7 +306,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2300530453157254747, guid: ccf287b5bc91dd74f9fb642822fe9480,
     type: 3}
   spawnRadius: 5
-  numberOfEnemies: 1
+  numberOfEnemies: 5
   GroundMask:
     serializedVersion: 2
     m_Bits: 128

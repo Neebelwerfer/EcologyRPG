@@ -33,3 +33,4 @@ MonoBehaviour:
     type: 3}
   Effects:
   - {fileID: 11400000, guid: a6279860be1699a469a64a8d7aba91ad, type: 2}
+  - {fileID: 11400000, guid: 7ab5f6cc78026424bac5174f35be4424, type: 2}
