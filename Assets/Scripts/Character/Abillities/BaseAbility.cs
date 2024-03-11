@@ -34,6 +34,18 @@ namespace Character.Abilities
         public BaseCharacter source;
     }
 
+    public class AbilityCastEvent : EventData
+    {
+        public CasterInfo Caster;
+        public BaseAbility Ability;
+
+        public AbilityCastEvent(CasterInfo caster, BaseAbility ability)
+        {
+            Caster = caster;
+            Ability = ability;
+        }
+    }
+
     public abstract class BaseAbility : ScriptableObject
     {
         public string DisplayName;
@@ -66,6 +78,7 @@ namespace Character.Abilities
         {
             if (!CanActivate(caster)) return false;
             Debug.Log("CASTING " + DisplayName);
+            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this), DeferredEventType.Update);
             caster.owner.StartCoroutine(HandleCast(caster));
             return true;
         }   
