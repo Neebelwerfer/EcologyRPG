@@ -23,17 +23,22 @@ public class DamageOverTimeEffect : CharacterEffect
             source = caster.owner
         };
 
-        target.ApplyDamage(damageInfo);
     }
 
     public override void OnReapply(BaseCharacter target)
     {
         remainingDuration = duration;
-        target.ApplyDamage(damageInfo);
     }
 
     public override void OnRemoved(BaseCharacter target)
     {
+        var mult = 1 - (timeSinceLastTick / tickRate);
+        var damageInfo = new DamageInfo()
+        {
+            damage = damagePerTick * mult,
+            type = DamageType,
+            source = target
+        };
         target.ApplyDamage(damageInfo);
     }
 

@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416f79125abf78240bd51874f1b0365a, type: 3}
   m_Name: new Damage over Time Effect
   m_EditorClassIdentifier: 
+  ID: 4c02a0bb-d2d2-40e7-ac07-302fa4b28be0
   displayName: DamageOverTimeEffect
   type: 0
   duration: 4
   remainingDuration: 4
+  Owner: {fileID: 0}
   damagePerTick: 10
   DamageType: 2
   tickRate: 1
