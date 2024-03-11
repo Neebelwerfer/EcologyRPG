@@ -45,6 +45,68 @@
                     "modType": 100,
                     "startValue": 0.0,
                     "changePerPoint": 5.0
+                },
+                {
+                    "statName": "weaponDamage",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 5.0
+                }
+            ]
+        },
+        {
+            "name": "pressure",
+            "displayName": "Pressure",
+            "description": "",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "abilityDamage",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 10.0
+                }
+            ]
+        },
+        {
+            "name": "resistance",
+            "displayName": "Resistance",
+            "description": "natural resistance to damage, modifies armor\nThis attribute maybe unnecessary, depends on balancing",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "armor",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 5.0
+                }
+            ]
+        },
+        {
+            "name": "insolation",
+            "displayName": "Insolation",
+            "description": "natural resistance to water, modifies water Armor\nThis attribute maybe unnecessary, depends on balancing",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "waterArmor",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 5.0
+                }
+            ]
+        },
+        {
+            "name": "toxicFiltering",
+            "displayName": "Toxic Filtering",
+            "description": "How good the filtering is, modifies resistance to toxic damage and effects",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "toxicProtection",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 5.0
                 }
             ]
         }
@@ -102,7 +164,16 @@
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
-            "description": "Governs a characters carry weight"
+            "description": "Governs a characters weapon damage, based on strength"
+        },
+        {
+            "name": "abilityDamage",
+            "displayName": "Ability Damage",
+            "ShowOptions": 1,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters ability damage, based on pressure"
         },
         {
             "name": "maxFood",
@@ -141,6 +212,15 @@
             "description": "Governs a how quickly a characters water drains when not using abilities"
         },
         {
+            "name": "maxToxicWater",
+            "displayName": "Toxic Water",
+            "ShowOptions": 0,
+            "baseValue": 1000.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters toxic water"
+        },
+        {
             "name": "healthRegen",
             "displayName": "Health Regen",
             "ShowOptions": 0,
@@ -157,6 +237,24 @@
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
             "description": "Governs a characters armor value used for physical damage reduction"
+        },
+        {
+            "name": "waterArmor",
+            "displayName": "Water Armor",
+            "ShowOptions": 2,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters armor value used for water damage reduction"
+        },
+        {
+            "name": "toxicProtection",
+            "displayName": "Toxic Protection",
+            "ShowOptions": 2,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters protection value used for toxic damage and effect reduction"
         }
     ],
     "Resources": [
@@ -179,6 +277,11 @@
             "name": "water",
             "DisplayName": "Water",
             "MaxValueStat": "maxWater"
+        },
+        {
+            "name": "toxic water",
+            "DisplayName": "Toxic Water",
+            "MaxValueStat": "maxToxicWater"
         }
     ]
 }
