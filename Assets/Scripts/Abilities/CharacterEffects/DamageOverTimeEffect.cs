@@ -34,6 +34,7 @@ public class DamageOverTimeEffect : CharacterEffect
     {
         var mult = 1 - (timeSinceLastTick / tickRate);
         if (mult < 0.1) return;
+
         var damageInfo = new DamageInfo()
         {
             damage = damagePerTick * mult,

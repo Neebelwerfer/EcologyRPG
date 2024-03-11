@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 [CreateAssetMenu(fileName = "SlowEffect", menuName = "Abilities/CharacterEffects/SlowEffect")]
 public class SlowEffect : CharacterEffect
 {
@@ -14,6 +13,7 @@ public class SlowEffect : CharacterEffect
         Decaying
     }
 
+    static UniqueStatModificationHandler movementSpeedHandler = new UniqueStatModificationHandler("movementSpeed", StatModType.PercentMinus);
     [SerializeField] SlowType slowType;
 
     [Header("Flat Slow Setting")]
@@ -23,19 +23,13 @@ public class SlowEffect : CharacterEffect
     [BoundedCurve(0, 0, 1, 1)]
     public AnimationCurve SlowCurve = new(new Keyframe(0, 0.5f), new Keyframe(1, 0.2f));
 
-    Stat movementSpeed;
-    StatModification movementSpeedModifier;
-
     public override void OnApply(CasterInfo Caster, BaseCharacter target)
     {
-        movementSpeed = target.Stats.GetStat("movementSpeed");
 
         if(slowType == SlowType.Flat)
-            movementSpeedModifier = new StatModification("movementSpeed", SlowAmount, StatModType.PercentMinus, this);
+            movementSpeedHandler.AddValue(target, this, SlowAmount);
         else if(slowType == SlowType.Decaying)
-            movementSpeedModifier = new StatModification("movementSpeed", SlowCurve.Evaluate(0), StatModType.PercentMinus, this);
-
-        movementSpeed.AddModifier(movementSpeedModifier);
+            movementSpeedHandler.AddValue(target, this, SlowCurve.Evaluate(0));
     }
 
     public override void OnReapply(BaseCharacter target)
@@ -45,7 +39,7 @@ public class SlowEffect : CharacterEffect
 
     public override void OnRemoved(BaseCharacter target)
     {
-        movementSpeed.RemoveAllModifiersFromSource(this);
+        movementSpeedHandler.RemoveValue(target, this);
     }
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
@@ -53,7 +47,7 @@ public class SlowEffect : CharacterEffect
         if(slowType == SlowType.Decaying)
         {
             var timePercenage = 1 - (remainingDuration / duration);
-            movementSpeedModifier.Value = SlowCurve.Evaluate(timePercenage);
+            movementSpeedHandler.UpdateValue(target, this, SlowCurve.Evaluate(timePercenage));
         }
     }
 }

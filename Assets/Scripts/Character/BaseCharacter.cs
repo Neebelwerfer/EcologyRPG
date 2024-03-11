@@ -117,9 +117,8 @@ namespace Character
         {
             for(int i = 0; i < effects.Count; i++)
             {
-                if (effects[i].ID.Equals(effect.ID))
+                if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
                 {
-                    Debug.Log(effects[i].ID + " == " + effect.ID);
                     Debug.Log("Reapplying CharacterModification " + effect.displayName);
                     effects[i].OnReapply(this);
                     return;
