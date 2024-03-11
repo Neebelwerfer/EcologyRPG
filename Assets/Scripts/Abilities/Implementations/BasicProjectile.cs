@@ -10,7 +10,7 @@ public class BasicProjectile : ProjectileAbility
     public float Speed;
     
     public GameObject ProjectilePrefab;
-    public List<CharacterEffect> Effects;
+    public List<DebuffEffect> Effects;
     Vector3 MousePoint;
 
     public override void CastEnded(CasterInfo caster)

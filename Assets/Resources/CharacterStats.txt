@@ -48,9 +48,9 @@
                 },
                 {
                     "statName": "weaponDamage",
-                    "modType": 200,
-                    "startValue": 0.0,
-                    "changePerPoint": 5.0
+                    "modType": 100,
+                    "startValue": 1.0,
+                    "changePerPoint": 0.05000000074505806
                 }
             ]
         },
@@ -62,9 +62,9 @@
             "statProgressions": [
                 {
                     "statName": "abilityDamage",
-                    "modType": 200,
-                    "startValue": 0.0,
-                    "changePerPoint": 10.0
+                    "modType": 100,
+                    "startValue": 1.0,
+                    "changePerPoint": 0.05000000074505806
                 }
             ]
         },
@@ -78,7 +78,7 @@
                     "statName": "armor",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 5.0
+                    "changePerPoint": 0.05000000074505806
                 }
             ]
         },
@@ -92,7 +92,7 @@
                     "statName": "waterArmor",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 5.0
+                    "changePerPoint": 0.05000000074505806
                 }
             ]
         },
@@ -106,7 +106,7 @@
                     "statName": "toxicProtection",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 5.0
+                    "changePerPoint": 0.05000000074505806
                 }
             ]
         }
@@ -169,7 +169,7 @@
         {
             "name": "abilityDamage",
             "displayName": "Ability Damage",
-            "ShowOptions": 1,
+            "ShowOptions": 2,
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,

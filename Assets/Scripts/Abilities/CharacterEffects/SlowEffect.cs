@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "SlowEffect", menuName = "Abilities/CharacterEffects/SlowEffect")]
-public class SlowEffect : CharacterEffect
+[CreateAssetMenu(fileName = "SlowEffect", menuName = DebuffPath + "Slow Effect")]
+public class SlowEffect : DebuffEffect
 {
     enum SlowType
     {
