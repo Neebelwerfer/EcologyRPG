@@ -203,15 +203,6 @@
             "description": "Governs a characters water"
         },
         {
-            "name": "maxToxicWater",
-            "displayName": "Toxic Water",
-            "ShowOptions": 0,
-            "baseValue": 1000.0,
-            "MaxValue": 3.4028234663852887e38,
-            "MinValue": 0.0,
-            "description": "Governs a characters toxic water"
-        },
-        {
             "name": "waterDrain",
             "displayName": "water Drain",
             "ShowOptions": 0,
@@ -219,6 +210,15 @@
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters water drains when not using abilities"
+        },
+        {
+            "name": "maxToxicWater",
+            "displayName": "Toxic Water",
+            "ShowOptions": 0,
+            "baseValue": 1000.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters toxic water"
         },
         {
             "name": "healthRegen",
