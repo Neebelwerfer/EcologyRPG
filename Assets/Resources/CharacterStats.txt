@@ -71,7 +71,7 @@
         {
             "name": "resistance",
             "displayName": "Resistance",
-            "description": "natural resistance to damage, modifies armor",
+            "description": "natural resistance to damage, modifies armor\nThis attribute maybe unnecessary, depends on balancing",
             "defaultValue": 0,
             "statProgressions": [
                 {
@@ -85,7 +85,7 @@
         {
             "name": "insolation",
             "displayName": "Insolation",
-            "description": "natural resistance to water, modifies water Armor",
+            "description": "natural resistance to water, modifies water Armor\nThis attribute maybe unnecessary, depends on balancing",
             "defaultValue": 0,
             "statProgressions": [
                 {
