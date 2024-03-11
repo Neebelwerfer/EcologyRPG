@@ -1,9 +1,8 @@
 using Items.ItemTemplates;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
+using Utility;
 
 [System.Serializable]
 public class Loot
@@ -107,17 +106,3 @@ public class LootDatabase : ScriptableObject
         return null;
     }   
 }
-
-#if UNITY_EDITOR
-
-public class ReadOnlyString : PropertyAttribute { }
-
-[CustomPropertyDrawer(typeof(ReadOnlyString))]
-public class CategoryOddsDrawer : PropertyDrawer
-{
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
-        EditorGUI.LabelField(position, label.text, property.stringValue);
-    }
-}
-#endif

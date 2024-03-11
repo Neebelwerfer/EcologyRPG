@@ -38,7 +38,7 @@ public class LoppedProjectile : AttackAbility
         Debug.DrawRay(MousePoint, Vector3.up * 10, Color.red, 5);  
         ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, MousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
         {
-            caster.owner.StartCoroutine(OnHitAbility.HandleCast(new CasterInfo { owner = caster.owner, castPos = projectileObject.transform.position }));
+            Cast(new CasterInfo { owner = caster.owner, castPos = projectileObject.transform.position }, OnHitAbility);
         });
     }
 

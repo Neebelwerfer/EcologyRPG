@@ -33,6 +33,10 @@ public class KnockEffect : CharacterEffect
         timer = 0;
         target.state = CharacterStates.disabled;
     }
+    public override void OnReapply(BaseCharacter target)
+    {
+
+    }
 
     public override void OnRemoved(BaseCharacter target)
     {

@@ -44,8 +44,8 @@ namespace Character.Abilities
         public bool AllowHolding;
         public Sprite Icon;
 
-        public float remainingCooldown = 0;
-        public AbilityStates state = AbilityStates.ready;
+        [HideInInspector] public float remainingCooldown = 0;
+        [HideInInspector] public AbilityStates state = AbilityStates.ready;
 
         public virtual void UpdateCooldown(float deltaTime)
         {
@@ -92,6 +92,15 @@ namespace Character.Abilities
             return true;
         }
 
+        public virtual IEnumerator HandleAsSecondaryCast(CasterInfo caster)
+        {
+            CastStarted(caster);
+
+            yield return new WaitForSeconds(CastTime);
+
+            CastEnded(caster);
+        }
+
         public virtual IEnumerator HandleCast(CasterInfo caster)
         {
             caster.owner.state = CharacterStates.casting;
@@ -128,6 +137,18 @@ namespace Character.Abilities
             {
                 state = AbilityStates.ready;
             }
+        }
+
+        protected static void Cast(CasterInfo caster, BaseAbility ability)
+        {
+            caster.owner.StartCoroutine(ability.HandleAsSecondaryCast(caster));
+        }
+
+        public static void ApplyEffect(CasterInfo caster, BaseCharacter target, CharacterEffect effect)
+        {
+            var instancedEffect = Instantiate(effect);
+            instancedEffect.Owner = caster.owner;
+            target.ApplyEffect(caster, instancedEffect);
         }
 
 

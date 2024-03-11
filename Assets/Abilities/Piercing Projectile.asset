@@ -32,4 +32,5 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
   Effects:
-  - {fileID: 11400000, guid: a6279860be1699a469a64a8d7aba91ad, type: 2}
+  - {fileID: 11400000, guid: f809b4e819d2ec44abc51c6e0d1833f1, type: 2}
+  - {fileID: 11400000, guid: 7ab5f6cc78026424bac5174f35be4424, type: 2}

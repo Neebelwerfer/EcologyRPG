@@ -9,19 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb645091c33b864491762d6392e8d0c, type: 3}
-  m_Name: DecayingSlowEffect
+  m_Script: {fileID: 11500000, guid: 3b526af8fbdcbbe418bafc2c7eaf524e, type: 3}
+  m_Name: DecayingSlow
   m_EditorClassIdentifier: 
+  ID: 146d5c1c-d30e-4f46-bd3b-9ce9d6d40a26
   displayName: DecayingSlow
-  type: 1
-  duration: 2
-  remainingDuration: 2
+  type: 0
+  duration: 3
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  slowType: 1
+  SlowAmount: 0.5
   SlowCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.9481125
+      value: 0.81604004
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -29,13 +33,22 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 0.49953002
-      inSlope: -1.0877588
-      outSlope: -1.0877588
+      time: 0.3693385
+      value: 0.319788
+      inSlope: -0.4634835
+      outSlope: -0.4634835
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.09583336
+      inWeight: 0.33333334
+      outWeight: 0.30284637
+    - serializedVersion: 3
+      time: 1
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
