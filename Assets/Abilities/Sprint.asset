@@ -18,7 +18,7 @@ MonoBehaviour:
   Cooldown: 0
   CastTime: 0
   AllowHolding: 1
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
   remainingCooldown: 0
   state: 0
   Exhaustion: {fileID: 11400000, guid: 910f9321d358b5342a4b5bf1e45da3e1, type: 2}
