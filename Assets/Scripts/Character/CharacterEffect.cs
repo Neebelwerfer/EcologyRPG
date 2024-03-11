@@ -23,6 +23,7 @@ public abstract class CharacterEffect : ScriptableObject
     public EffectType type;
     [Min(0)] public float duration;
     [HideInInspector] public float remainingDuration;
+    [HideInInspector] public BaseCharacter Owner;
 
     private void OnValidate()
     {       

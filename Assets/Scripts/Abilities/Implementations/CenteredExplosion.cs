@@ -30,7 +30,7 @@ public class CenteredExplosion : BaseAbility
 
                 foreach (var effect in effectsOnHit)
                 {
-                    t.ApplyEffect(caster, Instantiate(effect));
+                    ApplyEffect(caster, t, effect);
                 }
 
                 t.ApplyDamage(info);

@@ -138,6 +138,35 @@ namespace Character
             effect.OnRemoved(this);
         }
 
+        public virtual CharacterEffect[] GetEffects()
+        {
+            return effects.ToArray();
+        }
+
+        public virtual CharacterEffect GetEffect(BaseCharacter owner, string ID)
+        {
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].ID.Equals(ID) && effects[i].Owner == owner)
+                {
+                    return effects[i];
+                }
+            }
+            return null;
+        }
+
+        public virtual CharacterEffect GetEffect(BaseCharacter owner, Type type)
+        {
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].GetType() == type && effects[i].Owner == owner)
+                {
+                    return effects[i];
+                }
+            }
+            return null;
+        }
+
         public virtual void Update()
         {
             for (int i = effects.Count -1 ; i >= 0; i--)

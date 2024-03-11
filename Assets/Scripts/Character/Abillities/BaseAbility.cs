@@ -139,6 +139,18 @@ namespace Character.Abilities
             }
         }
 
+        protected static void Cast(CasterInfo caster, BaseAbility ability)
+        {
+            caster.owner.StartCoroutine(ability.HandleAsSecondaryCast(caster));
+        }
+
+        public static void ApplyEffect(CasterInfo caster, BaseCharacter target, CharacterEffect effect)
+        {
+            var instancedEffect = Instantiate(effect);
+            instancedEffect.Owner = caster.owner;
+            target.ApplyEffect(caster, instancedEffect);
+        }
+
 
         /// <summary>
         /// Called when the cast is started to deduct the resource cost
