@@ -11,7 +11,7 @@ public class CenteredExplosion : BaseAbility
     public float BaseDamage;
     public DamageType damageType;
     BaseCharacter[] targets;
-    public List<CharacterEffect> effectsOnHit;
+    public List<DebuffEffect> effectsOnHit;
 
     public override void CastEnded(CasterInfo caster)
     {

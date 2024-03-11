@@ -15,7 +15,7 @@ public enum EffectType
 
 public abstract class CharacterEffect : ScriptableObject
 {
-    protected const string CharacterEffectPath = "Abilities/CharacterEffects/";
+    protected const string CharacterEffectPath = "Effects/";
 
     [ReadOnlyString]
     public string ID;

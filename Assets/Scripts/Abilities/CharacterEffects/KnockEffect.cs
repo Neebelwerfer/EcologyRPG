@@ -2,8 +2,8 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "KnockEffect", menuName = "Abilities/CharacterEffects/KnockEffect")]
-public class KnockEffect : CharacterEffect
+[CreateAssetMenu(fileName = "KnockEffect", menuName = DebuffPath + "Knock Effect")]
+public class KnockEffect : DebuffEffect
 {
     enum KnockType
     {

@@ -3,8 +3,8 @@ using Character.Abilities;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "new Damage over Time Effect", menuName = CharacterEffectPath + "Damage over Time Effect")]
-public class DamageOverTimeEffect : CharacterEffect
+[CreateAssetMenu(fileName = "new Damage over Time Effect", menuName = DebuffPath + "Damage over Time Effect")]
+public class DamageOverTimeEffect : DebuffEffect
 {
     public float damagePerTick = 10;
     public DamageType DamageType;
