@@ -27,6 +27,9 @@ public class DamageOverTimeEffect : CharacterEffect
 
     public override void OnReapply(BaseCharacter target)
     {
+        var remainingTicks = remainingDuration / tickRate;
+        var rollOverDamage = (remainingTicks * damagePerTick) * (tickRate / duration);
+        damageInfo.damage += rollOverDamage;
         remainingDuration = duration;
     }
 
