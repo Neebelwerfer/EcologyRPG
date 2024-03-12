@@ -40,20 +40,19 @@ public class LootGenerator
 
         var lootAmount = Player.Random.NextInt(lootDatabase.minLootAmount, lootDatabase.maxLootAmount);
 
-        for (int i = 0; i < lootAmount; i++)
+        var loot = lootDatabase.GetItemTemplates(Player.Random, deadNPC.Tags, lootAmount);
+
+        foreach (var item in loot)
         {
-            var level = (Player.Level + deadNPC.Level) / 2;
-            var lootLevel = Player.Random.NextInt(level > 1 ? level - 1 : level, level + 1);
-            var ListOfLoot = lootDatabase.GetRandomCategory(Player.Random, deadNPC.Tags);
-            ListOfLoot = ListOfLoot.Where(loot => loot.allowedTags.Count == 0 || loot.allowedTags.Any((tag) => deadNPC.Tags.Contains(tag))).ToList();
-            var loot = ListOfLoot[Player.Random.NextInt(0, ListOfLoot.Count)].ItemTemplate.GenerateItem(lootLevel);
+            var generatedItem = item.GenerateItem(Player.Random.NextInt(Player.Level - 1, Player.Level + 1));
 
             var origin = deadNPC.transform.position;
             var point = UnityEngine.Random.insideUnitCircle * 2;
             var position = new Vector3(point.x, 0, point.y);
             var itemPickup = GameObject.Instantiate(ItemPickupPrefab, origin + position, Quaternion.identity);
             var itemPickupComponent = itemPickup.GetComponentInChildren<ItemPickup>();
-            itemPickupComponent.Setup(loot.item, loot.amount);
+            itemPickupComponent.Setup(generatedItem.item, generatedItem.amount);
+
         }
     }
 }

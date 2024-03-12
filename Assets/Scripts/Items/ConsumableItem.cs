@@ -20,6 +20,7 @@ public class ReplenishingPotion : ConsumableItem
     public override void Use(BaseCharacter player)
     {
         base.Use(player);
-        player.Stats.GetResource(ResourceName).ModifyCurrentValue(AmountToReplenish);
+        var resource = player.Stats.GetResource(ResourceName);
+        resource.ModifyCurrentValue(resource.MaxValue * AmountToReplenish);
     }
 }
