@@ -11,25 +11,20 @@ public class DamageOverTimeEffect : DebuffEffect
     public float tickRate = 1;
 
     private float timeSinceLastTick = 0;
-    private DamageInfo damageInfo;
+
+    private float _BaseDamagePerTick;
 
     public override void OnApply(CasterInfo caster, BaseCharacter target)
     {
         timeSinceLastTick = 0;
-        damageInfo = new DamageInfo()
-        {
-            damage = damagePerTick,
-            type = DamageType,
-            source = caster.owner
-        };
-
+        _BaseDamagePerTick = damagePerTick;
     }
 
     public override void OnReapply(BaseCharacter target)
     {
         var remainingTicks = remainingDuration / tickRate;
         var rollOverDamage = (remainingTicks * damagePerTick) * (tickRate / duration);
-        damageInfo.damage += rollOverDamage;
+        _BaseDamagePerTick += rollOverDamage;
         remainingDuration = duration;
     }
 
@@ -38,13 +33,7 @@ public class DamageOverTimeEffect : DebuffEffect
         var mult = 1 - (timeSinceLastTick / tickRate);
         if (mult < 0.1) return;
 
-        var damageInfo = new DamageInfo()
-        {
-            damage = damagePerTick * mult,
-            type = DamageType,
-            source = target
-        };
-        target.ApplyDamage(damageInfo);
+        target.ApplyDamage(CalculateDamage(Owner, DamageType, _BaseDamagePerTick * mult));
     }
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)
@@ -53,7 +42,7 @@ public class DamageOverTimeEffect : DebuffEffect
         if (timeSinceLastTick >= tickRate)
         {
             timeSinceLastTick = 0;
-            target.ApplyDamage(damageInfo);
+            target.ApplyDamage(CalculateDamage(Owner, DamageType, _BaseDamagePerTick));
         }
     }
 }

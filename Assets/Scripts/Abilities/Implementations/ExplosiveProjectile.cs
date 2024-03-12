@@ -29,16 +29,10 @@ public class ExplosiveProjectile : ProjectileAbility
 
             foreach (var t in targets)
             {
-                var info = new DamageInfo()
-                {
-                    damage = ExplosionDamage,
-                    source = caster.owner,
-                    type = damageType
-                };
+
                 if (t.Faction != caster.owner.Faction)
                 {
-                    if(t == target) info.damage += TargetHitExtraDamage;
-                    t.ApplyDamage(info);
+                    t.ApplyDamage(CalculateDamage(caster.owner, damageType, t == target ? ExplosionDamage + TargetHitExtraDamage : ExplosionDamage));
                 }
 
                 foreach (var effect in effects)

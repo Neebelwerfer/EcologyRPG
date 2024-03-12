@@ -19,13 +19,7 @@ public class BasicProjectile : ProjectileAbility
         dir.y = 0;
         ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, damageType, destroyOnHit, targetMask, caster.owner, (target) =>
         {
-            var info = new DamageInfo
-            {
-                damage = BaseDamage,
-                type = damageType,
-                source = caster.owner,
-            };
-            target.ApplyDamage(info);
+            target.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             foreach (var effect in Effects)
             {
                 ApplyEffect(caster, target, effect);

@@ -157,13 +157,26 @@ namespace Character.Abilities
             caster.owner.StartCoroutine(ability.HandleAsSecondaryCast(caster));
         }
 
-        public static void ApplyEffect(CasterInfo caster, BaseCharacter target, CharacterEffect effect)
+        protected static void ApplyEffect(CasterInfo caster, BaseCharacter target, CharacterEffect effect)
         {
             var instancedEffect = Instantiate(effect);
             instancedEffect.Owner = caster.owner;
             target.ApplyEffect(caster, instancedEffect);
         }
 
+        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage)
+        {
+            DamageInfo damageInfo = new()
+            {
+                type = damageType,
+                source = caster
+            };
+
+            var ad = caster.Stats.GetStat("abilityDamage");
+            damageInfo.damage = BaseDamage * ad.Value;
+
+            return damageInfo;
+        }
 
         /// <summary>
         /// Called when the cast is started to deduct the resource cost

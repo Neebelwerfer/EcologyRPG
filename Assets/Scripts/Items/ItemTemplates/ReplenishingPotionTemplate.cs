@@ -7,12 +7,7 @@ namespace Items.ItemTemplates
     {
         [Header("Replenishing Potion Properties")]
         public string ResourceName;
-        public float minReplenishAmount;
-        public float maxReplenishAmount;
-
-        [Header("Growth Properties")]
-        public float GrowthPerLevel;
-        public GrowthType growthType;
+        public float AmountToReplenish;
 
         public override InventoryItem GenerateItem(int level)
         {
@@ -23,20 +18,7 @@ namespace Items.ItemTemplates
             item.Weight = Weight;
 
             item.ResourceName = ResourceName;
-            var value = GrowthPerLevel * level;
-            float min;
-            float max;
-            if(growthType == GrowthType.Percentage)
-            {
-                min = minReplenishAmount + (minReplenishAmount * value);
-                max = maxReplenishAmount + (maxReplenishAmount * value);
-            }
-            else
-            {
-                min = minReplenishAmount + value;
-                max = maxReplenishAmount + value;
-            }
-            item.AmountToReplenish = Random.Range(min, max);
+            item.AmountToReplenish = AmountToReplenish;
 
             return new InventoryItem(item, 1);
         }

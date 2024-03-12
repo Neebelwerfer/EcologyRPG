@@ -21,19 +21,13 @@ public class CenteredExplosion : BaseAbility
             {
                 if (t.Faction == caster.owner.Faction) continue;  
                 
-                var info = new DamageInfo()
-                {
-                    damage = BaseDamage,
-                    source = caster.owner,
-                    type = damageType
-                };
 
                 foreach (var effect in effectsOnHit)
                 {
                     ApplyEffect(caster, t, effect);
                 }
 
-                t.ApplyDamage(info);
+                t.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             }
         }
     }
