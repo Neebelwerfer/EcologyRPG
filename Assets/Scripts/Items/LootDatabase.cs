@@ -67,13 +67,32 @@ public class LootDatabase : ScriptableObject
                 if (roll < AllowedLists[j].weight + CulmulativeOdds)
                 {
                     var list = AllowedLists[j].items.Where(loot => loot.allowedTags.Count == 0 || loot.allowedTags.Any((tag) => tags.Contains(tag))).ToArray();
-                    var itemRoll = random.NextInt(0, list.Length);
-                    var item = list[itemRoll];
-                    loot.Add(item.ItemTemplate);
+                    loot.Add(GetItemTemplate(list));
                 }
                 CulmulativeOdds += AllowedLists[j].weight;
             }
         }
         return loot;
-    }   
+    }
+
+    public ItemTemplate GetItemTemplate(Loot[] lootArray)
+    {
+        int maximumWeight = 0;
+        foreach (var loot in lootArray)
+        {
+            maximumWeight += loot.weight;
+        }
+
+        int roll = Random.Range(0, maximumWeight);
+        int culmulativeWeight = 0;
+        for (int i = 0; i < lootArray.Length; i++)
+        {
+            if (roll < lootArray[i].weight + culmulativeWeight)
+            {
+                return lootArray[i].ItemTemplate;
+            }
+            culmulativeWeight += lootArray[i].weight;
+        }
+        return null;
+    }
 }
