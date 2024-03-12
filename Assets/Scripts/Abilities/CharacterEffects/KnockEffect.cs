@@ -2,8 +2,8 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "KnockEffect", menuName = "Abilities/CharacterEffects/KnockEffect")]
-public class KnockEffect : CharacterEffect
+[CreateAssetMenu(fileName = "KnockEffect", menuName = DebuffPath + "Knock Effect")]
+public class KnockEffect : DebuffEffect
 {
     enum KnockType
     {
@@ -32,6 +32,10 @@ public class KnockEffect : CharacterEffect
         targetPos = KnockEffect.CalculateTargetPos(target, dir, KnockBackDistance);
         timer = 0;
         target.state = CharacterStates.disabled;
+    }
+    public override void OnReapply(BaseCharacter target)
+    {
+
     }
 
     public override void OnRemoved(BaseCharacter target)

@@ -1,6 +1,7 @@
 using Character.Abilities;
 using Codice.Client.Commands;
 using Codice.CM.Common;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/ExplosiveProjectile", fileName = "New Explosive Projectile")]
@@ -13,6 +14,7 @@ public class ExplosiveProjectile : ProjectileAbility
     public float ExplosionDamage;
     public float TargetHitExtraDamage;
     public DamageType damageType;
+    public List<DebuffEffect> effects;
 
     public GameObject ProjectilePrefab;
 
@@ -27,16 +29,15 @@ public class ExplosiveProjectile : ProjectileAbility
 
             foreach (var t in targets)
             {
-                var info = new DamageInfo()
-                {
-                    damage = ExplosionDamage,
-                    source = caster.owner,
-                    type = damageType
-                };
+
                 if (t.Faction != caster.owner.Faction)
                 {
-                    if(t == target) info.damage += TargetHitExtraDamage;
-                    t.ApplyDamage(info);
+                    t.ApplyDamage(CalculateDamage(caster.owner, damageType, t == target ? ExplosionDamage + TargetHitExtraDamage : ExplosionDamage));
+                }
+
+                foreach (var effect in effects)
+                {
+                    ApplyEffect(caster, t, effect);
                 }
             }
         });

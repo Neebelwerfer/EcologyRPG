@@ -34,6 +34,18 @@ namespace Character.Abilities
         public BaseCharacter source;
     }
 
+    public class AbilityCastEvent : EventData
+    {
+        public CasterInfo Caster;
+        public BaseAbility Ability;
+
+        public AbilityCastEvent(CasterInfo caster, BaseAbility ability)
+        {
+            Caster = caster;
+            Ability = ability;
+        }
+    }
+
     public abstract class BaseAbility : ScriptableObject
     {
         public string DisplayName;
@@ -44,8 +56,8 @@ namespace Character.Abilities
         public bool AllowHolding;
         public Sprite Icon;
 
-        public float remainingCooldown = 0;
-        public AbilityStates state = AbilityStates.ready;
+        [HideInInspector] public float remainingCooldown = 0;
+        [HideInInspector] public AbilityStates state = AbilityStates.ready;
 
         public virtual void UpdateCooldown(float deltaTime)
         {
@@ -66,6 +78,7 @@ namespace Character.Abilities
         {
             if (!CanActivate(caster)) return false;
             Debug.Log("CASTING " + DisplayName);
+            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this), DeferredEventType.Update);
             caster.owner.StartCoroutine(HandleCast(caster));
             return true;
         }   
@@ -90,6 +103,15 @@ namespace Character.Abilities
                 return false;
             }
             return true;
+        }
+
+        public virtual IEnumerator HandleAsSecondaryCast(CasterInfo caster)
+        {
+            CastStarted(caster);
+
+            yield return new WaitForSeconds(CastTime);
+
+            CastEnded(caster);
         }
 
         public virtual IEnumerator HandleCast(CasterInfo caster)
@@ -130,6 +152,31 @@ namespace Character.Abilities
             }
         }
 
+        protected static void Cast(CasterInfo caster, BaseAbility ability)
+        {
+            caster.owner.StartCoroutine(ability.HandleAsSecondaryCast(caster));
+        }
+
+        protected static void ApplyEffect(CasterInfo caster, BaseCharacter target, CharacterEffect effect)
+        {
+            var instancedEffect = Instantiate(effect);
+            instancedEffect.Owner = caster.owner;
+            target.ApplyEffect(caster, instancedEffect);
+        }
+
+        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage)
+        {
+            DamageInfo damageInfo = new()
+            {
+                type = damageType,
+                source = caster
+            };
+
+            var ad = caster.Stats.GetStat("abilityDamage");
+            damageInfo.damage = BaseDamage * ad.Value;
+
+            return damageInfo;
+        }
 
         /// <summary>
         /// Called when the cast is started to deduct the resource cost

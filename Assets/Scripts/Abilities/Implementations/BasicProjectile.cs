@@ -10,7 +10,7 @@ public class BasicProjectile : ProjectileAbility
     public float Speed;
     
     public GameObject ProjectilePrefab;
-    public List<CharacterEffect> Effects;
+    public List<DebuffEffect> Effects;
     Vector3 MousePoint;
 
     public override void CastEnded(CasterInfo caster)
@@ -19,16 +19,10 @@ public class BasicProjectile : ProjectileAbility
         dir.y = 0;
         ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, damageType, destroyOnHit, targetMask, caster.owner, (target) =>
         {
-            var info = new DamageInfo
-            {
-                damage = BaseDamage,
-                type = damageType,
-                source = caster.owner,
-            };
-            target.ApplyDamage(info);
+            target.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             foreach (var effect in Effects)
             {
-                target.ApplyEffect(caster, Instantiate(effect));
+                ApplyEffect(caster, target, effect);
             }
         });
     }

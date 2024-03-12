@@ -9,7 +9,8 @@ public class DamageText : MonoBehaviour
     public void Init(float damage, Color textColor)
     {
         var text = GetComponent<TextMeshProUGUI>();
-        text.text = damage.ToString();
+        var damageRounded = Mathf.Ceil(damage);
+        text.text = damageRounded.ToString();
         text.color = textColor;
         Dir = -Camera.main.transform.up;
     }

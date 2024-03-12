@@ -11,7 +11,7 @@ public class CenteredExplosion : BaseAbility
     public float BaseDamage;
     public DamageType damageType;
     BaseCharacter[] targets;
-    public List<CharacterEffect> effectsOnHit;
+    public List<DebuffEffect> effectsOnHit;
 
     public override void CastEnded(CasterInfo caster)
     {
@@ -21,19 +21,13 @@ public class CenteredExplosion : BaseAbility
             {
                 if (t.Faction == caster.owner.Faction) continue;  
                 
-                var info = new DamageInfo()
-                {
-                    damage = BaseDamage,
-                    source = caster.owner,
-                    type = damageType
-                };
 
                 foreach (var effect in effectsOnHit)
                 {
-                    t.ApplyEffect(caster, Instantiate(effect));
+                    ApplyEffect(caster, t, effect);
                 }
 
-                t.ApplyDamage(info);
+                t.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             }
         }
     }

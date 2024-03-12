@@ -113,18 +113,57 @@ namespace Character
             }
         }
 
-        public virtual void ApplyEffect(CasterInfo caster, CharacterEffect mod)
+        public virtual void ApplyEffect(CasterInfo caster, CharacterEffect effect)
         {
-            Debug.Log("Applying CharacterModification " + mod.displayName + " with duration " + mod.duration);
-            effects.Add(mod);
-            mod.OnApply(caster, this);
+            for(int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
+                {
+                    Debug.Log("Reapplying CharacterModification " + effect.displayName);
+                    effects[i].OnReapply(this);
+                    return;
+                }
+            }
+            Debug.Log("Applying CharacterModification " + effect.displayName + " with duration " + effect.duration);
+            effect.remainingDuration = effect.duration;
+            effects.Add(effect);
+            effect.OnApply(caster, this);
         }
 
-        public virtual void RemoveCharacterModification(CharacterEffect mod)
+        public virtual void RemoveEffect(CharacterEffect effect)
         {
-            Debug.Log("Removing CharacterModification " + mod.displayName);
-            effects.Remove(mod);
-            mod.OnRemoved(this);
+            Debug.Log("Removing CharacterModification " + effect.displayName);
+            effects.Remove(effect);
+            effect.OnRemoved(this);
+        }
+
+        public virtual CharacterEffect[] GetEffects()
+        {
+            return effects.ToArray();
+        }
+
+        public virtual CharacterEffect GetEffect(BaseCharacter owner, string ID)
+        {
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].ID.Equals(ID) && effects[i].Owner == owner)
+                {
+                    return effects[i];
+                }
+            }
+            return null;
+        }
+
+        public virtual CharacterEffect GetEffect(BaseCharacter owner, Type type)
+        {
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].GetType() == type && effects[i].Owner == owner)
+                {
+                    return effects[i];
+                }
+            }
+            return null;
         }
 
         public virtual void Update()
@@ -136,7 +175,7 @@ namespace Character
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)
                 {
-                    RemoveCharacterModification(effect);
+                    RemoveEffect(effect);
                 }
             }
         }

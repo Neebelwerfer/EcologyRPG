@@ -3,8 +3,8 @@ using Character.Abilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "ExhaustionEffect", menuName = "Abilities/CharacterEffects/ExhaustionEffect")]
-public class ExhaustionEffect : CharacterEffect
+[CreateAssetMenu(fileName = "ExhaustionEffect", menuName = DebuffPath + "ExhaustionEffect")]
+public class ExhaustionEffect : DebuffEffect
 {
 
     InputAction sprintInput;
@@ -18,6 +18,11 @@ public class ExhaustionEffect : CharacterEffect
         sprintInput = caster.activationInput;
 
         sprintInput.Disable();
+    }
+
+    public override void OnReapply(BaseCharacter target)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void OnRemoved(BaseCharacter target)

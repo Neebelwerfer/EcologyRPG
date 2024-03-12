@@ -12,29 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1c0dfb8e7d484489636dcf29e06da8, type: 3}
   m_Name: Loot Database
   m_EditorClassIdentifier: 
-  items:
-  - ItemTemplate: {fileID: 11400000, guid: dd453eddecc67554a9a4ad6de04aa3e5, type: 2}
-    allowedTags: []
-  - ItemTemplate: {fileID: 11400000, guid: 7f9e59dfab8596a48835b83152074266, type: 2}
-    allowedTags: []
-  - ItemTemplate: {fileID: 11400000, guid: 8183f63073cc6c543937c028de156df3, type: 2}
-    allowedTags: []
   lootChance: 25
   minLootAmount: 1
   maxLootAmount: 6
   CategoryOdds:
   - category: Basic Items
-    odds: 70
+    weight: 100
     items:
     - ItemTemplate: {fileID: 11400000, guid: 8183f63073cc6c543937c028de156df3, type: 2}
+      weight: 100
       allowedTags: []
   - category: Consumable Items
-    odds: 25
+    weight: 10
     items:
     - ItemTemplate: {fileID: 11400000, guid: dd453eddecc67554a9a4ad6de04aa3e5, type: 2}
+      weight: 100
       allowedTags: []
   - category: Equipable Items
-    odds: 5
+    weight: 10
     items:
     - ItemTemplate: {fileID: 11400000, guid: 7f9e59dfab8596a48835b83152074266, type: 2}
+      weight: 100
       allowedTags: []
