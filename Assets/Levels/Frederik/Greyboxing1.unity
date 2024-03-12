@@ -4718,7 +4718,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f4589bf2467ea894fae35efed4012924, type: 2}
+  - {fileID: 2100000, guid: 79571f1367246054ca9160e60aa4f11b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4758,7 +4758,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.35510308, z: -0, w: 0.93482715}
   m_LocalPosition: {x: -139.9, y: -0.4, z: -9.5}
-  m_LocalScale: {x: 120, y: 1, z: 2.5}
+  m_LocalScale: {x: 120, y: 1, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6170,7 +6170,7 @@ Camera:
   far clip plane: 5000
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 6.15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
