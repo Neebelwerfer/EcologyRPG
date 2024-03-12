@@ -63,7 +63,7 @@
                 {
                     "statName": "abilityDamage",
                     "modType": 100,
-                    "startValue": 1.0,
+                    "startValue": 0.0,
                     "changePerPoint": 0.05000000074505806
                 }
             ]
@@ -170,7 +170,7 @@
             "name": "abilityDamage",
             "displayName": "Ability Damage",
             "ShowOptions": 2,
-            "baseValue": 0.0,
+            "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
             "description": "Governs a characters ability damage, based on pressure"

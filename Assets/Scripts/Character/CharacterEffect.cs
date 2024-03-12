@@ -43,4 +43,6 @@ public abstract class CharacterEffect : ScriptableObject
     public abstract void OnUpdate(BaseCharacter target, float deltaTime);
 
     public abstract void OnRemoved(BaseCharacter target);
+
+    protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage) => BaseAbility.CalculateDamage(Owner, type, damage);
 }
