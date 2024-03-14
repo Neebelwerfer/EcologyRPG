@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ProjectileType
+{
+    Line,
+    Cone,
+    Circular
+}
+
 public abstract class ProjectileAbility : AttackAbility
 {
     [Header("Projectile Ability")]

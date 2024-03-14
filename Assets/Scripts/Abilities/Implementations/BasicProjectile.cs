@@ -24,7 +24,7 @@ public class BasicProjectile : ProjectileAbility
         base.CastEnded(caster);
         var dir = (MousePoint - caster.castPos).normalized;
         dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, BaseDamage, damageType, destroyOnHit, targetMask, caster.owner, (target) =>
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, destroyOnHit, targetMask, caster.owner, (target) =>
         {
             target.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             foreach (var effect in Effects)

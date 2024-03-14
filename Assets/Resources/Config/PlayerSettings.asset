@@ -33,7 +33,7 @@ MonoBehaviour:
   Ability1Reference: {fileID: 11400000, guid: c99c32628609b0d489ea8f453b2aaad7, type: 2}
   Ability2Reference: {fileID: 11400000, guid: 70d0b028feb0d9346b0531ddde3cb8a4, type: 2}
   Ability3Reference: {fileID: 11400000, guid: 136f0991db253804f8513d49a5038276, type: 2}
-  Ability4Reference: {fileID: 11400000, guid: c768c2c27164cdf4d95c4fb8f47c6906, type: 2}
+  Ability4Reference: {fileID: 11400000, guid: b6c04f0579777ac4e89f5be867287b7c, type: 2}
   FistAttackAbility: {fileID: 11400000, guid: 75ac77afeb39e9447af78147d1c19be7, type: 2}
   StartingItems:
   - {fileID: 11400000, guid: 80c2d0b652b09dd488fd91db9ee5e3c2, type: 2}

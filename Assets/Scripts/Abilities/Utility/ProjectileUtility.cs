@@ -5,8 +5,22 @@ using Character.Abilities;
 
 public static class ProjectileUtility
 {
+    public static void CreateProjectile(GameObject prefab, Vector3 Origin, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
+    {
+        GameObject projectileObj = GameObject.Instantiate(prefab, Origin, Quaternion.identity);
+        ProjectileBehaviour projectile = projectileObj.AddComponent<ProjectileBehaviour>();
+        projectile.path = new Vector3[]
+        {
+            targetPos
+        };
+        projectile.speed = speed;
+        projectile.DestroyOnCollision = destroyOnhit;
+        projectile.layerMask = mask;
+        projectile.owner = owner;
+        projectile.OnHit = onHit;
+    }
 
-    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, float damage, DamageType damageType, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
     {
         GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
         ProjectileBehaviour projectile = projectileObj.AddComponent<ProjectileBehaviour>();
@@ -15,22 +29,18 @@ public static class ProjectileUtility
             targetPos
         };
         projectile.speed = speed;
-        projectile.damage = damage;
-        projectile.damageType = damageType;
         projectile.DestroyOnCollision = destroyOnhit;
         projectile.layerMask = mask;
         projectile.owner = owner;
         projectile.OnHit = onHit;
     }
 
-    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, float damage, DamageType damageType, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
     {
         GameObject projectileObj = GameObject.Instantiate(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
         ProjectileBehaviour projectile = projectileObj.AddComponent<ProjectileBehaviour>();
         projectile.path = path;
         projectile.speed = speed;
-        projectile.damage = damage;
-        projectile.damageType = damageType;
         projectile.DestroyOnCollision = destroyOnhit;
         projectile.layerMask = mask;
         projectile.owner = owner;
