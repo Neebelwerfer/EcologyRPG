@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1890,7 +1890,7 @@ PrefabInstance:
     - target: {fileID: 147251000927148288, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -134.5
+      value: 2.67
       objectReference: {fileID: 0}
     - target: {fileID: 147251000927148288, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
@@ -1900,7 +1900,7 @@ PrefabInstance:
     - target: {fileID: 147251000927148288, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.4
+      value: -6.94
       objectReference: {fileID: 0}
     - target: {fileID: 147251000927148288, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
@@ -1940,17 +1940,17 @@ PrefabInstance:
     - target: {fileID: 1923102714981046329, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.974564
+      value: -44.97455
       objectReference: {fileID: 0}
     - target: {fileID: 1923102714981046329, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 40.19395
+      value: 40.193943
       objectReference: {fileID: 0}
     - target: {fileID: 1923102714981046329, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -44.97455
+      value: -44.97454
       objectReference: {fileID: 0}
     - target: {fileID: 2045718806683793431, guid: 4b437b720a042ca4e9489ff55549356e,
         type: 3}
@@ -4518,7 +4518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1340925314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6195,7 +6195,7 @@ Transform:
   m_GameObject: {fileID: 1804842064}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2546557, y: 0.36785895, z: -0.10548183, w: 0.8880901}
-  m_LocalPosition: {x: -179.47456, y: 40.19395, z: -70.37455}
+  m_LocalPosition: {x: -42.304546, y: 40.193943, z: -51.91454}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7483,21 +7483,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2452391996280832979, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
-        type: 3}
-      propertyPath: m_BounceIntensity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452391996280832979, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
-        type: 3}
-      propertyPath: m_ColorTemperature
-      value: 3294
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452391996280832979, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
-        type: 3}
-      propertyPath: m_UseColorTemperature
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3553192851660299803, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
         type: 3}
       propertyPath: m_LocalPosition.x
