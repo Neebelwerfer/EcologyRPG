@@ -8,8 +8,6 @@ public class ProjectileBehaviour : MonoBehaviour
 {
     public Vector3[] path;
     public float speed;
-    public float damage;
-    public DamageType damageType;
     public bool DestroyOnCollision;
     public LayerMask layerMask;
     public BaseCharacter owner;

@@ -29,7 +29,7 @@ public class ExplosiveProjectile : ProjectileAbility
         base.CastEnded(caster);
         var dir = (MousePoint - caster.castPos).normalized;
         dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, ExplosionDamage, damageType, destroyOnHit, targetMask, caster.owner, (target) =>
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, destroyOnHit, targetMask, caster.owner, (target) =>
         {
             var targets = TargetUtility.GetTargetsInRadius(target.transform.position, ExplosionRadius, targetMask);
 
