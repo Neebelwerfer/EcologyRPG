@@ -49,9 +49,13 @@ namespace Character.Abilities
     public abstract class BaseAbility : ScriptableObject
     {
         public string DisplayName;
-        public float ResourceCost = 0;
+        [Tooltip("The resource that get used for the ability cost")]
         public string ResourceName;
+        [Tooltip("The resource cost of this ability")]
+        public float ResourceCost = 0;
+        [Tooltip("The cooldown of this ability")]
         public float Cooldown = 0;
+        [Tooltip("The cast time of this ability. Cast Started will always be called first, and then after the Cast Time has been waited Cast ended will be called")]
         public float CastTime = 0;
         public bool AllowHolding;
         public Sprite Icon;
@@ -126,7 +130,6 @@ namespace Character.Abilities
 
             CastStarted(caster);
 
-            Debug.Log("Cast time: " + CastTime);
             yield return new WaitForSeconds(CastTime);
 
             if(AllowHolding && CastTime == 0)
@@ -164,7 +167,7 @@ namespace Character.Abilities
             target.ApplyEffect(caster, instancedEffect);
         }
 
-        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage)
+        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true)
         {
             DamageInfo damageInfo = new()
             {
@@ -173,7 +176,8 @@ namespace Character.Abilities
             };
 
             var ad = caster.Stats.GetStat("abilityDamage");
-            damageInfo.damage = BaseDamage * ad.Value;
+            var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
+            damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
 
             return damageInfo;
         }

@@ -31,9 +31,6 @@ namespace Player
             playerMovement = new PlayerMovement();
             modules.Add(playerMovement);
 
-            playerAbilitiesHandler = new PlayerAbilitiesHandler();
-            modules.Add(playerAbilitiesHandler);
-
             playerResourceManager = new PlayerResourceManager();
             modules.Add(playerResourceManager);
 
@@ -41,6 +38,9 @@ namespace Player
             modules.Add(playerLevelHandler);
 
             Inventory = new Inventory(this, playerSettings.StartingItems);
+
+            playerAbilitiesHandler = new PlayerAbilitiesHandler();
+            modules.Add(playerAbilitiesHandler);
 
             foreach (PlayerModule module in modules)
             {

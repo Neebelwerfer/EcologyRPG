@@ -40,6 +40,24 @@ public static class TargetUtility
         return targets;
     }
 
+    public static BaseCharacter[] GetTargetsInCone(Vector3 origin, Vector3 forward, float angle, float radius, LayerMask mask)
+    {
+        var numhits = Physics.OverlapSphereNonAlloc(origin, radius, colliderHits, mask);
+        BaseCharacter[] targets = new BaseCharacter[numhits];
+
+        for (int i = 0; i < numhits; i++)
+        {
+            if (Vector3.Angle(forward, colliderHits[i].transform.position - origin) < angle)
+            {
+                if (colliderHits[i].TryGetComponent<BaseCharacter>(out var character))
+                {
+                    targets[i] = character;
+                }
+            }
+        }
+        return targets;
+    }
+
     public static Vector3 GetMouseDirection(Vector3 origin, Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);

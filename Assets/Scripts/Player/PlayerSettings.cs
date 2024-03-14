@@ -30,7 +30,7 @@ namespace Player
         public BaseAbility Ability2Reference;
         public BaseAbility Ability3Reference;
         public BaseAbility Ability4Reference;
-        public BaseAbility WeaponAttackAbility;
+        public BaseAbility FistAttackAbility;
 
         [Header("Inventory Settings")]
         public Item[] StartingItems = new Item[5];

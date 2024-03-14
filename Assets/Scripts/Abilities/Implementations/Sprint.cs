@@ -8,13 +8,14 @@ using Utility;
 public class Sprint : BaseAbility
 {
     public ExhaustionEffect Exhaustion;
+    public float sprintSpeedMultiplier = 1f;
     readonly StatModification sprintSpeed;
 
     Resource stamina;
 
     public Sprint()
     {
-        sprintSpeed = new StatModification("movementSpeed", 1f, StatModType.PercentMult, this);
+        sprintSpeed = new StatModification("movementSpeed", sprintSpeedMultiplier, StatModType.PercentMult, this);
     }
     public override void CastStarted(CasterInfo caster)
     {

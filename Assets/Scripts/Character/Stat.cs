@@ -12,8 +12,7 @@ namespace Character
         Flat = 100,
         PercentAdd = 200,
         PercentMult = 300,
-        PercentMinus = 400,
-    }
+        }
 
     public enum ShowOptions
     {
@@ -140,10 +139,6 @@ namespace Character
                 else if (mod.ModType == StatModType.PercentMult)
                 {
                     finalValue *= 1 + mod.Value;
-                }
-                else if (mod.ModType == StatModType.PercentMinus)
-                {
-                    finalValue *= 1 - mod.Value;
                 }
             }
             finalValue = Mathf.Clamp(finalValue, Data.MinValue, Data.MaxValue);

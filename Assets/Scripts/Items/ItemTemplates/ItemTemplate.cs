@@ -21,13 +21,21 @@ namespace Items.ItemTemplates
     public class Ranges
     {
         [Header("Stat Modifiers")]
+        [Tooltip("The name of the stat")]
         public string name;
+        [Tooltip("The type of the modifier")]
         public ModType type;
+        [Tooltip("The type of stat modifier")]
         public StatModType modType;
+        [Header("Value Ranges")]
+        [Tooltip("The minimum value of the modifier")]
         public float minValue;
+        [Tooltip("The maximum value of the modifier")]
         public float maxValue;
         [Header("Growth Per Level")]
+        [Tooltip("The growth per level of the item")]
         public float GrowthPerLevel;
+        [Tooltip("The growth type of the modifier")]
         public GrowthType growthType;
 
         public void ApplyMod(int level, EquipableItem item)
@@ -49,7 +57,6 @@ namespace Items.ItemTemplates
             float max;
             if (growthType == GrowthType.Percentage)
             {
-                value /= 100;
                 min = minValue + minValue * value;
                 max = maxValue + maxValue * value;
             }
@@ -69,7 +76,6 @@ namespace Items.ItemTemplates
             float max;
             if (growthType == GrowthType.Percentage)
             {
-                value /= 100;
                 min = minValue + minValue * value;
                 max = maxValue + maxValue * value;
             }
@@ -86,9 +92,13 @@ namespace Items.ItemTemplates
     public abstract class ItemTemplate : ScriptableObject
     {
         [Header("Item Properties")]
+        [Tooltip("The name of the item")]
         public string Name;
+        [Tooltip("The description of the item")]
         public string Description;
+        [Tooltip("The icon of the item")]
         public Sprite Icon;
+        [Tooltip("The carry weight of the item")]
         public float Weight;
 
         public abstract InventoryItem GenerateItem(int level);

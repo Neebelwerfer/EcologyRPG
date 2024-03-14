@@ -51,6 +51,7 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent<BaseCharacter>(out var character))
             {
+                if(character.Faction == owner.Faction) return;
                 OnHit(character);
             }
 
