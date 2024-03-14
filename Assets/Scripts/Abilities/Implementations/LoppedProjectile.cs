@@ -5,10 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/LoppedProjectile", fileName = "New Lopped Projectile")]
 public class LoppedProjectile : AttackAbility
 {
+    [Header("Lopped Projectile")]
+    [Tooltip("The prefab of the projectile")]
     public GameObject ProjectilePrefab;
+    [Tooltip("The layer mask of the colliders the projectile can travel through")]
     public LayerMask ignoreMask;
+    [Tooltip("The angle of the projectile")]
     public float Angle;
+    [Tooltip("The travel time of the projectile")]
     public float TravelTime;
+    [Tooltip("The ability that will be cast when the projectile hits the ground")]
     public BaseAbility OnHitAbility;
 
     Vector3 MousePoint;

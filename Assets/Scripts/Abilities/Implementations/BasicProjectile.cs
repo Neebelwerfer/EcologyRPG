@@ -5,11 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/BasicProjectile")]
 public class BasicProjectile : ProjectileAbility
 {
+    [Tooltip("The base damage of the projectile")]
     public float BaseDamage;
+    [Tooltip("The type of damage the projectile will deal")]
     public DamageType damageType;
+    [Tooltip("The travel speed of the projectile")]
     public float Speed;
-    
+
+    [Header("Projectile Settings")]
+    [Tooltip("The prefab of the projectile")]
     public GameObject ProjectilePrefab;
+    [Tooltip("Debuffs that will be applied to the target when the projectile hits")]    
     public List<DebuffEffect> Effects;
     Vector3 MousePoint;
 

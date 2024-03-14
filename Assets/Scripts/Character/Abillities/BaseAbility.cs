@@ -49,9 +49,13 @@ namespace Character.Abilities
     public abstract class BaseAbility : ScriptableObject
     {
         public string DisplayName;
-        public float ResourceCost = 0;
+        [Tooltip("The resource that get used for the ability cost")]
         public string ResourceName;
+        [Tooltip("The resource cost of this ability")]
+        public float ResourceCost = 0;
+        [Tooltip("The cooldown of this ability")]
         public float Cooldown = 0;
+        [Tooltip("The cast time of this ability. Cast Started will always be called first, and then after the Cast Time has been waited Cast ended will be called")]
         public float CastTime = 0;
         public bool AllowHolding;
         public Sprite Icon;

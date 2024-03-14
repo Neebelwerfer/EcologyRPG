@@ -10,12 +10,17 @@ public class ExplosiveProjectile : ProjectileAbility
     public float Speed;
 
     [Header("Explosive Projectile")]
+    [Tooltip("The radius of the explosion")]
     public float ExplosionRadius;
+    [Tooltip("The base damage of the explosion")]
     public float ExplosionDamage;
+    [Tooltip("Extra damage that will be dealt to the target that was hit by the projectile")]
     public float TargetHitExtraDamage;
+    [Tooltip("The type of damage the explosion will deal")]
     public DamageType damageType;
+    [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
     public List<DebuffEffect> effects;
-
+    [Tooltip("The prefab of the projectile")]
     public GameObject ProjectilePrefab;
 
     Vector3 MousePoint;

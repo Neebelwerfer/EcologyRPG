@@ -6,11 +6,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/PlayerExplosion", fileName = "New Player Explosion")]
 public class CenteredExplosion : BaseAbility
 {
+    [Header("Centered Explosion")]
+    [Tooltip("The layer mask of the targets that will be hit by the explosion")]
     public LayerMask targetMask;
+    [Tooltip("The radius of the explosion")]
     public float Radius;
+    [Tooltip("The base damage of the explosion")]
     public float BaseDamage;
+    [Tooltip("The type of damage the explosion will deal")]
     public DamageType damageType;
     BaseCharacter[] targets;
+    [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
     public List<DebuffEffect> effectsOnHit;
 
     public override void CastEnded(CasterInfo caster)
