@@ -19412,6 +19412,7 @@ GameObject:
   - component: {fileID: 7843802353795944243}
   - component: {fileID: 3495491841799171617}
   - component: {fileID: 5985851260890956167}
+  - component: {fileID: 1635663754324798199}
   m_Layer: 0
   m_Name: PiercingBolt
   m_TagString: Untagged
@@ -24263,6 +24264,27 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!135 &1635663754324798199
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808507583449147345}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &599673988675551030
 PrefabInstance:
   m_ObjectHideFlags: 0

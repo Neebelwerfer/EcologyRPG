@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CenteredExplosion
   m_EditorClassIdentifier: 
   DisplayName: CenteredExplosion
-  ResourceCost: 0
   ResourceName: 
+  ResourceCost: 0
   Cooldown: 0
-  CastTime: 1
+  CastTime: 0
   AllowHolding: 0
   Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
   remainingCooldown: 0
@@ -28,4 +28,6 @@ MonoBehaviour:
   BaseDamage: 15
   damageType: 1
   effectsOnHit:
-  - {fileID: 11400000, guid: 4ecc93d66fc30ce4c8bbf550ce8bcfb9, type: 2}
+  - {fileID: 11400000, guid: 49edde9de501bc347ab523e1404b5465, type: 2}
+  explosionEffect: {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
+    type: 3}

@@ -2,6 +2,7 @@ using Character;
 using Character.Abilities;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [CreateAssetMenu(menuName = "Abilities/PlayerExplosion", fileName = "New Player Explosion")]
 public class CenteredExplosion : BaseAbility
@@ -15,10 +16,12 @@ public class CenteredExplosion : BaseAbility
     public float BaseDamage;
     [Tooltip("The type of damage the explosion will deal")]
     public DamageType damageType;
-    BaseCharacter[] targets;
     [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
     public List<DebuffEffect> effectsOnHit;
+    public GameObject explosionEffect;
 
+    VisualEffect vfx;
+    BaseCharacter[] targets;
     public override void CastEnded(CasterInfo caster)
     {
         if(targets != null && targets.Length > 0)
@@ -36,11 +39,18 @@ public class CenteredExplosion : BaseAbility
                 t.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             }
         }
+
     }
 
     public override void CastStarted(CasterInfo caster)
     {
         targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
+        if (explosionEffect != null)
+        {
+            var explosion = Instantiate(explosionEffect, caster.castPos, Quaternion.identity);
+            vfx = explosion.GetComponent<VisualEffect>();
+            vfx.Play();
+        }
     }
 
     public override void OnHold(CasterInfo caster)
