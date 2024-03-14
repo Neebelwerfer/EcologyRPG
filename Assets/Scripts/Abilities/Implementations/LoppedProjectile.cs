@@ -30,11 +30,12 @@ public class LoppedProjectile : AttackAbility
 
     public override void CastStarted(CasterInfo caster)
     {
-
+        base.CastStarted(caster);
     }
 
     public override void CastEnded(CasterInfo caster)
     {
+        base.CastEnded(caster);
         Debug.DrawRay(MousePoint, Vector3.up * 10, Color.red, 5);  
         ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, MousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
         {

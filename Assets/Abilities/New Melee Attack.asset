@@ -26,6 +26,6 @@ MonoBehaviour:
     m_Bits: 8
   Range: 3
   BaseDamage: 15
-  targetType: 2
+  targetType: 1
   useMouseDirection: 0
   width: 2

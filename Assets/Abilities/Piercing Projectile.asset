@@ -21,6 +21,9 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 335ffe9620fa71243a018c4690c86b8c, type: 3}
   remainingCooldown: 0
   state: 0
+  buffsOnCastStart: []
+  buffsOnCastEnded:
+  - {fileID: 11400000, guid: d9e49538c665ede44a67ad893eaf9bf3, type: 2}
   targetMask:
     serializedVersion: 2
     m_Bits: 8

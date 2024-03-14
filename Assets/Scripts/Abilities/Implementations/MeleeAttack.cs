@@ -11,6 +11,7 @@ public class MeleeAttack : WeaponAttack
 
     public override void CastStarted(CasterInfo caster)
     {
+        base.CastStarted(caster);
         var dir = useMouseDirection ? TargetUtility.GetMouseDirection(caster.owner.Position, Camera.main) : caster.owner.Forward;
 
         if(targetType == TargetType.Cone)
@@ -23,6 +24,7 @@ public class MeleeAttack : WeaponAttack
 
     public override void CastEnded(CasterInfo caster)
     {
+        base.CastEnded(caster);
         foreach (var target in targets)
         {
             if (target != null && target.Faction != caster.owner.Faction)

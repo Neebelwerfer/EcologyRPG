@@ -21,6 +21,7 @@ public class ExplosiveProjectile : ProjectileAbility
     Vector3 MousePoint;
     public override void CastEnded(CasterInfo caster)
     {
+        base.CastEnded(caster);
         var dir = (MousePoint - caster.castPos).normalized;
         dir.y = 0;
         ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, ExplosionDamage, damageType, destroyOnHit, targetMask, caster.owner, (target) =>
@@ -45,6 +46,7 @@ public class ExplosiveProjectile : ProjectileAbility
 
     public override void CastStarted(CasterInfo caster)
     {
+        base.CastStarted(caster);
         MousePoint = TargetUtility.GetMousePoint(Camera.main);
     }
 

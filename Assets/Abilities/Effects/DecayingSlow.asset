@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 146d5c1c-d30e-4f46-bd3b-9ce9d6d40a26
   displayName: DecayingSlow
-  type: 0
+  type: 1
   duration: 3
   remainingDuration: 0
   Owner: {fileID: 0}
@@ -25,7 +25,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.81604004
+      value: 0.820755
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -33,8 +33,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.3693385
-      value: 0.319788
+      time: 0.8526683
+      value: 0.6877079
       inSlope: -0.4634835
       outSlope: -0.4634835
       tangentMode: 0

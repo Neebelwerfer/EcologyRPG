@@ -92,7 +92,7 @@ public class PlayerAbilitiesHandler : PlayerModule
         if(arg0 == (int)Items.EquipmentType.Weapon)
         {
             var item = Player.Inventory.equipment.GetEquipment(Items.EquipmentType.Weapon);
-            if (item == null) SetAbility(AbilitySlots.WeaponAttack, settings.FistAttackAbility);
+            if (item == null || ((Weapon)item).WeaponAbility == null) SetAbility(AbilitySlots.WeaponAttack, settings.FistAttackAbility);
             else if (item is Weapon weapon) SetAbility(AbilitySlots.WeaponAttack, weapon.WeaponAbility);
         }
     }
