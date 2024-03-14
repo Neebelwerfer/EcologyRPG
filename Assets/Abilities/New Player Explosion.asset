@@ -29,5 +29,5 @@ MonoBehaviour:
   damageType: 1
   effectsOnHit:
   - {fileID: 11400000, guid: 49edde9de501bc347ab523e1404b5465, type: 2}
-  explosionEffect: {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
+  explosionEffect: {fileID: 8179646377062506047, guid: 814d86a2da242414d88e56ff86afe516,
     type: 3}
