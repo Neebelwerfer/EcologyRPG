@@ -10,6 +10,7 @@ namespace Items.ItemTemplates
         public float minDamage;
         public float maxDamage;
 
+        public WeaponAttack WeaponAttackAbility;
         public WeaponTemplate()
         {
             equipmentType = EquipmentType.Weapon;
@@ -17,13 +18,17 @@ namespace Items.ItemTemplates
 
         public override InventoryItem GenerateItem(int level)
         {
-            var item = new Weapon();
-            item.Name = Name;
-            item.Description = Description;
-            item.Icon = Icon;
-            item.Weight = Weight;
-            item.minDamage = minDamage;
-            item.maxDamage = maxDamage;
+            var item = new Weapon
+            {
+                Name = Name,
+                Description = Description,
+                Icon = Icon,
+                Weight = Weight
+            };
+
+            var ability = Instantiate(WeaponAttackAbility);
+            ability.BaseDamage = Random.Range(minDamage, maxDamage);
+            item.WeaponAbility = ability;
 
             foreach (var mod in Modifiers)
             {

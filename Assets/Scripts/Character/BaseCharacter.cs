@@ -115,6 +115,11 @@ namespace Character
 
         public virtual void ApplyEffect(CasterInfo caster, CharacterEffect effect)
         {
+            if(state == CharacterStates.dead)
+            {
+                return;
+            }
+
             for(int i = 0; i < effects.Count; i++)
             {
                 if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))

@@ -4,9 +4,8 @@ using Codice.Client.Commands;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/MeleeAttack")]
-public class MeleeAttack : AttackAbility
+public class MeleeAttack : WeaponAttack
 {
-    public float BaseDamage;
     public float width;
     BaseCharacter[] targets;
 

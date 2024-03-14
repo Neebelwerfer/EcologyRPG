@@ -126,7 +126,6 @@ namespace Character.Abilities
 
             CastStarted(caster);
 
-            Debug.Log("Cast time: " + CastTime);
             yield return new WaitForSeconds(CastTime);
 
             if(AllowHolding && CastTime == 0)
@@ -164,7 +163,7 @@ namespace Character.Abilities
             target.ApplyEffect(caster, instancedEffect);
         }
 
-        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage)
+        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true)
         {
             DamageInfo damageInfo = new()
             {
@@ -173,7 +172,8 @@ namespace Character.Abilities
             };
 
             var ad = caster.Stats.GetStat("abilityDamage");
-            damageInfo.damage = BaseDamage * ad.Value;
+            var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
+            damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
 
             return damageInfo;
         }

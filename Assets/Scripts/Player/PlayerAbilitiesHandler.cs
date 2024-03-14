@@ -1,4 +1,5 @@
 using Character.Abilities;
+using Items;
 using Player;
 using System;
 using System.Collections;
@@ -58,8 +59,17 @@ public class PlayerAbilitiesHandler : PlayerModule
         abilitySlots[3] = UnityEngine.Object.Instantiate(settings.Ability4Reference);
         Ability4Action = (ctx) => ActivateAbility(3, ctx);
 
-        abilitySlots[4] = UnityEngine.Object.Instantiate(settings.WeaponAttackAbility);
+        if(player.Inventory.equipment.GetEquipment(EquipmentType.Weapon) is Weapon weapon)
+        {
+            abilitySlots[4] = UnityEngine.Object.Instantiate(weapon.WeaponAbility);
+        } else
+        {
+            abilitySlots[4] = UnityEngine.Object.Instantiate(settings.FistAttackAbility);
+        }
+
         WeaponAttackAction = (ctx) => ActivateAbility(4, ctx);
+
+
         abilitySlots[5] = UnityEngine.Object.Instantiate(settings.DodgeAbility);
         dodgeAction = (ctx) => ActivateAbility(5, ctx);
         abilitySlots[6] = UnityEngine.Object.Instantiate(settings.SprintAbility);
@@ -72,6 +82,19 @@ public class PlayerAbilitiesHandler : PlayerModule
         settings.Ability2.action.started += Ability2Action;
         settings.Ability3.action.started += Ability3Action;
         settings.Ability4.action.started += Ability4Action;
+
+        player.Inventory.equipment.EquipmentUpdated.AddListener(OnEquipmentChange);
+        
+    }
+
+    private void OnEquipmentChange(int arg0)
+    {
+        if(arg0 == (int)Items.EquipmentType.Weapon)
+        {
+            var item = Player.Inventory.equipment.GetEquipment(Items.EquipmentType.Weapon);
+            if (item == null) SetAbility(AbilitySlots.WeaponAttack, settings.FistAttackAbility);
+            else if (item is Weapon weapon) SetAbility(AbilitySlots.WeaponAttack, weapon.WeaponAbility);
+        }
     }
 
     public BaseAbility GetAbility(AbilitySlots slot)
@@ -79,10 +102,17 @@ public class PlayerAbilitiesHandler : PlayerModule
         return abilitySlots[(int)slot];
     }
 
+    public void SetAbility(AbilitySlots slot, BaseAbility ability)
+    {
+        abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
+        OnAbilityChange[(int)slot]?.Invoke(ability);
+    }
+
     void ActivateAbility(int slot, InputAction.CallbackContext context)
     {
         var ability = abilitySlots[slot];
         if (ability == null) return;
+
         if(ability.Activate(new CasterInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
         {
 

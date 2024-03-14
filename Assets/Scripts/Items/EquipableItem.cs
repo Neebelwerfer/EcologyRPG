@@ -61,10 +61,7 @@ namespace Items
     [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Weapon")]
     public class Weapon : EquipableItem
     {
-        public float minDamage;
-        public float maxDamage;
-
-        BaseAbility WeaponAbility;
+        public WeaponAttack WeaponAbility;
 
         public Weapon()
         {
