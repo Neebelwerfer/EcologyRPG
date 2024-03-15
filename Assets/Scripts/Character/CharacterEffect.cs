@@ -36,7 +36,7 @@ public abstract class CharacterEffect : ScriptableObject
         }
     }
 
-    public abstract void OnApply(CasterInfo Caster, BaseCharacter target);
+    public abstract void OnApply(CastInfo Caster, BaseCharacter target);
 
     public abstract void OnReapply(BaseCharacter target);
 

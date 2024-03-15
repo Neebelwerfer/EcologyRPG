@@ -2,7 +2,6 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DodgeEffect", menuName = BuffPath + "Dodge Effect")]
 public class DodgeEffect : BuffEffect
 {
     public DirectionMode directionMode = DirectionMode.Mouse;
@@ -11,7 +10,7 @@ public class DodgeEffect : BuffEffect
 
     Vector3 direction;
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         if (directionMode == DirectionMode.Mouse)
         {

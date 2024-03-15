@@ -13,7 +13,11 @@ namespace Character
         PercentAdd = 200,
         PercentMult = 300,
         }
-
+    public enum DisplayOptions
+    {
+        Flat,
+        Percent,
+    }
     public enum ShowOptions
     {
         Always,
@@ -28,6 +32,9 @@ namespace Character
         public string name;
         [Tooltip("The display name of the stat")]
         public string displayName;
+        [Tooltip("The display options of the stat")]
+        public DisplayOptions DisplayOptions;
+        [Tooltip("The show options of the stat")]
         public ShowOptions ShowOptions;
         [Tooltip("The default value of this stat")]
         public float baseValue;

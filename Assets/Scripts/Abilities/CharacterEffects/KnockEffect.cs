@@ -2,7 +2,6 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "KnockEffect", menuName = DebuffPath + "Knock Effect")]
 public class KnockEffect : DebuffEffect
 {
     enum KnockType
@@ -20,7 +19,7 @@ public class KnockEffect : DebuffEffect
     float timer;
 
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         startPos = target.Position;
         Vector3 dir;

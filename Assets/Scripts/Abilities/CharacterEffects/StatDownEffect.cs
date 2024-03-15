@@ -2,7 +2,6 @@ using Character;
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StatDownEffect", menuName = DebuffPath + "Stat Down Effect")]
 public class StatDownEffect : DebuffEffect
 {
     public string StatName;
@@ -11,7 +10,7 @@ public class StatDownEffect : DebuffEffect
 
     static UniqueStatModificationHandler UniqueStatModHandler;
 
-    public override void OnApply(CasterInfo Caster, BaseCharacter target)
+    public override void OnApply(CastInfo Caster, BaseCharacter target)
     {
         UniqueStatModHandler = new UniqueStatModificationHandler(StatName, ModType, false);
         UniqueStatModHandler.AddValue(target, this, Value);

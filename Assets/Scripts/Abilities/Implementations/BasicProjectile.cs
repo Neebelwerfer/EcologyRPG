@@ -1,47 +1,42 @@
 using Character.Abilities;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/BasicProjectile")]
 public class BasicProjectile : ProjectileAbility
 {
-    [Tooltip("The base damage of the projectile")]
-    public float BaseDamage;
-    [Tooltip("The type of damage the projectile will deal")]
-    public DamageType damageType;
     [Tooltip("The travel speed of the projectile")]
     public float Speed;
 
     [Header("Projectile Settings")]
     [Tooltip("The prefab of the projectile")]
     public GameObject ProjectilePrefab;
-    [Tooltip("Debuffs that will be applied to the target when the projectile hits")]    
-    public List<DebuffEffect> Effects;
-    Vector3 MousePoint;
 
-    public override void CastEnded(CasterInfo caster)
+
+    public override void Cast(CastInfo castInfo)
     {
-        base.CastEnded(caster);
-        var dir = (MousePoint - caster.castPos).normalized;
-        dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+        var dir = GetDir(castInfo);
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, castInfo.owner.CastPos + (dir * Range), Speed, destroyOnHit, targetMask, castInfo.owner, (target) =>
         {
-            target.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
-            foreach (var effect in Effects)
+            var newCastInfo = new CastInfo { owner = castInfo.owner, castPos = target.transform.position, dir = dir, mousePoint = Vector3.zero };
+            foreach (var effect in OnHitEffects)
             {
-                ApplyEffect(caster, target, effect);
+                effect.ApplyEffect(newCastInfo, target);
             }
         });
     }
+}
 
-    public override void CastStarted(CasterInfo caster)
+#if UNITY_EDITOR
+[CustomEditor(typeof(BasicProjectile))]
+public class BasicProjectileEditor : ProjectileAbilityEditor
+{
+    public override void OnInspectorGUI()
     {
-        base.CastStarted(caster);
-        MousePoint = TargetUtility.GetMousePoint(Camera.main);
+        base.OnInspectorGUI();
+        BasicProjectile ability = (BasicProjectile)target;
+        ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
+        ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
     }
-
-    public override void OnHold(CasterInfo caster)
-    {
-
-    }
-} 
+}
+#endif
