@@ -164,11 +164,12 @@ namespace Character.Abilities
 [CustomEditor(typeof(BaseAbility), false)]
 public class BaseAbilityEditor : UnityEditor.Editor
 {
+    protected bool showCooldownValue = true;
     public override void OnInspectorGUI()
     {
         BaseAbility ability = (BaseAbility)target;
         ability.DisplayName = EditorGUILayout.TextField("Display Name", ability.DisplayName);
-        ability.Cooldown = EditorGUILayout.FloatField("Cooldown", ability.Cooldown);
+        if(showCooldownValue) ability.Cooldown = EditorGUILayout.FloatField("Cooldown", ability.Cooldown);
         ability.CastTime = EditorGUILayout.FloatField("Cast Time", ability.CastTime);
         ability.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
     }

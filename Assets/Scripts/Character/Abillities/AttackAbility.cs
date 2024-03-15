@@ -1,7 +1,6 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "AbilityHolder/AttackAbility", fileName = "New Attack Ability")]
 public class AttackAbility : BaseAbility
 {
     public AbilityEffect Ability;

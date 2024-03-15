@@ -17,6 +17,14 @@ public class AttackAbilityEditor : BaseAbilityEditor
     public override void OnInspectorGUI()
     {
         AttackAbility ability = (AttackAbility)target;
+        if (ability.GetType().IsSubclassOf(typeof(AttackAbility)))
+        {
+            showCooldownValue = true;
+        }
+        else
+        {
+            showCooldownValue = false;
+        }
 
         if(ability.Ability == null)
         {
