@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-[CreateAssetMenu(menuName = "Abilities/PlayerExplosion", fileName = "New Player Explosion")]
-public class CenteredExplosion : AbilityEffect
+public class CenteredExplosion : BaseAbility
 {
     [Header("Centered Explosion")]
     [Tooltip("The layer mask of the targets that will be hit by the explosion")]
@@ -32,6 +31,7 @@ public class CenteredExplosion : AbilityEffect
         {
             foreach (var t in targets)
             {
+                if (t == null) continue;
                 if (t.Faction == caster.owner.Faction) continue;
 
 

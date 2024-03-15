@@ -11,7 +11,7 @@ namespace Items.ItemTemplates
         public float minDamage;
         public float maxDamage;
 
-        public PlayerAbility WeaponAttackAbility;
+        public PlayerAbilityHolder WeaponAttackAbility;
 
         public WeaponTemplate()
         {

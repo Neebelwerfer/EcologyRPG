@@ -3,7 +3,6 @@ using Character.Abilities;
 using Codice.Client.Commands;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/MeleeAttack")]
 public class MeleeAttack : WeaponAttack
 {
     public float width;

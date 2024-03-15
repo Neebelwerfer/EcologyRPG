@@ -1,3 +1,4 @@
+using Character.Abilities.AbilityEffects;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -9,20 +10,21 @@ public enum ProjectileType
     Circular
 }
 
-public abstract class ProjectileAbility : AttackAbilityEffect
+public abstract class ProjectileAbility : AttackAbility
 {
     [Header("Projectile Ability")]
     [Tooltip("The projectile will be destroyed when it hits the first target")]
     public bool destroyOnHit = true;
 
-    [Tooltip("The ability that will be cast when the projectile hits the ground")]
-    public AttackAbility OnHitAbility;
+    public List<AbilityEffect> OnHitEffects = new();
 }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(ProjectileAbility), false)]
 public class ProjectileAbilityEditor : AttackAbilityEffectEditor
 {
+    bool foldOut = false;
+    int index = 0;
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -30,30 +32,61 @@ public class ProjectileAbilityEditor : AttackAbilityEffectEditor
         ProjectileAbility ability = (ProjectileAbility)target;
         ability.destroyOnHit = EditorGUILayout.Toggle("Destroy On Hit", ability.destroyOnHit);
 
-        if (ability.OnHitAbility == null)
+        foldOut = EditorGUILayout.BeginFoldoutHeaderGroup(foldOut, "On Hit Effects");
+        if (foldOut)
         {
-            if (GUILayout.Button("Add On Hit Ability"))
+            foreach (var effect in ability.OnHitEffects)
             {
-                ability.OnHitAbility = CreateInstance<AttackAbility>();
-                ability.OnHitAbility.name = "On Hit Ability";
-                AssetDatabase.AddObjectToAsset(ability.OnHitAbility, ability);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                EditorUtility.SetDirty(ability);
+                EditorGUILayout.ObjectField(effect, typeof(AbilityEffect), false);
+            }
+            if (GUILayout.Button("Add Effect"))
+            {
+                var window = EditorWindow.GetWindow<AbilityEffectEditor>();
+                window.editedEffects = new EditListEffect(ability, ability.OnHitEffects);
+                window.Show();
+            }
+
+            if (ability.OnHitEffects.Count > 0)
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Remove All"))
+                {
+                    foreach (var effect in ability.OnHitEffects)
+                    {
+                        DestroyImmediate(effect, true);
+                    }
+                    ability.OnHitEffects.Clear();
+                    AssetDatabase.Refresh();
+                    AssetDatabase.SaveAssets();
+                }
+
+                if (GUILayout.Button("Remove Last"))
+                {
+                    DestroyImmediate(ability.OnHitEffects[ability.OnHitEffects.Count - 1], true);
+                    ability.OnHitEffects.RemoveAt(ability.OnHitEffects.Count - 1);
+                    AssetDatabase.Refresh();
+                    AssetDatabase.SaveAssets();
+                }
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                var ind = EditorGUILayout.IntField("Index", index);
+                if (ind > ability.OnHitEffects.Count)
+                {
+                    ind = ability.OnHitEffects.Count;
+                }
+                index = ind;
+                if (GUILayout.Button("Remove Index"))
+                {
+                    DestroyImmediate(ability.OnHitEffects[index], true);
+                    ability.OnHitEffects.RemoveAt(index);
+                    AssetDatabase.Refresh();
+                    AssetDatabase.SaveAssets();
+                }
+                EditorGUILayout.EndHorizontal();
             }
         }
-        else
-        {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("OnHitAbility"));
-            if (GUILayout.Button("Remove On Hit Ability"))
-            {
-                DestroyImmediate(ability.OnHitAbility, true);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                EditorUtility.SetDirty(ability);
-                ability.OnHitAbility = null;
-            }
-        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
     }
 }
 #endif

@@ -4,9 +4,9 @@ using UnityEngine;
 using static AttackAbilityEditor;
 
 [CreateAssetMenu(menuName = "AbilityHolder/NPCAbility", fileName = "New NPC Ability")]
-public class NPCAbility : BaseAbility
+public class NPCAbility : BaseAbilityHolder
 {
-    public AbilityEffect attackAbilityEffect;
+    public BaseAbility attackAbilityEffect;
 
     public override void CastEnded(CastInfo caster)
     {
@@ -32,7 +32,7 @@ public class NPCAbilityEditor : BaseAbilityEditor
         if (ability.attackAbilityEffect == null)
         {
             selectedAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Ability", selectedAbility);
-            var res = (AbilityEffect)EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.attackAbilityEffect, typeof(AbilityEffect), false);
+            var res = (BaseAbility)EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.attackAbilityEffect, typeof(BaseAbility), false);
 
             if (GUILayout.Button("Create New Ability"))
             {

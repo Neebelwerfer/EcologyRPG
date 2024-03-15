@@ -120,6 +120,7 @@ namespace Character
             {
                 return;
             }
+            effect.Owner = caster.owner;
 
             for(int i = 0; i < effects.Count; i++)
             {

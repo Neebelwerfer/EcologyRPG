@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "SlowEffect", menuName = DebuffPath + "Slow Effect")]
 public class SlowEffect : DebuffEffect
 {
     enum SlowType

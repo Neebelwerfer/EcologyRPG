@@ -1,12 +1,12 @@
 ﻿using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
-[CustomEditor(typeof(PlayerAbility))]
+[CustomEditor(typeof(PlayerAbilityHolder))]
 public class PlayerAbilityEditor : AttackAbilityEditor
 {
     public override void OnInspectorGUI()
     {
-        PlayerAbility ability = (PlayerAbility)target;
+        PlayerAbilityHolder ability = (PlayerAbilityHolder)target;
         ability.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
         base.OnInspectorGUI();
         EditorGUILayout.LabelField("Resource Cost", EditorStyles.boldLabel);

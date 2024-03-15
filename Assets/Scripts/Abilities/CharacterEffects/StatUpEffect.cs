@@ -2,7 +2,6 @@ using Character;
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StatUpEffect", menuName = BuffPath + "Stat Up Effect")]
 public class StatUpEffect : BuffEffect
 {
 
@@ -20,7 +19,7 @@ public class StatUpEffect : BuffEffect
 
     public override void OnReapply(BaseCharacter target)
     {
-
+        remainingDuration = duration;
     }
 
     public override void OnRemoved(BaseCharacter target)

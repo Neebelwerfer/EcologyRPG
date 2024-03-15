@@ -2,7 +2,6 @@
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DodgeEffect", menuName = BuffPath + "Dodge Effect")]
 public class DodgeEffect : BuffEffect
 {
     public DirectionMode directionMode = DirectionMode.Mouse;

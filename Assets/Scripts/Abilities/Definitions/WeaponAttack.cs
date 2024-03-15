@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class WeaponAttack : AttackAbilityEffect
+public abstract class WeaponAttack : AttackAbility
 {
     public enum TargetType
     {

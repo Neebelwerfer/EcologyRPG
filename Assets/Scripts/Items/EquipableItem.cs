@@ -61,7 +61,7 @@ namespace Items
     [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Weapon")]
     public class Weapon : EquipableItem
     {
-        public PlayerAbility WeaponAbility;
+        public PlayerAbilityHolder WeaponAbility;
 
         public Weapon()
         {

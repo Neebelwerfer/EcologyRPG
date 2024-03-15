@@ -12,7 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bbb0d13a4cf82408d636e211864e10, type: 3}
   m_Name: Dodge(Clone)
   m_EditorClassIdentifier: 
-  dodgeEffect: {fileID: 11400000, guid: 7f0ef87f74a2bb2418cfcd1e33fef131, type: 2}
+  Range: 0
+  dodgeEffect: {fileID: -982123961453350453}
+--- !u!114 &-982123961453350453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c67673cf1ed2a48bf3ab46e883d374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 6aca76ad-3541-43da-9a26-521165978032
+  displayName: DodgeEffect
+  type: 0
+  duration: 0.3
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  directionMode: 0
+  dodgeSpeed: 10
+  dodgeDuration: 0.3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,7 +50,7 @@ MonoBehaviour:
   DisplayName: 
   Cooldown: 2
   CastTime: 0
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0

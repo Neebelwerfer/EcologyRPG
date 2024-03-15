@@ -44,5 +44,5 @@ public abstract class CharacterEffect : ScriptableObject
 
     public abstract void OnRemoved(BaseCharacter target);
 
-    protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => AbilityEffect.CalculateDamage(Owner, type, damage, allowVariance);
+    protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => BaseAbility.CalculateDamage(Owner, type, damage, allowVariance);
 }

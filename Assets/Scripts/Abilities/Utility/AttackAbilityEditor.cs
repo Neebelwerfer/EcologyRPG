@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
-[CustomEditor(typeof(AttackAbility))]
+[CustomEditor(typeof(AttackAbilityHolder))]
 public class AttackAbilityEditor : BaseAbilityEditor
 {
     SelectableAbilities selectedAbility = SelectableAbilities.None;
@@ -16,8 +16,8 @@ public class AttackAbilityEditor : BaseAbilityEditor
     }
     public override void OnInspectorGUI()
     {
-        AttackAbility ability = (AttackAbility)target;
-        if (ability.GetType().IsSubclassOf(typeof(AttackAbility)))
+        AttackAbilityHolder ability = (AttackAbilityHolder)target;
+        if (ability.GetType().IsSubclassOf(typeof(AttackAbilityHolder)))
         {
             showCooldownValue = true;
         }
@@ -29,7 +29,7 @@ public class AttackAbilityEditor : BaseAbilityEditor
         if(ability.Ability == null)
         {
             selectedAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Ability", selectedAbility);
-            var res = (AbilityEffect) EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.Ability, typeof(AbilityEffect), false);
+            var res = (BaseAbility) EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.Ability, typeof(BaseAbility), false);
 
             if(GUILayout.Button("Create New Ability"))
             {

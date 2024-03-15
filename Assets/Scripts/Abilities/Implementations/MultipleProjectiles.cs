@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/Multiple Projectiles")]
 public class MultipleProjectiles : ProjectileAbility
 {
     public ProjectileType type;
@@ -18,17 +17,9 @@ public class MultipleProjectiles : ProjectileAbility
     [Header("Projectile Settings")]
     public GameObject projectilePrefab;
     public float Speed;
-    public float BaseDamage;
-    public DamageType damageType;
-    public List<DebuffEffect> effects;
 
     Vector3 dir;
     float angleBetweenProjectiles;
-
-    public MultipleProjectiles()
-    {
-
-    }
 
     public override void Cast(CastInfo caster)
     {
@@ -87,13 +78,11 @@ public class MultipleProjectiles : ProjectileAbility
 
     void OnHit (CastInfo caster, BaseCharacter target, Vector3 direction)
     {
-        target.ApplyDamage(CalculateDamage(target, damageType, BaseDamage));
-        foreach (var effect in effects)
+        var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.transform.position, dir = direction, mousePoint = caster.mousePoint };
+        foreach (var effect in OnHitEffects)
         {
-            ApplyEffect(caster, target, effect);
+            effect.ApplyEffect(newCastInfo, target);
         }
-        if (OnHitAbility != null)
-            caster.owner.StartCoroutine(OnHitAbility.HandleCast(new CastInfo { owner = caster.owner, castPos = target.transform.position, dir = direction, mousePoint = caster.mousePoint }));
     }
 }
 
@@ -118,12 +107,7 @@ public class MultipleProjectilesEditor : ProjectileAbilityEditor
         }
         ability.projectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.projectilePrefab, typeof(GameObject), false);
         ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
-        ability.BaseDamage = EditorGUILayout.FloatField("Base Damage", ability.BaseDamage);
-        ability.damageType = (DamageType)EditorGUILayout.EnumPopup("Damage Type", ability.damageType);
-        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("effects")))
-        {
-            EditorUtility.SetDirty(ability);
-        }
+
     }
 }
 #endif

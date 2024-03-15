@@ -2,7 +2,6 @@ using Character;
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StatDownEffect", menuName = DebuffPath + "Stat Down Effect")]
 public class StatDownEffect : DebuffEffect
 {
     public string StatName;

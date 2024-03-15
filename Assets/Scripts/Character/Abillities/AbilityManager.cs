@@ -7,7 +7,7 @@ public class AbilityManager : MonoBehaviour
 {
     public static AbilityManager instance;
 
-    public List<BaseAbility> CooldownAbilities = new List<BaseAbility>();
+    public List<BaseAbilityHolder> CooldownAbilities = new List<BaseAbilityHolder>();
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public void RegisterAbilityOnCooldown(BaseAbility ability)
+    public void RegisterAbilityOnCooldown(BaseAbilityHolder ability)
     {
         if (!CooldownAbilities.Contains(ability))
         {
@@ -29,7 +29,7 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public void UnregisterAbilityOnCooldown(BaseAbility ability)
+    public void UnregisterAbilityOnCooldown(BaseAbilityHolder ability)
     {
         if (CooldownAbilities.Contains(ability))
         {
