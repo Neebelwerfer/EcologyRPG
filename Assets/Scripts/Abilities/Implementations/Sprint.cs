@@ -5,7 +5,7 @@ using UnityEngine;
 using Utility;
 
 [CreateAssetMenu(fileName = "Sprint", menuName = "Abilities/Sprint")]
-public class Sprint : BaseAbility
+public class Sprint : AbilityEffect
 {
     public ExhaustionEffect Exhaustion;
     public float sprintSpeedMultiplier = 1f;
@@ -17,24 +17,9 @@ public class Sprint : BaseAbility
     {
         sprintSpeed = new StatModification("movementSpeed", sprintSpeedMultiplier, StatModType.PercentMult, this);
     }
-    public override void CastStarted(CasterInfo caster)
-    {
-        caster.owner.Stats.AddStatModifier(sprintSpeed);
-        stamina = caster.owner.Stats.GetResource(ResourceName);
-    }
 
-    public override void OnHold(CasterInfo caster)
+    public override void Cast(CastInfo castInfo)
     {
-        if (stamina < ResourceCost * TimeManager.IngameDeltaTime)
-        {
-            caster.owner.ApplyEffect(caster, Instantiate(Exhaustion));
-        }
 
-        stamina -= ResourceCost * TimeManager.IngameDeltaTime;
-    }
-
-    public override void CastEnded(CasterInfo caster)
-    {
-        caster.owner.Stats.RemoveStatModifier(sprintSpeed);
     }
 }

@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
-  m_Name: FistAttack
+  m_Script: {fileID: 11500000, guid: f6b7783dffada0f4e9364ed4877bdf71, type: 3}
+  m_Name: ExplosionTest
   m_EditorClassIdentifier: 
-  DisplayName: Fist Attack
-  Cooldown: 0.2
+  DisplayName: ExplosionTest
+  Cooldown: 0
   CastTime: 0
-  Icon: {fileID: 21300000, guid: ce1cf3cebfb29f74f89c99ac4d14b1be, type: 3}
+  Icon: {fileID: 0}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  Ability: {fileID: 11400000, guid: 75ac77afeb39e9447af78147d1c19be7, type: 2}
-  ResourceName: Stamina
-  ResourceCost: 10
+  useMouseDirection: 0
+  Ability: {fileID: 11400000, guid: f86a8ff97c84a2543908f371d99c9137, type: 2}

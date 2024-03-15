@@ -68,6 +68,11 @@ public static class TargetUtility
         return Vector3.zero;
     }
 
+    public static Vector3 GetDirection(Vector3 origin, Vector3 target)
+    {
+        return (target - origin).normalized;
+    }
+
     public static Vector3 GetMousePoint(Camera camera)
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);

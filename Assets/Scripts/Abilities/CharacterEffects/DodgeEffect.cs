@@ -11,7 +11,7 @@ public class DodgeEffect : BuffEffect
 
     Vector3 direction;
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         if (directionMode == DirectionMode.Mouse)
         {

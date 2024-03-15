@@ -14,7 +14,7 @@ public class DamageOverTimeEffect : DebuffEffect
 
     private float _BaseDamagePerTick;
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         timeSinceLastTick = 0;
         _BaseDamagePerTick = damagePerTick;

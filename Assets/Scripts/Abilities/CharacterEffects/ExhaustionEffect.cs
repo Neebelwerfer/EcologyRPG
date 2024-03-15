@@ -12,7 +12,7 @@ public class ExhaustionEffect : DebuffEffect
 
 
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         Stamina = target.Stats.GetResource("Stamina");
         sprintInput = caster.activationInput;

@@ -1,9 +1,10 @@
 using Character.Abilities;
 using Codice.Client.Commands;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/LoppedProjectile", fileName = "New Lopped Projectile")]
-public class LoppedProjectile : AttackAbility
+public class LoppedProjectile : AttackAbilityEffect
 {
     [Header("Lopped Projectile")]
     [Tooltip("The prefab of the projectile")]
@@ -15,41 +16,57 @@ public class LoppedProjectile : AttackAbility
     [Tooltip("The travel time of the projectile")]
     public float TravelTime;
     [Tooltip("The ability that will be cast when the projectile hits the ground")]
-    public BaseAbility OnHitAbility;
+    public AttackAbility OnHitAbility;
 
-    Vector3 MousePoint;
-
-    public override bool CanActivate(CasterInfo caster)
+    public override void Cast(CastInfo caster)
     {
-        if(!base.CanActivate(caster))
+        Debug.DrawRay(caster.mousePoint, Vector3.up * 10, Color.red, 5);
+        ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
         {
-            return false;
-        }
-
-        MousePoint = TargetUtility.GetMousePoint(Camera.main);
-        if (Vector3.Distance(caster.castPos, MousePoint) > Range)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    public override void CastStarted(CasterInfo caster)
-    {
-        base.CastStarted(caster);
-    }
-
-    public override void CastEnded(CasterInfo caster)
-    {
-        base.CastEnded(caster);
-        Debug.DrawRay(MousePoint, Vector3.up * 10, Color.red, 5);  
-        ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, MousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
-        {
-            Cast(new CasterInfo { owner = caster.owner, castPos = projectileObject.transform.position }, OnHitAbility);
+            caster.owner.StartCoroutine(OnHitAbility.HandleCast(new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint }));
         });
     }
 
-    public override void OnHold(CasterInfo caster)
+}
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(LoppedProjectile))]
+public class LoppedProjectileEditor : AttackAbilityEffectEditor
+{
+    public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
+
+        LoppedProjectile ability = (LoppedProjectile)target;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ProjectilePrefab"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask"));
+        ability.Angle = EditorGUILayout.FloatField("Angle", ability.Angle);
+        ability.TravelTime = EditorGUILayout.FloatField("Travel Time", ability.TravelTime);
+
+        if(ability.OnHitAbility == null)
+        {
+            if (GUILayout.Button("Add On Hit Ability"))
+            {
+                ability.OnHitAbility = CreateInstance<AttackAbility>();
+                ability.OnHitAbility.name = "On Hit Ability";
+                AssetDatabase.AddObjectToAsset(ability.OnHitAbility, ability);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                EditorUtility.SetDirty(ability);
+            }
+        } else
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("OnHitAbility"));
+            if(GUILayout.Button("Remove On Hit Ability"))
+            {
+                DestroyImmediate(ability.OnHitAbility, true);
+                ability.OnHitAbility = null;
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                EditorUtility.SetDirty(ability);
+            }
+        }
+       
     }
 }
+#endif

@@ -1,4 +1,5 @@
 using Character;
+using Character.Abilities;
 using UnityEngine;
 
 namespace Items.ItemTemplates
@@ -10,7 +11,8 @@ namespace Items.ItemTemplates
         public float minDamage;
         public float maxDamage;
 
-        public WeaponAttack WeaponAttackAbility;
+        public PlayerAbility WeaponAttackAbility;
+
         public WeaponTemplate()
         {
             equipmentType = EquipmentType.Weapon;
@@ -27,7 +29,7 @@ namespace Items.ItemTemplates
             };
 
             var ability = Instantiate(WeaponAttackAbility);
-            ability.BaseDamage = Random.Range(minDamage, maxDamage);
+            //ability.BaseDamage = Random.Range(minDamage, maxDamage);
             item.WeaponAbility = ability;
 
             foreach (var mod in Modifiers)

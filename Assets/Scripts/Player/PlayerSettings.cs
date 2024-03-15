@@ -24,13 +24,13 @@ namespace Player
 
         [Header("Ability Settings")]
         public float GlobalCooldown = 0.5f;
-        public BaseAbility SprintAbility;
-        public BaseAbility DodgeAbility;
-        public BaseAbility Ability1Reference;
-        public BaseAbility Ability2Reference;
-        public BaseAbility Ability3Reference;
-        public BaseAbility Ability4Reference;
-        public BaseAbility FistAttackAbility;
+        public PlayerAbility SprintAbility;
+        public PlayerAbility DodgeAbility;
+        public PlayerAbility Ability1Reference;
+        public PlayerAbility Ability2Reference;
+        public PlayerAbility Ability3Reference;
+        public PlayerAbility Ability4Reference;
+        public PlayerAbility FistAttackAbility;
 
         [Header("Inventory Settings")]
         public Item[] StartingItems = new Item[5];

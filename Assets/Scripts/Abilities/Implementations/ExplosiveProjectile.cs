@@ -2,6 +2,7 @@ using Character.Abilities;
 using Codice.Client.Commands;
 using Codice.CM.Common;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/ExplosiveProjectile", fileName = "New Explosive Projectile")]
@@ -23,13 +24,10 @@ public class ExplosiveProjectile : ProjectileAbility
     [Tooltip("The prefab of the projectile")]
     public GameObject ProjectilePrefab;
 
-    Vector3 MousePoint;
-    public override void CastEnded(CasterInfo caster)
+    public override void Cast(CastInfo caster)
     {
-        base.CastEnded(caster);
-        var dir = (MousePoint - caster.castPos).normalized;
-        dir.y = 0;
-        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.castPos + (dir * Range), Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+        var dir = GetDir(caster);
+        ProjectileUtility.CreateProjectile(ProjectilePrefab, caster.owner.CastPos + (dir * Range), Speed, destroyOnHit, targetMask, caster.owner, (target) =>
         {
             var targets = TargetUtility.GetTargetsInRadius(target.transform.position, ExplosionRadius, targetMask);
 
@@ -48,14 +46,26 @@ public class ExplosiveProjectile : ProjectileAbility
             }
         });
     }
+}
 
-    public override void CastStarted(CasterInfo caster)
+#if UNITY_EDITOR
+[CustomEditor(typeof(ExplosiveProjectile))]
+public class ExplosiveProjectileEditor : ProjectileAbilityEditor
+{
+    public override void OnInspectorGUI()
     {
-        base.CastStarted(caster);
-        MousePoint = TargetUtility.GetMousePoint(Camera.main);
-    }
-
-    public override void OnHold(CasterInfo caster)
-    {
+        base.OnInspectorGUI();
+        ExplosiveProjectile ability = (ExplosiveProjectile)target;
+        ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
+        ability.ExplosionRadius = EditorGUILayout.FloatField("Explosion Radius", ability.ExplosionRadius);
+        ability.ExplosionDamage = EditorGUILayout.FloatField("Explosion Damage", ability.ExplosionDamage);
+        ability.TargetHitExtraDamage = EditorGUILayout.FloatField("Target Hit Extra Damage", ability.TargetHitExtraDamage);
+        ability.damageType = (DamageType)EditorGUILayout.EnumPopup("Damage Type", ability.damageType);
+        ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
+        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("effects")))
+        {
+            EditorUtility.SetDirty(ability);
+        }
     }
 }
+#endif

@@ -50,13 +50,14 @@ public class BasicBehaviour : NPCBehaviour
             if (attackAbility.state != AbilityStates.ready) return;
             npc.Agent.ResetPath();
             npc.transform.LookAt(target.transform);
-            attackAbility.Activate(new CasterInfo { activationInput = null, castPos = npc.AbilityPoint.transform.position, owner = npc});
+            attackAbility.Activate(new CastInfo { activationInput = null, castPos = npc.AbilityPoint.transform.position, owner = npc});
         });
 
         var inAttackRange = new DecisionNode((npc) =>
         {
             var dist = Vector3.Distance(npc.transform.position, target.transform.position);
-            return dist < attackAbility.Range;
+            //return dist < attackAbility.Range;
+            return false;
 
         }, Attack, Chase);
 

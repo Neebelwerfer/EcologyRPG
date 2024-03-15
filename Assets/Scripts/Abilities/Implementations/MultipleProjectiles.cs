@@ -1,6 +1,7 @@
 using Character;
 using Character.Abilities;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/Multiple Projectiles")]
@@ -29,13 +30,9 @@ public class MultipleProjectiles : ProjectileAbility
 
     }
 
-    public override void CastStarted(CasterInfo caster)
+    public override void Cast(CastInfo caster)
     {
-        base.CastStarted(caster);
-        dir = TargetUtility.GetMouseDirection(caster.castPos, Camera.main);
-        dir.y = 0;
-        dir.Normalize();
-
+        var dir = GetDir(caster);
         if (type == ProjectileType.Cone)
         {
             angleBetweenProjectiles = ConeAngle / (numberOfProjectiles - 1);
@@ -49,16 +46,9 @@ public class MultipleProjectiles : ProjectileAbility
             angleBetweenProjectiles = 360 / numberOfProjectiles;
         }
 
-    }
-
-    public override void CastEnded(CasterInfo caster)
-    {
-        base.CastEnded(caster);
-
-
         if (type == ProjectileType.Line)
         {
-            var center = caster.castPos;
+            var center = caster.owner.CastPos;
             var left = Quaternion.Euler(0, -90, 0) * dir;
             var start = center + left * LineWidth / 2;
             for (int i = 0; i < numberOfProjectiles; i++)
@@ -76,7 +66,7 @@ public class MultipleProjectiles : ProjectileAbility
             for (int i = 0; i < numberOfProjectiles; i++)
             {
                 var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * start;
-                ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                ProjectileUtility.CreateProjectile(projectilePrefab, caster.owner.CastPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                 {
                     OnHit(caster, target);
                 });
@@ -87,21 +77,15 @@ public class MultipleProjectiles : ProjectileAbility
             for (int i = 0; i < numberOfProjectiles; i++)
             {
                 var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * dir;
-                ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                ProjectileUtility.CreateProjectile(projectilePrefab, caster.owner.CastPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                 {
                     OnHit(caster, target);
                 });
             }
         }
-        
     }
 
-    public override void OnHold(CasterInfo caster)
-    {
-
-    }
-
-    void OnHit (CasterInfo caster, BaseCharacter target)
+    void OnHit (CastInfo caster, BaseCharacter target)
     {
         target.ApplyDamage(CalculateDamage(target, damageType, BaseDamage));
         foreach (var effect in effects)
@@ -110,3 +94,33 @@ public class MultipleProjectiles : ProjectileAbility
         }
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(MultipleProjectiles))]
+public class MultipleProjectilesEditor : ProjectileAbilityEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        MultipleProjectiles ability = (MultipleProjectiles)target;
+        ability.type = (ProjectileType)EditorGUILayout.EnumPopup("Type", ability.type);
+        ability.numberOfProjectiles = EditorGUILayout.IntField("Number of Projectiles", ability.numberOfProjectiles);
+        if (ability.type == ProjectileType.Cone)
+        {
+            ability.ConeAngle = EditorGUILayout.FloatField("Cone Angle", ability.ConeAngle);
+        }
+        else if (ability.type == ProjectileType.Line)
+        {
+            ability.LineWidth = EditorGUILayout.FloatField("Line Width", ability.LineWidth);
+        }
+        ability.projectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.projectilePrefab, typeof(GameObject), false);
+        ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
+        ability.BaseDamage = EditorGUILayout.FloatField("Base Damage", ability.BaseDamage);
+        ability.damageType = (DamageType)EditorGUILayout.EnumPopup("Damage Type", ability.damageType);
+        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("effects")))
+        {
+            EditorUtility.SetDirty(ability);
+        }
+    }
+}
+#endif

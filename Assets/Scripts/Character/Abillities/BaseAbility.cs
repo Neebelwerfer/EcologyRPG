@@ -20,10 +20,12 @@ namespace Character.Abilities
         Toxic
     }
 
-    public struct CasterInfo
+    public struct CastInfo
     {
         public BaseCharacter owner;
         public Vector3 castPos;
+        public Vector3 dir;
+        public Vector3 mousePoint;
         public InputAction activationInput;
     }
 
@@ -36,10 +38,10 @@ namespace Character.Abilities
 
     public class AbilityCastEvent : EventData
     {
-        public CasterInfo Caster;
+        public CastInfo Caster;
         public BaseAbility Ability;
 
-        public AbilityCastEvent(CasterInfo caster, BaseAbility ability)
+        public AbilityCastEvent(CastInfo caster, BaseAbility ability)
         {
             Caster = caster;
             Ability = ability;
@@ -49,19 +51,22 @@ namespace Character.Abilities
     public abstract class BaseAbility : ScriptableObject
     {
         public string DisplayName;
-        [Tooltip("The resource that get used for the ability cost")]
-        public string ResourceName;
-        [Tooltip("The resource cost of this ability")]
-        public float ResourceCost = 0;
         [Tooltip("The cooldown of this ability")]
         public float Cooldown = 0;
         [Tooltip("The cast time of this ability. Cast Started will always be called first, and then after the Cast Time has been waited Cast ended will be called")]
         public float CastTime = 0;
-        public bool AllowHolding;
         public Sprite Icon;
+
+        public List<BuffEffect> BuffsOnCast;
 
         [HideInInspector] public float remainingCooldown = 0;
         [HideInInspector] public AbilityStates state = AbilityStates.ready;
+        BaseCharacter owner;
+
+        public virtual void Initialize(BaseCharacter owner)
+        {
+            this.owner = owner;
+        }
 
         public virtual void UpdateCooldown(float deltaTime)
         {
@@ -78,7 +83,7 @@ namespace Character.Abilities
             }
         }
 
-        public virtual bool Activate(CasterInfo caster)
+        public virtual bool Activate(CastInfo caster)
         {
             if (!CanActivate(caster)) return false;
             Debug.Log("CASTING " + DisplayName);
@@ -87,7 +92,7 @@ namespace Character.Abilities
             return true;
         }   
 
-        public virtual bool CanActivate(CasterInfo caster)
+        public virtual bool CanActivate(CastInfo caster)
         {
             if (state == AbilityStates.cooldown)
             {
@@ -100,46 +105,18 @@ namespace Character.Abilities
                 Debug.Log("Ability already casting");
                 return false;
             }
-
-            if (ResourceName != "" && caster.owner.Stats.GetResource(ResourceName) < ResourceCost)
-            {
-                Debug.Log("Not enough resource");
-                return false;
-            }
             return true;
         }
 
-        public virtual IEnumerator HandleAsSecondaryCast(CasterInfo caster)
-        {
-            CastStarted(caster);
-
-            yield return new WaitForSeconds(CastTime);
-
-            CastEnded(caster);
-        }
-
-        public virtual IEnumerator HandleCast(CasterInfo caster)
+        public virtual IEnumerator HandleCast(CastInfo caster)
         {
             caster.owner.state = CharacterStates.casting;
             state = AbilityStates.casting;
 
-            if(ResourceCost > 0)
-            {
-                InitialCastCost(caster);
-            }
-
             CastStarted(caster);
 
             yield return new WaitForSeconds(CastTime);
 
-            if(AllowHolding && CastTime == 0)
-            {
-                while(caster.activationInput.IsPressed())
-                {
-                    OnHold(caster);
-                    yield return null;
-                }
-            }
             CastEnded(caster);
 
             caster.owner.state = CharacterStates.active;
@@ -155,59 +132,28 @@ namespace Character.Abilities
             }
         }
 
-        protected static void Cast(CasterInfo caster, BaseAbility ability)
-        {
-            caster.owner.StartCoroutine(ability.HandleAsSecondaryCast(caster));
-        }
-
-        protected static void ApplyEffect(CasterInfo caster, BaseCharacter target, CharacterEffect effect)
-        {
-            var instancedEffect = Instantiate(effect);
-            instancedEffect.Owner = caster.owner;
-            target.ApplyEffect(caster, instancedEffect);
-        }
-
-        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true)
-        {
-            DamageInfo damageInfo = new()
-            {
-                type = damageType,
-                source = caster
-            };
-
-            var ad = caster.Stats.GetStat("abilityDamage");
-            var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
-            damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
-
-            return damageInfo;
-        }
-
-        /// <summary>
-        /// Called when the cast is started to deduct the resource cost
-        /// </summary>
-        /// <param name="caster"></param>
-        public virtual void InitialCastCost(CasterInfo caster)
-        {
-            var resource = caster.owner.Stats.GetResource(ResourceName);
-            resource -= ResourceCost;
-        }
-
         /// <summary>
         /// Called when the cast is started
         /// </summary>
         /// <param name="caster"></param>
-        public abstract void CastStarted(CasterInfo caster);
+        public virtual void CastStarted(CastInfo caster)
+        {
 
-        /// <summary>
-        /// Called when the cast is held
-        /// </summary>
-        /// <param name="caster"></param>
-        public abstract void OnHold(CasterInfo caster);
+        }
+
 
         /// <summary>
         /// Called when the cast has ended
         /// </summary>
         /// <param name="caster"></param>
-        public abstract void CastEnded(CasterInfo caster);
+        public virtual void CastEnded(CastInfo caster)
+        {
+            foreach (var buff in BuffsOnCast)
+            {
+                var instancedBuff = Instantiate(buff);
+                instancedBuff.Owner = owner;
+                owner.ApplyEffect(caster, instancedBuff);
+            }
+        }
     }
 }

@@ -12,22 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f16083a2e4e8c4e876058d9ee109a5, type: 3}
   m_Name: New Multiple Projectiles
   m_EditorClassIdentifier: 
-  DisplayName: 
-  ResourceName: 
-  ResourceCost: 0
-  Cooldown: 0
-  CastTime: 0
-  AllowHolding: 0
-  Icon: {fileID: 0}
-  remainingCooldown: 0
-  state: 0
-  buffsOnCastStart: []
-  buffsOnCastEnded: []
   targetMask:
     serializedVersion: 2
     m_Bits: 8
   Range: 10
+  useMouseDirection: 0
   destroyOnHit: 0
+  OnHitAbility: {fileID: 0}
   type: 1
   numberOfProjectiles: 5
   ConeAngle: 80

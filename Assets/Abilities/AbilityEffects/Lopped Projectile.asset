@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6709493061175412147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b7783dffada0f4e9364ed4877bdf71, type: 3}
+  m_Name: On Hit Ability
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 0
+  CastTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: 11400000, guid: f86a8ff97c84a2543908f371d99c9137, type: 2}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c09a61619eebbf4d8933cabd642c4df, type: 3}
+  m_Name: Lopped Projectile
+  m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  Range: 10
+  useMouseDirection: 1
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 40
+  Angle: 70
+  TravelTime: 1
+  OnHitAbility: {fileID: -6709493061175412147}

@@ -12,22 +12,13 @@ public enum DirectionMode
 }
 
 [CreateAssetMenu(fileName = "Dodge", menuName = "Abilities/Dodge")]
-public class Dodge : BaseAbility
+public class Dodge : AbilityEffect
 {
     [Header("Dodge Settings")]
     public DodgeEffect dodgeEffect;
 
-    public override void CastEnded(CasterInfo caster)
+    public override void Cast(CastInfo caster)
     {
-    }
-
-    public override void CastStarted(CasterInfo caster)
-    {
-        
         caster.owner.ApplyEffect(caster, Instantiate(dodgeEffect));
-    }
-
-    public override void OnHold(CasterInfo caster)
-    {
     }
 }

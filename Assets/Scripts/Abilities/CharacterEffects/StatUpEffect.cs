@@ -12,7 +12,7 @@ public class StatUpEffect : BuffEffect
 
     static UniqueStatModificationHandler UniqueStatModHandler;
 
-    public override void OnApply(CasterInfo Caster, BaseCharacter target)
+    public override void OnApply(CastInfo Caster, BaseCharacter target)
     {
         UniqueStatModHandler = new UniqueStatModificationHandler(StatName, ModType, true);
         UniqueStatModHandler.AddValue(target, this, Value);

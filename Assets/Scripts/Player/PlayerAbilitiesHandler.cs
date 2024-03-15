@@ -24,7 +24,7 @@ public enum AbilitySlots
 public class PlayerAbilitiesHandler : PlayerModule
 {
     PlayerSettings settings;
-    readonly BaseAbility[] abilitySlots = new BaseAbility[7];
+    readonly PlayerAbility[] abilitySlots = new PlayerAbility[7];
 
     PlayerCharacter Player;
 
@@ -102,7 +102,7 @@ public class PlayerAbilitiesHandler : PlayerModule
         return abilitySlots[(int)slot];
     }
 
-    public void SetAbility(AbilitySlots slot, BaseAbility ability)
+    public void SetAbility(AbilitySlots slot, PlayerAbility ability)
     {
         abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
         OnAbilityChange[(int)slot]?.Invoke(ability);
@@ -113,7 +113,7 @@ public class PlayerAbilitiesHandler : PlayerModule
         var ability = abilitySlots[slot];
         if (ability == null) return;
 
-        if(ability.Activate(new CasterInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
+        if(ability.Activate(new CastInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
         {
 
         }
