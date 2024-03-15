@@ -1,5 +1,7 @@
+using Character.Abilities;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -157,3 +159,18 @@ namespace Character.Abilities
         }
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(BaseAbility), false)]
+public class BaseAbilityEditor : UnityEditor.Editor
+{
+    public override void OnInspectorGUI()
+    {
+        BaseAbility ability = (BaseAbility)target;
+        ability.DisplayName = EditorGUILayout.TextField("Display Name", ability.DisplayName);
+        ability.Cooldown = EditorGUILayout.FloatField("Cooldown", ability.Cooldown);
+        ability.CastTime = EditorGUILayout.FloatField("Cast Time", ability.CastTime);
+        ability.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
+    }
+}
+#endif

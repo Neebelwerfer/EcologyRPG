@@ -22,7 +22,9 @@ public abstract class AttackAbilityEffect : AbilityEffect
         
         if (useMouseDirection)
         {
-            return (castInfo.mousePoint - castInfo.owner.CastPos).normalized;
+            var mp = castInfo.mousePoint;
+            mp.y = castInfo.owner.CastPos.y;
+            return (mp - castInfo.owner.CastPos).normalized;
         }
         else
         {

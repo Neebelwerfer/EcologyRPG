@@ -23,7 +23,8 @@ public class LoppedProjectile : AttackAbilityEffect
         Debug.DrawRay(caster.mousePoint, Vector3.up * 10, Color.red, 5);
         ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
         {
-            caster.owner.StartCoroutine(OnHitAbility.HandleCast(new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint }));
+            if(OnHitAbility != null)
+                caster.owner.StartCoroutine(OnHitAbility.HandleCast(new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint }));
         });
     }
 
@@ -38,8 +39,11 @@ public class LoppedProjectileEditor : AttackAbilityEffectEditor
         base.OnInspectorGUI();
 
         LoppedProjectile ability = (LoppedProjectile)target;
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("ProjectilePrefab"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask"));
+        ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
+        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask")))
+        {
+            EditorUtility.SetDirty(ability);
+        }
         ability.Angle = EditorGUILayout.FloatField("Angle", ability.Angle);
         ability.TravelTime = EditorGUILayout.FloatField("Travel Time", ability.TravelTime);
 

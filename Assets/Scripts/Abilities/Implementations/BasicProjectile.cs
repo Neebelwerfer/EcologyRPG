@@ -29,6 +29,8 @@ public class BasicProjectile : ProjectileAbility
             {
                 ApplyEffect(castInfo, target, effect);
             }
+            if (OnHitAbility != null)
+                castInfo.owner.StartCoroutine(OnHitAbility.HandleCast(new CastInfo { owner = castInfo.owner, castPos = target.transform.position, dir = dir, mousePoint = castInfo.mousePoint }));
         });
     }
 }

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
-  m_Name: Lopped Projectile
+  m_Name: PlayerExplosion
   m_EditorClassIdentifier: 
-  DisplayName: Lopped Projectile
-  Cooldown: 0.2
-  CastTime: 0.2
-  Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
+  DisplayName: Player Explosion
+  Cooldown: 0
+  CastTime: 0
+  Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  Ability: {fileID: 8921636470356606208}
+  Ability: {fileID: 7130918604319029643}
   ResourceName: Water
-  ResourceCost: 10
---- !u!114 &8921636470356606208
+  ResourceCost: 19
+--- !u!114 &7130918604319029643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31,19 +31,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c09a61619eebbf4d8933cabd642c4df, type: 3}
-  m_Name: New Lopped Projectile(Clone)
+  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
+  m_Name: PlayerExplosion(Clone)
   m_EditorClassIdentifier: 
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  Range: 10
-  useMouseDirection: 0
-  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+  Radius: 5
+  BaseDamage: 5
+  damageType: 0
+  effectsOnHit:
+  - {fileID: 11400000, guid: 49edde9de501bc347ab523e1404b5465, type: 2}
+  explosionEffect: {fileID: 8179646377062506047, guid: 814d86a2da242414d88e56ff86afe516,
     type: 3}
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 40
-  Angle: 60
-  TravelTime: 1
-  OnHitAbility: {fileID: 0}

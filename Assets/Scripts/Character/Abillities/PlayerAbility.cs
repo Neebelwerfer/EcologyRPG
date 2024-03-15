@@ -1,5 +1,6 @@
 using Character.Abilities;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerAbility", menuName = "AbilityHolder/PlayerAbility")]
@@ -41,3 +42,19 @@ public class PlayerAbility : AttackAbility
         resource -= ResourceCost;
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(PlayerAbility))]
+public class PlayerAbilityEditor : AttackAbilityEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        PlayerAbility ability = (PlayerAbility)target;
+        EditorGUILayout.LabelField("Resource Cost", EditorStyles.boldLabel);
+        ability.ResourceName = EditorGUILayout.TextField("Resource Name", ability.ResourceName);
+        if (ability.ResourceName != "")
+           ability.ResourceCost = EditorGUILayout.FloatField(ability.ResourceCost);    
+    }
+}
+#endif

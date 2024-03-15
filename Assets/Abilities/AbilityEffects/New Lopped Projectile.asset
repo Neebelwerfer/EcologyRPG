@@ -9,27 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65317f221aed94a4fa3ad715a7b44417, type: 3}
-  m_Name: New Explosive Projectile
+  m_Script: {fileID: 11500000, guid: 9c09a61619eebbf4d8933cabd642c4df, type: 3}
+  m_Name: New Lopped Projectile
   m_EditorClassIdentifier: 
-  DisplayName: Explosive Projectile
-  ResourceCost: 20
-  ResourceName: water
-  Cooldown: 2
-  CastTime: 0
-  AllowHolding: 0
-  Icon: {fileID: 21300000, guid: c3f3e1ed30d931f47a38d933305d5a3c, type: 3}
-  remainingCooldown: 0
-  state: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 8
   Range: 10
-  destroyOnHit: 1
-  Speed: 5
-  ExplosionRadius: 5
-  ExplosionDamage: 10
-  TargetHitExtraDamage: 5
-  damageType: 1
+  useMouseDirection: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 40
+  Angle: 60
+  TravelTime: 1
+  OnHitAbility: {fileID: 0}

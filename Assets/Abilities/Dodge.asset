@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4495484014140843330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bbb0d13a4cf82408d636e211864e10, type: 3}
+  m_Name: Dodge(Clone)
+  m_EditorClassIdentifier: 
+  dodgeEffect: {fileID: 11400000, guid: 7f0ef87f74a2bb2418cfcd1e33fef131, type: 2}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: Dodge
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 2
+  CastTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: -4495484014140843330}
+  ResourceName: Stamina
+  ResourceCost: 25
