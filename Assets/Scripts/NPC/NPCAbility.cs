@@ -1,11 +1,12 @@
 using Character.Abilities;
 using UnityEditor;
 using UnityEngine;
+using static AttackAbilityEditor;
 
 [CreateAssetMenu(menuName = "AbilityHolder/NPCAbility", fileName = "New NPC Ability")]
 public class NPCAbility : BaseAbility
 {
-    public AttackAbilityEffect attackAbilityEffect;
+    public AbilityEffect attackAbilityEffect;
 
     public override void CastEnded(CastInfo caster)
     {
@@ -20,14 +21,49 @@ public class NPCAbility : BaseAbility
 [CustomEditor(typeof(NPCAbility))]
 public class NPCAbilityEditor : BaseAbilityEditor
 {
+    SelectableAbilities selectedAbility = SelectableAbilities.None;
+
     public override void OnInspectorGUI()
     {
+
         base.OnInspectorGUI();
         NPCAbility ability = (NPCAbility)target;
 
-        if(ability.attackAbilityEffect == null)
+        if (ability.attackAbilityEffect == null)
         {
-            var res = (AttackAbilityEffect) EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.attackAbilityEffect, typeof(AttackAbilityEffect), false);
+            selectedAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Ability", selectedAbility);
+            var res = (AbilityEffect)EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.attackAbilityEffect, typeof(AbilityEffect), false);
+
+            if (GUILayout.Button("Create New Ability"))
+            {
+                if (selectedAbility == SelectableAbilities.None)
+                {
+                    Debug.LogError("No ability selected");
+                    return;
+                }
+
+                if (selectedAbility == SelectableAbilities.CenteredExplosion)
+                {
+                    res = CreateInstance<CenteredExplosion>();
+                }
+                else if (selectedAbility == SelectableAbilities.BasicProjectile)
+                {
+                    res = CreateInstance<BasicProjectile>();
+                }
+                else if (selectedAbility == SelectableAbilities.LoppedProjectile)
+                {
+                    res = CreateInstance<LoppedProjectile>();
+                }
+                else if (selectedAbility == SelectableAbilities.MultiProjectile)
+                {
+                    res = CreateInstance<MultipleProjectiles>();
+                }
+                else if (selectedAbility == SelectableAbilities.MeleeAttack)
+                {
+                    res = CreateInstance<MeleeAttack>();
+                }
+                res.name = res.GetType().Name;
+            }
             if (res != null)
             {
                 ability.attackAbilityEffect = Instantiate(res);
@@ -39,7 +75,22 @@ public class NPCAbilityEditor : BaseAbilityEditor
         }
         else
         {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("attackAbilityEffect"));
+            base.OnInspectorGUI();
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("Ability"));
+        }
+
+
+        if (ability.attackAbilityEffect != null)
+        {
+
+            if (GUILayout.Button("Remove Ability"))
+            {
+                DestroyImmediate(ability.attackAbilityEffect, true);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                EditorUtility.SetDirty(ability);
+                ability.attackAbilityEffect = null;
+            }
         }
     }
 }

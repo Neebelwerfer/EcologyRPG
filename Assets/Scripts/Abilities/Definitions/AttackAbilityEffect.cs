@@ -8,8 +8,6 @@ public abstract class AttackAbilityEffect : AbilityEffect
     [Header("Attack Ability")]
     [Tooltip("The layermask that the ability will target")]
     public LayerMask targetMask;
-    [Tooltip("The range of the ability")]
-    public float Range;
     [Tooltip("Use the mouse direction as the direction of the ability instead of the cast position. This is useful for abilities that are casted in the direction of the mouse instead of the position of the caster.")]
     public bool useMouseDirection = true;
 

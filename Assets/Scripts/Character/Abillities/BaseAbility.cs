@@ -171,7 +171,6 @@ public class BaseAbilityEditor : UnityEditor.Editor
         ability.DisplayName = EditorGUILayout.TextField("Display Name", ability.DisplayName);
         if(showCooldownValue) ability.Cooldown = EditorGUILayout.FloatField("Cooldown", ability.Cooldown);
         ability.CastTime = EditorGUILayout.FloatField("Cast Time", ability.CastTime);
-        ability.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
     }
 }
 #endif

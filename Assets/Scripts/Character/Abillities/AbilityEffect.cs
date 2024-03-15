@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class AbilityEffect : ScriptableObject
 {
+    [Tooltip("The range of the ability")]
+    public float Range;
 
     public abstract void Cast(CastInfo castInfo);
 
