@@ -28,7 +28,7 @@ MonoBehaviour:
     type: 3}
   SprintMultiplier: 0.5
   GlobalCooldown: 0.5
-  SprintAbility: {fileID: 11400000, guid: 94126247f8f86f547b39d3ba5359af02, type: 2}
+  SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: 23d7b1d1678030f499cfb49d2b6ae21a, type: 2}
   Ability1Reference: {fileID: 11400000, guid: 94126247f8f86f547b39d3ba5359af02, type: 2}
   Ability2Reference: {fileID: 11400000, guid: 253d46f2400ebe540aad04fceae45bcf, type: 2}

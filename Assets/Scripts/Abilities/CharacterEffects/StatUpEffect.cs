@@ -7,7 +7,7 @@ public class StatUpEffect : BuffEffect
 {
 
     public string StatName;
-    [SerializeField] StatModType ModType;
+    public StatModType ModType;
     public float Value;
 
     static UniqueStatModificationHandler UniqueStatModHandler;

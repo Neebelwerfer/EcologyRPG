@@ -9,16 +9,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87f0380c165ca34cb3f65f1659fe58b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Sprint
   m_EditorClassIdentifier: 
-  DisplayName: Sprint
-  ResourceCost: 25
-  ResourceName: Stamina
+  DisplayName: 
   Cooldown: 0
   CastTime: 0
-  AllowHolding: 1
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  Exhaustion: {fileID: 11400000, guid: 910f9321d358b5342a4b5bf1e45da3e1, type: 2}
+  Ability: {fileID: 530443999250883985}
+  ResourceName: 
+  ResourceCost: 0
+--- !u!114 &530443999250883985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87f0380c165ca34cb3f65f1659fe58b, type: 3}
+  m_Name: Sprint 1(Clone)
+  m_EditorClassIdentifier: 
+  Exhaustion: {fileID: 0}
+  sprintSpeedMultiplier: 1
