@@ -150,12 +150,12 @@ namespace Character.Abilities
         /// <param name="caster"></param>
         public virtual void CastEnded(CastInfo caster)
         {
-            foreach (var buff in BuffsOnCast)
-            {
-                var instancedBuff = Instantiate(buff);
-                instancedBuff.Owner = owner;
-                owner.ApplyEffect(caster, instancedBuff);
-            }
+            //foreach (var buff in BuffsOnCast)
+            //{
+            //    var instancedBuff = Instantiate(buff);
+            //    instancedBuff.Owner = owner;
+            //    owner.ApplyEffect(caster, instancedBuff);
+            //}
         }
     }
 }

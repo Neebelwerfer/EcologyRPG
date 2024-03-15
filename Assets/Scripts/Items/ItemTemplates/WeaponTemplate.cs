@@ -28,9 +28,9 @@ namespace Items.ItemTemplates
                 Weight = Weight
             };
 
-            var ability = Instantiate(WeaponAttackAbility);
+            //var ability = Instantiate(WeaponAttackAbility);
             //ability.BaseDamage = Random.Range(minDamage, maxDamage);
-            item.WeaponAbility = ability;
+            //item.WeaponAbility = ability;
 
             foreach (var mod in Modifiers)
             {
