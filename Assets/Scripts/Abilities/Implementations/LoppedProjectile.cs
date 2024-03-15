@@ -21,7 +21,7 @@ public class LoppedProjectile : AttackAbilityEffect
     public override void Cast(CastInfo caster)
     {
         Debug.DrawRay(caster.mousePoint, Vector3.up * 10, Color.red, 5);
-        ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
+        ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, Angle, ignoreMask, caster.owner, (projectileObject) =>
         {
             if(OnHitAbility != null)
                 caster.owner.StartCoroutine(OnHitAbility.HandleCast(new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint }));

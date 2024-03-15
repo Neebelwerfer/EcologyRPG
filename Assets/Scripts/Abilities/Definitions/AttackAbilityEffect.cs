@@ -11,7 +11,12 @@ public abstract class AttackAbilityEffect : AbilityEffect
     [Tooltip("The range of the ability")]
     public float Range;
     [Tooltip("Use the mouse direction as the direction of the ability instead of the cast position. This is useful for abilities that are casted in the direction of the mouse instead of the position of the caster.")]
-    public bool useMouseDirection;
+    public bool useMouseDirection = true;
+
+    private void OnEnable()
+    {
+        if(targetMask.value == 0) LayerMask.NameToLayer("Entity");
+    }
 
     protected Vector3 GetDir(CastInfo castInfo)
     {

@@ -22,6 +22,3 @@ public class AttackAbility : BaseAbility
         Ability.Cast(caster);
     }
 }
-
-#if UNITY_EDITOR
-#endif
