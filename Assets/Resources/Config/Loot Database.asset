@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootChance: 25
   minLootAmount: 1
-  maxLootAmount: 6
+  maxLootAmount: 2
   CategoryOdds:
   - category: Basic Items
     weight: 100
@@ -33,4 +33,7 @@ MonoBehaviour:
     items:
     - ItemTemplate: {fileID: 11400000, guid: 7f9e59dfab8596a48835b83152074266, type: 2}
       weight: 100
+      allowedTags: []
+    - ItemTemplate: {fileID: 11400000, guid: 80e35723ee514a048a377dc8cc54b90c, type: 2}
+      weight: 200
       allowedTags: []

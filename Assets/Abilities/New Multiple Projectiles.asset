@@ -9,25 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
-  m_Name: CenteredExplosion
+  m_Script: {fileID: 11500000, guid: c0f16083a2e4e8c4e876058d9ee109a5, type: 3}
+  m_Name: New Multiple Projectiles
   m_EditorClassIdentifier: 
-  DisplayName: CenteredExplosion
+  DisplayName: 
   ResourceName: 
   ResourceCost: 0
   Cooldown: 0
   CastTime: 0
   AllowHolding: 0
-  Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
+  Icon: {fileID: 0}
   remainingCooldown: 0
   state: 0
+  buffsOnCastStart: []
+  buffsOnCastEnded: []
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  Radius: 5
-  BaseDamage: 15
-  damageType: 1
-  effectsOnHit:
-  - {fileID: 11400000, guid: 49edde9de501bc347ab523e1404b5465, type: 2}
-  explosionEffect: {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
+  Range: 10
+  destroyOnHit: 0
+  type: 1
+  numberOfProjectiles: 5
+  ConeAngle: 80
+  LineWidth: 5
+  projectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+  Speed: 8
+  BaseDamage: 20
+  damageType: 1
+  effects: []

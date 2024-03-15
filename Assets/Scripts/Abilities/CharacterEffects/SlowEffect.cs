@@ -13,7 +13,7 @@ public class SlowEffect : DebuffEffect
         Decaying
     }
 
-    static UniqueStatModificationHandler movementSpeedHandler = new UniqueStatModificationHandler("movementSpeed", StatModType.PercentMinus);
+    static UniqueStatModificationHandler movementSpeedHandler = new UniqueStatModificationHandler("movementSpeed", StatModType.PercentMult, false);
     [SerializeField] SlowType slowType;
 
     [Header("Flat Slow Setting")]
@@ -27,9 +27,9 @@ public class SlowEffect : DebuffEffect
     {
 
         if(slowType == SlowType.Flat)
-            movementSpeedHandler.AddValue(target, this, SlowAmount);
+            movementSpeedHandler.AddValue(target, this, -SlowAmount);
         else if(slowType == SlowType.Decaying)
-            movementSpeedHandler.AddValue(target, this, SlowCurve.Evaluate(0));
+            movementSpeedHandler.AddValue(target, this, -SlowCurve.Evaluate(0));
     }
 
     public override void OnReapply(BaseCharacter target)
@@ -47,7 +47,7 @@ public class SlowEffect : DebuffEffect
         if(slowType == SlowType.Decaying)
         {
             var timePercenage = 1 - (remainingDuration / duration);
-            movementSpeedHandler.UpdateValue(target, this, SlowCurve.Evaluate(timePercenage));
+            movementSpeedHandler.UpdateValue(target, this, -SlowCurve.Evaluate(timePercenage));
         }
     }
 }

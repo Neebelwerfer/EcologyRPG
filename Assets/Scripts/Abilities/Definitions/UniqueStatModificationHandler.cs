@@ -19,13 +19,15 @@ public class UniqueStatModificationHandler
 
     StatModType modType;
     string statName;
+    bool shouldFindMax;
 
     Dictionary<BaseCharacter, UniqueStatModification> UniqueStatMap;
 
-    public UniqueStatModificationHandler(string statName, StatModType modType)
+    public UniqueStatModificationHandler(string statName, StatModType modType, bool shouldFindMax)
     {
         this.modType = modType;
         this.statName = statName;
+        this.shouldFindMax = shouldFindMax;
     }
 
     public void AddValue(BaseCharacter target, CharacterEffect effect, float value)
@@ -48,7 +50,7 @@ public class UniqueStatModificationHandler
             effect = effect,
             value = value
         });
-        RecalculateMax(target);
+        Recalculate(target);
     }
 
     public void RemoveValue(BaseCharacter target, CharacterEffect effect)
@@ -66,7 +68,7 @@ public class UniqueStatModificationHandler
                 return;
             }
 
-            RecalculateMax(target);
+            Recalculate(target);
         }
 
     }
@@ -80,18 +82,21 @@ public class UniqueStatModificationHandler
         if (valueObj != null)
         {
             valueObj.value = value;
-            RecalculateMax(target);
+            Recalculate(target);
         }
     }
 
-    void RecalculateMax(BaseCharacter target)
+    void Recalculate(BaseCharacter target)
     {
         var uniqueStat = UniqueStatMap[target];
-        var max = 0f;
+        var newValue = 0f;
         foreach (var value in uniqueStat.values)
         {
-            max = Mathf.Max(max, value.value);
+            if(shouldFindMax)
+                newValue = Mathf.Max(newValue, value.value);
+            else
+                newValue = Mathf.Min(newValue, value.value);
         }
-        uniqueStat.statModification.Value = max;
+        uniqueStat.statModification.Value = newValue;
     }
 }
