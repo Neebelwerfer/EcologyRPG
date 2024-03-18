@@ -2,17 +2,16 @@ using Character;
 using Character.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StatUpEffect", menuName = BuffPath + "Stat Up Effect")]
 public class StatUpEffect : BuffEffect
 {
 
     public string StatName;
-    [SerializeField] StatModType ModType;
+    public StatModType ModType;
     public float Value;
 
     static UniqueStatModificationHandler UniqueStatModHandler;
 
-    public override void OnApply(CasterInfo Caster, BaseCharacter target)
+    public override void OnApply(CastInfo Caster, BaseCharacter target)
     {
         UniqueStatModHandler = new UniqueStatModificationHandler(StatName, ModType, true);
         UniqueStatModHandler.AddValue(target, this, Value);
@@ -20,7 +19,7 @@ public class StatUpEffect : BuffEffect
 
     public override void OnReapply(BaseCharacter target)
     {
-
+        remainingDuration = duration;
     }
 
     public override void OnRemoved(BaseCharacter target)

@@ -36,7 +36,6 @@ public class CurvedProjectileBehaviour : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(target - transform.position);
         transform.Rotate(angle, 0, 0);
         rb.velocity = CalculateInitialVelocity(Vector3.Distance(owner.Position, target), time, angle) * transform.forward;
-
     }
 
     float CalculateInitialVelocity(float distance, float time, float angle)

@@ -49,6 +49,7 @@ namespace Character
         public Faction Faction { get { return faction; } }
         public virtual Vector3 Forward { get { return transform.forward; } }
         public virtual Vector3 Position { get { return transform.position; } }
+        public virtual Vector3 CastPos { get { return AbilityPoint.transform.position; } }
 
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return rb; } }
@@ -113,12 +114,13 @@ namespace Character
             }
         }
 
-        public virtual void ApplyEffect(CasterInfo caster, CharacterEffect effect)
+        public virtual void ApplyEffect(CastInfo caster, CharacterEffect effect)
         {
             if(state == CharacterStates.dead)
             {
                 return;
             }
+            effect.Owner = caster.owner;
 
             for(int i = 0; i < effects.Count; i++)
             {

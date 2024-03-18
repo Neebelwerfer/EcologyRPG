@@ -3,7 +3,6 @@ using Character.Abilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "ExhaustionEffect", menuName = DebuffPath + "ExhaustionEffect")]
 public class ExhaustionEffect : DebuffEffect
 {
 
@@ -12,7 +11,7 @@ public class ExhaustionEffect : DebuffEffect
 
 
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         Stamina = target.Stats.GetResource("Stamina");
         sprintInput = caster.activationInput;
@@ -22,7 +21,7 @@ public class ExhaustionEffect : DebuffEffect
 
     public override void OnReapply(BaseCharacter target)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void OnRemoved(BaseCharacter target)

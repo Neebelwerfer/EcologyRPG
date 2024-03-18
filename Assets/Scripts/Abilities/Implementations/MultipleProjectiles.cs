@@ -1,9 +1,9 @@
 using Character;
 using Character.Abilities;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/Multiple Projectiles")]
 public class MultipleProjectiles : ProjectileAbility
 {
     public ProjectileType type;
@@ -17,25 +17,13 @@ public class MultipleProjectiles : ProjectileAbility
     [Header("Projectile Settings")]
     public GameObject projectilePrefab;
     public float Speed;
-    public float BaseDamage;
-    public DamageType damageType;
-    public List<DebuffEffect> effects;
 
     Vector3 dir;
     float angleBetweenProjectiles;
 
-    public MultipleProjectiles()
+    public override void Cast(CastInfo caster)
     {
-
-    }
-
-    public override void CastStarted(CasterInfo caster)
-    {
-        base.CastStarted(caster);
-        dir = TargetUtility.GetMouseDirection(caster.castPos, Camera.main);
-        dir.y = 0;
-        dir.Normalize();
-
+        var dir = GetDir(caster);
         if (type == ProjectileType.Cone)
         {
             angleBetweenProjectiles = ConeAngle / (numberOfProjectiles - 1);
@@ -49,13 +37,6 @@ public class MultipleProjectiles : ProjectileAbility
             angleBetweenProjectiles = 360 / numberOfProjectiles;
         }
 
-    }
-
-    public override void CastEnded(CasterInfo caster)
-    {
-        base.CastEnded(caster);
-
-
         if (type == ProjectileType.Line)
         {
             var center = caster.castPos;
@@ -66,7 +47,7 @@ public class MultipleProjectiles : ProjectileAbility
                 var pos = start + i * LineWidth * -left / (numberOfProjectiles - 1);
                 ProjectileUtility.CreateProjectile(projectilePrefab, pos, pos + dir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                 {
-                    OnHit(caster, target);
+                    OnHit(caster, target, dir);
                 });
             }
         }
@@ -76,9 +57,9 @@ public class MultipleProjectiles : ProjectileAbility
             for (int i = 0; i < numberOfProjectiles; i++)
             {
                 var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * start;
-                ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                 {
-                    OnHit(caster, target);
+                    OnHit(caster, target, newDir);
                 });
             }
         }
@@ -87,26 +68,46 @@ public class MultipleProjectiles : ProjectileAbility
             for (int i = 0; i < numberOfProjectiles; i++)
             {
                 var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * dir;
-                ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                 {
-                    OnHit(caster, target);
+                    OnHit(caster, target, newDir);
                 });
             }
         }
-        
     }
 
-    public override void OnHold(CasterInfo caster)
+    void OnHit (CastInfo caster, BaseCharacter target, Vector3 direction)
     {
-
-    }
-
-    void OnHit (CasterInfo caster, BaseCharacter target)
-    {
-        target.ApplyDamage(CalculateDamage(target, damageType, BaseDamage));
-        foreach (var effect in effects)
+        var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.transform.position, dir = direction, mousePoint = caster.mousePoint };
+        foreach (var effect in OnHitEffects)
         {
-            ApplyEffect(caster, target, effect);
+            effect.ApplyEffect(newCastInfo, target);
         }
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(MultipleProjectiles))]
+public class MultipleProjectilesEditor : ProjectileAbilityEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        MultipleProjectiles ability = (MultipleProjectiles)target;
+        EditorGUILayout.LabelField("Multiple Projectiles Settings", EditorStyles.boldLabel);
+        ability.type = (ProjectileType)EditorGUILayout.EnumPopup("Type", ability.type);
+        ability.numberOfProjectiles = EditorGUILayout.IntField("Number of Projectiles", ability.numberOfProjectiles);
+        if (ability.type == ProjectileType.Cone)
+        {
+            ability.ConeAngle = EditorGUILayout.FloatField("Cone Angle", ability.ConeAngle);
+        }
+        else if (ability.type == ProjectileType.Line)
+        {
+            ability.LineWidth = EditorGUILayout.FloatField("Line Width", ability.LineWidth);
+        }
+        ability.projectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.projectilePrefab, typeof(GameObject), false);
+        ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
+
+    }
+}
+#endif

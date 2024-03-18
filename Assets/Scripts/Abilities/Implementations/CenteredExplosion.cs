@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-[CreateAssetMenu(menuName = "Abilities/PlayerExplosion", fileName = "New Player Explosion")]
 public class CenteredExplosion : BaseAbility
 {
     [Header("Centered Explosion")]
@@ -22,14 +21,19 @@ public class CenteredExplosion : BaseAbility
 
     VisualEffect vfx;
     BaseCharacter[] targets;
-    public override void CastEnded(CasterInfo caster)
+
+    public override void Cast(CastInfo caster)
     {
-        if(targets != null && targets.Length > 0)
+        targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
+        var explosion = Instantiate(explosionEffect, caster.castPos, Quaternion.identity);
+        vfx = explosion.GetComponent<VisualEffect>();
+        if (targets != null && targets.Length > 0)
         {
             foreach (var t in targets)
             {
-                if (t.Faction == caster.owner.Faction) continue;  
-                
+                if (t == null) continue;
+                if (t.Faction == caster.owner.Faction) continue;
+
 
                 foreach (var effect in effectsOnHit)
                 {
@@ -39,21 +43,5 @@ public class CenteredExplosion : BaseAbility
                 t.ApplyDamage(CalculateDamage(caster.owner, damageType, BaseDamage));
             }
         }
-
-    }
-
-    public override void CastStarted(CasterInfo caster)
-    {
-        targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
-        if (explosionEffect != null)
-        {
-            var explosion = Instantiate(explosionEffect, caster.castPos, Quaternion.identity);
-            vfx = explosion.GetComponent<VisualEffect>();
-            vfx.Play();
-        }
-    }
-
-    public override void OnHold(CasterInfo caster)
-    {
     }
 }

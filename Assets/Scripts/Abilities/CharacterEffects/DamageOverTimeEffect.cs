@@ -3,7 +3,6 @@ using Character.Abilities;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "new Damage over Time Effect", menuName = DebuffPath + "Damage over Time Effect")]
 public class DamageOverTimeEffect : DebuffEffect
 {
     public float damagePerTick = 10;
@@ -14,7 +13,7 @@ public class DamageOverTimeEffect : DebuffEffect
 
     private float _BaseDamagePerTick;
 
-    public override void OnApply(CasterInfo caster, BaseCharacter target)
+    public override void OnApply(CastInfo caster, BaseCharacter target)
     {
         timeSinceLastTick = 0;
         _BaseDamagePerTick = damagePerTick;

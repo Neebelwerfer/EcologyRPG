@@ -1,40 +1,55 @@
 using Character;
 using Character.Abilities;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using Utility;
 
-[CreateAssetMenu(fileName = "Sprint", menuName = "Abilities/Sprint")]
 public class Sprint : BaseAbility
 {
     public ExhaustionEffect Exhaustion;
     public float sprintSpeedMultiplier = 1f;
-    readonly StatModification sprintSpeed;
 
-    Resource stamina;
+    static StatUpEffect statUP;
 
-    public Sprint()
-    {
-        sprintSpeed = new StatModification("movementSpeed", sprintSpeedMultiplier, StatModType.PercentMult, this);
-    }
-    public override void CastStarted(CasterInfo caster)
-    {
-        caster.owner.Stats.AddStatModifier(sprintSpeed);
-        stamina = caster.owner.Stats.GetResource(ResourceName);
-    }
 
-    public override void OnHold(CasterInfo caster)
+    public override void Cast(CastInfo castInfo)
     {
-        if (stamina < ResourceCost * TimeManager.IngameDeltaTime)
+        if(statUP == null)
         {
-            caster.owner.ApplyEffect(caster, Instantiate(Exhaustion));
+            statUP = CreateInstance<StatUpEffect>();
+            statUP.StatName = "movementSpeed";
+            statUP.ModType = StatModType.PercentMult;
+            statUP.Value = sprintSpeedMultiplier;
+            statUP.duration = 0.25f;
         }
 
-        stamina -= ResourceCost * TimeManager.IngameDeltaTime;
-    }
+        if(castInfo.owner.Stats.GetResource("Stamina") < 5)
+        {
+            castInfo.owner.ApplyEffect(castInfo, Instantiate(Exhaustion));
+        }
 
-    public override void CastEnded(CasterInfo caster)
-    {
-        caster.owner.Stats.RemoveStatModifier(sprintSpeed);
+        castInfo.owner.ApplyEffect(castInfo, Instantiate(statUP));
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(Sprint))]
+public class SprintEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        Sprint ability = (Sprint)target;
+        if (ability.Exhaustion == null)
+        {
+            ability.Exhaustion = CreateInstance<ExhaustionEffect>();
+            ability.Exhaustion.name = "Exhaustion";
+            AssetDatabase.AddObjectToAsset(ability.Exhaustion, ability);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+        else
+            ability.Exhaustion = (ExhaustionEffect)EditorGUILayout.ObjectField("Exhaustion Effect", ability.Exhaustion, typeof(ExhaustionEffect), false);
+    }
+}
+#endif

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "SlowEffect", menuName = DebuffPath + "Slow Effect")]
 public class SlowEffect : DebuffEffect
 {
     enum SlowType
@@ -23,7 +22,7 @@ public class SlowEffect : DebuffEffect
     [BoundedCurve(0, 0, 1, 1)]
     public AnimationCurve SlowCurve = new(new Keyframe(0, 0.5f), new Keyframe(1, 0.2f));
 
-    public override void OnApply(CasterInfo Caster, BaseCharacter target)
+    public override void OnApply(CastInfo Caster, BaseCharacter target)
     {
 
         if(slowType == SlowType.Flat)

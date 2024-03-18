@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Behaviour
   m_EditorClassIdentifier: 
   UpdatePerSecond: 0
-  attackAbilityReference: {fileID: 11400000, guid: 03e8ada12fecdff42addd59ae0dc3ffa,
+  attackAbilityReference: {fileID: 11400000, guid: 1d72219ea2437ab4787e58debbda30f3,
     type: 2}
   targetSearchCooldown: 0.5
   AggroRange: 20
