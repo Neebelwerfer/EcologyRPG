@@ -1,148 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+using Character;
+using Character.Abilities;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
-namespace Character.Abilities
+public abstract class BaseAbility : ScriptableObject
 {
-    public enum AbilityStates
+    [Tooltip("The range of the ability")]
+    public float Range;
+
+    public abstract void Cast(CastInfo castInfo);
+
+    protected static void ApplyEffect(CastInfo caster, BaseCharacter target, CharacterEffect effect)
     {
-        ready,
-        casting,
-        cooldown
+        var instancedEffect = Instantiate(effect);
+        instancedEffect.Owner = caster.owner;
+        target.ApplyEffect(caster, instancedEffect);
     }
 
-    public class CasterInfo
+    public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true)
     {
-        public BaseCharacter owner;
-        public Vector3 castPos;
-        public InputAction activationInput;
-    }
-
-    public abstract class BaseAbility : ScriptableObject
-    {
-        public string DisplayName;
-        public float ResourceCost = 0;
-        public string ResourceName;
-        public float Cooldown = 0;
-        public float CastTime = 0;
-        public bool AllowHolding;
-        public Sprite Icon;
-
-        public float remainingCooldown = 0;
-        public AbilityStates state = AbilityStates.ready;
-
-        public virtual void UpdateCooldown(float deltaTime)
+        DamageInfo damageInfo = new()
         {
-            if (state == AbilityStates.ready) return;
+            type = damageType,
+            source = caster
+        };
 
-            if (remainingCooldown > 0)
-            {
-                remainingCooldown -= deltaTime;
-                if (remainingCooldown <= 0)
-                {
-                    remainingCooldown = 0;
-                    state = AbilityStates.ready;
-                }
-            }
-        }
+        var ad = caster.Stats.GetStat("abilityDamage");
+        var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
+        damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
 
-        public virtual bool Activate(CasterInfo caster)
-        {
-            if (!CanActivate(caster)) return false;
-            Debug.Log("CASTING " + DisplayName);
-            caster.owner.StartCoroutine(HandleCast(caster));
-            return true;
-        }   
-
-        public virtual bool CanActivate(CasterInfo caster)
-        {
-            if (state == AbilityStates.cooldown)
-            {
-                Debug.Log("On cooldown");
-                return false;
-            }
-
-            if (state == AbilityStates.casting)
-            {
-                Debug.Log("Ability already casting");
-                return false;
-            }
-
-            if (ResourceName != "" && caster.owner.stats.GetResource(ResourceName) < ResourceCost)
-            {
-                Debug.Log("Not enough resource");
-                return false;
-            }
-            return true;
-        }
-
-        public virtual IEnumerator HandleCast(CasterInfo caster)
-        {
-            caster.owner.state = CharacterStates.casting;
-            state = AbilityStates.casting;
-
-            if(ResourceCost > 0)
-            {
-                InitialCastCost(caster);
-            }
-
-            CastStarted(caster);
-
-            Debug.Log("Cast time: " + CastTime);
-            yield return new WaitForSeconds(CastTime);
-
-            if(AllowHolding && CastTime == 0)
-            {
-                while(caster.activationInput.IsPressed())
-                {
-                    OnHold(caster);
-                    yield return null;
-                }
-            }
-            CastEnded(caster);
-
-            caster.owner.state = CharacterStates.active;
-            
-            if(Cooldown > 0)
-            {
-                state = AbilityStates.cooldown;
-                remainingCooldown = Cooldown;
-                AbilityManager.instance.RegisterAbilityOnCooldown(this);
-            } else
-            {
-                state = AbilityStates.ready;
-            }
-        }
-
-
-        /// <summary>
-        /// Called when the cast is started to deduct the resource cost
-        /// </summary>
-        /// <param name="caster"></param>
-        public virtual void InitialCastCost(CasterInfo caster)
-        {
-            var resource = caster.owner.stats.GetResource(ResourceName);
-            resource -= ResourceCost;
-        }
-
-        /// <summary>
-        /// Called when the cast is started
-        /// </summary>
-        /// <param name="caster"></param>
-        public abstract void CastStarted(CasterInfo caster);
-
-        /// <summary>
-        /// Called when the cast is held
-        /// </summary>
-        /// <param name="caster"></param>
-        public abstract void OnHold(CasterInfo caster);
-
-        /// <summary>
-        /// Called when the cast has ended
-        /// </summary>
-        /// <param name="caster"></param>
-        public abstract void CastEnded(CasterInfo caster);
+        return damageInfo;
     }
 }

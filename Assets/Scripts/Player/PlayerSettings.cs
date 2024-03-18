@@ -24,11 +24,18 @@ namespace Player
 
         [Header("Ability Settings")]
         public float GlobalCooldown = 0.5f;
-        public BaseAbility SprintAbility;
-        public BaseAbility DodgeAbility;
-        public BaseAbility WeaponAttackAbility;
+        public PlayerAbilityHolder SprintAbility;
+        public PlayerAbilityHolder DodgeAbility;
+        public PlayerAbilityHolder Ability1Reference;
+        public PlayerAbilityHolder Ability2Reference;
+        public PlayerAbilityHolder Ability3Reference;
+        public PlayerAbilityHolder Ability4Reference;
+        public PlayerAbilityHolder FistAttackAbility;
 
         [Header("Inventory Settings")]
         public Item[] StartingItems = new Item[5];
+
+        [Header("Level Settings")]
+        public List<float> XpRequiredPerLevel = new List<float>(10);
     }
 }

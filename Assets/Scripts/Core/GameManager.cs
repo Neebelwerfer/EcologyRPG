@@ -16,12 +16,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-
     public Game_State CurrentState = Game_State.Menu;
-
+        
     // Start is called before the first frame update
     
-    void Start()
+    void Awake()
     {
         if(Instance == null)
         {
@@ -31,7 +30,29 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    public void Update()
+    {
+        if(CurrentState == Game_State.Playing)
+        {
+            EventManager.UpdateQueue();
+        }
+    }
 
+    public void FixedUpdate()
+    {
+        if(CurrentState == Game_State.Playing)
+        {
+            EventManager.FixedUpdateQueue();
+        }
+    }
+
+    public void LateUpdate()
+    {
+        if(CurrentState == Game_State.Playing)
+        {
+            EventManager.LateUpdateQueue();
+        }
     }
 }

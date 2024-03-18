@@ -10,6 +10,16 @@ public class UIBar : MonoBehaviour
     [SerializeField] private Slider easeSlider;
     [SerializeField] private float lerpSpeed;
     [SerializeField] private string resourceName;
+
+    [SerializeField] private Sprite fillSprite;
+    [SerializeField] private Image fillImage;
+    [SerializeField] private Image easeImage;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private Image icon;
+    [SerializeField] private Image shell;
+    [SerializeField] private Sprite statIcon;
+    [SerializeField] private Sprite statShell;
+
     private PlayerCharacter character;
     private bool initialized = false;
 
@@ -30,14 +40,18 @@ public class UIBar : MonoBehaviour
         if (!initialized)
         {
             InitializeBar(character, resourceName);
-            initialized = true;
         }
         UpdateBar(character, resourceName);
     }
 
     public void InitializeBar(PlayerCharacter player, string resourceName)
     {
-        maxValue = player.stats.GetResource(resourceName).MaxValue;
+        icon.sprite = statIcon;
+        shell.sprite = statShell;
+        fillImage.sprite = fillSprite;
+        easeImage.sprite = fillSprite;
+        backgroundImage.sprite = fillSprite;
+        maxValue = player.Stats.GetResource(resourceName).MaxValue;
         barSlider.maxValue = maxValue;
         barSlider.value = barSlider.maxValue;
         easeSlider.maxValue = barSlider.maxValue;
@@ -46,7 +60,7 @@ public class UIBar : MonoBehaviour
     }
     public void UpdateBar(PlayerCharacter player, string resourceName)
     {
-        statValue = player.stats.GetResource(resourceName).CurrentValue;
+        statValue = player.Stats.GetResource(resourceName).CurrentValue;
         if (barSlider.value != statValue)
         {
             barSlider.value = statValue;

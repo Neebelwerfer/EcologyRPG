@@ -4,7 +4,7 @@
             "name": "agility",
             "displayName": "Agility",
             "description": "",
-            "defaultValue": 5,
+            "defaultValue": 0,
             "statProgressions": [
                 {
                     "statName": "movementSpeed",
@@ -18,7 +18,7 @@
             "name": "vitality",
             "displayName": "Vitality",
             "description": "",
-            "defaultValue": 5,
+            "defaultValue": 0,
             "statProgressions": [
                 {
                     "statName": "maxHP",
@@ -38,13 +38,75 @@
             "name": "strength",
             "displayName": "Strength",
             "description": "",
-            "defaultValue": 5,
+            "defaultValue": 0,
             "statProgressions": [
                 {
                     "statName": "carryWeight",
                     "modType": 100,
                     "startValue": 0.0,
                     "changePerPoint": 5.0
+                },
+                {
+                    "statName": "weaponDamage",
+                    "modType": 100,
+                    "startValue": 1.0,
+                    "changePerPoint": 0.05000000074505806
+                }
+            ]
+        },
+        {
+            "name": "pressure",
+            "displayName": "Pressure",
+            "description": "",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "abilityDamage",
+                    "modType": 100,
+                    "startValue": 0.0,
+                    "changePerPoint": 0.05000000074505806
+                }
+            ]
+        },
+        {
+            "name": "resistance",
+            "displayName": "Resistance",
+            "description": "natural resistance to damage, modifies armor\nThis attribute maybe unnecessary, depends on balancing",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "armor",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 0.05000000074505806
+                }
+            ]
+        },
+        {
+            "name": "insolation",
+            "displayName": "Insolation",
+            "description": "natural resistance to water, modifies water Armor\nThis attribute maybe unnecessary, depends on balancing",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "waterArmor",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 0.05000000074505806
+                }
+            ]
+        },
+        {
+            "name": "toxicFiltering",
+            "displayName": "Toxic Filtering",
+            "description": "How good the filtering is, modifies resistance to toxic damage and effects",
+            "defaultValue": 0,
+            "statProgressions": [
+                {
+                    "statName": "toxicProtection",
+                    "modType": 200,
+                    "startValue": 0.0,
+                    "changePerPoint": 0.05000000074505806
                 }
             ]
         }
@@ -53,6 +115,7 @@
         {
             "name": "movementSpeed",
             "displayName": "Movement Speed",
+            "ShowOptions": 0,
             "baseValue": 5.0,
             "MaxValue": 20.0,
             "MinValue": 0.0,
@@ -61,6 +124,7 @@
         {
             "name": "maxHP",
             "displayName": "Max HP",
+            "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
@@ -69,6 +133,7 @@
         {
             "name": "maxStamina",
             "displayName": "Stamina",
+            "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
@@ -77,6 +142,7 @@
         {
             "name": "staminaGain",
             "displayName": "Stamina Gain",
+            "ShowOptions": 0,
             "baseValue": 10.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
@@ -85,6 +151,7 @@
         {
             "name": "carryWeight",
             "displayName": "Carry Weight",
+            "ShowOptions": 1,
             "baseValue": 50.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 10.0,
@@ -93,34 +160,101 @@
         {
             "name": "weaponDamage",
             "displayName": "Weapon Damage",
+            "ShowOptions": 1,
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
-            "description": "Governs a characters carry weight"
+            "description": "Governs a characters weapon damage, based on strength"
+        },
+        {
+            "name": "abilityDamage",
+            "displayName": "Ability Damage",
+            "ShowOptions": 2,
+            "baseValue": 1.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters ability damage, based on pressure"
         },
         {
             "name": "maxFood",
             "displayName": "Food",
+            "ShowOptions": 0,
             "baseValue": 100.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a characters nutrition"
         },
         {
             "name": "foodDrain",
             "displayName": "Food Drain",
+            "ShowOptions": 0,
             "baseValue": 0.5,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters nutrition drains at baseline, while not moving"
         },
         {
             "name": "maxWater",
             "displayName": "Water",
+            "ShowOptions": 0,
             "baseValue": 100.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a characters water"
         },
         {
             "name": "waterDrain",
             "displayName": "water Drain",
+            "ShowOptions": 0,
             "baseValue": 1.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters water drains when not using abilities"
+        },
+        {
+            "name": "maxToxicWater",
+            "displayName": "Toxic Water",
+            "ShowOptions": 0,
+            "baseValue": 1000.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters toxic water"
+        },
+        {
+            "name": "healthRegen",
+            "displayName": "Health Regen",
+            "ShowOptions": 0,
+            "baseValue": 1.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 1.0,
+            "description": "Governs a how quickly a characters health regens when water and food is available"
+        },
+        {
+            "name": "armor",
+            "displayName": "Armor",
+            "ShowOptions": 2,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters armor value used for physical damage reduction"
+        },
+        {
+            "name": "waterArmor",
+            "displayName": "Water Armor",
+            "ShowOptions": 2,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters armor value used for water damage reduction"
+        },
+        {
+            "name": "toxicProtection",
+            "displayName": "Toxic Protection",
+            "ShowOptions": 2,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "Governs a characters protection value used for toxic damage and effect reduction"
         }
     ],
     "Resources": [
@@ -143,6 +277,11 @@
             "name": "water",
             "DisplayName": "Water",
             "MaxValueStat": "maxWater"
+        },
+        {
+            "name": "toxic water",
+            "DisplayName": "Toxic Water",
+            "MaxValueStat": "maxToxicWater"
         }
     ]
 }

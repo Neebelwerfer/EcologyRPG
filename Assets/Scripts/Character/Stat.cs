@@ -11,7 +11,18 @@ namespace Character
     {
         Flat = 100,
         PercentAdd = 200,
-        PercentMult = 300
+        PercentMult = 300,
+        }
+    public enum DisplayOptions
+    {
+        Flat,
+        Percent,
+    }
+    public enum ShowOptions
+    {
+        Always,
+        Never,
+        WhenNonZero,
     }
 
     [Serializable]
@@ -21,6 +32,10 @@ namespace Character
         public string name;
         [Tooltip("The display name of the stat")]
         public string displayName;
+        [Tooltip("The display options of the stat")]
+        public DisplayOptions DisplayOptions;
+        [Tooltip("The show options of the stat")]
+        public ShowOptions ShowOptions;
         [Tooltip("The default value of this stat")]
         public float baseValue;
         [Tooltip("The maximum value this stat can have")]
@@ -38,16 +53,12 @@ namespace Character
         public string StatName;
         public object Source;
         public int Order;
-        public float Value;
+        public float Value { get => _value; set { _value = value; OnStatModChanged?.Invoke(); } }
         public StatModType ModType;
         [HideInInspector]
         public UnityEvent OnStatModChanged = new();
 
-        public void UpdateValue(float newValue)
-        {
-            Value = newValue;
-            OnStatModChanged.Invoke();
-        }
+        float _value;
 
         public StatModification(string name, float value, StatModType modType, int order, object source)
         {
@@ -87,7 +98,7 @@ namespace Character
         }
 
         public ReadOnlyCollection<StatModification> StatModifiers;
-        List<StatModification> Modifiers;
+        readonly List<StatModification> Modifiers;
 
         public Stat(string name, float baseValue, string description, string displayName)
         {
@@ -120,6 +131,7 @@ namespace Character
                 {
                     finalValue += mod.Value;
                 }
+
                 else if (mod.ModType == StatModType.PercentAdd)
                 {
                     sumPercentAdd += mod.Value;
@@ -173,6 +185,7 @@ namespace Character
             Modifiers.Add(mod);
             Modifiers.Sort(CompareModifierOrder);
             mod.OnStatModChanged.AddListener(() => isDirty = true);
+
             Debug.Log("Added modifier: " + mod.Value);
         }
 

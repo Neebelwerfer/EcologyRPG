@@ -36,7 +36,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     public void InitializeBar(EnemyNPC nPC, string resourceName)
     {
-        maxHealth = nPC.stats.GetResource(resourceName).MaxValue;
+        maxHealth = nPC.Stats.GetResource(resourceName).MaxValue;
         barSlider.maxValue = maxHealth;
         barSlider.value = barSlider.maxValue;
         easeSlider.maxValue = barSlider.maxValue;
@@ -45,7 +45,7 @@ public class EnemyHealthBar : MonoBehaviour
     }
     public void UpdateBar(EnemyNPC nPC, string resourceName)
     {
-        currentHealth = nPC.stats.GetResource(resourceName).CurrentValue;
+        currentHealth = nPC.Stats.GetResource(resourceName).CurrentValue;
         if (barSlider.value != currentHealth)
         {
             barSlider.value = currentHealth;
@@ -58,7 +58,7 @@ public class EnemyHealthBar : MonoBehaviour
     }
     public void VisibleBar()
     {
-        if(character.stats.GetResource(resourceName).MaxValue == character.stats.GetResource(resourceName).CurrentValue)
+        if(character.Stats.GetResource(resourceName).MaxValue == character.Stats.GetResource(resourceName).CurrentValue)
         {
             easingBar.SetActive(false);
             healthBar.SetActive(false);

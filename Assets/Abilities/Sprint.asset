@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8008008265926771366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56d0d769d0cca64dbd63c2c2ca3bb69, type: 3}
+  m_Name: Exhaustion
+  m_EditorClassIdentifier: 
+  ID: f905cb55-a6b1-42eb-ae67-bf287744e59f
+  displayName: ExhaustionEffect
+  type: 1
+  duration: 10
+  remainingDuration: 0
+  Owner: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9,13 +27,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f4d564f96f769f48983e510cf40a9de, type: 3}
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Sprint
   m_EditorClassIdentifier: 
-  DisplayName: Sprint
-  ResourceCost: 30
-  ResourceName: Stamina
-  Cooldown: 0
-  AllowHolding: 1
+  DisplayName: 
+  Cooldown: 0.1
+  CastTime: 0
+  Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  BuffsOnCast: []
   remainingCooldown: 0
   state: 0
+  Ability: {fileID: 530443999250883985}
+  ResourceName: stamina
+  ResourceCost: 5
+--- !u!114 &530443999250883985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87f0380c165ca34cb3f65f1659fe58b, type: 3}
+  m_Name: Sprint 1(Clone)
+  m_EditorClassIdentifier: 
+  Range: 0
+  Exhaustion: {fileID: -8008008265926771366}
+  sprintSpeedMultiplier: 1

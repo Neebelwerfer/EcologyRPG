@@ -5,6 +5,63 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Character;
+using System;
+using UnityEngine.Events;
+
+class StatBinding
+{
+    public TextMeshProUGUI Text;
+    public Stat Stat;
+
+    UnityAction<float> OnStatChanged;
+
+    public StatBinding(TextMeshProUGUI text, Stat stat)
+    {
+        Text = text;
+        Stat = stat;
+
+        OnStatChanged = (value) =>
+        {
+            Text.text = stat.Data.displayName + ": " + value.ToString("#.#");
+            if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+            {
+                Text.gameObject.SetActive(value != 0);
+            }
+        };
+        Stat.OnStatChanged.AddListener(OnStatChanged);
+    }
+
+    public void Destroy()
+    {
+        Stat.OnStatChanged.RemoveListener(OnStatChanged);
+    }
+}
+
+class AttributeBinding
+{
+    public TextMeshProUGUI Text;
+    public Attribute Attribute;
+
+    UnityAction<int> OnAttributeChanged;
+
+    public AttributeBinding(TextMeshProUGUI text, Attribute attribute)
+    {
+        Text = text;
+        Attribute = attribute;
+        OnAttributeChanged = (value) => Text.text = attribute.data.displayName + ": " + value;
+        Attribute.OnAttributeChanged.AddListener(OnAttributeChanged);
+    }
+
+    public void UpdateText()
+    {
+        Text.text = Attribute.data.displayName + ": " + Attribute.Value;
+    }
+
+    public void Destroy()
+    {
+        Attribute.OnAttributeChanged.RemoveListener(OnAttributeChanged);
+    }
+}
 
 public class CharacterUI : MonoBehaviour
 {
@@ -14,72 +71,94 @@ public class CharacterUI : MonoBehaviour
     public GameObject StatTextPrefab;
 
 
-    Player.PlayerCharacter player;
-    TextMeshProUGUI[] AttributeTexts;
-    TextMeshProUGUI[] StatsTexts;
+    PlayerCharacter player;
+
+    List<StatBinding> StatBindings;
+    List<AttributeBinding> AttributeBindings;
+
+    private void Awake()
+    {
+        player = PlayerManager.Instance.GetPlayerCharacter();
+        StatBindings = new List<StatBinding>();
+        AttributeBindings = new List<AttributeBinding>();
+
+        for (int i = 0; i < player.Stats._stats.Count; i++)
+        {
+            if (IsStatHidden(player.Stats._stats[i]))
+                continue;
+            CreateStatText(player.Stats._stats[i]);
+        }
+
+        for (int i = 0; i < player.Stats._attributes.Count; i++)
+        {
+            CreateAttributeText(player.Stats._attributes[i]);
+        }
+    }   
+    
+    bool IsStatHidden(Stat stat)
+    {
+        if(stat.Data.ShowOptions == ShowOptions.Always)
+        {
+            return false;
+        } 
+        else if (stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+        {
+            return false;
+        } 
+        else
+        {
+            return true;
+        }
+    }
 
     private void OnEnable()
     {
-        if(player == null)
+        if(AttributeBindings != null)
         {
-            player = PlayerManager.Instance.GetPlayerCharacter();
-            AttributeTexts = new TextMeshProUGUI[player.stats._attributes.Count];
-            StatsTexts = new TextMeshProUGUI[player.stats._stats.Count];
-        }
-        for (int i = 0; i < player.stats._attributes.Count; i++)
-        {
-            CreateAttributeText(player.stats._attributes[i], i);
-        }
-
-        for (int i = 0; i < player.stats._stats.Count; i++)
-        {
-            CreateStatText(player.stats._stats[i], i);
-        }
-        InvokeRepeating(nameof(UpdateUI), 1, 1f);
-    }
-
-    void UpdateUI()
-    {
-        for (int i = 0; i < player.stats._attributes.Count; i++)
-        {
-            AttributeTexts[i].text = player.stats._attributes[i].data.displayName + ": " + player.stats._attributes[i].Value;
-        }
-
-        for (int i = 0; i < player.stats._stats.Count; i++)
-        {
-            StatsTexts[i].text = player.stats._stats[i].Data.displayName + ": " + player.stats._stats[i].Value;
+            foreach (var binding in AttributeBindings)
+            {
+                binding.UpdateText();
+            }
         }
     }
 
-    private void OnDisable()
-    {
-        for (int i = 0; i < AttributeTexts.Length; i++)
-        {
-            Destroy(AttributeTexts[i].gameObject);
-        }
-
-        for (int i = 0; i < StatsTexts.Length; i++)
-        {
-            Destroy(StatsTexts[i].gameObject);
-        }
-        CancelInvoke(nameof(UpdateUI));
-    }
-
-    void CreateAttributeText(Attribute attribute, int order)
+    void CreateAttributeText(Attribute attribute)
     {
         var text = Instantiate(AttributeTextPrefab, AttributeView.transform);
         text.transform.position = AttributeView.transform.position;
         var comp = text.GetComponent<TextMeshProUGUI>();
         comp.text = attribute.data.displayName + ": " + attribute.Value;
-        AttributeTexts[order] = comp;
+
+        AttributeBindings.Add(new AttributeBinding(comp, attribute));
     }
 
-    void CreateStatText(Stat stat, int order)
+    void CreateStatText(Stat stat)
     {
         var text = Instantiate(StatTextPrefab, StatView.transform);
         text.transform.position = StatView.transform.position;
         var comp = text.GetComponent<TextMeshProUGUI>();
-        comp.text = stat.Data.displayName + ": " + stat.Value;
-        StatsTexts[order] = comp;
+        comp.text = stat.Data.displayName + ": " + stat.Value.ToString("#.#");
+        if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
+        {
+            text.SetActive(stat.Value != 0);
+        }
+        else
+        {
+            text.SetActive(true);
+        }
+        StatBindings.Add(new StatBinding(comp, stat));
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var binding in StatBindings)
+        {
+            binding.Destroy();
+        }
+
+        foreach (var binding in AttributeBindings)
+        {
+            binding.Destroy();
+        }
     }
 }
