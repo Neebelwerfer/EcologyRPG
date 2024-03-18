@@ -226,9 +226,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityPoint: {fileID: 2300530453157254747}
+  Tags:
+  - Human
   faction: 2
   state: 0
   behaviourReference: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}
+  XpOnDeath: 10
   behaviour: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}
 --- !u!195 &548688104669468024
 NavMeshAgent:
