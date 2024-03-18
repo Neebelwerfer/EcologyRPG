@@ -12,7 +12,7 @@ public class AbilityUI : MonoBehaviour
     private PlayerCharacter player;
     private float cooldown;
     [SerializeField] private AbilitySlots abilitySlot;
-    [SerializeField] private BaseAbility ability;
+    [SerializeField] private BaseAbilityHolder ability;
     [SerializeField] private Image abilityImage;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite abilitySprite;
@@ -50,11 +50,12 @@ public class AbilityUI : MonoBehaviour
         if (ability == null) return;
         abilityName = ability.name;
         cooldown = ability.Cooldown;
-        abilitySprite = ability.Icon;
+        if (ability.Icon != null)
+            abilitySprite = ability.Icon;
         abilityImage.sprite = abilitySprite;
         backgroundImage.sprite = abilitySprite;
     }
-    public void SetAbility(BaseAbility newAbility)
+    public void SetAbility(BaseAbilityHolder newAbility)
     {
         ability = newAbility;
         SetUpAbilityUI();

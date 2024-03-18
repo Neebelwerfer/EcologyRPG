@@ -6,7 +6,7 @@ using Utility;
 [CreateAssetMenu(fileName = "Basic Behaviour", menuName = "NPC/Behaviours/BasicBehaviour")]
 public class BasicBehaviour : NPCBehaviour
 {
-    public AttackAbility attackAbilityReference;
+    public NPCAbility attackAbilityReference;
 
     public float targetSearchCooldown = 0.5f;
     public float AggroRange;
@@ -15,7 +15,7 @@ public class BasicBehaviour : NPCBehaviour
     public LayerMask targetMask;
 
     BaseCharacter target;
-    AttackAbility attackAbility;
+    NPCAbility attackAbility;
     float targetSearchTimer = 0f;
     
     public override void Init(EnemyNPC character)
@@ -50,13 +50,13 @@ public class BasicBehaviour : NPCBehaviour
             if (attackAbility.state != AbilityStates.ready) return;
             npc.Agent.ResetPath();
             npc.transform.LookAt(target.transform);
-            attackAbility.Activate(new CasterInfo { activationInput = null, castPos = npc.AbilityPoint.transform.position, owner = npc});
+            attackAbility.Activate(new CastInfo { activationInput = null, castPos = npc.AbilityPoint.transform.position, owner = npc});
         });
 
         var inAttackRange = new DecisionNode((npc) =>
         {
             var dist = Vector3.Distance(npc.transform.position, target.transform.position);
-            return dist < attackAbility.attackRange;
+            return dist < attackAbility.attackAbilityEffect.Range;
 
         }, Attack, Chase);
 

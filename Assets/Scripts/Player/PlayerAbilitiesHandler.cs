@@ -1,4 +1,5 @@
 using Character.Abilities;
+using Items;
 using Player;
 using System;
 using System.Collections;
@@ -20,20 +21,27 @@ public enum AbilitySlots
     Sprint
 }
 
-public class PlayerAbilitiesHandler : IPlayerModule
+public class PlayerAbilitiesHandler : PlayerModule
 {
     PlayerSettings settings;
-    readonly BaseAbility[] abilitySlots = new BaseAbility[7];
+    readonly PlayerAbilityHolder[] abilitySlots = new PlayerAbilityHolder[7];
+    readonly InputActionReference[] abilityInputs = new InputActionReference[7];
 
     PlayerCharacter Player;
 
     Action<InputAction.CallbackContext> sprintAction;
     Action<InputAction.CallbackContext> dodgeAction;
     Action<InputAction.CallbackContext> WeaponAttackAction;
+    Action<InputAction.CallbackContext> Ability1Action;
+    Action<InputAction.CallbackContext> Ability2Action;
+    Action<InputAction.CallbackContext> Ability3Action;
+    Action<InputAction.CallbackContext> Ability4Action;
 
-    public UnityEvent<BaseAbility>[] OnAbilityChange = new UnityEvent<BaseAbility>[7];
+    public UnityEvent<BaseAbilityHolder>[] OnAbilityChange = new UnityEvent<BaseAbilityHolder>[7];
 
-    public void Initialize(PlayerCharacter player)
+    int ActiveSlot = -1;
+
+    public override void Initialize(PlayerCharacter player)
     {
         Player = player;
         settings = player.playerSettings;
@@ -45,58 +53,118 @@ public class PlayerAbilitiesHandler : IPlayerModule
         settings.Ability3.action.Enable();
         settings.Ability4.action.Enable();
 
-        abilitySlots[4] = settings.WeaponAttackAbility;
+        abilitySlots[0] = UnityEngine.Object.Instantiate(settings.Ability1Reference);
+        abilityInputs[0] = settings.Ability1;
+        Ability1Action = (ctx) => ActivateAbility(0, ctx);
+        abilitySlots[1] = UnityEngine.Object.Instantiate(settings.Ability2Reference);
+        abilityInputs[1] = settings.Ability2;
+        Ability2Action = (ctx) => ActivateAbility(1, ctx);
+        abilitySlots[2] = UnityEngine.Object.Instantiate(settings.Ability3Reference);
+        abilityInputs[2] = settings.Ability3;
+        Ability3Action = (ctx) => ActivateAbility(2, ctx);
+        abilitySlots[3] = UnityEngine.Object.Instantiate(settings.Ability4Reference);
+        abilityInputs[3] = settings.Ability4;
+        Ability4Action = (ctx) => ActivateAbility(3, ctx);
+
+        if(player.Inventory.equipment.GetEquipment(EquipmentType.Weapon) is Weapon weapon)
+        {
+            abilitySlots[4] = UnityEngine.Object.Instantiate(weapon.WeaponAbility);
+        } else
+        {
+            abilitySlots[4] = UnityEngine.Object.Instantiate(settings.FistAttackAbility);
+        }
+        abilityInputs[4] = settings.WeaponAttack;
         WeaponAttackAction = (ctx) => ActivateAbility(4, ctx);
-        abilitySlots[5] = settings.DodgeAbility;
+
+
+        abilitySlots[5] = UnityEngine.Object.Instantiate(settings.DodgeAbility);
+        abilityInputs[5] = settings.Dodge;
         dodgeAction = (ctx) => ActivateAbility(5, ctx);
-        abilitySlots[6] = settings.SprintAbility;
+        abilitySlots[6] = UnityEngine.Object.Instantiate(settings.SprintAbility);
+        abilityInputs[6] = settings.Sprint;
         sprintAction = (ctx) => ActivateAbility(6, ctx);
 
         settings.WeaponAttack.action.started += WeaponAttackAction;
         settings.Sprint.action.started += sprintAction;
         settings.Dodge.action.started += dodgeAction;
+        settings.Ability1.action.started += Ability1Action;
+        settings.Ability2.action.started += Ability2Action;
+        settings.Ability3.action.started += Ability3Action;
+        settings.Ability4.action.started += Ability4Action;
+
+        player.Inventory.equipment.EquipmentUpdated.AddListener(OnEquipmentChange);
+        
     }
 
-    public BaseAbility GetAbility(AbilitySlots slot)
+    public override void Update()
+    {
+        base.Update();
+        if(ActiveSlot > -1)
+        {
+            if (abilityInputs[ActiveSlot].action.IsPressed())
+            {
+                var ability = abilitySlots[ActiveSlot];
+                if (ability == null)
+                {
+                    ActiveSlot = -1;
+                    return;
+                }
+                var castInfo = new CastInfo { activationInput = abilityInputs[ActiveSlot].action, castPos = Player.AbilityPoint.transform.position, owner = Player };
+                ability.Activate(castInfo);
+            }
+        }
+    }
+
+    private void OnEquipmentChange(int arg0)
+    {
+        if(arg0 == (int)Items.EquipmentType.Weapon)
+        {
+            var item = Player.Inventory.equipment.GetEquipment(Items.EquipmentType.Weapon);
+            if (item == null || ((Weapon)item).WeaponAbility == null) SetAbility(AbilitySlots.WeaponAttack, settings.FistAttackAbility);
+            else if (item is Weapon weapon) SetAbility(AbilitySlots.WeaponAttack, weapon.WeaponAbility);
+        }
+    }
+
+    public BaseAbilityHolder GetAbility(AbilitySlots slot)
     {
         return abilitySlots[(int)slot];
+    }
+
+    public void SetAbility(AbilitySlots slot, PlayerAbilityHolder ability)
+    {
+        abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
+        OnAbilityChange[(int)slot]?.Invoke(ability);
     }
 
     void ActivateAbility(int slot, InputAction.CallbackContext context)
     {
         var ability = abilitySlots[slot];
         if (ability == null) return;
-        if(ability.Activate(new CasterInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
+
+        ActiveSlot = slot;
+        if(ability.Activate(new CastInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
         {
 
         }
     }
 
-    public void Update()
-    {
-    }
-
-    public void AddListener(AbilitySlots slot, UnityAction<BaseAbility> action)
+    public void AddListener(AbilitySlots slot, UnityAction<BaseAbilityHolder> action)
     {
         if (OnAbilityChange[(int)slot] == null)
         {
-            OnAbilityChange[(int)slot] = new UnityEvent<BaseAbility>();
+            OnAbilityChange[(int)slot] = new UnityEvent<BaseAbilityHolder>();
         }
         OnAbilityChange[(int)slot].AddListener(action);
     }
 
-    public void FixedUpdate()
-    {
-    }
-
-    public void LateUpdate()
-    {
-    }
-
-    public void OnDestroy()
+    public override void OnDestroy()
     {
         settings.Sprint.action.started -= sprintAction;
         settings.Dodge.action.started -= dodgeAction;
         settings.WeaponAttack.action.started -= WeaponAttackAction;
+        settings.Ability1.action.started -= Ability1Action;
+        settings.Ability2.action.started -= Ability2Action;
+        settings.Ability3.action.started -= Ability3Action;
+        settings.Ability4.action.started -= Ability4Action;
     }
 }

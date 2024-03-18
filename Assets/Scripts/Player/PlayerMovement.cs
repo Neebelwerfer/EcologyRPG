@@ -10,10 +10,9 @@ using Utility;
 
 namespace Player
 {
-    public class PlayerMovement : IPlayerModule
+    public class PlayerMovement : PlayerModule
     {
         InputActionReference Movement;
-        InputActionReference Sprint;
 
         public float rotationSpeed = 4f;
 
@@ -22,17 +21,15 @@ namespace Player
         Vector3 right = Quaternion.Euler(new Vector3(0, 135, 0)) * Vector3.forward;
 
         PlayerCharacter player;
-        Transform transform;
+        public Transform transform;
 
         //Cached Character references
         Stat MovementSpeed;
-        Resource Stamina;
-        Stat StaminaGain;
 
         StatModification sprintMod;
 
         // Start is called before the first frame update
-        public void Initialize(PlayerCharacter player)
+        public override void Initialize(PlayerCharacter player)
         {
             this.player = player;
             Movement = player.playerSettings.Movement;
@@ -40,16 +37,13 @@ namespace Player
 
             transform = player.transform.Find("VisualPlayer");
 
-            MovementSpeed = player.stats.GetStat("movementSpeed");
-            Stamina = player.stats.GetResource("stamina");
-            StaminaGain = player.stats.GetStat("staminaGain");
+            MovementSpeed = player.Stats.GetStat("movementSpeed");
         }
 
-        public void FixedUpdate()
+        public override void FixedUpdate()
         {
             var rb = player.Rigidbody;
             Vector2 movement = Movement.action.ReadValue<Vector2>();
-            Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
 
             if(player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
             {
@@ -60,10 +54,10 @@ namespace Player
             {
                 var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
                 var dir = (movement.y * forward + movement.x * right).normalized;
-                rb.velocity += speed * 100 * dir;
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, MovementSpeed.Value);
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rb.velocity), TimeManager.IngameDeltaTime * rotationSpeed);
-
+                Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Ground"));
+                dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
+                rb.MovePosition(transform.position + speed * dir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
             }
             else
             {
@@ -73,31 +67,18 @@ namespace Player
 
         public void UpdateRotationBasedOnMouse()
         {
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-            var mousePoint = Camera.main.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(mousePoint, out RaycastHit hit, 100f, LayerMask.NameToLayer("Entity")))
+            var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hit, 100f, LayerMask.GetMask("Ground")))
             {
-                var lookAt = hit.point;
-                lookAt.y = transform.position.y;
-                var dir = (lookAt - transform.position).normalized;
+                var dir = (hit.point - transform.position).normalized;
+                dir = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
                 var rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
                 transform.rotation = rot;
             }
         }
 
-        public void Update()
+        public override void OnDestroy()
         {
-
-        }
-
-        public void LateUpdate()
-        {
-
-        }
-
-        public void OnDestroy()
-        {
-
         }
     }
 }

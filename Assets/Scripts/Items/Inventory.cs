@@ -1,8 +1,10 @@
 using Character;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Items
 {
@@ -18,11 +20,20 @@ namespace Items
         }
     }
 
+    public class ItemPickupEvent: EventData
+    {
+        public InventoryItem item;
+    }
+
     public class Inventory
     {
         public List<InventoryItem> items;
         public Equipment equipment;
+        public UnityEvent InventoryChanged;
+        public UnityEvent<Item> ItemRemoved;
+        public UnityEvent<Item> ItemAdded;
 
+        GameObject ItemPrefab;
         Stat CarryWeight;
         BaseCharacter Owner;
 
@@ -32,14 +43,36 @@ namespace Items
         public Inventory(BaseCharacter Owner, Item[] startingItems)
         {
             this.Owner = Owner;
-            CarryWeight = Owner.stats.GetStat("CarryWeight");
+            CarryWeight = Owner.Stats.GetStat("CarryWeight");
             items = new List<InventoryItem>();
+            ItemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefab");
+
             foreach (Item item in startingItems)
             {
                 if(item != null)
                     AddItem(item);
             }
             equipment = new Equipment(Owner);
+            InventoryChanged = new UnityEvent();
+            ItemRemoved = new UnityEvent<Item>();
+            ItemAdded = new UnityEvent<Item>();
+
+            EventManager.AddListener("ItemPickup", OnItemPickup);
+        }
+
+        private void OnItemPickup(EventData data)
+        {
+            if (data is ItemPickupEvent ipEvent)
+            {
+                var item = ipEvent.item;
+                if (AddItems(item.item, item.amount))
+                    Object.Destroy((data.source as ItemPickup).transform.root.gameObject);
+            }
+        }
+
+        public bool CanCarry(Item item, int amount)
+        {
+            return item.Weight * amount + currentWeight <= CarryWeight.Value;
         }
 
         public bool ContainsItem(Item item)
@@ -58,7 +91,7 @@ namespace Items
         {
             foreach (InventoryItem inventoryItem in items)
             {
-                if (inventoryItem.item == item)
+                if (inventoryItem.item.Name == item.Name)
                 {
                     return inventoryItem;
                 }
@@ -66,27 +99,63 @@ namespace Items
             return null;
         }
 
-        public bool AddItem(Item item)
+        public bool AddItems(Item item, int amount)
         {
-            if (item.Weight + currentWeight > CarryWeight.Value)
+            if (item.Weight * amount + currentWeight > CarryWeight.Value)
             {
                 return false;
             }
 
             var getInventoryItem = GetInventoryItem(item);
-            currentWeight += item.Weight;
+            currentWeight += item.Weight * amount;
 
             if (getInventoryItem != null)
             {
-                GetInventoryItem(item).amount++;
+                GetInventoryItem(item).amount += amount;
+                InventoryChanged?.Invoke();
                 return true;
             }
             else
             {
-                items.Add(new InventoryItem(item, 1));
+                items.Add(new InventoryItem(item, amount));
+                ItemAdded?.Invoke(item);
                 return true;
             }
         }
+
+        public bool AddItem(Item item)
+        {
+            return AddItems(item, 1);
+        }
+
+        public void DropItem(Item item, int amount)
+        {
+            for (int i = items.Count - 1; i >= 0; i--)
+            {
+                if (items[i].item == item)
+                {
+                    if (items[i].amount < amount)
+                    {
+                        amount = items[i].amount;
+                    }
+                    currentWeight -= item.Weight * amount;
+                    items[i].amount -= amount;
+                    if (items[i].amount <= 0)
+                    {
+                        items.RemoveAt(i);
+                        ItemRemoved?.Invoke(item);
+                    } else InventoryChanged?.Invoke();
+                    
+                    Physics.Raycast(Owner.transform.position + new Vector3(0, 1, 0), -Owner.transform.up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
+                    GameObject droppedItem = Object.Instantiate(ItemPrefab, null);
+                    droppedItem.transform.position = hit.point;
+                    droppedItem.GetComponentInChildren<ItemPickup>().Setup(item, amount);
+                    break;
+                }
+            }
+        }
+
+        public void DropItem(Item item) => DropItem(item, 1);
 
         public void RemoveItem(Item item)
         {
@@ -99,6 +168,13 @@ namespace Items
                     if (items[i].amount <= 0)
                     {
                         items.RemoveAt(i);
+                        ItemRemoved?.Invoke(item);
+                        break;
+                    }
+                    else
+                    {
+                        InventoryChanged?.Invoke();
+                        break;
                     }
                 }
             }

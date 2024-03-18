@@ -3,16 +3,19 @@ using Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Equipment
 {
     public Item[] EquipmentSlots;
+    public UnityEvent<int> EquipmentUpdated;
 
     BaseCharacter baseCharacter;
     public Equipment(BaseCharacter baseCharacter)
     {
         this.baseCharacter = baseCharacter;
         EquipmentSlots = new Item[4];
+        EquipmentUpdated = new UnityEvent<int>();
     }
 
     public void EquipItem(Item item)
@@ -21,6 +24,7 @@ public class Equipment
         {
             EquipmentSlots[(int)equipable.equipmentType] = item;
             equipable.Equip(baseCharacter);
+            EquipmentUpdated.Invoke((int)equipable.equipmentType);
         } 
         else
         {
@@ -34,6 +38,7 @@ public class Equipment
         {
             EquipmentSlots[(int)equipable.equipmentType] = null;
             equipable.Unequip(baseCharacter);
+            EquipmentUpdated.Invoke((int)equipable.equipmentType);
         }
         else
         {

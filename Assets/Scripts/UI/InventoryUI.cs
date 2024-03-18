@@ -35,45 +35,58 @@ public class InventoryUI : MonoBehaviour
     List<BindedButton> BindedButtons;
 
     InventoryItem selectedItem;
+    PlayerCharacter player;
 
-    private void OnEnable()
+    private void Awake()
     {
         BindedButtons ??= new List<BindedButton>();
-
-        var player = PlayerManager.Instance.GetPlayerCharacter();
-
+        player = PlayerManager.Instance.GetPlayerCharacter();
         for (int i = 0; i < player.Inventory.items.Count; i++)
         {
-            CreateInventoryItemButton(player.Inventory.items[i], i+1);
+            CreateInventoryItemButton(player.Inventory.items[i], i + 1);
         }
-        InvokeRepeating(nameof(UpdateReferences), 0.3f, 0.3f);
+        player.Inventory.InventoryChanged.AddListener(UpdateReferences);
+        player.Inventory.ItemAdded.AddListener(OnItemAdded);
+        player.Inventory.ItemRemoved.AddListener(OnItemRemoved);
+        player.Inventory.equipment.EquipmentUpdated.AddListener((int type) => GetEquipmentInfo());
     }
 
     private void OnDisable()
     {
-        foreach (BindedButton button in BindedButtons)
-        {
-            Destroy(button.button.gameObject);
-        }
         HideMenuView();
-        BindedButtons.Clear();
-        CancelInvoke(nameof(UpdateReferences));
+    }
+
+    void OnItemAdded(Item item)
+    {
+        CreateInventoryItemButton(player.Inventory.GetInventoryItem(item), BindedButtons.Count + 1);
+    }
+
+    void OnItemRemoved(Item item)
+    {
+        for (int i = BindedButtons.Count - 1; i >= 0; i--)
+        {
+            if (BindedButtons[i].item.item == item)
+            {
+                Destroy(BindedButtons[i].button.gameObject);
+                BindedButtons.RemoveAt(i);
+                break;
+            }
+        }
     }
 
     void GetEquipmentInfo()
     {
-        var player = PlayerManager.Instance.GetPlayerCharacter();
         var mask = player.Inventory.equipment.GetEquipment(EquipmentType.Mask);
-        MaskText.text = mask == null ? "No Mask" : mask.Name;
+        MaskText.text = mask == null ? "Empty" : mask.Name;
 
         var armor = player.Inventory.equipment.GetEquipment(EquipmentType.Armour);
-        ArmorText.text = armor == null ? "No Armor" : armor.Name;
+        ArmorText.text = armor == null ? "Empty" : armor.Name;
 
         var waterTank = player.Inventory.equipment.GetEquipment(EquipmentType.WaterTank);
-        WaterTankText.text = waterTank == null ? "No Water Tank" : waterTank.Name;
+        WaterTankText.text = waterTank == null ? "Empty" : waterTank.Name;
 
         var weapon = player.Inventory.equipment.GetEquipment(EquipmentType.Weapon);
-        WeaponText.text = weapon == null ? "No Weapon" : weapon.Name;
+        WeaponText.text = weapon == null ? "Empty" : weapon.Name;
 
     }
 
@@ -116,8 +129,6 @@ public class InventoryUI : MonoBehaviour
         InventoryMenuView.SetActive(true);
         UseButton.onClick.RemoveAllListeners();
 
-        var player = PlayerManager.Instance.GetPlayerCharacter();
-
         if (item.item is ConsumableItem ci)
         {
             UseButton.gameObject.SetActive(true);
@@ -145,6 +156,6 @@ public class InventoryUI : MonoBehaviour
 
     public void DropOneSelectedItem()
     {
-        PlayerManager.Instance.GetPlayerCharacter().Inventory.RemoveItem(selectedItem.item);
+        player.Inventory.DropItem(selectedItem.item);
     }
 }

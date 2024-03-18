@@ -121,6 +121,19 @@ namespace Character
                 stat.RemoveAllModifiersFromSource(soruce);
             }
         }
+
+        public void AddAttributeModifier(AttributeModification mod)
+        {
+            GetAttribute(mod.name).AddModifier(mod);
+        }
+
+        public void RemoveAttributeModifiersFromSource(object source)
+        {
+            foreach (Attribute attribute in AttributeList)
+            {
+                attribute.RemoveAllModifiersFromSource(source);
+            }
+        }
     }
 
 }

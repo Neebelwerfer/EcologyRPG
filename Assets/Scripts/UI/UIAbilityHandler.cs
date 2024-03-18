@@ -9,12 +9,12 @@ using UnityEditor.Playables;
 public class UIAbilityHandler : MonoBehaviour
 {
     private PlayerCharacter player;
-    private BaseAbility weaponAttack;
-    private BaseAbility dodgeAbility;
-    private BaseAbility ability1;
-    private BaseAbility ability2;
-    private BaseAbility ability3;
-    private BaseAbility ability4;
+    private BaseAbilityHolder weaponAttack;
+    private BaseAbilityHolder dodgeAbility;
+    private BaseAbilityHolder ability1;
+    private BaseAbilityHolder ability2;
+    private BaseAbilityHolder ability3;
+    private BaseAbilityHolder ability4;
 
     [SerializeField] private AbilityUI weaponAttackUI;
     [SerializeField] private AbilityUI dodgeAbilityUI;
@@ -43,7 +43,7 @@ public class UIAbilityHandler : MonoBehaviour
 
     }
 
-    public void SetAbilitySlot(AbilityUI abilitySlot, BaseAbility ability)
+    public void SetAbilitySlot(AbilityUI abilitySlot, BaseAbilityHolder ability)
     {
         abilitySlot.SetAbility(ability);
     }

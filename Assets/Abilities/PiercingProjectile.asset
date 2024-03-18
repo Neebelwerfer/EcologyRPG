@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4622694978141573070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416f79125abf78240bd51874f1b0365a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4fa09c0e-6b9c-470c-b092-39029498e427
+  displayName: DamageOverTimeEffect
+  type: 0
+  duration: 2
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  damagePerTick: 10
+  DamageType: 1
+  tickRate: 1
+--- !u!114 &-1369387816540784684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
+  m_Name: BasicProjectile(Clone)
+  m_EditorClassIdentifier: 
+  Range: 10
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  useMouseDirection: 1
+  destroyOnHit: 1
+  OnHitEffects:
+  - {fileID: 1771110203579508456}
+  - {fileID: 9073614000979692265}
+  Speed: 0
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
+    type: 3}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: PiercingProjectile
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 0.2
+  CastTime: 0.2
+  Icon: {fileID: 21300000, guid: 335ffe9620fa71243a018c4690c86b8c, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: -1369387816540784684}
+  ResourceName: 
+  ResourceCost: 0
+--- !u!114 &1771110203579508456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 15
+  DamageType: 1
+--- !u!114 &9073614000979692265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edee22267130cf8479fb98903867028d, type: 3}
+  m_Name: CharacterAbilityEffect
+  m_EditorClassIdentifier: 
+  DebuffEffect: {fileID: -4622694978141573070}

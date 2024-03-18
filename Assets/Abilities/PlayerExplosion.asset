@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: PlayerExplosion
+  m_EditorClassIdentifier: 
+  DisplayName: Player Explosion
+  Cooldown: 4
+  CastTime: 0
+  Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: 7130918604319029643}
+  ResourceName: Water
+  ResourceCost: 19
+--- !u!114 &7130918604319029643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
+  m_Name: PlayerExplosion(Clone)
+  m_EditorClassIdentifier: 
+  Range: 5
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  Radius: 5
+  BaseDamage: 5
+  damageType: 0
+  effectsOnHit: []
+  explosionEffect: {fileID: 8179646377062506047, guid: 814d86a2da242414d88e56ff86afe516,
+    type: 3}

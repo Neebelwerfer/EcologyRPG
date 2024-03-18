@@ -1,8 +1,11 @@
 using Character;
+using Character.Abilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using Utility;
 
 public enum EffectType
 {
@@ -10,24 +13,36 @@ public enum EffectType
     Debuff
 }
 
-public abstract class CharacterEffect
+public abstract class CharacterEffect : ScriptableObject
 {
+    protected const string CharacterEffectPath = "Effects/";
+
+    [ReadOnlyString]
+    public string ID;
     public string displayName;
     public EffectType type;
-    public float duration;
-    public float remainingDuration;
+    [Min(0)] public float duration;
+    [HideInInspector] public float remainingDuration;
+    [HideInInspector] public BaseCharacter Owner;
 
-    public CharacterEffect(string name, float duration, EffectType type)
-    {
-        this.displayName = name;
-        this.duration = duration;
-        remainingDuration = duration;
-        this.type = type;
+    private void OnValidate()
+    {       
+        if(string.IsNullOrEmpty(ID))
+            ID = Guid.NewGuid().ToString();
+
+        if (string.IsNullOrEmpty(displayName))
+        {
+            displayName = this.GetType().Name;
+        }
     }
 
-    public abstract void OnApply(BaseCharacter target);
+    public abstract void OnApply(CastInfo Caster, BaseCharacter target);
+
+    public abstract void OnReapply(BaseCharacter target);
 
     public abstract void OnUpdate(BaseCharacter target, float deltaTime);
 
     public abstract void OnRemoved(BaseCharacter target);
+
+    protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => BaseAbility.CalculateDamage(Owner, type, damage, allowVariance);
 }
