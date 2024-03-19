@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7313892337116184278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
+  m_Name: CenteredExplosion(Clone)
+  m_EditorClassIdentifier: 
+  Range: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  Radius: 0
+  BaseDamage: 0
+  damageType: 0
+  effectsOnHit: []
+  explosionEffect: {fileID: 0}
 --- !u!114 &-7220348962316162391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
   m_Name: CastAbilityEffect
   m_EditorClassIdentifier: 
-  _ability: {fileID: -5773265362096761127}
+  _ability: {fileID: 3307112913395404347}
 --- !u!114 &-5773265362096761127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +98,26 @@ MonoBehaviour:
   Ability: {fileID: 7721009964156671358}
   ResourceName: water
   ResourceCost: 10
+--- !u!114 &3307112913395404347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
+  m_Name: New Ability
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 0
+  CastTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: -7313892337116184278}
 --- !u!114 &7721009964156671358
 MonoBehaviour:
   m_ObjectHideFlags: 0

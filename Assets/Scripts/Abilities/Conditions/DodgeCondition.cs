@@ -26,7 +26,7 @@ public class DodgeCondition : BuffCondition
     }
     public override void OnReapply(BaseCharacter target)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void OnUpdate(BaseCharacter target, float deltaTime)

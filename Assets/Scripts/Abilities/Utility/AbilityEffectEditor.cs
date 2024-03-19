@@ -1,8 +1,11 @@
 using Character.Abilities.AbilityEffects;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.Playables;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public abstract class EditAbility
 {
@@ -93,6 +96,65 @@ public class AbilityEffectEditor : EditorWindow
             return CreateInstance<VFXAbilityEffect>();
         }
         return null;
+    }
+    
+    public static void Display(ref bool foldOut, ref int index, List<AbilityEffect> effects, BaseAbility owner)
+    {
+        foldOut = EditorGUILayout.BeginFoldoutHeaderGroup(foldOut, "On Hit Effects");
+        if (foldOut)
+        {
+            foreach (var effect in effects)
+            {
+                EditorGUILayout.ObjectField(effect, typeof(AbilityEffect), false);
+            }
+            if (GUILayout.Button("Add Effect"))
+            {
+                var window = EditorWindow.GetWindow<AbilityEffectEditor>();
+                window.editedEffects = new EditListEffect(owner, effects);
+                window.Show();
+            }
+
+            if (effects.Count > 0)
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Remove All"))
+                {
+                    foreach (var effect in effects)
+                    {
+                        DestroyImmediate(effect, true);
+                    }
+                    effects.Clear();
+                    AssetDatabase.Refresh();
+                    AssetDatabase.SaveAssets();
+                }
+
+                if (GUILayout.Button("Remove Last"))
+                {
+                    DestroyImmediate(effects[effects.Count - 1], true);
+                    effects.RemoveAt(effects.Count - 1);
+                    AssetDatabase.Refresh();
+                    AssetDatabase.SaveAssets();
+                }
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                var ind = EditorGUILayout.IntField("Index", index);
+                if (ind > effects.Count)
+                {
+                    ind = effects.Count;
+                }
+                index = ind;
+                if (GUILayout.Button("Remove Index"))
+                {
+                    DestroyImmediate(effects[index], true);
+                    effects.RemoveAt(index);
+                    AssetDatabase.Refresh();
+                    AssetDatabase.SaveAssets();
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
     }
 }
 
