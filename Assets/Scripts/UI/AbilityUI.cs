@@ -12,7 +12,7 @@ public class AbilityUI : MonoBehaviour
     private PlayerCharacter player;
     private float cooldown;
     [SerializeField] private AbilitySlots abilitySlot;
-    [SerializeField] private BaseAbilityHolder ability;
+    [SerializeField] private AbilityDefintion ability;
     [SerializeField] private Image abilityImage;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite abilitySprite;
@@ -55,7 +55,7 @@ public class AbilityUI : MonoBehaviour
         abilityImage.sprite = abilitySprite;
         backgroundImage.sprite = abilitySprite;
     }
-    public void SetAbility(BaseAbilityHolder newAbility)
+    public void SetAbility(AbilityDefintion newAbility)
     {
         ability = newAbility;
         SetUpAbilityUI();

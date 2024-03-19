@@ -13,9 +13,9 @@ public enum EffectType
     Debuff
 }
 
-public abstract class CharacterEffect : ScriptableObject
+public abstract class Condition : ScriptableObject
 {
-    protected const string CharacterEffectPath = "Effects/";
+    protected const string CharacterEffectPath = "Condition/";
 
     [ReadOnlyString]
     public string ID;

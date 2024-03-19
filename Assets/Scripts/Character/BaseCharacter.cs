@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using Utility;
@@ -64,7 +65,7 @@ namespace Character
 
         public CharacterStates state = CharacterStates.active;
 
-        readonly List<CharacterEffect> effects = new List<CharacterEffect>();
+        readonly List<Condition> effects = new List<Condition>();
 
         protected int level;
         protected AttributeModification[] levelMods;
@@ -114,7 +115,7 @@ namespace Character
             }
         }
 
-        public virtual void ApplyEffect(CastInfo caster, CharacterEffect effect)
+        public virtual void ApplyEffect(CastInfo caster, Condition effect)
         {
             if(state == CharacterStates.dead)
             {
@@ -137,19 +138,19 @@ namespace Character
             effect.OnApply(caster, this);
         }
 
-        public virtual void RemoveEffect(CharacterEffect effect)
+        public virtual void RemoveEffect(Condition effect)
         {
             Debug.Log("Removing CharacterModification " + effect.displayName);
             effects.Remove(effect);
             effect.OnRemoved(this);
         }
 
-        public virtual CharacterEffect[] GetEffects()
+        public virtual Condition[] GetEffects()
         {
             return effects.ToArray();
         }
 
-        public virtual CharacterEffect GetEffect(BaseCharacter owner, string ID)
+        public virtual Condition GetEffect(BaseCharacter owner, string ID)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -161,7 +162,7 @@ namespace Character
             return null;
         }
 
-        public virtual CharacterEffect GetEffect(BaseCharacter owner, Type type)
+        public virtual Condition GetEffect(BaseCharacter owner, Type type)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -177,7 +178,7 @@ namespace Character
         {
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
-                CharacterEffect effect = effects[i];
+                Condition effect = effects[i];
                 effect.OnUpdate(this, Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)

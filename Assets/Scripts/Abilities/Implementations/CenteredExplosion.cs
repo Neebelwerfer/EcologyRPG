@@ -16,7 +16,7 @@ public class CenteredExplosion : BaseAbility
     [Tooltip("The type of damage the explosion will deal")]
     public DamageType damageType;
     [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
-    public List<DebuffEffect> effectsOnHit;
+    public List<DebuffCondition> effectsOnHit;
     public GameObject explosionEffect;
 
     VisualEffect vfx;

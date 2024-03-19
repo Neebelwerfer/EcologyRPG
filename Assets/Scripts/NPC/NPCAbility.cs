@@ -1,10 +1,10 @@
 using Character.Abilities;
 using UnityEditor;
 using UnityEngine;
-using static AttackAbilityEditor;
+using static AttackAbilityDefinitionEditor;
 
 [CreateAssetMenu(menuName = "AbilityHolder/NPCAbility", fileName = "New NPC Ability")]
-public class NPCAbility : BaseAbilityHolder
+public class NPCAbility : AbilityDefintion
 {
     public BaseAbility attackAbilityEffect;
 

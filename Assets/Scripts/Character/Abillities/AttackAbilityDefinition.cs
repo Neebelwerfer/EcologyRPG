@@ -1,7 +1,7 @@
 using Character.Abilities;
 using UnityEngine;
 
-public class AttackAbilityHolder : BaseAbilityHolder
+public class AttackAbilityDefinition : AbilityDefintion
 {
     public BaseAbility Ability;
 

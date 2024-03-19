@@ -2,7 +2,7 @@
 using Character.Abilities;
 using UnityEngine;
 
-public class DodgeEffect : BuffEffect
+public class DodgeCondition : BuffCondition
 {
     public DirectionMode directionMode = DirectionMode.Mouse;
     public float dodgeSpeed = 10f;

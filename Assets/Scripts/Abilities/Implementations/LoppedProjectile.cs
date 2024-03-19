@@ -38,7 +38,7 @@ public class LoppedProjectile : AttackAbility
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(LoppedProjectile))]
-public class LoppedProjectileEditor : AttackAbilityEffectEditor
+public class LoppedProjectileEditor : AttackAbilityEditor
 {
     private bool foldOut;
     private int index = 0;

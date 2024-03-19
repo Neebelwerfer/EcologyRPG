@@ -3,7 +3,7 @@ using Character.Abilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ExhaustionEffect : DebuffEffect
+public class Exhaustion : DebuffCondition
 {
 
     InputAction sprintInput;

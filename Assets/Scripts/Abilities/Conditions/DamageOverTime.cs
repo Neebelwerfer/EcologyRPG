@@ -3,7 +3,7 @@ using Character.Abilities;
 using UnityEngine;
 
 
-public class DamageOverTimeEffect : DebuffEffect
+public class DamageOverTime : DebuffCondition
 {
     public float damagePerTick = 10;
     public DamageType DamageType;

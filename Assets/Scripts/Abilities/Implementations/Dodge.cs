@@ -16,7 +16,7 @@ public enum DirectionMode
 public class Dodge : BaseAbility
 {
     [Header("Dodge Settings")]
-    public DodgeEffect dodgeEffect;
+    public DodgeCondition dodgeEffect;
 
     public override void Cast(CastInfo caster)
     {
@@ -33,13 +33,13 @@ public class DodgeEditor : Editor
         Dodge ability = (Dodge)target;
         if (ability.dodgeEffect == null)
         {
-            ability.dodgeEffect = CreateInstance<DodgeEffect>();
+            ability.dodgeEffect = CreateInstance<DodgeCondition>();
             AssetDatabase.AddObjectToAsset(ability.dodgeEffect, ability);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
         else
-            ability.dodgeEffect = (DodgeEffect)EditorGUILayout.ObjectField("Dodge Effect", ability.dodgeEffect, typeof(DodgeEffect), false);
+            ability.dodgeEffect = (DodgeCondition)EditorGUILayout.ObjectField("Dodge Effect", ability.dodgeEffect, typeof(DodgeCondition), false);
     }
 }
 #endif

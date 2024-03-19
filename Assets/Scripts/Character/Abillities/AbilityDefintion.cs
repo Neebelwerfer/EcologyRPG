@@ -41,16 +41,16 @@ namespace Character.Abilities
     public class AbilityCastEvent : EventData
     {
         public CastInfo Caster;
-        public BaseAbilityHolder Ability;
+        public AbilityDefintion Ability;
 
-        public AbilityCastEvent(CastInfo caster, BaseAbilityHolder ability)
+        public AbilityCastEvent(CastInfo caster, AbilityDefintion ability)
         {
             Caster = caster;
             Ability = ability;
         }
     }
 
-    public abstract class BaseAbilityHolder : ScriptableObject
+    public abstract class AbilityDefintion : ScriptableObject
     {
         public string DisplayName;
         [Tooltip("The cooldown of this ability")]
@@ -59,7 +59,7 @@ namespace Character.Abilities
         public float CastTime = 0;
         public Sprite Icon;
 
-        public List<BuffEffect> BuffsOnCast;
+        public List<BuffCondition> BuffsOnCast;
 
         [HideInInspector] public float remainingCooldown = 0;
         [HideInInspector] public AbilityStates state = AbilityStates.ready;
@@ -161,13 +161,13 @@ namespace Character.Abilities
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(BaseAbilityHolder), false)]
+[CustomEditor(typeof(AbilityDefintion), false)]
 public class BaseAbilityEditor : UnityEditor.Editor
 {
     protected bool showCooldownValue = true;
     public override void OnInspectorGUI()
     {
-        BaseAbilityHolder ability = (BaseAbilityHolder)target;
+        AbilityDefintion ability = (AbilityDefintion)target;
         ability.DisplayName = EditorGUILayout.TextField("Display Name", ability.DisplayName);
         if(showCooldownValue) ability.Cooldown = EditorGUILayout.FloatField("Cooldown", ability.Cooldown);
         ability.CastTime = EditorGUILayout.FloatField("Cast Time", ability.CastTime);

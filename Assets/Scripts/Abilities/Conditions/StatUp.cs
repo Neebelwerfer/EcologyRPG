@@ -2,23 +2,24 @@ using Character;
 using Character.Abilities;
 using UnityEngine;
 
-public class StatDownEffect : DebuffEffect
+public class StatUp : BuffCondition
 {
+
     public string StatName;
-    [SerializeField] StatModType ModType;
+    public StatModType ModType;
     public float Value;
 
     static UniqueStatModificationHandler UniqueStatModHandler;
 
     public override void OnApply(CastInfo Caster, BaseCharacter target)
     {
-        UniqueStatModHandler = new UniqueStatModificationHandler(StatName, ModType, false);
+        UniqueStatModHandler = new UniqueStatModificationHandler(StatName, ModType, true);
         UniqueStatModHandler.AddValue(target, this, Value);
     }
 
     public override void OnReapply(BaseCharacter target)
     {
-
+        remainingDuration = duration;
     }
 
     public override void OnRemoved(BaseCharacter target)
