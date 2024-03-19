@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SlowEffect : DebuffEffect
+public class SlowEffect : DebuffCondition
 {
     enum SlowType
     {

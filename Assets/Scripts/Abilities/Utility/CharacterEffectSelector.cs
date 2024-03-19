@@ -24,11 +24,11 @@ public class CharacterEffectSelector : EditorWindow
             {
                 if(effectType == EffectType.KnockEffect)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<KnockEffect>();
+                    effect.DebuffEffect = ScriptableObject.CreateInstance<Knock>();
                 }
                 else if(effectType == EffectType.DoTEffect)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<DamageOverTimeEffect>();
+                    effect.DebuffEffect = ScriptableObject.CreateInstance<DamageOverTime>();
                 }
                 else if(effectType == EffectType.SlowEffect)
                 {

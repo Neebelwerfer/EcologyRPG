@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerAbility", menuName = "AbilityHolder/PlayerAbility")]
-public class PlayerAbilityHolder : AttackAbilityHolder
+public class PlayerAbilityHolder : AttackAbilityDefinition
 {
     [Header("Resources")]
     [Tooltip("The resource that get used for the ability cost")]

@@ -21,7 +21,7 @@ public abstract class ProjectileAbility : AttackAbility
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(ProjectileAbility), false)]
-public class ProjectileAbilityEditor : AttackAbilityEffectEditor
+public class ProjectileAbilityEditor : AttackAbilityEditor
 {
     bool foldOut = false;
     int index = 0;

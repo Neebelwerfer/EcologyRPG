@@ -9,7 +9,7 @@ public abstract class BaseAbility : ScriptableObject
 
     public abstract void Cast(CastInfo castInfo);
 
-    protected static void ApplyEffect(CastInfo caster, BaseCharacter target, CharacterEffect effect)
+    protected static void ApplyEffect(CastInfo caster, BaseCharacter target, Condition effect)
     {
         var instancedEffect = Instantiate(effect);
         instancedEffect.Owner = caster.owner;

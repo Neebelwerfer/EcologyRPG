@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
-[CustomEditor(typeof(AttackAbilityHolder))]
-public class AttackAbilityEditor : BaseAbilityEditor
+[CustomEditor(typeof(AttackAbilityDefinition))]
+public class AttackAbilityDefinitionEditor : BaseAbilityEditor
 {
     SelectableAbilities selectedAbility = SelectableAbilities.None;
     public enum SelectableAbilities
@@ -16,8 +16,8 @@ public class AttackAbilityEditor : BaseAbilityEditor
     }
     public override void OnInspectorGUI()
     {
-        AttackAbilityHolder ability = (AttackAbilityHolder)target;
-        if (ability.GetType().IsSubclassOf(typeof(AttackAbilityHolder)))
+        AttackAbilityDefinition ability = (AttackAbilityDefinition)target;
+        if (ability.GetType().IsSubclassOf(typeof(AttackAbilityDefinition)))
         {
             showCooldownValue = true;
         }

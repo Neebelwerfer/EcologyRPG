@@ -38,7 +38,7 @@ public abstract class AttackAbility : BaseAbility
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(AttackAbility), false)]
-public class AttackAbilityEffectEditor : Editor
+public class AttackAbilityEditor : Editor
 {
 
     public override void OnInspectorGUI()

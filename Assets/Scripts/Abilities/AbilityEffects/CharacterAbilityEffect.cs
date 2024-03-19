@@ -6,7 +6,7 @@ namespace Character.Abilities.AbilityEffects
 {
     public class CharacterAbilityEffect : CombatAbilityEffect
     {
-        public DebuffEffect DebuffEffect;
+        public DebuffCondition DebuffEffect;
 
         public override void ApplyEffect(CastInfo cast, BaseCharacter target)
         {
@@ -32,7 +32,7 @@ public class CharacterAbilityEffectEditor : Editor
             }
         }
         else
-        effect.DebuffEffect = (DebuffEffect)EditorGUILayout.ObjectField("Debuff Effect", effect.DebuffEffect, typeof(DebuffEffect), false);
+        effect.DebuffEffect = (DebuffCondition)EditorGUILayout.ObjectField("Debuff Effect", effect.DebuffEffect, typeof(DebuffCondition), false);
     }
 }
 #endif

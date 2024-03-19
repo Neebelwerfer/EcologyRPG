@@ -2,7 +2,7 @@
 using UnityEngine;
 #if UNITY_EDITOR
 [CustomEditor(typeof(PlayerAbilityHolder))]
-public class PlayerAbilityEditor : AttackAbilityEditor
+public class PlayerAbilityEditor : AttackAbilityDefinitionEditor
 {
     public override void OnInspectorGUI()
     {
