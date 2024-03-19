@@ -51,7 +51,7 @@ public class AbilityEffectEditor : EditorWindow
     static List<DisplayEffect> effects = new List<DisplayEffect>
     {
         new DisplayEffect { name = "Damage", ClassType = typeof(DamageAbilityEffect), DisplayType = DisplayEffectType.Combat },
-        new DisplayEffect { name = "Character Effect", ClassType = typeof(ConditionAbilityEffect), DisplayType = DisplayEffectType.Combat },
+        new DisplayEffect { name = "Condition", ClassType = typeof(ConditionAbilityEffect), DisplayType = DisplayEffectType.Combat },
         new DisplayEffect { name = "Ability Cast", ClassType = typeof(CastAbilityEffect), DisplayType = DisplayEffectType.Combat },
         new DisplayEffect { name = "VFX", ClassType = typeof(VFXAbilityEffect), DisplayType = DisplayEffectType.Visual}
     };
