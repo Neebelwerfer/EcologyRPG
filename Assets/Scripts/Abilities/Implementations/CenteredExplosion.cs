@@ -23,6 +23,11 @@ public class CenteredExplosion : BaseAbility
     public override void Cast(CastInfo caster)
     {
         targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
+        Debug.Log("Casting explosion!");
+        Debug.Log("Targets: " + targets.Length);
+        Debug.Log("Target Mask: " + targetMask.value);
+        Debug.Log("Radius: " + Radius);
+
         foreach (var effect in OnCastEffects)
         {
             effect.ApplyEffect(caster, null);
@@ -55,7 +60,11 @@ public class CenteredExplosionEditor : BaseAbilityEditor
     public override void OnInspectorGUI()
     {
         CenteredExplosion ability = (CenteredExplosion)target;
-        ability.targetMask = EditorGUILayout.LayerField("Target Mask", ability.targetMask);
+
+        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask")))
+        {
+            EditorUtility.SetDirty(ability);
+        }
         ability.Radius = EditorGUILayout.FloatField("Radius", ability.Radius);
 
         AbilityEffectEditor.Display(ref foldOut, ref index, ability.OnHitEffects, ability);
