@@ -98,63 +98,30 @@ public class AbilityEffectEditor : EditorWindow
         return null;
     }
     
-    public static void Display(ref bool foldOut, ref int index, List<AbilityEffect> effects, BaseAbility owner)
+    public static void Display(List<AbilityEffect> effects, BaseAbility owner)
     {
-        foldOut = EditorGUILayout.BeginFoldoutHeaderGroup(foldOut, "On Hit Effects");
-        if (foldOut)
+        if (GUILayout.Button("Add Effect"))
         {
-            foreach (var effect in effects)
-            {
-                EditorGUILayout.ObjectField(effect, typeof(AbilityEffect), false);
-            }
-            if (GUILayout.Button("Add Effect"))
-            {
-                var window = EditorWindow.GetWindow<AbilityEffectEditor>();
-                window.editedEffects = new EditListEffect(owner, effects);
-                window.Show();
-            }
-
-            if (effects.Count > 0)
-            {
-                EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button("Remove All"))
-                {
-                    foreach (var effect in effects)
-                    {
-                        DestroyImmediate(effect, true);
-                    }
-                    effects.Clear();
-                    AssetDatabase.Refresh();
-                    AssetDatabase.SaveAssets();
-                }
-
-                if (GUILayout.Button("Remove Last"))
-                {
-                    DestroyImmediate(effects[effects.Count - 1], true);
-                    effects.RemoveAt(effects.Count - 1);
-                    AssetDatabase.Refresh();
-                    AssetDatabase.SaveAssets();
-                }
-                EditorGUILayout.EndHorizontal();
-
-                EditorGUILayout.BeginHorizontal();
-                var ind = EditorGUILayout.IntField("Index", index);
-                if (ind > effects.Count)
-                {
-                    ind = effects.Count;
-                }
-                index = ind;
-                if (GUILayout.Button("Remove Index"))
-                {
-                    DestroyImmediate(effects[index], true);
-                    effects.RemoveAt(index);
-                    AssetDatabase.Refresh();
-                    AssetDatabase.SaveAssets();
-                }
-                EditorGUILayout.EndHorizontal();
-            }
+            var window = EditorWindow.GetWindow<AbilityEffectEditor>();
+            window.editedEffects = new EditListEffect(owner, effects);
+            window.Show();
         }
-        EditorGUILayout.EndFoldoutHeaderGroup();
+        foreach (var effect in effects)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(effect.name, EditorStyles.boldLabel);
+            if (GUILayout.Button("Remove"))
+            {
+                DestroyImmediate(effect, true);
+                effects.Remove(effect);
+                AssetDatabase.Refresh();
+                AssetDatabase.SaveAssets();
+            }
+            EditorGUILayout.EndHorizontal();
+            var e = Editor.CreateEditor(effect);
+            e.OnInspectorGUI();
+
+        }
     }
 }
 

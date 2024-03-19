@@ -52,7 +52,7 @@ public class CenteredExplosion : BaseAbility
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(CenteredExplosion))]
-public class CenteredExplosionEditor : BaseAbilityEditor
+public class CenteredExplosionEditor : BaseAbilityDefinitionEditor
 {
     int index = 0;
     bool foldOut;
@@ -67,7 +67,7 @@ public class CenteredExplosionEditor : BaseAbilityEditor
         }
         ability.Radius = EditorGUILayout.FloatField("Radius", ability.Radius);
 
-        AbilityEffectEditor.Display(ref foldOut, ref index, ability.OnHitEffects, ability);
+        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
     }
 }
 #endif

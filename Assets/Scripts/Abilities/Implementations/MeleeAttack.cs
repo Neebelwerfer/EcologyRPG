@@ -52,7 +52,7 @@ public class MeleeAttackEditor : WeaponAttackEditor
         MeleeAttack ability = (MeleeAttack)target;
         ability.width = EditorGUILayout.FloatField("Width", ability.width);
 
-        AbilityEffectEditor.Display(ref foldOut, ref index, ability.OnHitEffects, ability);
+        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
 
     }
 }

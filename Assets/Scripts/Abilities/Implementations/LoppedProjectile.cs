@@ -56,7 +56,7 @@ public class LoppedProjectileEditor : AttackAbilityEditor
         ability.Angle = EditorGUILayout.FloatField("Angle", ability.Angle);
         ability.TravelTime = EditorGUILayout.FloatField("Travel Time", ability.TravelTime);
 
-        AbilityEffectEditor.Display(ref foldOut, ref index, ability.OnHitEffects, ability);
+        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
     }
 }
 #endif

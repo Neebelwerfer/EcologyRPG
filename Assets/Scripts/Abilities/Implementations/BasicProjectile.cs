@@ -33,10 +33,10 @@ public class BasicProjectileEditor : ProjectileAbilityEditor
 {
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
         BasicProjectile ability = (BasicProjectile)target;
         ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
         ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
+        base.OnInspectorGUI();
     }
 }
 #endif

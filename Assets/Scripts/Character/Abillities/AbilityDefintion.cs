@@ -162,7 +162,7 @@ namespace Character.Abilities
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(AbilityDefintion), false)]
-public class BaseAbilityEditor : UnityEditor.Editor
+public class BaseAbilityDefinitionEditor : UnityEditor.Editor
 {
     protected bool showCooldownValue = true;
     public override void OnInspectorGUI()
