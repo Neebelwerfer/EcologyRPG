@@ -100,6 +100,7 @@ public class AbilityEffectEditor : EditorWindow
     
     public static void Display(List<AbilityEffect> effects, BaseAbility owner)
     {
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         if (GUILayout.Button("Add Effect"))
         {
             var window = EditorWindow.GetWindow<AbilityEffectEditor>();
@@ -120,7 +121,7 @@ public class AbilityEffectEditor : EditorWindow
             EditorGUILayout.EndHorizontal();
             var e = Editor.CreateEditor(effect);
             e.OnInspectorGUI();
-
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         }
     }
 }
