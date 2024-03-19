@@ -2,7 +2,7 @@
 using UnityEngine;
 #if UNITY_EDITOR
 [CustomEditor(typeof(AttackAbilityDefinition))]
-public class AttackAbilityDefinitionEditor : BaseAbilityEditor
+public class AttackAbilityDefinitionEditor : BaseAbilityDefinitionEditor
 {
     SelectableAbilities selectedAbility = SelectableAbilities.None;
     public enum SelectableAbilities
@@ -15,6 +15,8 @@ public class AttackAbilityDefinitionEditor : BaseAbilityEditor
         MeleeAttack,
         Dodge
     }
+    bool foldOut = true;
+
     public override void OnInspectorGUI()
     {
         AttackAbilityDefinition ability = (AttackAbilityDefinition)target;
@@ -27,8 +29,9 @@ public class AttackAbilityDefinitionEditor : BaseAbilityEditor
             showCooldownValue = false;
         }
 
-        if(ability.Ability == null)
+        if (ability.Ability == null)
         {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             selectedAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Ability", selectedAbility);
             var res = (BaseAbility) EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.Ability, typeof(BaseAbility), false);
 
@@ -60,10 +63,6 @@ public class AttackAbilityDefinitionEditor : BaseAbilityEditor
                 {
                     res = CreateInstance<MeleeAttack>();
                 }
-                else if(selectedAbility == SelectableAbilities.Dodge)
-                {
-                    res = CreateInstance<Dodge>();
-                }
                 else
                 {
                     Debug.LogError("No ability selected");
@@ -83,21 +82,28 @@ public class AttackAbilityDefinitionEditor : BaseAbilityEditor
         else
         {
             base.OnInspectorGUI();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("Ability"));
-        }
-
-
-        if (ability.Ability != null)
-        {
-               
-            if(GUILayout.Button("Remove Ability"))
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            EditorGUILayout.BeginHorizontal();
+            foldOut = EditorGUILayout.Foldout(foldOut, "Ability: " + ability.Ability.name.Replace("(Clone)", ""));
+            if (ability.Ability != null)
             {
-                DestroyImmediate(ability.Ability, true);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                EditorUtility.SetDirty(ability);
-                ability.Ability = null;
+
+                if (GUILayout.Button("Remove Ability"))
+                {
+                    DestroyImmediate(ability.Ability, true);
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                    EditorUtility.SetDirty(ability);
+                    ability.Ability = null;
+                }
             }
+            EditorGUILayout.EndHorizontal();
+            if(foldOut)
+            {
+                var a = CreateEditor(ability.Ability);
+                a.OnInspectorGUI();
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
         }
     }
 }

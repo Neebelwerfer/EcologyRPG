@@ -19,7 +19,7 @@ public class NPCAbility : AbilityDefintion
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(NPCAbility))]
-public class NPCAbilityEditor : BaseAbilityEditor
+public class NPCAbilityEditor : BaseAbilityDefinitionEditor
 {
     SelectableAbilities selectedAbility = SelectableAbilities.None;
 

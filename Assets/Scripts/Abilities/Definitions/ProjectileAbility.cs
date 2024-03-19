@@ -23,7 +23,7 @@ public abstract class ProjectileAbility : AttackAbility
 [CustomEditor(typeof(ProjectileAbility), false)]
 public class ProjectileAbilityEditor : AttackAbilityEditor
 {
-    bool foldOut = false;
+    bool test = true;
     int index = 0;
     public override void OnInspectorGUI()
     {
@@ -32,8 +32,7 @@ public class ProjectileAbilityEditor : AttackAbilityEditor
         ProjectileAbility ability = (ProjectileAbility)target;
         ability.destroyOnHit = EditorGUILayout.Toggle("Destroy On Hit", ability.destroyOnHit);
 
-        AbilityEffectEditor.Display(ref foldOut, ref index, ability.OnHitEffects, ability);
-
+        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
     }
 }
 #endif

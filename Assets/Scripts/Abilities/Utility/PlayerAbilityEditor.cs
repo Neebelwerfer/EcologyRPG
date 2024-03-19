@@ -8,11 +8,14 @@ public class PlayerAbilityEditor : AttackAbilityDefinitionEditor
     {
         PlayerAbilityHolder ability = (PlayerAbilityHolder)target;
         ability.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
-        base.OnInspectorGUI();
         EditorGUILayout.LabelField("Resource Cost", EditorStyles.boldLabel);
         ability.ResourceName = EditorGUILayout.TextField("Resource Name", ability.ResourceName);
         if (ability.ResourceName != "")
-           ability.ResourceCost = EditorGUILayout.FloatField(ability.ResourceCost);    
+        {
+            ability.ResourceCost = EditorGUILayout.FloatField(ability.ResourceCost);
+        }
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        base.OnInspectorGUI();
     }
 }
 #endif
