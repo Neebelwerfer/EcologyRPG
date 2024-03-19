@@ -13,6 +13,7 @@ public class AttackAbilityDefinitionEditor : BaseAbilityEditor
         LoppedProjectile,
         MultiProjectile,
         MeleeAttack,
+        Dodge
     }
     public override void OnInspectorGUI()
     {
@@ -58,6 +59,15 @@ public class AttackAbilityDefinitionEditor : BaseAbilityEditor
                 else if(selectedAbility == SelectableAbilities.MeleeAttack)
                 {
                     res = CreateInstance<MeleeAttack>();
+                }
+                else if(selectedAbility == SelectableAbilities.Dodge)
+                {
+                    res = CreateInstance<Dodge>();
+                }
+                else
+                {
+                    Debug.LogError("No ability selected");
+                    return;
                 }
                 res.name = res.GetType().Name;
             }
