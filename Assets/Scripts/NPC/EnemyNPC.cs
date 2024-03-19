@@ -52,8 +52,9 @@ public class EnemyNPC : BaseCharacter
 
     public void UpdateBehaviour()
     {
-        if (behaviour != null && (state != CharacterStates.disabled || state != CharacterStates.dead))
+        if (behaviour != null && (state != CharacterStates.disabled && state != CharacterStates.dead))
         {
+            Agent.isStopped = false;
             Agent.speed = Stats.GetStat("movementSpeed").Value;
             behaviour.UpdateBehaviour(this);
         }
