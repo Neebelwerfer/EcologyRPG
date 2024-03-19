@@ -19,14 +19,15 @@ public class LoppedProjectile : AttackAbility
     [Tooltip("The travel time of the projectile")]
     public float TravelTime;
     [Tooltip("The ability that will be cast when the projectile hits the ground")]
-    public List<AbilityEffect> OnHitEffects = new List<AbilityEffect>();
+    public List<AbilityEffect> OnHitEffects = new();
 
     public override void Cast(CastInfo caster)
     {
-        Debug.DrawRay(caster.mousePoint, Vector3.up * 10, Color.red, 5);
-        ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, Angle, ignoreMask, caster.owner, (projectileObject) =>
+        Debug.DrawRay(caster.mousePoint, Vector3.up * 1, Color.red, 5);
+        ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
         {
             var newInfo = new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint };
+            Debug.DrawRay(projectileObject.transform.position, Vector3.up * 1, Color.green, 5);
             foreach (var effect in OnHitEffects)
             {
                 effect.ApplyEffect(newInfo, null);

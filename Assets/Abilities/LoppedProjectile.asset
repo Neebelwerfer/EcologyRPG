@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7313892337116184278
+--- !u!114 &-8370773209321725370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 10
+  DamageType: 0
+--- !u!114 &-5818219949260053344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edee22267130cf8479fb98903867028d, type: 3}
+  m_Name: CharacterAbilityEffect
+  m_EditorClassIdentifier: 
+  DebuffEffect: {fileID: 6799112077928827366}
+--- !u!114 &-2092077779295702680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15,67 +42,27 @@ MonoBehaviour:
   Range: 0
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
-  Radius: 0
-  BaseDamage: 0
-  damageType: 0
-  effectsOnHit: []
-  explosionEffect: {fileID: 0}
---- !u!114 &-7220348962316162391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
-  m_Name: CenteredExplosion(Clone)
-  m_EditorClassIdentifier: 
-  Range: 5
-  targetMask:
-    serializedVersion: 2
     m_Bits: 8
-  Radius: 6
-  BaseDamage: 25
-  damageType: 1
-  effectsOnHit: []
-  explosionEffect: {fileID: 8179646377062506047, guid: 814d86a2da242414d88e56ff86afe516,
+  Radius: 20
+  OnHitEffects:
+  - {fileID: -8370773209321725370}
+  - {fileID: -5818219949260053344}
+  OnCastEffects: []
+--- !u!114 &-1742130017073069798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae8664c13dca4f488530e0636f2b92c, type: 3}
+  m_Name: VFXAbilityEffect
+  m_EditorClassIdentifier: 
+  vfxPrefab: {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
     type: 3}
---- !u!114 &-6636417996278459730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
-  m_Name: CastAbilityEffect
-  m_EditorClassIdentifier: 
-  _ability: {fileID: 3307112913395404347}
---- !u!114 &-5773265362096761127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b7783dffada0f4e9364ed4877bdf71, type: 3}
-  m_Name: New Ability
-  m_EditorClassIdentifier: 
-  DisplayName: 
-  Cooldown: 0
-  CastTime: 0
-  Icon: {fileID: 0}
-  BuffsOnCast: []
-  remainingCooldown: 0
-  state: 0
-  Ability: {fileID: -7220348962316162391}
+  duration: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,35 +77,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: 
   Cooldown: 2
-  CastTime: 0.2
+  CastTime: 0
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  Ability: {fileID: 7721009964156671358}
-  ResourceName: water
-  ResourceCost: 10
---- !u!114 &3307112913395404347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
-  m_Name: New Ability
-  m_EditorClassIdentifier: 
-  DisplayName: 
-  Cooldown: 0
-  CastTime: 0
-  Icon: {fileID: 0}
-  BuffsOnCast: []
-  remainingCooldown: 0
-  state: 0
-  Ability: {fileID: -7313892337116184278}
---- !u!114 &7721009964156671358
+  Ability: {fileID: 2091839853743222351}
+  ResourceName: 
+  ResourceCost: 0
+--- !u!114 &2091839853743222351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,4 +110,58 @@ MonoBehaviour:
   Angle: 60
   TravelTime: 2
   OnHitEffects:
-  - {fileID: -6636417996278459730}
+  - {fileID: 6376420083922526200}
+  - {fileID: -1742130017073069798}
+--- !u!114 &6376420083922526200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
+  m_Name: CastAbilityEffect
+  m_EditorClassIdentifier: 
+  _ability: {fileID: 7710155318019640771}
+--- !u!114 &6799112077928827366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockEffect
+  m_EditorClassIdentifier: 
+  ID: 04d147d7-0c89-4483-b333-20dfa36736b1
+  displayName: Knock
+  type: 1
+  duration: 0.3
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  KnockBackDistance: 2
+  knockType: 0
+--- !u!114 &7710155318019640771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
+  m_Name: New Ability
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 0
+  CastTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: -2092077779295702680}

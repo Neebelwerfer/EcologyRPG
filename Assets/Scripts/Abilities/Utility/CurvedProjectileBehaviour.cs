@@ -28,18 +28,19 @@ public class CurvedProjectileBehaviour : MonoBehaviour
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.mass = 0;
-        rb.drag = 0.5f;
+        rb.drag = 0f;
         col = GetComponent<Collider>();
         gameObject.layer = LayerMask.NameToLayer("Projectile");
         col.isTrigger = false;
         col.excludeLayers = IgnoreMask;
         transform.rotation = Quaternion.LookRotation(target - transform.position);
         transform.Rotate(angle, 0, 0);
-        rb.velocity = CalculateInitialVelocity(Vector3.Distance(owner.Position, target), time, angle) * transform.forward;
+        rb.velocity = CalculateInitialVelocity(Vector3.Distance(transform.position, target), time, Mathf.Abs(angle)) * transform.forward;
     }
 
     float CalculateInitialVelocity(float distance, float time, float angle)
     {
+        angle *= Mathf.Deg2Rad;
         return distance / (time * Mathf.Cos(angle));
     }
 

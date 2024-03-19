@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2826624145826907170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 10
+  DamageType: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,8 +53,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   Radius: 5
-  BaseDamage: 5
-  damageType: 0
-  effectsOnHit: []
-  explosionEffect: {fileID: 8179646377062506047, guid: 814d86a2da242414d88e56ff86afe516,
-    type: 3}
+  OnHitEffects:
+  - {fileID: -2826624145826907170}
+  OnCastEffects: []
