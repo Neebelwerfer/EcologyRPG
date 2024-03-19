@@ -17,6 +17,15 @@ public abstract class ProjectileAbility : AttackAbility
     public bool destroyOnHit = true;
 
     public List<AbilityEffect> OnHitEffects = new();
+
+    private void OnDestroy()
+    {
+        foreach (var effect in OnHitEffects)
+        {
+            DestroyImmediate(effect, true);
+        }
+    
+    }
 }
 
 #if UNITY_EDITOR

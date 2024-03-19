@@ -37,6 +37,14 @@ public class MeleeAttack : WeaponAttack
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        foreach (var effect in OnHitEffects)
+        {
+            DestroyImmediate(effect, true);
+        }
+    }
 }
 
 #if UNITY_EDITOR
