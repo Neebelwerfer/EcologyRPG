@@ -34,10 +34,10 @@ public class CharacterEffectSelector : EditorWindow
                 {
                     effect.DebuffEffect = ScriptableObject.CreateInstance<SlowEffect>();
                 }
-                //else if(effectType == EffectType.StunEffect)
-                //{
-                //    effect = new StunEffect();
-                //}
+                else if (effectType == EffectType.StunEffect)
+                {
+                    effect.DebuffEffect = ScriptableObject.CreateInstance<Stun>();
+                }
                 effect.DebuffEffect.name = effectType.ToString();
                 AssetDatabase.AddObjectToAsset(effect.DebuffEffect, effect);
                 AssetDatabase.SaveAssets();

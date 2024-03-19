@@ -16,14 +16,15 @@ public class MeleeAttack : WeaponAttack
 
     public override void Cast(CastInfo caster)
     {
-        var dir = useMouseDirection ? TargetUtility.GetMouseDirection(caster.owner.Position, Camera.main) : caster.owner.Forward;
+
+        var dir = GetDir(caster);
 
         if (targetType == TargetType.Cone)
-            targets = TargetUtility.GetTargetsInCone(caster.owner.Position, dir, 45, Range, targetMask);
+            targets = TargetUtility.GetTargetsInCone(caster.castPos, dir, 45, Range, targetMask);
         else if (targetType == TargetType.Line)
-            targets = TargetUtility.GetTargetsInLine(caster.owner.Position, dir, new Vector3(width / 2, 2, Range / 2), targetMask);
+            targets = TargetUtility.GetTargetsInLine(caster.castPos, dir, new Vector3(width / 2, 2, Range / 2), targetMask);
         else if (targetType == TargetType.Circular)
-            targets = TargetUtility.GetTargetsInRadius(caster.owner.Position, Range, targetMask);
+            targets = TargetUtility.GetTargetsInRadius(caster.castPos, Range, targetMask);
 
         foreach (var target in targets)
         {
