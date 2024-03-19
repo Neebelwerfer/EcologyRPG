@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f367cf34f53874c994aa9ad7ed557e, type: 3}
   m_Name: Jerky
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  Icon: {fileID: 0}
-  Weight: 0
-  ResourceName: 
-  AmountToReplenish: 0
+  Name: Jerky
+  Description: Dried Meat, it'll keep you going for a while
+  Icon: {fileID: 21300000, guid: ce1cf3cebfb29f74f89c99ac4d14b1be, type: 3}
+  Weight: 1
+  ResourceName: food
+  AmountToReplenish: 0.15
