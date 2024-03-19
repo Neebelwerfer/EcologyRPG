@@ -12,12 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4fa596d6cc9da4b89e7db2b42d76e9, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
+  Name: Hammer
+  Description: A large sledgehammer, it's heavy and devastating
   Icon: {fileID: 0}
-  Weight: 0
+  Weight: 60
   equipmentType: 1
-  Modifiers: []
-  minDamage: 0
-  maxDamage: 0
-  WeaponAttackAbility: {fileID: 0}
+  Modifiers:
+  - name: strength
+    type: 0
+    modType: 0
+    minValue: 0
+    maxValue: 3
+    GrowthPerLevel: 0
+    growthType: 0
+  minDamage: 15
+  maxDamage: 20
+  WeaponAttackAbility: {fileID: 11400000, guid: 5bd58d82414bb4f42bb5751211d4c9eb,
+    type: 2}
