@@ -10,7 +10,7 @@ public class Knock : DebuffCondition
         Towards
     }
 
-    public float KnockBackDistance;
+    public float KnockBackDistance = 2;
     [SerializeField] KnockType knockType;
 
     Vector3 startPos;

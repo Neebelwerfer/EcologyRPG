@@ -14,6 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 10
   DamageType: 0
+--- !u!114 &-8299022279692534569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
+  m_Name: CastAbilityEffect
+  m_EditorClassIdentifier: 
+  _ability: {fileID: 1890583729644092036}
 --- !u!114 &-5818219949260053344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +98,53 @@ MonoBehaviour:
   Ability: {fileID: 2091839853743222351}
   ResourceName: 
   ResourceCost: 0
+--- !u!114 &1205665043869366169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f16083a2e4e8c4e876058d9ee109a5, type: 3}
+  m_Name: MultipleProjectiles(Clone)
+  m_EditorClassIdentifier: 
+  Range: 10
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  useMouseDirection: 0
+  destroyOnHit: 1
+  OnHitEffects:
+  - {fileID: 8521109546120274294}
+  type: 2
+  numberOfProjectiles: 10
+  ConeAngle: 0
+  LineWidth: 0
+  projectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
+    type: 3}
+  Speed: 10
+--- !u!114 &1890583729644092036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
+  m_Name: New Ability
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 0
+  CastTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  Ability: {fileID: 1205665043869366169}
 --- !u!114 &2091839853743222351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +172,7 @@ MonoBehaviour:
   OnHitEffects:
   - {fileID: 6376420083922526200}
   - {fileID: -1742130017073069798}
+  - {fileID: -8299022279692534569}
 --- !u!114 &6376420083922526200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +226,17 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   Ability: {fileID: -2092077779295702680}
+--- !u!114 &8521109546120274294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 10
+  DamageType: 0

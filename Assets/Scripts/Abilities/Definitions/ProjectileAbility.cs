@@ -32,7 +32,7 @@ public class ProjectileAbilityEditor : AttackAbilityEditor
         ProjectileAbility ability = (ProjectileAbility)target;
         ability.destroyOnHit = EditorGUILayout.Toggle("Destroy On Hit", ability.destroyOnHit);
 
-        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
+        AbilityEffectEditor.Display("On Hit Effects", ability.OnHitEffects, ability, DisplayEffectType.All);
     }
 }
 #endif

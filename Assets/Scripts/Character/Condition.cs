@@ -46,3 +46,18 @@ public abstract class Condition : ScriptableObject
 
     protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => BaseAbility.CalculateDamage(Owner, type, damage, allowVariance);
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(Condition), true)]
+public class ConditionEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Delete"))
+        {
+            DestroyImmediate(target, true);
+        }
+    }
+}
+#endif

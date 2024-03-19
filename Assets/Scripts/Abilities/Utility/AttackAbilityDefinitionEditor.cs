@@ -42,33 +42,11 @@ public class AttackAbilityDefinitionEditor : BaseAbilityDefinitionEditor
                     Debug.LogError("No ability selected");
                     return;
                 }
-
-                if(selectedAbility == SelectableAbilities.CenteredExplosion)
+                res = CreateAbility(selectedAbility);
+                if (res != null)
                 {
-                    res = CreateInstance<CenteredExplosion>();
+                    res.name = res.GetType().Name;
                 }
-                else if(selectedAbility == SelectableAbilities.BasicProjectile)
-                {
-                    res = CreateInstance<BasicProjectile>();
-                }
-                else if(selectedAbility == SelectableAbilities.LoppedProjectile)
-                {
-                    res = CreateInstance<LoppedProjectile>();
-                }
-                else if(selectedAbility == SelectableAbilities.MultiProjectile)
-                {
-                    res = CreateInstance<MultipleProjectiles>();
-                }
-                else if(selectedAbility == SelectableAbilities.MeleeAttack)
-                {
-                    res = CreateInstance<MeleeAttack>();
-                }
-                else
-                {
-                    Debug.LogError("No ability selected");
-                    return;
-                }
-                res.name = res.GetType().Name;
             }
             if (res != null)
             {
@@ -104,6 +82,34 @@ public class AttackAbilityDefinitionEditor : BaseAbilityDefinitionEditor
                 a.OnInspectorGUI();
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
+        }
+    }
+
+    public static BaseAbility CreateAbility(SelectableAbilities ability)
+    {
+        if (ability == SelectableAbilities.CenteredExplosion)
+        {
+            return CreateInstance<CenteredExplosion>();
+        }
+        else if (ability == SelectableAbilities.BasicProjectile)
+        {
+            return CreateInstance<BasicProjectile>();
+        }
+        else if (ability == SelectableAbilities.LoppedProjectile)
+        {
+            return CreateInstance<LoppedProjectile>();
+        }
+        else if (ability == SelectableAbilities.MultiProjectile)
+        {
+            return CreateInstance<MultipleProjectiles>();
+        }
+        else if (ability == SelectableAbilities.MeleeAttack)
+        {
+            return CreateInstance<MeleeAttack>();
+        }
+        else
+        {
+            return null;
         }
     }
 }
