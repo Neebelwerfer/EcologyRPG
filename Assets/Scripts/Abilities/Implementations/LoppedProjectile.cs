@@ -41,8 +41,6 @@ public class LoppedProjectile : AttackAbility
 [CustomEditor(typeof(LoppedProjectile))]
 public class LoppedProjectileEditor : AttackAbilityEditor
 {
-    private bool foldOut;
-    private int index = 0;
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -56,7 +54,7 @@ public class LoppedProjectileEditor : AttackAbilityEditor
         ability.Angle = EditorGUILayout.FloatField("Angle", ability.Angle);
         ability.TravelTime = EditorGUILayout.FloatField("Travel Time", ability.TravelTime);
 
-        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
+        AbilityEffectEditor.Display("On hit effects", ability.OnHitEffects, ability, DisplayEffectType.All);
     }
 }
 #endif

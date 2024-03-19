@@ -16,7 +16,7 @@ public class CenteredExplosion : BaseAbility
     [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
     public List<AbilityEffect> OnHitEffects = new();
 
-    public List<VisualAbilityEffect> OnCastEffects = new();
+    public List<AbilityEffect> OnCastEffects = new();
 
     BaseCharacter[] targets;
 
@@ -67,7 +67,8 @@ public class CenteredExplosionEditor : BaseAbilityDefinitionEditor
         }
         ability.Radius = EditorGUILayout.FloatField("Radius", ability.Radius);
 
-        AbilityEffectEditor.Display(ability.OnHitEffects, ability);
+        AbilityEffectEditor.Display("On Cast Effects", ability.OnCastEffects, ability, DisplayEffectType.Visual);
+        AbilityEffectEditor.Display("On Hit Effects", ability.OnHitEffects, ability, DisplayEffectType.All);
     }
 }
 #endif

@@ -30,7 +30,7 @@ MonoBehaviour:
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: 23d7b1d1678030f499cfb49d2b6ae21a, type: 2}
-  Ability1Reference: {fileID: 11400000, guid: 642cf7eab9f8f8e4ca75f1c5a59115cb, type: 2}
+  Ability1Reference: {fileID: 11400000, guid: 89f8d7d956c94314e820f6be6ad3368d, type: 2}
   Ability2Reference: {fileID: 11400000, guid: f30e852e3a06d1a479e2b0e074178e26, type: 2}
   Ability3Reference: {fileID: 11400000, guid: aeae6113c6033974abbe723264a6893c, type: 2}
   Ability4Reference: {fileID: 11400000, guid: ec7bd1c7b514ece428e76b80c654b423, type: 2}
