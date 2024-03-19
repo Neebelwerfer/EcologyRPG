@@ -13,6 +13,11 @@ namespace Character.Abilities.AbilityEffects
         {
             cast.owner.StartCoroutine(_ability.HandleCast(cast));
         }
+
+        private void OnDestroy()
+        {
+            DestroyImmediate(_ability, true);
+        }
     }
 }
 
