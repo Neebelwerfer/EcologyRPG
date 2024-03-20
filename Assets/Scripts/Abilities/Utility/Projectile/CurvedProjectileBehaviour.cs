@@ -15,9 +15,17 @@ public class CurvedProjectileBehaviour : MonoBehaviour
 
     Rigidbody rb;
     Collider col;
-    private void Start()
+
+    public void Init(Vector3 target, float time, float angle, LayerMask ignoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit)
     {
-        if(TryGetComponent<Rigidbody>(out var body))
+        this.target = target;
+        this.time = time;
+        this.angle = angle;
+        this.IgnoreMask = ignoreMask;
+        this.owner = owner;
+        this.OnGroundHit = OnGroundHit;
+
+        if (TryGetComponent<Rigidbody>(out var body))
         {
             rb = body;
         }
@@ -48,6 +56,6 @@ public class CurvedProjectileBehaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         OnGroundHit?.Invoke(gameObject);
-        Destroy(gameObject);
+        ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
     }
 }

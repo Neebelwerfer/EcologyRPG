@@ -1,6 +1,7 @@
 using Character;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 public class DamageNumberHandler : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class DamageNumberHandler : MonoBehaviour
 
     public GameObject DamageNumberPrefab;
     public GameObject DamageNumberCanvas;
-
-    readonly List<DamageEvent> DamageEvents = new();
+    GameObjectPool damageNumberPool;
+    List<DamageText> damageNumbers = new();
 
     private void Awake()
     {
@@ -22,30 +23,41 @@ public class DamageNumberHandler : MonoBehaviour
         {
             _instance = this;
         }
+        damageNumberPool = new GameObjectPool(DamageNumberPrefab);
+        damageNumberPool.Preload(20, DamageNumberCanvas.transform);
         EventManager.AddListener("DamageEvent", AddDamageEvent);
-        InvokeRepeating(nameof(OnUpdate), 1, 0.2f);
     }
 
     public void AddDamageEvent(EventData damageEvent)
     {
         if(damageEvent is DamageEvent de)
         {
-            DamageEvents.Add(de);
+            var damageNumber = damageNumberPool.GetObject();
+            damageNumber.SetActive(true);
+            damageNumber.transform.SetParent(DamageNumberCanvas.transform);
+            damageNumber.transform.SetPositionAndRotation(de.target.transform.position, Quaternion.identity);
+            var damageText = damageNumber.GetComponent<DamageText>();
+            damageText.Init(de.damageTaken, GetDamageColor(de));
+            damageNumbers.Add(damageText);
         }
     }
 
-    void OnUpdate()
+    private void Update()
     {
-        if(DamageEvents.Count == 0)
+        for (int i = damageNumbers.Count - 1; i >= 0; i--)
         {
-            return;
+            var damageNumber = damageNumbers[i];
+            if (damageNumber == null)
+            {
+                damageNumbers.RemoveAt(i);
+            }
+            damageNumber.OnUpdate();
+            if(damageNumber.RemainingDuration <= 0)
+            {
+                damageNumbers.RemoveAt(i);
+                damageNumberPool.ReturnObject(damageNumber.gameObject);
+            }
         }
-        foreach (var damageEvent in DamageEvents)
-        {
-            var damageNumber = Instantiate(DamageNumberPrefab, damageEvent.target.transform.position, Quaternion.identity, DamageNumberCanvas.transform);
-            damageNumber.GetComponentInChildren<DamageText>().Init(damageEvent.damageTaken, GetDamageColor(damageEvent));
-        }
-        DamageEvents.Clear();
     }
 
     Color GetDamageColor(DamageEvent damageEvent)

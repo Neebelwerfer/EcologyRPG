@@ -16,17 +16,24 @@ public class ProjectileBehaviour : MonoBehaviour
 
     int counter = 0;
 
-    public void Start()
+    public void Init(Vector3[] path, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner, Action<BaseCharacter> OnHit)
     {
+        this.path = path;
+        this.speed = speed;
+        this.DestroyOnCollision = DestroyOnHit;
+        this.layerMask = layerMask;
+        this.owner = owner;
+        this.OnHit = OnHit;
+
         if (path.Length == 0)
         {
-            Destroy(gameObject);
+            ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
         }
 
         GetComponent<Collider>().isTrigger = true;
         gameObject.layer = LayerMask.NameToLayer("Projectile");
+        counter = 0;
     }
-
 
     public void Update()
     {
@@ -39,7 +46,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
         if(counter == path.Length)
         {
-            Destroy(gameObject);
+            ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
         }
     }
 
@@ -55,7 +62,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
             if (DestroyOnCollision)
             {
-                Destroy(gameObject);
+                ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
             }
         }
     }
