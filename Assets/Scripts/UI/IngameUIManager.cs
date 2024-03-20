@@ -9,7 +9,7 @@ public class IngameUIManager : MonoBehaviour
     public InputActionReference CharacterUIButton;
 
     public GameObject characterUI;
-    public GameObject DamageNumberPrefab;
+
 
     Action<InputAction.CallbackContext> toggleCharacterAction;
 
@@ -20,7 +20,6 @@ public class IngameUIManager : MonoBehaviour
         CharacterUIButton.action.Enable();
         toggleCharacterAction = _ => ToggleCharacterUI();
         CharacterUIButton.action.started += toggleCharacterAction;
-        DamageNumberHandler.Instance.Init(DamageNumberPrefab);
     }
 
     private void ToggleCharacterUI()

@@ -162,15 +162,19 @@ namespace Character.Abilities
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(AbilityDefintion), false)]
-public class BaseAbilityDefinitionEditor : UnityEditor.Editor
+public class BaseAbilityDefinitionEditor : Editor
 {
     protected bool showCooldownValue = true;
     public override void OnInspectorGUI()
     {
-        AbilityDefintion ability = (AbilityDefintion)target;
-        ability.DisplayName = EditorGUILayout.TextField("Display Name", ability.DisplayName);
-        if(showCooldownValue) ability.Cooldown = EditorGUILayout.FloatField("Cooldown", ability.Cooldown);
-        ability.CastTime = EditorGUILayout.FloatField("Cast Time", ability.CastTime);
+        AbilityDefintion abilityEffect = (AbilityDefintion)target;
+        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("DisplayName")))
+        {
+            abilityEffect.name = abilityEffect.DisplayName;
+        }
+
+        if(showCooldownValue) EditorGUILayout.PropertyField(serializedObject.FindProperty("Cooldown"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("CastTime"));
     }
 }
 #endif

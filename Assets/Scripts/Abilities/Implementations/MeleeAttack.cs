@@ -51,17 +51,15 @@ public class MeleeAttack : WeaponAttack
 [CustomEditor(typeof(MeleeAttack))]
 public class MeleeAttackEditor : WeaponAttackEditor
 {
-    private bool foldOut;
-    private int index = 0;
 
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
         MeleeAttack ability = (MeleeAttack)target;
-        ability.width = EditorGUILayout.FloatField("Width", ability.width);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("width"));
 
         AbilityEffectEditor.Display("On hit effects", ability.OnHitEffects, ability, DisplayEffectType.All);
-
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

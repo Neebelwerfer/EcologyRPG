@@ -46,6 +46,7 @@ public class AttackAbilityDefinitionEditor : BaseAbilityDefinitionEditor
                 if (res != null)
                 {
                     res.name = res.GetType().Name;
+                    ability.DisplayName = res.name;
                 }
             }
             if (res != null)
@@ -83,6 +84,7 @@ public class AttackAbilityDefinitionEditor : BaseAbilityDefinitionEditor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
+        serializedObject.ApplyModifiedProperties();
     }
 
     public static BaseAbility CreateAbility(SelectableAbilities ability)

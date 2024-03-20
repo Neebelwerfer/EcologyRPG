@@ -44,12 +44,10 @@ public class AttackAbilityEditor : Editor
     public override void OnInspectorGUI()
     {
         AttackAbility abilityEffect = (AttackAbility)target;
-        if(EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask")))
-        {
-            EditorUtility.SetDirty(abilityEffect);
-        }
-        abilityEffect.Range = EditorGUILayout.FloatField("Range", abilityEffect.Range);
-        abilityEffect.useMouseDirection = EditorGUILayout.Toggle("Use Mouse Direction", abilityEffect.useMouseDirection);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask"));
+
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("Range"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("useMouseDirection"));
     }
 }
 #endif
