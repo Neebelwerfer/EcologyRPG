@@ -53,7 +53,7 @@ namespace Character.Abilities
     {
         public string DisplayName;
         [Tooltip("The cooldown of this ability")]
-        public float Cooldown = 0;
+        public float Cooldown = 0.5f;
         [Tooltip("The cast time of this ability. Cast Started will always be called first, and then after the Cast Time has been waited Cast ended will be called")]
         public float CastTime = 0;
         public Sprite Icon;
@@ -89,7 +89,7 @@ namespace Character.Abilities
         public virtual bool Activate(CastInfo caster)
         {
             if (!CanActivate(caster)) return false;
-            Debug.Log("CASTING " + DisplayName);
+            //Debug.Log("CASTING " + DisplayName);
             EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this), DeferredEventType.Update);
             caster.owner.StartCoroutine(HandleCast(caster));
             return true;
@@ -99,13 +99,13 @@ namespace Character.Abilities
         {
             if (state == AbilityStates.cooldown)
             {
-                Debug.Log("On cooldown");
+                //Debug.Log("On cooldown");
                 return false;
             }
 
             if (state == AbilityStates.casting)
             {
-                Debug.Log("Ability already casting");
+                //Debug.Log("Ability already casting");
                 return false;
             }
             return true;
