@@ -47,14 +47,13 @@ public class LoppedProjectileEditor : AttackAbilityEditor
 
         LoppedProjectile ability = (LoppedProjectile)target;
         ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
-        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask")))
-        {
-            EditorUtility.SetDirty(ability);
-        }
-        ability.Angle = EditorGUILayout.FloatField("Angle", ability.Angle);
-        ability.TravelTime = EditorGUILayout.FloatField("Travel Time", ability.TravelTime);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask"));
+
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("Angle"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("TravelTime"));
 
         AbilityEffectEditor.Display("On hit effects", ability.OnHitEffects, ability, DisplayEffectType.All);
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

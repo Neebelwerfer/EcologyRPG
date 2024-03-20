@@ -67,21 +67,17 @@ public class CenteredExplosion : BaseAbility
 [CustomEditor(typeof(CenteredExplosion))]
 public class CenteredExplosionEditor : BaseAbilityDefinitionEditor
 {
-    int index = 0;
-    bool foldOut;
-
     public override void OnInspectorGUI()
     {
         CenteredExplosion ability = (CenteredExplosion)target;
 
-        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask")))
-        {
-            EditorUtility.SetDirty(ability);
-        }
-        ability.Radius = EditorGUILayout.FloatField("Radius", ability.Radius);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("Radius"));
 
         AbilityEffectEditor.Display("On Cast Effects", ability.OnCastEffects, ability, DisplayEffectType.Visual);
         AbilityEffectEditor.Display("On Hit Effects", ability.OnHitEffects, ability, DisplayEffectType.All);
+
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

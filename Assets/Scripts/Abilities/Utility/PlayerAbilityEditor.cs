@@ -7,15 +7,17 @@ public class PlayerAbilityEditor : AttackAbilityDefinitionEditor
     public override void OnInspectorGUI()
     {
         PlayerAbilityHolder ability = (PlayerAbilityHolder)target;
-        ability.Icon = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
+        var icon = serializedObject.FindProperty("Icon");
+        icon.objectReferenceValue = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
         EditorGUILayout.LabelField("Resource Cost", EditorStyles.boldLabel);
-        ability.ResourceName = EditorGUILayout.TextField("Resource Name", ability.ResourceName);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ResourceName"));
         if (ability.ResourceName != "")
         {
-            ability.ResourceCost = EditorGUILayout.FloatField(ability.ResourceCost);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("ResourceCost"));
         }
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         base.OnInspectorGUI();
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

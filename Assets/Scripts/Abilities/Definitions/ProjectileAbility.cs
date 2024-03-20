@@ -39,7 +39,7 @@ public class ProjectileAbilityEditor : AttackAbilityEditor
         base.OnInspectorGUI();
 
         ProjectileAbility ability = (ProjectileAbility)target;
-        ability.destroyOnHit = EditorGUILayout.Toggle("Destroy On Hit", ability.destroyOnHit);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("destroyOnHit"));
 
         AbilityEffectEditor.Display("On Hit Effects", ability.OnHitEffects, ability, DisplayEffectType.All);
     }

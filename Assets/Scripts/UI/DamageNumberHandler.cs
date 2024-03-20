@@ -1,28 +1,51 @@
 using Character;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageNumberHandler
+public class DamageNumberHandler : MonoBehaviour
 {
     static DamageNumberHandler _instance;
-    public static DamageNumberHandler Instance { get { return _instance ?? (_instance = new DamageNumberHandler()); } }
+    public static DamageNumberHandler Instance { get { return _instance; } }
 
-    GameObject DamageNumberPrefab;
+    public GameObject DamageNumberPrefab;
+    public GameObject DamageNumberCanvas;
 
-    public void Init(GameObject DamageNumberPrefab)
+    readonly List<DamageEvent> DamageEvents = new();
+
+    private void Awake()
     {
-        this.DamageNumberPrefab = DamageNumberPrefab;
-        EventManager.AddListener("DamageEvent", OnDamageEvent);
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        EventManager.AddListener("DamageEvent", AddDamageEvent);
+        InvokeRepeating(nameof(OnUpdate), 1, 0.2f);
     }
 
-    private void OnDamageEvent(EventData data)
+    public void AddDamageEvent(EventData damageEvent)
     {
-        if (data is DamageEvent damageEvent)
+        if(damageEvent is DamageEvent de)
         {
-            Debug.Log("Damage Event Received");
-            var damageNumber = GameObject.Instantiate(DamageNumberPrefab, damageEvent.target.transform.position, Quaternion.identity);
+            DamageEvents.Add(de);
+        }
+    }
+
+    void OnUpdate()
+    {
+        if(DamageEvents.Count == 0)
+        {
+            return;
+        }
+        foreach (var damageEvent in DamageEvents)
+        {
+            var damageNumber = Instantiate(DamageNumberPrefab, damageEvent.target.transform.position, Quaternion.identity, DamageNumberCanvas.transform);
             damageNumber.GetComponentInChildren<DamageText>().Init(damageEvent.damageTaken, GetDamageColor(damageEvent));
         }
+        DamageEvents.Clear();
     }
 
     Color GetDamageColor(DamageEvent damageEvent)

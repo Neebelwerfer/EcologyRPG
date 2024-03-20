@@ -56,7 +56,7 @@ MonoBehaviour:
   - {fileID: -1150203975892975535}
   - {fileID: -3306399934278596534}
   type: 1
-  numberOfProjectiles: 2
+  numberOfProjectiles: 3
   ConeAngle: 60
   LineWidth: 0
   projectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
