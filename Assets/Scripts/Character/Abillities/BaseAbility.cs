@@ -1,19 +1,21 @@
 using Character;
 using Character.Abilities;
+using Character.Abilities.AbilityEffects;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseAbility : ScriptableObject
 {
     [Tooltip("The range of the ability")]
     public float Range;
+    public List<AbilityEffect> OnCastEffects;
 
-    public abstract void Cast(CastInfo castInfo);
-
-    protected static void ApplyEffect(CastInfo caster, BaseCharacter target, Condition effect)
+    public virtual void Cast(CastInfo castInfo)
     {
-        var instancedEffect = Instantiate(effect);
-        instancedEffect.Owner = caster.owner;
-        target.ApplyEffect(caster, instancedEffect);
+        foreach (var effect in OnCastEffects)
+        {
+            effect.ApplyEffect(castInfo, null);
+        }
     }
 
     public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true)
@@ -30,4 +32,15 @@ public abstract class BaseAbility : ScriptableObject
 
         return damageInfo;
     }
+
+    private void OnDestroy()
+    {
+        foreach (var effect in OnCastEffects)
+        {
+            DestroyImmediate(effect, true);
+        }
+    }
 }
+
+#if UNITY_EDITOR
+#endif

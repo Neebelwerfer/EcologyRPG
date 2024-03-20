@@ -15,16 +15,20 @@ namespace Utility
             pool = new Stack<GameObject>();
         }
 
-        public GameObject GetObject()
+        public GameObject GetObject(Vector3 pos, Quaternion rot)
         {
             if(pool.Count > 0)
             {
                 var obj = pool.Pop();
+                obj.transform.SetPositionAndRotation(pos, rot);
+                obj.SetActive(true);
                 return obj;
             }
             else
             {
-                return Instantiate(prefab);
+                var obj = Instantiate(prefab);
+                obj.transform.SetPositionAndRotation(pos, rot);
+                return obj;
             }
         }
 

@@ -28,7 +28,7 @@ public class ProjectilePoolHandler
         projectileMap = new Dictionary<string, GameObjectPool>();
     }
 
-    public GameObject GetProjectile(GameObject projectilePrefab)
+    public GameObject GetProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
     {
         if (!projectileMap.ContainsKey(projectilePrefab.name))
         {
@@ -36,7 +36,7 @@ public class ProjectilePoolHandler
             projectileMap[projectilePrefab.name].Preload(10);
         }
 
-        return projectileMap[projectilePrefab.name].GetObject();
+        return projectileMap[projectilePrefab.name].GetObject(position, rotation);
     }
 
     public void ReturnProjectile(GameObject projectile)

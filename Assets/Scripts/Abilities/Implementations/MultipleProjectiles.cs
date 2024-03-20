@@ -79,10 +79,7 @@ public class MultipleProjectiles : ProjectileAbility
     void OnHit (CastInfo caster, BaseCharacter target, Vector3 direction)
     {
         var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.transform.position, dir = direction, mousePoint = caster.mousePoint };
-        foreach (var effect in OnHitEffects)
-        {
-            effect.ApplyEffect(newCastInfo, target);
-        }
+        DefaultOnHitAction()(newCastInfo, target);
     }
 }
 

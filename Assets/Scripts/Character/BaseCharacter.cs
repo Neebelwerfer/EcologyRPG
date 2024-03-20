@@ -88,7 +88,7 @@ namespace Character
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
-            Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
+            //Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
             Health -= damageInfo.damage;
             var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage };
             EventManager.Defer("DamageEvent", damageEvent, DeferredEventType.Update);
@@ -127,12 +127,12 @@ namespace Character
             {
                 if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
                 {
-                    Debug.Log("Reapplying CharacterModification " + effect.displayName);
+                    //Debug.Log("Reapplying CharacterModification " + effect.displayName);
                     effects[i].OnReapply(this);
                     return;
                 }
             }
-            Debug.Log("Applying CharacterModification " + effect.displayName + " with duration " + effect.duration);
+            //Debug.Log("Applying CharacterModification " + effect.displayName + " with duration " + effect.duration);
             effect.remainingDuration = effect.duration;
             effects.Add(effect);
             effect.OnApply(caster, this);
@@ -140,7 +140,7 @@ namespace Character
 
         public virtual void RemoveEffect(Condition effect)
         {
-            Debug.Log("Removing CharacterModification " + effect.displayName);
+            //Debug.Log("Removing CharacterModification " + effect.displayName);
             effects.Remove(effect);
             effect.OnRemoved(this);
         }

@@ -1,7 +1,6 @@
-using Character.Abilities;
+using Character.Abilities.AbilityEffects;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -64,6 +63,8 @@ namespace Character.Abilities
         [HideInInspector] public float remainingCooldown = 0;
         [HideInInspector] public AbilityStates state = AbilityStates.ready;
         BaseCharacter owner;
+
+        public List<AbilityEffect> CastWindUp = new List<AbilityEffect>();
 
         public virtual void Initialize(BaseCharacter owner)
         {
@@ -140,7 +141,10 @@ namespace Character.Abilities
         /// <param name="caster"></param>
         public virtual void CastStarted(CastInfo caster)
         {
-
+            foreach (var effect in CastWindUp)
+            {
+                effect.ApplyEffect(caster, null);
+            }
         }
 
 
@@ -150,31 +154,7 @@ namespace Character.Abilities
         /// <param name="caster"></param>
         public virtual void CastEnded(CastInfo caster)
         {
-            //foreach (var buff in BuffsOnCast)
-            //{
-            //    var instancedBuff = Instantiate(buff);
-            //    instancedBuff.Owner = owner;
-            //    owner.ApplyEffect(caster, instancedBuff);
-            //}
-        }
-    }
-}
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(AbilityDefintion), false)]
-public class BaseAbilityDefinitionEditor : Editor
-{
-    protected bool showCooldownValue = true;
-    public override void OnInspectorGUI()
-    {
-        AbilityDefintion abilityEffect = (AbilityDefintion)target;
-        if (EditorGUILayout.PropertyField(serializedObject.FindProperty("DisplayName")))
-        {
-            abilityEffect.name = abilityEffect.DisplayName;
         }
 
-        if(showCooldownValue) EditorGUILayout.PropertyField(serializedObject.FindProperty("Cooldown"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("CastTime"));
     }
 }
-#endif
