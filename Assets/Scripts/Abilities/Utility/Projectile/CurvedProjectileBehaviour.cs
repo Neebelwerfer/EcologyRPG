@@ -57,5 +57,6 @@ public class CurvedProjectileBehaviour : MonoBehaviour
     {
         OnGroundHit?.Invoke(gameObject);
         ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
+        Destroy(this);
     }
 }

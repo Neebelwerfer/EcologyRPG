@@ -11,10 +11,10 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class EditListEffect
 {
-    BaseAbility owner;
+    ScriptableObject owner;
     List<AbilityEffect> Effects;
 
-    public EditListEffect(BaseAbility owner, List<AbilityEffect> effects)
+    public EditListEffect(ScriptableObject owner, List<AbilityEffect> effects)
     {
         this.owner = owner;
         Effects = effects;
@@ -91,7 +91,7 @@ public class AbilityEffectEditor : EditorWindow
         return (AbilityEffect)Activator.CreateInstance(effect.ClassType);
     }
 
-    public static void Display(string Header, List<AbilityEffect> effects, BaseAbility owner, DisplayEffectType displayEffectType)
+    public static void Display(string Header, List<AbilityEffect> effects, ScriptableObject owner, DisplayEffectType displayEffectType)
     {
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField(Header, EditorStyles.boldLabel);
@@ -107,7 +107,7 @@ public class AbilityEffectEditor : EditorWindow
         foreach (var effect in effects)
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(effect.name, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Effect: " + effect.name, EditorStyles.boldLabel);
             if (GUILayout.Button("Remove"))
             {
                 effectToDelete = effect;

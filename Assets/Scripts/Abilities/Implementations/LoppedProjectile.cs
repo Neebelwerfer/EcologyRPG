@@ -18,8 +18,6 @@ public class LoppedProjectile : AttackAbility
     public float Angle;
     [Tooltip("The travel time of the projectile")]
     public float TravelTime;
-    [Tooltip("The ability that will be cast when the projectile hits the ground")]
-    public List<AbilityEffect> OnHitEffects = new();
 
     public override void Cast(CastInfo caster)
     {
@@ -43,16 +41,16 @@ public class LoppedProjectileEditor : AttackAbilityEditor
 {
     public override void OnInspectorGUI()
     {
+        LoppedProjectile ability = (LoppedProjectile)target;
+        ability.displayFirstHitEffects = false;
         base.OnInspectorGUI();
 
-        LoppedProjectile ability = (LoppedProjectile)target;
         ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask"));
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Angle"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("TravelTime"));
 
-        AbilityEffectEditor.Display("On hit effects", ability.OnHitEffects, ability, DisplayEffectType.All);
         serializedObject.ApplyModifiedProperties();
     }
 }

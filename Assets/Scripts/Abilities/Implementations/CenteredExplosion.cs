@@ -16,8 +16,6 @@ public class CenteredExplosion : BaseAbility
     [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
     public List<AbilityEffect> OnHitEffects = new();
 
-    public List<AbilityEffect> OnCastEffects = new();
-
     BaseCharacter[] targets;
 
     public override void Cast(CastInfo caster)
@@ -27,11 +25,6 @@ public class CenteredExplosion : BaseAbility
         Debug.Log("Targets: " + targets.Length);
         Debug.Log("Target Mask: " + targetMask.value);
         Debug.Log("Radius: " + Radius);
-
-        foreach (var effect in OnCastEffects)
-        {
-            effect.ApplyEffect(caster, null);
-        }
         
         if (targets != null && targets.Length > 0)
         {
@@ -55,17 +48,12 @@ public class CenteredExplosion : BaseAbility
         {
             DestroyImmediate(effect, true);
         }
-        foreach (var effect in OnCastEffects)
-        {
-            DestroyImmediate(effect, true);
-        }
-    
     }
 }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(CenteredExplosion))]
-public class CenteredExplosionEditor : BaseAbilityDefinitionEditor
+public class CenteredExplosionEditor : AbilityDefinitionEditor
 {
     public override void OnInspectorGUI()
     {

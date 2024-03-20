@@ -2,7 +2,7 @@
 using UnityEngine;
 #if UNITY_EDITOR
 [CustomEditor(typeof(AttackAbilityDefinition))]
-public class AttackAbilityDefinitionEditor : BaseAbilityDefinitionEditor
+public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
 {
     SelectableAbilities selectedAbility = SelectableAbilities.None;
     public enum SelectableAbilities

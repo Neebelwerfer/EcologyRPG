@@ -34,14 +34,17 @@ MonoBehaviour:
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 10
+  OnCastEffects: []
   targetMask:
     serializedVersion: 2
     m_Bits: 8
   useMouseDirection: 1
-  destroyOnHit: 0
+  OnFirstHit: []
   OnHitEffects:
   - {fileID: 1771110203579508456}
   - {fileID: 9073614000979692265}
+  displayFirstHitEffects: 1
+  destroyOnHit: 0
   Speed: 10
   ProjectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
     type: 3}
@@ -64,6 +67,7 @@ MonoBehaviour:
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
+  CastWindUp: []
   Ability: {fileID: -1369387816540784684}
   ResourceName: 
   ResourceCost: 0

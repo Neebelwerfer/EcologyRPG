@@ -27,7 +27,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
         if (path.Length == 0)
         {
-            ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
+            Stop();
         }
 
         GetComponent<Collider>().isTrigger = true;
@@ -46,7 +46,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
         if(counter == path.Length)
         {
-            ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
+            Stop();
         }
     }
 
@@ -62,8 +62,14 @@ public class ProjectileBehaviour : MonoBehaviour
 
             if (DestroyOnCollision)
             {
-                ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
+                Stop();
             }
         }
+    }
+
+    void Stop()
+    {
+        ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
+        Destroy(this);
     }
 }

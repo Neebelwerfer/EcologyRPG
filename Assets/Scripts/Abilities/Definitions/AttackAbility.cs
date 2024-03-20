@@ -1,4 +1,7 @@
+using Character;
 using Character.Abilities;
+using Character.Abilities.AbilityEffects;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -10,10 +13,36 @@ public abstract class AttackAbility : BaseAbility
     public LayerMask targetMask;
     [Tooltip("Use the mouse direction as the direction of the ability instead of the cast position. This is useful for abilities that are casted in the direction of the mouse instead of the position of the caster.")]
     public bool useMouseDirection = true;
+    [Tooltip("Effects that will be applied to the first target when the ability hits")]
+    public List<AbilityEffect> OnFirstHit = new();
+    [Tooltip("Effects that will be applied to the target when the ability hits")]
+    public List<AbilityEffect> OnHitEffects = new();
+
+    public bool displayFirstHitEffects = true;
+    protected bool firstHit = true;
 
     private void OnEnable()
     {
         if(targetMask.value == 0) LayerMask.NameToLayer("Entity");
+    }
+
+    protected virtual Action<CastInfo, BaseCharacter> DefaultOnHitAction()
+    {
+        return (castInfo, target) =>
+        {
+            if (firstHit)
+            {
+                firstHit = false;
+                foreach (var effect in OnFirstHit)
+                {
+                    effect.ApplyEffect(castInfo, target);
+                }
+            }
+            foreach (var effect in OnHitEffects)
+            {
+                effect.ApplyEffect(castInfo, target);
+            }
+        };
     }
 
     protected Vector3 GetDir(CastInfo castInfo)
@@ -34,20 +63,30 @@ public abstract class AttackAbility : BaseAbility
             return castInfo.owner.Forward;
         }
     }
+
+    private void OnDestroy()
+    {
+        foreach (var effect in OnHitEffects)
+        {
+            DestroyImmediate(effect, true);
+        }
+
+    }
 }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(AttackAbility), false)]
-public class AttackAbilityEditor : Editor
+public class AttackAbilityEditor : BaseAbilityEditor
 {
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
         AttackAbility abilityEffect = (AttackAbility)target;
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask"));
-
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("Range"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("useMouseDirection"));
+        if(abilityEffect.displayFirstHitEffects) AbilityEffectEditor.Display("On First Hit Effects", abilityEffect.OnFirstHit, abilityEffect, DisplayEffectType.All);
+        AbilityEffectEditor.Display("On Hit Effects", abilityEffect.OnHitEffects, abilityEffect, DisplayEffectType.All);
     }
 }
 #endif

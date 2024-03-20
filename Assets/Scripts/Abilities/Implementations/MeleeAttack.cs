@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 public class MeleeAttack : WeaponAttack
 {
     public float width;
-    public List<AbilityEffect> OnHitEffects;
     BaseCharacter[] targets;
 
     public override void Cast(CastInfo caster)
@@ -30,19 +29,8 @@ public class MeleeAttack : WeaponAttack
         {
             if (target != null && target.Faction != caster.owner.Faction)
             {
-                foreach (var effect in OnHitEffects)
-                {
-                    effect.ApplyEffect(caster, target);
-                }
+                DefaultOnHitAction()(caster, target);
             }
-        }
-    }
-
-    private void OnDestroy()
-    {
-        foreach (var effect in OnHitEffects)
-        {
-            DestroyImmediate(effect, true);
         }
     }
 }
