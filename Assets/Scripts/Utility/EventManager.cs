@@ -60,7 +60,7 @@ public static class EventManager
         if (events.TryGetValue(eventName, out var thisEvent))
         {
             thisEvent.Invoke(data);
-            Debug.Log("Event Dispatched: " + eventName);
+            //Debug.Log("Event Dispatched: " + eventName);
         }
     }
 
@@ -69,7 +69,7 @@ public static class EventManager
         if (events.TryGetValue(eventName, out var thisEvent))
         {
             thisEvent.Invoke(new DefaultEventData() { data = data, source = sender });
-            Debug.Log("Event Dispatched: " + eventName);
+            //Debug.Log("Event Dispatched: " + eventName);
         }
     }   
 

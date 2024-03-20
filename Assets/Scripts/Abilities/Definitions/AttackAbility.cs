@@ -63,15 +63,6 @@ public abstract class AttackAbility : BaseAbility
             return castInfo.owner.Forward;
         }
     }
-
-    private void OnDestroy()
-    {
-        foreach (var effect in OnHitEffects)
-        {
-            DestroyImmediate(effect, true);
-        }
-
-    }
 }
 
 #if UNITY_EDITOR
@@ -81,7 +72,7 @@ public class AttackAbilityEditor : BaseAbilityEditor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        base.OnInspectorGUI();  
         AttackAbility abilityEffect = (AttackAbility)target;
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("useMouseDirection"));

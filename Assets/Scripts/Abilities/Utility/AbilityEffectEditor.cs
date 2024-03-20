@@ -104,6 +104,7 @@ public class AbilityEffectEditor : EditorWindow
         }
 
         AbilityEffect effectToDelete = null;
+        effects.RemoveAll(x => x == null);
         foreach (var effect in effects)
         {
             EditorGUILayout.BeginHorizontal();

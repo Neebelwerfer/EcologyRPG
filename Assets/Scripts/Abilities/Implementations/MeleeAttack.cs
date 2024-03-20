@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static WeaponAttack;
 
 public class MeleeAttack : WeaponAttack
 {
     public float width;
+    public float angle = 45;
     BaseCharacter[] targets;
 
     public override void Cast(CastInfo caster)
@@ -19,7 +21,7 @@ public class MeleeAttack : WeaponAttack
         var dir = GetDir(caster);
 
         if (targetType == TargetType.Cone)
-            targets = TargetUtility.GetTargetsInCone(caster.castPos, dir, 45, Range, targetMask);
+            targets = TargetUtility.GetTargetsInCone(caster.castPos, dir, angle, Range, targetMask);
         else if (targetType == TargetType.Line)
             targets = TargetUtility.GetTargetsInLine(caster.castPos, dir, new Vector3(width / 2, 2, Range / 2), targetMask);
         else if (targetType == TargetType.Circular)
@@ -44,9 +46,11 @@ public class MeleeAttackEditor : WeaponAttackEditor
     {
         base.OnInspectorGUI();
         MeleeAttack ability = (MeleeAttack)target;
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("width"));
+        if(ability.targetType == TargetType.Cone)
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("angle"));
+        else if(ability.targetType == TargetType.Line)
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("width"));
 
-        AbilityEffectEditor.Display("On hit effects", ability.OnHitEffects, ability, DisplayEffectType.All);
         serializedObject.ApplyModifiedProperties();
     }
 }
