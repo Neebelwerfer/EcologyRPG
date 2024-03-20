@@ -5,6 +5,8 @@ public class DamageText : MonoBehaviour
 {
     public float Duration = 1f;
     public float Speed = 1f;
+
+    [HideInInspector] public float RemainingDuration;
     Vector3 Dir;
     public void Init(float damage, Color textColor)
     {
@@ -12,18 +14,14 @@ public class DamageText : MonoBehaviour
         var damageRounded = Mathf.Ceil(damage);
         text.text = damageRounded.ToString();
         text.color = textColor;
+        RemainingDuration = Duration;
         Dir = -Camera.main.transform.up;
     }
 
-    private void Update()
+    public void OnUpdate()
     {
-        Duration -= Time.deltaTime;
+        RemainingDuration -= Time.deltaTime;
 
         transform.position += Speed * Time.deltaTime * Dir;
-
-        if (Duration <= 0)
-        {
-            Destroy(gameObject.transform.root.gameObject);
-        }
     }
 }

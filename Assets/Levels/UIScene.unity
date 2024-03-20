@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f734ff1dad5e13439bd60853f0a957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageNumberPrefab: {fileID: 3985648716023820737, guid: a153ccf8b1af1df46a9f86d8d9d3e867,
+  DamageNumberPrefab: {fileID: 231269641730207172, guid: bfdaf3f76190c06448552b25e8885243,
     type: 3}
   DamageNumberCanvas: {fileID: 635635134}
 --- !u!1 &660597592
