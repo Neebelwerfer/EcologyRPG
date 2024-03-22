@@ -24,7 +24,7 @@ public class ConditionEffectSelector : EditorWindow
             {
                 if(effectType == ConditionType.KnockCondition)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<Knock>();
+                    effect.DebuffEffect = ScriptableObject.CreateInstance<KnockCondition>();
                 }
                 else if(effectType == ConditionType.DotCondition)
                 {
@@ -32,7 +32,7 @@ public class ConditionEffectSelector : EditorWindow
                 }
                 else if(effectType == ConditionType.SlowCondition)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<SlowEffect>();
+                    effect.DebuffEffect = ScriptableObject.CreateInstance<SlowCondition>();
                 }
                 else if (effectType == ConditionType.StunConditiont)
                 {

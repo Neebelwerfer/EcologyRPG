@@ -12,8 +12,9 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         BasicProjectile,
         LoppedProjectile,
         MultiProjectile,
+        ExpandingProjectile,
         MeleeAttack,
-        Dodge
+        ChargeAttack,
     }
     bool foldOut = true;
 
@@ -105,9 +106,17 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         {
             return CreateInstance<MultipleProjectiles>();
         }
+        else if (ability == SelectableAbilities.ExpandingProjectile)
+        {
+            return CreateInstance<ExpandingProjectile>();
+        }
         else if (ability == SelectableAbilities.MeleeAttack)
         {
             return CreateInstance<MeleeAttack>();
+        }
+        else if (ability == SelectableAbilities.ChargeAttack)
+        {
+            return CreateInstance<ChargeAttack>();
         }
         else
         {

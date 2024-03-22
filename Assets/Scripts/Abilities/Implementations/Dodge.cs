@@ -12,7 +12,6 @@ public enum DirectionMode
     Movement
 }
 
-[CreateAssetMenu(fileName = "Dodge", menuName = "Abilities/Dodge")]
 public class Dodge : BaseAbility
 {
     [Header("Dodge Settings")]

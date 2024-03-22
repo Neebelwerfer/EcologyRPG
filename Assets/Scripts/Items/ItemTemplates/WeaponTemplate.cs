@@ -17,7 +17,7 @@ namespace Items.ItemTemplates
         public float GrowthPerLevel;
         public GrowthType growthType;
 
-        [HideInInspector] public PlayerAbilityHolder WeaponAttackAbility;
+        [HideInInspector] public PlayerAbilityDefinition WeaponAttackAbility;
 
         public WeaponTemplate()
         {
@@ -62,7 +62,7 @@ public class WeaponTemplateEditor : Editor
         {
             if(GUILayout.Button("Generate Weapon Attack Ability"))
             {
-                template.WeaponAttackAbility = ScriptableObject.CreateInstance<PlayerAbilityHolder>();
+                template.WeaponAttackAbility = ScriptableObject.CreateInstance<PlayerAbilityDefinition>();
                 template.WeaponAttackAbility.name = "Weapon Attack Ability";
                 template.WeaponAttackAbility.Ability = ScriptableObject.CreateInstance<MeleeAttack>();
                 template.WeaponAttackAbility.Ability.name = "Melee Attack";

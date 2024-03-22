@@ -2,7 +2,7 @@
 using Character.Abilities;
 using UnityEngine;
 
-public class Knock : DebuffCondition
+public class KnockCondition : DebuffCondition
 {
     enum KnockType
     {
@@ -28,7 +28,7 @@ public class Knock : DebuffCondition
         else
             dir = (caster.castPos - target.Position).normalized;
 
-        targetPos = Knock.CalculateTargetPos(target, dir, KnockBackDistance);
+        targetPos = KnockCondition.CalculateTargetPos(target, dir, KnockBackDistance);
         timer = 0;
         target.state = CharacterStates.disabled;
     }

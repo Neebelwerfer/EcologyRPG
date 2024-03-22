@@ -55,7 +55,7 @@ namespace Character.Abilities
         [Tooltip("The cooldown of this ability")]
         public float Cooldown = 0.5f;
         [Tooltip("The cast time of this ability. Cast Started will always be called first, and then after the Cast Time has been waited Cast ended will be called")]
-        public float CastTime = 0;
+        public float CastWindupTime = 0;
         public Sprite Icon;
 
         public List<BuffCondition> BuffsOnCast;
@@ -118,7 +118,7 @@ namespace Character.Abilities
 
             CastStarted(caster);
 
-            yield return new WaitForSeconds(CastTime);
+            yield return new WaitForSeconds(CastWindupTime);
 
             CastEnded(caster);
 

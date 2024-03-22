@@ -52,6 +52,8 @@ namespace Character
         public virtual Vector3 Position { get { return transform.position; } }
         public virtual Vector3 CastPos { get { return AbilityPoint.transform.position; } }
 
+        public virtual Transform Transform { get { return transform; } }
+
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return rb; } }
 

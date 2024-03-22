@@ -24,7 +24,7 @@ public enum AbilitySlots
 public class PlayerAbilitiesHandler : PlayerModule
 {
     PlayerSettings settings;
-    readonly PlayerAbilityHolder[] abilitySlots = new PlayerAbilityHolder[7];
+    readonly PlayerAbilityDefinition[] abilitySlots = new PlayerAbilityDefinition[7];
     readonly InputActionReference[] abilityInputs = new InputActionReference[7];
 
     PlayerCharacter Player;
@@ -130,7 +130,7 @@ public class PlayerAbilitiesHandler : PlayerModule
         return abilitySlots[(int)slot];
     }
 
-    public void SetAbility(AbilitySlots slot, PlayerAbilityHolder ability)
+    public void SetAbility(AbilitySlots slot, PlayerAbilityDefinition ability)
     {
         abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
         OnAbilityChange[(int)slot]?.Invoke(ability);
