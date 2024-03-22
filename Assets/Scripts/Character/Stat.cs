@@ -173,7 +173,6 @@ namespace Character
             {
                 mod.OnStatModChanged.RemoveAllListeners();
                 isDirty = true;
-                Debug.Log("Removed modifier: " + mod.Value);
                 return true;
             }
             return false;
@@ -185,8 +184,6 @@ namespace Character
             Modifiers.Add(mod);
             Modifiers.Sort(CompareModifierOrder);
             mod.OnStatModChanged.AddListener(() => isDirty = true);
-
-            Debug.Log("Added modifier: " + mod.Value);
         }
 
         private int CompareModifierOrder(StatModification a, StatModification b)

@@ -32,7 +32,6 @@ public class LootGenerator
     public void GenerateLootOnKill(BaseCharacter deadNPC)
     {
         var lootChanceRoll = Player.Random.NextFloat(0, 100);
-        Debug.Log("Loot Chance Roll: " + lootChanceRoll);
         if (lootChanceRoll > lootDatabase.lootChance)
             return;
 
