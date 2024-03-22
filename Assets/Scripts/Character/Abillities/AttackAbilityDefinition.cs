@@ -21,8 +21,10 @@ public class AttackAbilityDefinition : AbilityDefintion
         Ability.Cast(caster);
     }
 
-    private void OnDestroy()
+    [ContextMenu("Delete")]
+    protected override void Delete()
     {
+        base.Delete();
         DestroyImmediate(Ability, true);
     }
 }

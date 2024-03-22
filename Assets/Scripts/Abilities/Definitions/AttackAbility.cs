@@ -63,19 +63,6 @@ public abstract class AttackAbility : BaseAbility
             return castInfo.owner.Forward;
         }
     }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        foreach (var effect in OnFirstHit)
-        {
-            DestroyImmediate(effect, true);
-        }
-        foreach (var effect in OnHitEffects)
-        {
-            DestroyImmediate(effect, true);
-        }
-    }
 }
 
 #if UNITY_EDITOR

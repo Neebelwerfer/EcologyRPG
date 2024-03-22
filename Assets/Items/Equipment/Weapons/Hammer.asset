@@ -27,5 +27,6 @@ MonoBehaviour:
     growthType: 0
   minDamage: 15
   maxDamage: 20
-  WeaponAttackAbility: {fileID: 11400000, guid: 5bd58d82414bb4f42bb5751211d4c9eb,
-    type: 2}
+  GrowthPerLevel: 0
+  growthType: 0
+  WeaponAttackAbility: {fileID: 0}

@@ -30,10 +30,10 @@ MonoBehaviour:
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: 23d7b1d1678030f499cfb49d2b6ae21a, type: 2}
-  Ability1Reference: {fileID: 11400000, guid: 5056985b381c09b44b35f912920af8bd, type: 2}
-  Ability2Reference: {fileID: 11400000, guid: f30e852e3a06d1a479e2b0e074178e26, type: 2}
-  Ability3Reference: {fileID: 11400000, guid: aeae6113c6033974abbe723264a6893c, type: 2}
-  Ability4Reference: {fileID: 11400000, guid: ec7bd1c7b514ece428e76b80c654b423, type: 2}
+  Ability1Reference: {fileID: 11400000, guid: 3cf113f3b7daf80449edc46ea76bf931, type: 2}
+  Ability2Reference: {fileID: 11400000, guid: 8651e5f082142e74fb19ab0136a10a57, type: 2}
+  Ability3Reference: {fileID: 11400000, guid: 0a8cf090d5192014ab8120fbb30bcf2c, type: 2}
+  Ability4Reference: {fileID: 11400000, guid: ce6480a11a212a24eaf41b1fa144969b, type: 2}
   FistAttackAbility: {fileID: 11400000, guid: 5bd58d82414bb4f42bb5751211d4c9eb, type: 2}
   StartingItems:
   - {fileID: 11400000, guid: 80c2d0b652b09dd488fd91db9ee5e3c2, type: 2}

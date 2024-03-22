@@ -42,7 +42,7 @@ public abstract class Condition : ScriptableObject
     protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => BaseAbility.CalculateDamage(Owner, type, damage, allowVariance);
 
     [ContextMenu("Delete")]
-    void Delete()
+    protected virtual void Delete()
     {
         DestroyImmediate(this, true);
     }

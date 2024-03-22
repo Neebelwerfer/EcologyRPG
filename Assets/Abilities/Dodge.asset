@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6113495024804695909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc18c463614d2d248bed0880b02bb9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 8cbb6104-1acc-4fd5-a564-b4b136dbede1
+  displayName: DashCondition
+  duration: 0.3
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  directionMode: 0
+  dashRange: 5
+  StopOnHit: 1
+  OnFirstHitEffects: []
+  OnHitEffects: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,7 +34,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Dodge
   m_EditorClassIdentifier: 
-  DisplayName: 
+  DisplayName: Dodge
   Cooldown: 2
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
@@ -20,10 +42,10 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  Ability: {fileID: 5326398889729572038}
+  Ability: {fileID: 7549747444647114460}
   ResourceName: stamina
-  ResourceCost: 10
---- !u!114 &5326398889729572038
+  ResourceCost: 35
+--- !u!114 &7549747444647114460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,26 +59,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 0
   OnCastEffects: []
-  dodgeEffect: {fileID: 5408144147683488316}
---- !u!114 &5408144147683488316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc18c463614d2d248bed0880b02bb9ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: e7cc904d-a2ec-403f-98bb-87d1170b83dd
-  displayName: DodgeCondition
-  duration: 0.3
-  remainingDuration: 0
-  Owner: {fileID: 0}
-  directionMode: 0
-  dashRange: 5
-  StopOnHit: 1
-  OnFirstHitEffects: []
-  OnHitEffects: []
+  dodgeEffect: {fileID: -6113495024804695909}

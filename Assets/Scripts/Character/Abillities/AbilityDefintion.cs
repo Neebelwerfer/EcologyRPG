@@ -1,6 +1,7 @@
 using Character.Abilities.AbilityEffects;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -154,6 +155,15 @@ namespace Character.Abilities
         /// <param name="caster"></param>
         public virtual void CastEnded(CastInfo caster)
         {
+        }
+
+
+        [ContextMenu("Delete")]
+        protected virtual void Delete()
+        {
+            DestroyImmediate(this, true);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
     }

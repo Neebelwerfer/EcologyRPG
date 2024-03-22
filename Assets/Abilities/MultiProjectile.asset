@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8453389103048892429
+--- !u!114 &-4037135379477274119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,57 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
   m_Name: New Ability
   m_EditorClassIdentifier: 
-  DisplayName: 
-  Cooldown: 0
-  CastTime: 0
+  DisplayName: MultipleProjectiles
+  Cooldown: 0.5
+  CastWindupTime: 0
   Icon: {fileID: 0}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  Ability: {fileID: 2709542375333278211}
---- !u!114 &-3306399934278596534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
-  m_Name: DamageAbilityEffect
-  m_EditorClassIdentifier: 
-  BaseDamage: 1
-  DamageType: 0
---- !u!114 &-2484120695835288097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0f16083a2e4e8c4e876058d9ee109a5, type: 3}
-  m_Name: MultipleProjectiles(Clone)
-  m_EditorClassIdentifier: 
-  Range: 10
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  useMouseDirection: 1
-  destroyOnHit: 1
-  OnHitEffects:
-  - {fileID: -1150203975892975535}
-  - {fileID: -3306399934278596534}
-  type: 1
-  numberOfProjectiles: 3
-  ConeAngle: 60
-  LineWidth: 0
-  projectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
-    type: 3}
-  Speed: 5
---- !u!114 &-1150203975892975535
+  CastWindUp: []
+  Ability: {fileID: -1452769123730355576}
+--- !u!114 &-3507227463433355515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,44 +33,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
   m_Name: CastAbilityEffect
   m_EditorClassIdentifier: 
-  _ability: {fileID: -8453389103048892429}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
-  m_Name: MultipleProjectiles
-  m_EditorClassIdentifier: 
-  DisplayName: 
-  Cooldown: 0.2
-  CastTime: 0.2
-  Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}
-  BuffsOnCast: []
-  remainingCooldown: 0
-  state: 0
-  Ability: {fileID: -2484120695835288097}
-  ResourceName: 
-  ResourceCost: 0
---- !u!114 &1402629478164710883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
-  m_Name: DamageAbilityEffect
-  m_EditorClassIdentifier: 
-  BaseDamage: 1
-  DamageType: 0
---- !u!114 &2709542375333278211
+  _ability: {fileID: -4037135379477274119}
+--- !u!114 &-1452769123730355576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,17 +47,100 @@ MonoBehaviour:
   m_Name: MultipleProjectiles(Clone)
   m_EditorClassIdentifier: 
   Range: 5
+  OnCastEffects: []
   targetMask:
     serializedVersion: 2
     m_Bits: 0
   useMouseDirection: 1
-  destroyOnHit: 0
+  OnFirstHit: []
   OnHitEffects:
-  - {fileID: 1402629478164710883}
+  - {fileID: 9103281277816228108}
+  displayFirstHitEffects: 1
+  destroyOnHit: 0
   type: 2
-  numberOfProjectiles: 20
+  numberOfProjectiles: 10
   ConeAngle: 0
   LineWidth: 0
   projectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
     type: 3}
+  Speed: 10
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: MultiProjectile
+  m_EditorClassIdentifier: 
+  DisplayName: BasicProjectile
+  Cooldown: 0.5
+  CastWindupTime: 0
+  Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  Ability: {fileID: 6692371911492626149}
+  ResourceName: water
+  ResourceCost: 10
+--- !u!114 &6158336926422640208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 5
+  DamageType: 1
+  AllowVariance: 1
+--- !u!114 &6692371911492626149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
+  m_Name: BasicProjectile(Clone)
+  m_EditorClassIdentifier: 
+  Range: 10
+  OnCastEffects: []
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  useMouseDirection: 1
+  OnFirstHit:
+  - {fileID: -3507227463433355515}
+  - {fileID: 6158336926422640208}
+  OnHitEffects: []
+  displayFirstHitEffects: 1
+  destroyOnHit: 1
   Speed: 5
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+--- !u!114 &9103281277816228108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 5
+  DamageType: 1
+  AllowVariance: 1

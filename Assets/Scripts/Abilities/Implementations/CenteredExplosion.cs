@@ -20,6 +20,11 @@ public class CenteredExplosion : BaseAbility
 
     public override void Cast(CastInfo caster)
     {
+        foreach (var effect in OnCastEffects)
+        {
+            effect.ApplyEffect(caster, null);
+        }
+
         targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
         Debug.Log("Casting explosion!");
         Debug.Log("Targets: " + targets.Length);
@@ -42,13 +47,6 @@ public class CenteredExplosion : BaseAbility
         }
     }
 
-    protected override void OnDestroy()
-    {
-        foreach (var effect in OnHitEffects)
-        {
-            DestroyImmediate(effect, true);
-        }
-    }
 }
 
 #if UNITY_EDITOR

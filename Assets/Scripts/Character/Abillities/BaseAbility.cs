@@ -2,6 +2,7 @@ using Character;
 using Character.Abilities;
 using Character.Abilities.AbilityEffects;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class BaseAbility : ScriptableObject
@@ -41,12 +42,10 @@ public abstract class BaseAbility : ScriptableObject
         return damageInfo;
     }
 
-    protected virtual void OnDestroy()
+    [ContextMenu("Delete")]
+    protected virtual void Delete()
     {
-        foreach (var effect in OnCastEffects)
-        {
-            DestroyImmediate(effect, true);
-        }
+        DestroyImmediate(this, true);
     }
 }
 

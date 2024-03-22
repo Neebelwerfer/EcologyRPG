@@ -8,5 +8,11 @@ namespace Character.Abilities.AbilityEffects
         protected const string _path = "AbilityEffects/";
 
         public abstract void ApplyEffect(CastInfo cast, BaseCharacter target);
+
+        [ContextMenu("Delete")]
+        protected void Delete()
+        {
+            DestroyImmediate(this, true);
+        }
     }
 }
