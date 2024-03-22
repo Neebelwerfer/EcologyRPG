@@ -7,7 +7,7 @@ public class BaseAbilityEditor : Editor
         BaseAbility abilityEffect = (BaseAbility)target;
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Range"));
 
-        AbilityEffectEditor.Display("On Cast Effects", abilityEffect.OnCastEffects, abilityEffect, DisplayEffectType.All);
+        AbilityComponentEditor.Display("On Cast Components", abilityEffect.OnCastEffects, abilityEffect, DisplayComponentType.All);
     }
 }
 #endif

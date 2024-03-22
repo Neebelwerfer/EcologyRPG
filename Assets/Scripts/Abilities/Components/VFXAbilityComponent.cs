@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Character.Abilities.AbilityEffects
+namespace Character.Abilities.AbilityComponents
 {
-    public class VFXAbilityEffect : VisualAbilityEffect
+    public class VFXAbilityComponent : VisualAbilityComponent
     {
         public GameObject vfxPrefab;
         public float duration = 1f;

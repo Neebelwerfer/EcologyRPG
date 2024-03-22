@@ -1,6 +1,6 @@
 using Character;
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using Codice.Client.Commands;
 using System;
 using System.Collections.Generic;

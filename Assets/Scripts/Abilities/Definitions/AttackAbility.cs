@@ -1,6 +1,6 @@
 using Character;
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -14,9 +14,9 @@ public abstract class AttackAbility : BaseAbility
     [Tooltip("Use the mouse direction as the direction of the ability instead of the cast position. This is useful for abilities that are casted in the direction of the mouse instead of the position of the caster.")]
     public bool useMouseDirection = true;
     [Tooltip("Effects that will be applied to the first target when the ability hits")]
-    public List<AbilityEffect> OnFirstHit = new();
+    public List<AbilityComponent> OnFirstHit = new();
     [Tooltip("Effects that will be applied to the target when the ability hits")]
-    public List<AbilityEffect> OnHitEffects = new();
+    public List<AbilityComponent> OnHitEffects = new();
 
     public bool displayFirstHitEffects = true;
     protected bool firstHit = true;
@@ -76,8 +76,8 @@ public class AttackAbilityEditor : BaseAbilityEditor
         AttackAbility abilityEffect = (AttackAbility)target;
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("useMouseDirection"));
-        if(abilityEffect.displayFirstHitEffects) AbilityEffectEditor.Display("On First Hit Effects", abilityEffect.OnFirstHit, abilityEffect, DisplayEffectType.All);
-        AbilityEffectEditor.Display("On Hit Effects", abilityEffect.OnHitEffects, abilityEffect, DisplayEffectType.All);
+        if(abilityEffect.displayFirstHitEffects) AbilityComponentEditor.Display("On First Hit Components", abilityEffect.OnFirstHit, abilityEffect, DisplayComponentType.All);
+        AbilityComponentEditor.Display("On Hit Components", abilityEffect.OnHitEffects, abilityEffect, DisplayComponentType.All);
     }
 }
 #endif

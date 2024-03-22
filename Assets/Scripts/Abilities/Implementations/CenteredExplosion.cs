@@ -1,6 +1,6 @@
 using Character;
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class CenteredExplosion : BaseAbility
     [Tooltip("The radius of the explosion")]
     public float Radius;
     [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
-    public List<AbilityEffect> OnHitEffects = new();
+    public List<AbilityComponent> OnHitEffects = new();
 
     BaseCharacter[] targets;
 
@@ -60,8 +60,8 @@ public class CenteredExplosionEditor : AbilityDefinitionEditor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetMask"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Radius"));
 
-        AbilityEffectEditor.Display("On Cast Effects", ability.OnCastEffects, ability, DisplayEffectType.Visual);
-        AbilityEffectEditor.Display("On Hit Effects", ability.OnHitEffects, ability, DisplayEffectType.All);
+        AbilityComponentEditor.Display("On Cast Components", ability.OnCastEffects, ability, DisplayComponentType.Visual);
+        AbilityComponentEditor.Display("On Hit Components", ability.OnHitEffects, ability, DisplayComponentType.All);
 
         serializedObject.ApplyModifiedProperties();
     }

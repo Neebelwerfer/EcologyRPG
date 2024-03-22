@@ -56,7 +56,7 @@ public class ConditionEditor : Editor
     {
         var condition = (Condition)target;
         EditorGUILayout.LabelField("Condition Settings", EditorStyles.boldLabel);
-        EditorGUILayout.LabelField("ID", condition.ID);
+        //EditorGUILayout.LabelField("ID", condition.ID);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("displayName"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
         serializedObject.ApplyModifiedProperties();

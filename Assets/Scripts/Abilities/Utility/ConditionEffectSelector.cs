@@ -1,4 +1,4 @@
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public class ConditionEffectSelector : EditorWindow
         SlowCondition,
         StunCondition,
     }
-    public ConditionAbilityEffect effect;
+    public ConditionAbilityComponent effect;
     ConditionType effectType;
 
     private void OnGUI()
@@ -24,22 +24,22 @@ public class ConditionEffectSelector : EditorWindow
             {
                 if(effectType == ConditionType.KnockCondition)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<KnockCondition>();
+                    effect.DebuffCondition = ScriptableObject.CreateInstance<KnockCondition>();
                 }
                 else if(effectType == ConditionType.DotCondition)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<DamageOverTime>();
+                    effect.DebuffCondition = ScriptableObject.CreateInstance<DamageOverTime>();
                 }
                 else if(effectType == ConditionType.SlowCondition)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<SlowCondition>();
+                    effect.DebuffCondition = ScriptableObject.CreateInstance<SlowCondition>();
                 }
                 else if (effectType == ConditionType.StunCondition)
                 {
-                    effect.DebuffEffect = ScriptableObject.CreateInstance<Stun>();
+                    effect.DebuffCondition = ScriptableObject.CreateInstance<Stun>();
                 }
-                effect.DebuffEffect.name = effectType.ToString();
-                AssetDatabase.AddObjectToAsset(effect.DebuffEffect, effect);
+                effect.DebuffCondition.name = effectType.ToString();
+                AssetDatabase.AddObjectToAsset(effect.DebuffCondition, effect);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
             }

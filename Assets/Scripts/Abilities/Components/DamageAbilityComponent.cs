@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Character.Abilities.AbilityEffects
+namespace Character.Abilities.AbilityComponents
 {
-    public class DamageAbilityEffect : CombatAbilityEffect
+    public class DamageAbilityComponent : CombatAbilityComponent
     {
         public float BaseDamage = 5;
         public DamageType DamageType;

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using static AttackAbilityDefinitionEditor;
 
-[CreateAssetMenu(menuName = "Ability/NPC Ability Definition", fileName = "New NPC Ability Data")]
+[CreateAssetMenu(menuName = "Ability/NPC Ability Data", fileName = "New NPC Ability Data")]
 public class NPCAbility : AbilityDefintion
 {
     public BaseAbility Ability;

@@ -16,7 +16,7 @@ public class AbilityDefinitionEditor : Editor
         if(showCooldownValue) EditorGUILayout.PropertyField(serializedObject.FindProperty("Cooldown"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(abilityEffect.CastWindupTime)));
 
-        AbilityEffectEditor.Display("Cast windup effects", abilityEffect.CastWindUp, abilityEffect, DisplayEffectType.Visual);
+        AbilityComponentEditor.Display("Cast windup components", abilityEffect.CastWindUp, abilityEffect, DisplayComponentType.Visual);
     }
 }
 #endif

@@ -1,6 +1,6 @@
 using Character;
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using Items.ItemTemplates;
 using UnityEditor;
 using UnityEngine;
@@ -27,13 +27,11 @@ namespace Items.ItemTemplates
 
         public override InventoryItem GenerateItem(int level)
         {
-            var item = new Weapon
-            {
-                Name = Name,
-                Description = Description,
-                Icon = Icon,
-                Weight = Weight
-            };
+            var item = ScriptableObject.CreateInstance<Weapon>();
+            item.Name = Name;
+            item.Description = Description;
+            item.Icon = Icon;
+            item.Weight = Weight;
 
             var ability = Instantiate(WeaponAttackAbility);
             var range = new Ranges { minValue = minDamage, maxValue = maxDamage, GrowthPerLevel = GrowthPerLevel, growthType = growthType, modType = StatModType.Flat, name = "rawWeaponDamage", type = ModType.Stat };
@@ -58,6 +56,7 @@ public class WeaponTemplateEditor : Editor
     {
         base.OnInspectorGUI();
         WeaponTemplate template = (WeaponTemplate)target;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("WeaponAttackAbility"));
         if (template.WeaponAttackAbility == null)
         {
             if(GUILayout.Button("Generate Weapon Attack Ability"))
@@ -66,7 +65,7 @@ public class WeaponTemplateEditor : Editor
                 template.WeaponAttackAbility.name = "Weapon Attack Ability";
                 template.WeaponAttackAbility.Ability = ScriptableObject.CreateInstance<MeleeAttack>();
                 template.WeaponAttackAbility.Ability.name = "Melee Attack";
-                var effect = ScriptableObject.CreateInstance<WeaponDamageAbilityEffect>();
+                var effect = ScriptableObject.CreateInstance<WeaponDamageAbilityComponent>();
                 effect.name = "Weapon Damage Effect";
                 effect.DamageType = DamageType.Physical;
                 ((MeleeAttack)template.WeaponAttackAbility.Ability).OnHitEffects.Add(effect);
@@ -81,7 +80,6 @@ public class WeaponTemplateEditor : Editor
         }
         else
         {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("WeaponAttackAbility"));
             if(GUILayout.Button("Remove Weapon Attack Ability"))
             {
                 DestroyImmediate(template.WeaponAttackAbility.Ability, true);
@@ -91,6 +89,7 @@ public class WeaponTemplateEditor : Editor
                 AssetDatabase.Refresh();
             }
         }
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

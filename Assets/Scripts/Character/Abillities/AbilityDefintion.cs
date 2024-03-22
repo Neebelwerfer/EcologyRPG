@@ -1,4 +1,4 @@
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -65,7 +65,7 @@ namespace Character.Abilities
         [HideInInspector] public AbilityStates state = AbilityStates.ready;
         BaseCharacter owner;
 
-        public List<AbilityEffect> CastWindUp = new List<AbilityEffect>();
+        public List<AbilityComponent> CastWindUp = new List<AbilityComponent>();
 
         public virtual void Initialize(BaseCharacter owner)
         {

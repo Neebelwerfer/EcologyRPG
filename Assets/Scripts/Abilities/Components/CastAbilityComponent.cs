@@ -1,11 +1,11 @@
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using UnityEditor;
 using UnityEngine;
 
-namespace Character.Abilities.AbilityEffects
+namespace Character.Abilities.AbilityComponents
 {
-    public class CastAbilityEffect : CombatAbilityEffect
+    public class CastAbilityComponent : CombatAbilityComponent
     {
         public AttackAbilityDefinition _ability;
 
@@ -22,24 +22,24 @@ namespace Character.Abilities.AbilityEffects
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(CastAbilityEffect))]
+[CustomEditor(typeof(CastAbilityComponent))]
 public class CastAbilityEffectEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        CastAbilityEffect effect = (CastAbilityEffect)target;
-        if(effect._ability == null)
+        CastAbilityComponent component = (CastAbilityComponent)target;
+        if(component._ability == null)
         {
           if(GUILayout.Button("Create Ability"))
             {
-                effect._ability = CreateInstance<AttackAbilityDefinition>();
-                effect._ability.name = "New Ability";
-                AssetDatabase.AddObjectToAsset(effect._ability, effect);
+                component._ability = CreateInstance<AttackAbilityDefinition>();
+                component._ability.name = "New Ability";
+                AssetDatabase.AddObjectToAsset(component._ability, component);
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();
             }
         }
-        else effect._ability = (AttackAbilityDefinition)EditorGUILayout.ObjectField("Ability", effect._ability, typeof(AttackAbilityDefinition), false);
+        else component._ability = (AttackAbilityDefinition)EditorGUILayout.ObjectField("Ability", component._ability, typeof(AttackAbilityDefinition), false);
     }
 }
 #endif

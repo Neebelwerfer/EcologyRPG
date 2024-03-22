@@ -1,6 +1,6 @@
 using Character;
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +9,7 @@ public abstract class BaseAbility : ScriptableObject
 {
     [Tooltip("The range of the ability")]
     public float Range;
-    public List<AbilityEffect> OnCastEffects = new();
+    public List<AbilityComponent> OnCastEffects = new();
 
     public virtual void Cast(CastInfo castInfo)
     {

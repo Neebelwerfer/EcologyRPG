@@ -38,7 +38,10 @@ public class DodgeEditor : Editor
             AssetDatabase.Refresh();
         }
         else
-            ability.dodgeEffect = (DashCondition)EditorGUILayout.ObjectField("Dodge Effect", ability.dodgeEffect, typeof(DashCondition), false);
+        {
+            Editor editor = Editor.CreateEditor(ability.dodgeEffect); 
+            editor.OnInspectorGUI();
+        }
     }
 }
 #endif

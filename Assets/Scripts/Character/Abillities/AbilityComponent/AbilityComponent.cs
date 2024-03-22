@@ -1,9 +1,9 @@
 
 using UnityEngine;
 
-namespace Character.Abilities.AbilityEffects
+namespace Character.Abilities.AbilityComponents
 {
-    public abstract class AbilityEffect : ScriptableObject
+    public abstract class AbilityComponent : ScriptableObject
     {
         protected const string _path = "AbilityEffects/";
 

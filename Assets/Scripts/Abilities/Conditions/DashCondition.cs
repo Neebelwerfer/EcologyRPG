@@ -1,6 +1,6 @@
 ﻿using Character;
 using Character.Abilities;
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -11,8 +11,8 @@ public class DashCondition : BuffCondition
     public float dashRange = 10f;
     public bool StopOnHit = true;
 
-    public List<AbilityEffect> OnFirstHitEffects;
-    public List<AbilityEffect> OnHitEffects;
+    public List<AbilityComponent> OnFirstHitEffects;
+    public List<AbilityComponent> OnHitEffects;
 
     Vector3 direction;
 
@@ -93,8 +93,8 @@ public class DashConditionEditor : ConditionEditor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("directionMode"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("dashRange"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("StopOnHit"));
-        AbilityEffectEditor.Display("On First Hit Effects", ability.OnFirstHitEffects, ability, DisplayEffectType.All);
-        AbilityEffectEditor.Display("On Hit Effects", ability.OnHitEffects, ability, DisplayEffectType.All);
+        AbilityComponentEditor.Display("On First Hit Components", ability.OnFirstHitEffects, ability, DisplayComponentType.All);
+        AbilityComponentEditor.Display("On Hit Components", ability.OnHitEffects, ability, DisplayComponentType.All);
         serializedObject.ApplyModifiedProperties();
     }
 }

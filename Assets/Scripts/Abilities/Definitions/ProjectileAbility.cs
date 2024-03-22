@@ -1,4 +1,4 @@
-using Character.Abilities.AbilityEffects;
+using Character.Abilities.AbilityComponents;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
