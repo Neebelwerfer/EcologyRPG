@@ -56,7 +56,7 @@ MonoBehaviour:
   remainingDuration: 0
   Owner: {fileID: 0}
   directionMode: 0
-  dashRange: 10
+  dashRange: 5
   StopOnHit: 1
   OnFirstHitEffects: []
   OnHitEffects: []
