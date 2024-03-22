@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56d0d769d0cca64dbd63c2c2ca3bb69, type: 3}
   m_Name: Exhaustion
   m_EditorClassIdentifier: 
-  ID: 
-  displayName: 
+  ID: 767790d0-fe12-4796-9146-e69f637efe5e
+  displayName: Exhaustion
   duration: 0
   remainingDuration: 0
   Owner: {fileID: 0}
@@ -39,7 +39,7 @@ MonoBehaviour:
   CastWindUp: []
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina
-  ResourceCost: 3
+  ResourceCost: 0.3
 --- !u!114 &8200451567496563987
 MonoBehaviour:
   m_ObjectHideFlags: 0
