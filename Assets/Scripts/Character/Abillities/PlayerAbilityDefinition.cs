@@ -2,8 +2,8 @@ using Character.Abilities;
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerAbility", menuName = "AbilityHolder/PlayerAbility")]
-public class PlayerAbilityHolder : AttackAbilityDefinition
+[CreateAssetMenu(fileName = "new Player ability data", menuName = "Ability/Player Ability Data")]
+public class PlayerAbilityDefinition : AttackAbilityDefinition
 {
     [Header("Resources")]
     [Tooltip("The resource that get used for the ability cost")]

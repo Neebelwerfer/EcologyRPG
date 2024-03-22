@@ -1,12 +1,12 @@
 ﻿using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
-[CustomEditor(typeof(PlayerAbilityHolder))]
+[CustomEditor(typeof(PlayerAbilityDefinition))]
 public class PlayerAbilityEditor : AttackAbilityDefinitionEditor
 {
     public override void OnInspectorGUI()
     {
-        PlayerAbilityHolder ability = (PlayerAbilityHolder)target;
+        PlayerAbilityDefinition ability = (PlayerAbilityDefinition)target;
         var icon = serializedObject.FindProperty("Icon");
         icon.objectReferenceValue = (Sprite)EditorGUILayout.ObjectField("Icon", ability.Icon, typeof(Sprite), false);
         EditorGUILayout.LabelField("Resource Cost", EditorStyles.boldLabel);

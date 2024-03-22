@@ -13,10 +13,13 @@ public class ProjectileBehaviour : MonoBehaviour
     public BaseCharacter owner;
 
     public Action<BaseCharacter> OnHit;
+    public Action<GameObject> OnUpdate;
 
     int counter = 0;
+    Vector3 localScale;
+    Quaternion rotation;
 
-    public void Init(Vector3[] path, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner, Action<BaseCharacter> OnHit)
+    public void Init(Vector3[] path, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner, Action<BaseCharacter> OnHit, Action<GameObject> OnUpdate)
     {
         this.path = path;
         this.speed = speed;
@@ -24,11 +27,17 @@ public class ProjectileBehaviour : MonoBehaviour
         this.layerMask = layerMask;
         this.owner = owner;
         this.OnHit = OnHit;
+        this.OnUpdate = OnUpdate;
+
+        localScale = transform.localScale;
+        rotation = transform.rotation;
+
 
         if (path.Length == 0)
         {
             Stop();
         }
+
 
         GetComponent<Collider>().isTrigger = true;
         gameObject.layer = LayerMask.NameToLayer("Projectile");
@@ -38,6 +47,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, path[counter], speed * Time.deltaTime);
+        OnUpdate?.Invoke(gameObject);
 
         if(transform.position == path[counter])
         {
@@ -69,6 +79,8 @@ public class ProjectileBehaviour : MonoBehaviour
 
     void Stop()
     {
+        transform.localScale = localScale;
+        transform.rotation = rotation;
         ProjectilePoolHandler.Instance.ReturnProjectile(gameObject);
         Destroy(this);
     }

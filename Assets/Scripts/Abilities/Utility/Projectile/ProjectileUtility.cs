@@ -5,7 +5,7 @@ using Character.Abilities;
 
 public static class ProjectileUtility
 {
-    public static void CreateProjectile(GameObject prefab, Vector3 Origin, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3 Origin, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
     {
         GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, Origin, Quaternion.identity);
         if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
@@ -13,7 +13,7 @@ public static class ProjectileUtility
             projectile.Init(new Vector3[]
             {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit);
+            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
         }
         else
         {
@@ -21,11 +21,11 @@ public static class ProjectileUtility
             projectile.Init(new Vector3[]
             {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit);
+            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
         }
     }
 
-    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
     {
         GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
         if(projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
@@ -33,7 +33,7 @@ public static class ProjectileUtility
             projectile.Init(new Vector3[]
             {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit);
+            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
         }
         else
         {
@@ -41,22 +41,22 @@ public static class ProjectileUtility
             projectile.Init(new Vector3[]
             {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit);
+            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
         }
     }
 
-    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit)
+    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
     {
         GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
         if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
         {
-            projectile.Init(path, speed, destroyOnhit, mask, owner, onHit);
+            projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
 
         }
         else
         {
             projectile = projectileObj.AddComponent<ProjectileBehaviour>();
-            projectile.Init(path, speed, destroyOnhit, mask, owner, onHit);
+            projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
 
         }
     }
