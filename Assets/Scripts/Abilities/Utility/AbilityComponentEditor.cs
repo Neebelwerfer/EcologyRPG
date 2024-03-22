@@ -50,7 +50,7 @@ public class AbilityComponentEditor : EditorWindow
     
     static List<DisplayComponent> effects = new List<DisplayComponent>
     {
-        new DisplayComponent { name = "Damage", ClassType = typeof(DamageAbilityComponent), DisplayType = DisplayComponentType.Combat },
+        new DisplayComponent { name = "Damage", ClassType = typeof(AbilityDamageComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "Condition", ClassType = typeof(ConditionAbilityComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "Ability Cast", ClassType = typeof(CastAbilityComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "VFX", ClassType = typeof(VFXAbilityComponent), DisplayType = DisplayComponentType.Visual}

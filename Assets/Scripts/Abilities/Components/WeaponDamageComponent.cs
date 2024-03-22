@@ -1,6 +1,6 @@
 ﻿namespace Character.Abilities.AbilityComponents
 {
-    public class WeaponDamageAbilityComponent : CombatAbilityComponent
+    public class WeaponDamageComponent : CombatAbilityComponent
     {
         public float BaseDamage = 5;
         public float WeaponDamagePercent = 1;

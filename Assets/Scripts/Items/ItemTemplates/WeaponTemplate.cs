@@ -65,7 +65,7 @@ public class WeaponTemplateEditor : Editor
                 template.WeaponAttackAbility.name = "Weapon Attack Ability";
                 template.WeaponAttackAbility.Ability = ScriptableObject.CreateInstance<MeleeAttack>();
                 template.WeaponAttackAbility.Ability.name = "Melee Attack";
-                var effect = ScriptableObject.CreateInstance<WeaponDamageAbilityComponent>();
+                var effect = ScriptableObject.CreateInstance<WeaponDamageComponent>();
                 effect.name = "Weapon Damage Effect";
                 effect.DamageType = DamageType.Physical;
                 ((MeleeAttack)template.WeaponAttackAbility.Ability).OnHitEffects.Add(effect);

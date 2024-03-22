@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Character.Abilities.AbilityComponents
 {
-    public class DamageAbilityComponent : CombatAbilityComponent
+    public class AbilityDamageComponent : CombatAbilityComponent
     {
         public float BaseDamage = 5;
         public DamageType DamageType;
