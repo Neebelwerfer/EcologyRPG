@@ -7,11 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using Utility;
 
-public enum EffectType
-{
-    Buff,
-    Debuff
-}
+
 
 public abstract class Condition : ScriptableObject
 {
@@ -20,7 +16,6 @@ public abstract class Condition : ScriptableObject
     [ReadOnlyString]
     public string ID;
     public string displayName;
-    public EffectType type;
     [Min(0)] public float duration;
     [HideInInspector] public float remainingDuration;
     [HideInInspector] public BaseCharacter Owner;
@@ -45,6 +40,12 @@ public abstract class Condition : ScriptableObject
     public abstract void OnRemoved(BaseCharacter target);
 
     protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => BaseAbility.CalculateDamage(Owner, type, damage, allowVariance);
+
+    [ContextMenu("Delete")]
+    void Delete()
+    {
+        DestroyImmediate(this, true);
+    }
 }
 
 #if UNITY_EDITOR
@@ -53,11 +54,12 @@ public class ConditionEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Delete"))
-        {
-            DestroyImmediate(target, true);
-        }
+        var condition = (Condition)target;
+        EditorGUILayout.LabelField("Condition Settings", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("ID", condition.ID);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("displayName"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("duration"));
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

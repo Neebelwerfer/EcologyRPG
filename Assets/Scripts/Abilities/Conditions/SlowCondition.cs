@@ -1,19 +1,20 @@
 using Character;
 using Character.Abilities;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
 public class SlowCondition : DebuffCondition
 {
-    enum SlowType
+    public enum SlowType
     {
         Flat,
         Decaying
     }
 
     static UniqueStatModificationHandler movementSpeedHandler = new UniqueStatModificationHandler("movementSpeed", StatModType.PercentMult, false);
-    [SerializeField] SlowType slowType;
+    [SerializeField] public SlowType slowType;
 
     [Header("Flat Slow Setting")]
     public float SlowAmount = 0.5f;
@@ -50,3 +51,21 @@ public class SlowCondition : DebuffCondition
         }
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(SlowCondition))]
+public class SlowConditionEditor : ConditionEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        SlowCondition ability = (SlowCondition)target;
+        ability.slowType = (SlowCondition.SlowType)EditorGUILayout.EnumPopup("Slow Type", ability.slowType);
+        if(ability.slowType == SlowCondition.SlowType.Flat)
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("SlowAmount"));
+        else if(ability.slowType == SlowCondition.SlowType.Decaying)
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("SlowCurve"));
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif

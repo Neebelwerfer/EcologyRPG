@@ -32,6 +32,7 @@ namespace Character
     {
         public BaseCharacter target;
         public new BaseCharacter source;
+        public Vector3 Point;
         public DamageType damageType;
         public float premitigationDamage;
         public float damageTaken;
@@ -67,7 +68,9 @@ namespace Character
 
         public CharacterStates state = CharacterStates.active;
 
-        readonly List<Condition> effects = new List<Condition>();
+        public UnityEvent<BaseCharacter> OnCharacterCollision = new();
+
+        readonly List<Condition> effects = new();
 
         protected int level;
         protected AttributeModification[] levelMods;
@@ -92,7 +95,7 @@ namespace Character
         {
             //Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
             Health -= damageInfo.damage;
-            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage };
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Position };
             EventManager.Defer("DamageEvent", damageEvent, DeferredEventType.Update);
 
             if (Health.CurrentValue <= 0)
@@ -189,5 +192,14 @@ namespace Character
                 }
             }
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Entity"))
+            {
+                OnCharacterCollision?.Invoke(collision.gameObject.GetComponent<BaseCharacter>());
+            }
+        }
     }
+
 }
