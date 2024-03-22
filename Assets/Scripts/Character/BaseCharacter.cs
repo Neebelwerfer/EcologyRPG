@@ -94,7 +94,7 @@ namespace Character
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
-            //Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
+            damageInfo.damage = CalculateDamage(damageInfo);
             Health -= damageInfo.damage;
             var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Position };
             EventManager.Defer("DamageEvent", damageEvent);
@@ -103,6 +103,37 @@ namespace Character
             {
                 Die();
             }
+        }
+
+        protected virtual float CalculateDamage(DamageInfo damageInfo)
+        {
+            if (damageInfo.type == DamageType.Physical)
+            {
+                var armor = Stats.GetStat("armor").Value;
+                var resistance = Stats.GetAttribute("resistance").Value;
+                float damage = damageInfo.damage - (armor + (resistance / (3 / 2 * armor)));
+                if (damage < damageInfo.damage * 0.1)
+                {
+                    return damageInfo.damage * 0.1f;
+                }
+                return damage;
+            }
+            else if (damageInfo.type == DamageType.Water)
+            {
+                var waterArmor = Stats.GetStat("waterArmor").Value;
+                var insolation = Stats.GetAttribute("insolation").Value;
+                var damage = damageInfo.damage - (waterArmor + (insolation / (3 / 2 * waterArmor)));
+                if (damage < damageInfo.damage * 0.1)
+                {
+                    return damageInfo.damage * 0.1f;
+                }
+                return damage;
+            }
+            else if (damageInfo.type == DamageType.Toxic)
+            {
+                return damageInfo.damage;
+            }
+            return damageInfo.damage;
         }
 
         public virtual void Die()

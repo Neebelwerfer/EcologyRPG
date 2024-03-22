@@ -247,9 +247,9 @@
             "displayName": "Armor",
             "DisplayOptions": 0,
             "ShowOptions": 2,
-            "baseValue": 0.0,
+            "baseValue": 0.10000000149011612,
             "MaxValue": 3.4028234663852887e38,
-            "MinValue": 0.0,
+            "MinValue": 0.10000000149011612,
             "description": "Governs a characters armor value used for physical damage reduction"
         },
         {
@@ -257,9 +257,9 @@
             "displayName": "Water Armor",
             "DisplayOptions": 0,
             "ShowOptions": 2,
-            "baseValue": 0.0,
+            "baseValue": 0.10000000149011612,
             "MaxValue": 3.4028234663852887e38,
-            "MinValue": 0.0,
+            "MinValue": 0.10000000149011612,
             "description": "Governs a characters armor value used for water damage reduction"
         },
         {

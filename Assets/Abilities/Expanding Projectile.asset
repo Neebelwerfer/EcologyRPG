@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 5
-  DamageType: 0
+  BaseDamage: 20
+  DamageType: 1
   AllowVariance: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -76,6 +76,7 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  BlockMovementOnWindup: 0
   Ability: {fileID: -5784286480726840949}
   ResourceName: water
   ResourceCost: 15
