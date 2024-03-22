@@ -91,7 +91,7 @@ namespace Character
             name = name.ToLower();
             foreach (Attribute attribute in AttributeList)
             {
-                if (attribute.data.name.ToLower() == name)
+                if (attribute.Data.name.ToLower() == name)
                 {
                     return attribute;
                 }

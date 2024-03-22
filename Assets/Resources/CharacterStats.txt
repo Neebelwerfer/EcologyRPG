@@ -175,7 +175,7 @@
         {
             "name": "abilityDamage",
             "displayName": "Ability Damage",
-            "DisplayOptions": 0,
+            "DisplayOptions": 1,
             "ShowOptions": 2,
             "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
@@ -275,8 +275,8 @@
         {
             "name": "rawWeaponDamage",
             "displayName": "Raw weapon Damage",
-            "DisplayOptions": 1,
-            "ShowOptions": 0,
+            "DisplayOptions": 0,
+            "ShowOptions": 1,
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,

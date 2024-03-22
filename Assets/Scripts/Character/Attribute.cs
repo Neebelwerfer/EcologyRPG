@@ -65,7 +65,7 @@ public class AttributeData
 
 public class Attribute
 {
-    public readonly AttributeData data;
+    public readonly AttributeData Data;
     public List<AttributeModification> modifiers;
     public UnityEvent<int> OnAttributeChanged;
 
@@ -75,7 +75,7 @@ public class Attribute
 
     public Attribute(AttributeData data, Stats stats)
     {
-        this.data = data;
+        this.Data = data;
         Stats = stats;
         modifiers = new List<AttributeModification>();
         OnAttributeChanged = new UnityEvent<int>();
@@ -123,7 +123,7 @@ public class Attribute
 
     void CalculateValue()
     {
-        var v = data.defaultValue;
+        var v = Data.defaultValue;
         foreach (var item in modifiers)
         {
             v += item.Value;
@@ -134,9 +134,9 @@ public class Attribute
 
     public void UpdateStatModifiers()
     {
-        for (int i = 0; i < data.statProgressions.Count; i++)
+        for (int i = 0; i < Data.statProgressions.Count; i++)
         {
-            var progression = data.statProgressions[i];
+            var progression = Data.statProgressions[i];
             var stat = Stats.GetStat(progression.statName);
             stat.RemoveAllModifiersFromSource(this);
             stat.AddModifier(new StatModification(progression.statName, progression.startValue + (currentValue * progression.changePerPoint), progression.modType, this));

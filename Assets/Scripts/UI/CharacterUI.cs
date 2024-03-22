@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Character;
 using System;
 using UnityEngine.Events;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 class StatBinding
 {
@@ -20,15 +21,25 @@ class StatBinding
         Text = text;
         Stat = stat;
 
+        DisplayText();
         OnStatChanged = (value) =>
         {
-            Text.text = stat.Data.displayName + ": " + value.ToString("#.#");
+            DisplayText();
             if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
             {
                 Text.gameObject.SetActive(value != 0);
             }
         };
         Stat.OnStatChanged.AddListener(OnStatChanged);
+    }
+
+    void DisplayText()
+    {
+        if(Stat.Data.DisplayOptions == DisplayOptions.Flat)
+            Text.text = Stat.Data.displayName + ": " + Stat.Value.ToString("#.#");
+        else if(Stat.Data.DisplayOptions == DisplayOptions.Percent)
+            Text.text = Stat.Data.displayName + ": " + (Stat.Value * 100).ToString("#.#") + "%";
+
     }
 
     public void Destroy()
@@ -48,13 +59,14 @@ class AttributeBinding
     {
         Text = text;
         Attribute = attribute;
-        OnAttributeChanged = (value) => Text.text = attribute.data.displayName + ": " + value;
+        text.text = attribute.Data.displayName + ": " + attribute.Value.ToString("#.#");
+        OnAttributeChanged = (value) => Text.text = attribute.Data.displayName + ": " + value;
         Attribute.OnAttributeChanged.AddListener(OnAttributeChanged);
     }
 
     public void UpdateText()
     {
-        Text.text = Attribute.data.displayName + ": " + Attribute.Value;
+        Text.text = Attribute.Data.displayName + ": " + Attribute.Value;
     }
 
     public void Destroy()
@@ -127,7 +139,6 @@ public class CharacterUI : MonoBehaviour
         var text = Instantiate(AttributeTextPrefab, AttributeView.transform);
         text.transform.position = AttributeView.transform.position;
         var comp = text.GetComponent<TextMeshProUGUI>();
-        comp.text = attribute.data.displayName + ": " + attribute.Value;
 
         AttributeBindings.Add(new AttributeBinding(comp, attribute));
     }
@@ -137,7 +148,6 @@ public class CharacterUI : MonoBehaviour
         var text = Instantiate(StatTextPrefab, StatView.transform);
         text.transform.position = StatView.transform.position;
         var comp = text.GetComponent<TextMeshProUGUI>();
-        comp.text = stat.Data.displayName + ": " + stat.Value.ToString("#.#");
         if(stat.Data.ShowOptions == ShowOptions.WhenNonZero)
         {
             text.SetActive(stat.Value != 0);
