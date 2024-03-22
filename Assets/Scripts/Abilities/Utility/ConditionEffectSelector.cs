@@ -9,7 +9,7 @@ public class ConditionEffectSelector : EditorWindow
         KnockCondition,
         DotCondition,
         SlowCondition,
-        StunConditiont,
+        StunCondition,
     }
     public ConditionAbilityEffect effect;
     ConditionType effectType;
@@ -34,7 +34,7 @@ public class ConditionEffectSelector : EditorWindow
                 {
                     effect.DebuffEffect = ScriptableObject.CreateInstance<SlowCondition>();
                 }
-                else if (effectType == ConditionType.StunConditiont)
+                else if (effectType == ConditionType.StunCondition)
                 {
                     effect.DebuffEffect = ScriptableObject.CreateInstance<Stun>();
                 }
