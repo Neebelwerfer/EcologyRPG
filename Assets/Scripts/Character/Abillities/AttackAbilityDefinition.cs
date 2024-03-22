@@ -20,4 +20,9 @@ public class AttackAbilityDefinition : AbilityDefintion
         if(caster.castPos == Vector3.zero) caster.castPos = caster.owner.CastPos;
         Ability.Cast(caster);
     }
+
+    private void OnDestroy()
+    {
+        DestroyImmediate(Ability, true);
+    }
 }

@@ -41,7 +41,7 @@ public abstract class BaseAbility : ScriptableObject
         return damageInfo;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         foreach (var effect in OnCastEffects)
         {
