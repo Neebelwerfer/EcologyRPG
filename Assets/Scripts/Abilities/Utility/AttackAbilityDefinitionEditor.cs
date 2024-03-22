@@ -81,7 +81,7 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
                 }
             }
             EditorGUILayout.EndHorizontal();
-            if(foldOut)
+            if(foldOut && ability != null)
             {
                 var a = CreateEditor(ability.Ability);
                 a.OnInspectorGUI();
