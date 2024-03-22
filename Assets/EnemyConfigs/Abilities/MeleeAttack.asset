@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5363196605588079261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 5
+  DamageType: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,18 +26,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
   m_Name: MeleeAttack
   m_EditorClassIdentifier: 
-  DisplayName: 
-  ResourceCost: 0
-  ResourceName: 
-  Cooldown: 1
-  CastTime: 0
-  AllowHolding: 0
-  Icon: {fileID: 0}
-  remainingCooldown: 1
-  state: 0
+  Range: 3
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  Range: 3
-  BaseDamage: 2
+  useMouseDirection: 1
+  targetType: 0
   width: 10
+  OnHitEffects:
+  - {fileID: -5363196605588079261}

@@ -1,25 +1,25 @@
 using Character.Abilities;
 using UnityEditor;
 using UnityEngine;
-using static AttackAbilityEditor;
+using static AttackAbilityDefinitionEditor;
 
-[CreateAssetMenu(menuName = "AbilityHolder/NPCAbility", fileName = "New NPC Ability")]
-public class NPCAbility : BaseAbilityHolder
+[CreateAssetMenu(menuName = "Ability/NPC Ability Definition", fileName = "New NPC Ability Data")]
+public class NPCAbility : AbilityDefintion
 {
-    public BaseAbility attackAbilityEffect;
+    public BaseAbility Ability;
 
     public override void CastEnded(CastInfo caster)
     {
         base.CastEnded(caster);
         caster.castPos = caster.owner.CastPos;
         caster.dir = caster.owner.transform.forward;
-        attackAbilityEffect.Cast(caster);
+        Ability.Cast(caster);
     }
 }
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(NPCAbility))]
-public class NPCAbilityEditor : BaseAbilityEditor
+public class NPCAbilityEditor : AbilityDefinitionEditor
 {
     SelectableAbilities selectedAbility = SelectableAbilities.None;
 
@@ -29,10 +29,10 @@ public class NPCAbilityEditor : BaseAbilityEditor
         base.OnInspectorGUI();
         NPCAbility ability = (NPCAbility)target;
 
-        if (ability.attackAbilityEffect == null)
+        if (ability.Ability == null)
         {
             selectedAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Ability", selectedAbility);
-            var res = (BaseAbility)EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.attackAbilityEffect, typeof(BaseAbility), false);
+            var res = (BaseAbility)EditorGUILayout.ObjectField(new GUIContent("Ability"), ability.Ability, typeof(BaseAbility), false);
 
             if (GUILayout.Button("Create New Ability"))
             {
@@ -66,8 +66,8 @@ public class NPCAbilityEditor : BaseAbilityEditor
             }
             if (res != null)
             {
-                ability.attackAbilityEffect = Instantiate(res);
-                AssetDatabase.AddObjectToAsset(ability.attackAbilityEffect, ability);
+                ability.Ability = Instantiate(res);
+                AssetDatabase.AddObjectToAsset(ability.Ability, ability);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 EditorUtility.SetDirty(ability);
@@ -80,16 +80,16 @@ public class NPCAbilityEditor : BaseAbilityEditor
         }
 
 
-        if (ability.attackAbilityEffect != null)
+        if (ability.Ability != null)
         {
 
             if (GUILayout.Button("Remove Ability"))
             {
-                DestroyImmediate(ability.attackAbilityEffect, true);
+                DestroyImmediate(ability.Ability, true);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 EditorUtility.SetDirty(ability);
-                ability.attackAbilityEffect = null;
+                ability.Ability = null;
             }
         }
     }

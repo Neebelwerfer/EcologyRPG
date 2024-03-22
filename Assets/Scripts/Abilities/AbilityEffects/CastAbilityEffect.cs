@@ -7,11 +7,16 @@ namespace Character.Abilities.AbilityEffects
 {
     public class CastAbilityEffect : CombatAbilityEffect
     {
-        public AttackAbilityHolder _ability;
+        public AttackAbilityDefinition _ability;
 
         public override void ApplyEffect(CastInfo cast, BaseCharacter target)
         {
             cast.owner.StartCoroutine(_ability.HandleCast(cast));
+        }
+
+        private void OnDestroy()
+        {
+            DestroyImmediate(_ability, true);
         }
     }
 }
@@ -27,14 +32,14 @@ public class CastAbilityEffectEditor : Editor
         {
           if(GUILayout.Button("Create Ability"))
             {
-                effect._ability = CreateInstance<AttackAbilityHolder>();
+                effect._ability = CreateInstance<AttackAbilityDefinition>();
                 effect._ability.name = "New Ability";
                 AssetDatabase.AddObjectToAsset(effect._ability, effect);
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();
             }
         }
-        else effect._ability = (AttackAbilityHolder)EditorGUILayout.ObjectField("Ability", effect._ability, typeof(AttackAbilityHolder), false);
+        else effect._ability = (AttackAbilityDefinition)EditorGUILayout.ObjectField("Ability", effect._ability, typeof(AttackAbilityDefinition), false);
     }
 }
 #endif

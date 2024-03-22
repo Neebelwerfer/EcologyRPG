@@ -24,7 +24,7 @@ public enum AbilitySlots
 public class PlayerAbilitiesHandler : PlayerModule
 {
     PlayerSettings settings;
-    readonly PlayerAbilityHolder[] abilitySlots = new PlayerAbilityHolder[7];
+    readonly PlayerAbilityDefinition[] abilitySlots = new PlayerAbilityDefinition[7];
     readonly InputActionReference[] abilityInputs = new InputActionReference[7];
 
     PlayerCharacter Player;
@@ -37,7 +37,7 @@ public class PlayerAbilitiesHandler : PlayerModule
     Action<InputAction.CallbackContext> Ability3Action;
     Action<InputAction.CallbackContext> Ability4Action;
 
-    public UnityEvent<BaseAbilityHolder>[] OnAbilityChange = new UnityEvent<BaseAbilityHolder>[7];
+    public UnityEvent<AbilityDefintion>[] OnAbilityChange = new UnityEvent<AbilityDefintion>[7];
 
     int ActiveSlot = -1;
 
@@ -125,12 +125,12 @@ public class PlayerAbilitiesHandler : PlayerModule
         }
     }
 
-    public BaseAbilityHolder GetAbility(AbilitySlots slot)
+    public AbilityDefintion GetAbility(AbilitySlots slot)
     {
         return abilitySlots[(int)slot];
     }
 
-    public void SetAbility(AbilitySlots slot, PlayerAbilityHolder ability)
+    public void SetAbility(AbilitySlots slot, PlayerAbilityDefinition ability)
     {
         abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
         OnAbilityChange[(int)slot]?.Invoke(ability);
@@ -148,11 +148,11 @@ public class PlayerAbilitiesHandler : PlayerModule
         }
     }
 
-    public void AddListener(AbilitySlots slot, UnityAction<BaseAbilityHolder> action)
+    public void AddListener(AbilitySlots slot, UnityAction<AbilityDefintion> action)
     {
         if (OnAbilityChange[(int)slot] == null)
         {
-            OnAbilityChange[(int)slot] = new UnityEvent<BaseAbilityHolder>();
+            OnAbilityChange[(int)slot] = new UnityEvent<AbilityDefintion>();
         }
         OnAbilityChange[(int)slot].AddListener(action);
     }

@@ -7,17 +7,17 @@ using Utility;
 
 public class Sprint : BaseAbility
 {
-    public ExhaustionEffect Exhaustion;
+    public Exhaustion Exhaustion;
     public float sprintSpeedMultiplier = 1f;
 
-    static StatUpEffect statUP;
+    static StatUp statUP;
 
 
     public override void Cast(CastInfo castInfo)
     {
         if(statUP == null)
         {
-            statUP = CreateInstance<StatUpEffect>();
+            statUP = CreateInstance<StatUp>();
             statUP.StatName = "movementSpeed";
             statUP.ModType = StatModType.PercentMult;
             statUP.Value = sprintSpeedMultiplier;
@@ -42,14 +42,14 @@ public class SprintEditor : Editor
         Sprint ability = (Sprint)target;
         if (ability.Exhaustion == null)
         {
-            ability.Exhaustion = CreateInstance<ExhaustionEffect>();
+            ability.Exhaustion = CreateInstance<Exhaustion>();
             ability.Exhaustion.name = "Exhaustion";
             AssetDatabase.AddObjectToAsset(ability.Exhaustion, ability);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
         else
-            ability.Exhaustion = (ExhaustionEffect)EditorGUILayout.ObjectField("Exhaustion Effect", ability.Exhaustion, typeof(ExhaustionEffect), false);
+            ability.Exhaustion = (Exhaustion)EditorGUILayout.ObjectField("Exhaustion Effect", ability.Exhaustion, typeof(Exhaustion), false);
     }
 }
 #endif

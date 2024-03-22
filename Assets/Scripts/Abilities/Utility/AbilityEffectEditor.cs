@@ -1,47 +1,26 @@
 using Character.Abilities.AbilityEffects;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
+using UnityEditor.Playables;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.UI.GridLayoutGroup;
 
-public abstract class EditAbility
+public class EditListEffect
 {
-    protected BaseAbility owner;
-    public abstract void Add(AbilityEffect effect);
-}
-
-public class EditSingleEffect : EditAbility
-{
-    FieldInfo field;
-
-    public EditSingleEffect(BaseAbility owner, string fieldName)
-    {
-        this.owner = owner;
-        field = owner.GetType().GetField(fieldName);
-    }
-
-    public override void Add(AbilityEffect effect)
-    {
-        effect.name = effect.GetType().Name;
-        field.SetValue(owner, effect);
-        AssetDatabase.AddObjectToAsset(effect, owner);
-        AssetDatabase.Refresh();
-        AssetDatabase.SaveAssets();
-        EditorUtility.SetDirty(owner);
-    }
-}
-
-public class EditListEffect : EditAbility
-{
+    ScriptableObject owner;
     List<AbilityEffect> Effects;
 
-    public EditListEffect(BaseAbility owner, List<AbilityEffect> effects)
+    public EditListEffect(ScriptableObject owner, List<AbilityEffect> effects)
     {
         this.owner = owner;
         Effects = effects;
     }
 
-    public override void Add(AbilityEffect effect)
+    public void Add(AbilityEffect effect)
     {
         effect.name = effect.GetType().Name;
         Effects.Add(effect);
@@ -52,47 +31,101 @@ public class EditListEffect : EditAbility
     }
 }
 
+public enum DisplayEffectType
+{
+    All,
+    Combat,
+    Visual
+}
+
+public struct DisplayEffect
+{
+    public string name;
+    public Type ClassType;
+    public DisplayEffectType DisplayType;
+}
+
 public class AbilityEffectEditor : EditorWindow
 {
-    enum AbilityEffectType
+    
+    static List<DisplayEffect> effects = new List<DisplayEffect>
     {
-        AbilityCast,
-        Damage,
-        CharacterEffect,
-        VFX,
-    }
-    public EditAbility editedEffects;
+        new DisplayEffect { name = "Damage", ClassType = typeof(DamageAbilityEffect), DisplayType = DisplayEffectType.Combat },
+        new DisplayEffect { name = "Condition", ClassType = typeof(ConditionAbilityEffect), DisplayType = DisplayEffectType.Combat },
+        new DisplayEffect { name = "Ability Cast", ClassType = typeof(CastAbilityEffect), DisplayType = DisplayEffectType.Combat },
+        new DisplayEffect { name = "VFX", ClassType = typeof(VFXAbilityEffect), DisplayType = DisplayEffectType.Visual}
+    };
 
-    AbilityEffectType type;
+    DisplayEffect[] displayEffects;
+    public EditListEffect editedEffects;
+    public DisplayEffectType displayEffectType;
+
+
+    int index = 0;
+
+    public void Init(EditListEffect editEffects, DisplayEffectType displayEffectType)
+    {
+        editedEffects = editEffects;
+        this.displayEffectType = displayEffectType;
+        if (displayEffectType == DisplayEffectType.All)
+        {
+            displayEffects = effects.ToArray();
+        }
+        else
+        {
+            displayEffects = effects.FindAll(x => x.DisplayType == displayEffectType).ToArray();
+        }
+    }
 
     private void OnGUI()
     {
         EditorGUILayout.LabelField("Ability Effect Editor");
-        type = (AbilityEffectType) EditorGUILayout.EnumPopup("Ability Effect Type:", type);
+        index = EditorGUILayout.Popup(index, Array.ConvertAll(displayEffects, x => x.name));
         if (GUILayout.Button("Add Ability Effect"))
         {
-            editedEffects.Add(GetEffect(type));
+            editedEffects.Add(GetEffect(displayEffects[index]));
         }
     }
-    AbilityEffect GetEffect(AbilityEffectType type)
+    AbilityEffect GetEffect(DisplayEffect effect)
     {
-        if(type == AbilityEffectType.Damage)
+        return (AbilityEffect)Activator.CreateInstance(effect.ClassType);
+    }
+
+    public static void Display(string Header, List<AbilityEffect> effects, ScriptableObject owner, DisplayEffectType displayEffectType)
+    {
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        EditorGUILayout.LabelField(Header, EditorStyles.boldLabel);
+        var extraName = displayEffectType == DisplayEffectType.All ? "Any" : displayEffectType.ToString();
+        if (GUILayout.Button("Add " + extraName + " Effect"))
         {
-            return CreateInstance<DamageAbilityEffect>();
-        } 
-        else if(type == AbilityEffectType.CharacterEffect)
-        {
-            return CreateInstance<CharacterAbilityEffect>();
+            var window = EditorWindow.GetWindow<AbilityEffectEditor>();
+            window.Init(new EditListEffect(owner, effects), displayEffectType);
+            window.Show();
         }
-        else if(type == AbilityEffectType.AbilityCast)
+
+        AbilityEffect effectToDelete = null;
+        effects.RemoveAll(x => x == null);
+        foreach (var effect in effects)
         {
-            return CreateInstance<CastAbilityEffect>();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Effect: " + effect.name, EditorStyles.boldLabel);
+            if (GUILayout.Button("Remove"))
+            {
+                effectToDelete = effect;
+            }
+            EditorGUILayout.EndHorizontal();
+            var e = Editor.CreateEditor(effect);
+            e.OnInspectorGUI();
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         }
-        else if (type == AbilityEffectType.VFX)
+
+        if(effectToDelete != null)
         {
-            return CreateInstance<VFXAbilityEffect>();
+            DestroyImmediate(effectToDelete, true);
+            effects.Remove(effectToDelete);
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
         }
-        return null;
     }
 }
 

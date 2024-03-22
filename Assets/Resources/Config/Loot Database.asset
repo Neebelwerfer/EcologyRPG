@@ -34,6 +34,6 @@ MonoBehaviour:
     - ItemTemplate: {fileID: 11400000, guid: 7f9e59dfab8596a48835b83152074266, type: 2}
       weight: 100
       allowedTags: []
-    - ItemTemplate: {fileID: 11400000, guid: 80e35723ee514a048a377dc8cc54b90c, type: 2}
+    - ItemTemplate: {fileID: 11400000, guid: 557d937be640d2f4e95b85807c142a11, type: 2}
       weight: 200
       allowedTags: []

@@ -79,10 +79,7 @@ public class MultipleProjectiles : ProjectileAbility
     void OnHit (CastInfo caster, BaseCharacter target, Vector3 direction)
     {
         var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.transform.position, dir = direction, mousePoint = caster.mousePoint };
-        foreach (var effect in OnHitEffects)
-        {
-            effect.ApplyEffect(newCastInfo, target);
-        }
+        DefaultOnHitAction()(newCastInfo, target);
     }
 }
 
@@ -95,19 +92,23 @@ public class MultipleProjectilesEditor : ProjectileAbilityEditor
         base.OnInspectorGUI();
         MultipleProjectiles ability = (MultipleProjectiles)target;
         EditorGUILayout.LabelField("Multiple Projectiles Settings", EditorStyles.boldLabel);
-        ability.type = (ProjectileType)EditorGUILayout.EnumPopup("Type", ability.type);
-        ability.numberOfProjectiles = EditorGUILayout.IntField("Number of Projectiles", ability.numberOfProjectiles);
+
+        var type = serializedObject.FindProperty("type");
+        type.enumValueIndex = (int)(ProjectileType)EditorGUILayout.EnumPopup("Type", ability.type);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("numberOfProjectiles"));
         if (ability.type == ProjectileType.Cone)
         {
-            ability.ConeAngle = EditorGUILayout.FloatField("Cone Angle", ability.ConeAngle);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("ConeAngle"));
         }
         else if (ability.type == ProjectileType.Line)
         {
-            ability.LineWidth = EditorGUILayout.FloatField("Line Width", ability.LineWidth);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("LineWidth"));
         }
-        ability.projectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.projectilePrefab, typeof(GameObject), false);
-        ability.Speed = EditorGUILayout.FloatField("Speed", ability.Speed);
+        var prefab = serializedObject.FindProperty("projectilePrefab");
+        prefab.objectReferenceValue = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.projectilePrefab, typeof(GameObject), false);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("Speed"));
 
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

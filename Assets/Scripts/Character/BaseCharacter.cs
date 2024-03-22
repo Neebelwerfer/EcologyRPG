@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using Utility;
@@ -31,6 +32,7 @@ namespace Character
     {
         public BaseCharacter target;
         public new BaseCharacter source;
+        public Vector3 Point;
         public DamageType damageType;
         public float premitigationDamage;
         public float damageTaken;
@@ -51,6 +53,8 @@ namespace Character
         public virtual Vector3 Position { get { return transform.position; } }
         public virtual Vector3 CastPos { get { return AbilityPoint.transform.position; } }
 
+        public virtual Transform Transform { get { return transform; } }
+
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return rb; } }
 
@@ -64,7 +68,9 @@ namespace Character
 
         public CharacterStates state = CharacterStates.active;
 
-        readonly List<CharacterEffect> effects = new List<CharacterEffect>();
+        public UnityEvent<BaseCharacter> OnCharacterCollision = new();
+
+        readonly List<Condition> effects = new();
 
         protected int level;
         protected AttributeModification[] levelMods;
@@ -87,9 +93,9 @@ namespace Character
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
-            Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
+            //Debug.Log("Applying " + damageInfo.damage + " damage to " + gameObject.name);
             Health -= damageInfo.damage;
-            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage };
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Position };
             EventManager.Defer("DamageEvent", damageEvent, DeferredEventType.Update);
 
             if (Health.CurrentValue <= 0)
@@ -114,7 +120,7 @@ namespace Character
             }
         }
 
-        public virtual void ApplyEffect(CastInfo caster, CharacterEffect effect)
+        public virtual void ApplyEffect(CastInfo caster, Condition effect)
         {
             if(state == CharacterStates.dead)
             {
@@ -126,30 +132,30 @@ namespace Character
             {
                 if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
                 {
-                    Debug.Log("Reapplying CharacterModification " + effect.displayName);
+                    //Debug.Log("Reapplying CharacterModification " + effect.displayName);
                     effects[i].OnReapply(this);
                     return;
                 }
             }
-            Debug.Log("Applying CharacterModification " + effect.displayName + " with duration " + effect.duration);
+            //Debug.Log("Applying CharacterModification " + effect.displayName + " with duration " + effect.duration);
             effect.remainingDuration = effect.duration;
             effects.Add(effect);
             effect.OnApply(caster, this);
         }
 
-        public virtual void RemoveEffect(CharacterEffect effect)
+        public virtual void RemoveEffect(Condition effect)
         {
-            Debug.Log("Removing CharacterModification " + effect.displayName);
+            //Debug.Log("Removing CharacterModification " + effect.displayName);
             effects.Remove(effect);
             effect.OnRemoved(this);
         }
 
-        public virtual CharacterEffect[] GetEffects()
+        public virtual Condition[] GetEffects()
         {
             return effects.ToArray();
         }
 
-        public virtual CharacterEffect GetEffect(BaseCharacter owner, string ID)
+        public virtual Condition GetEffect(BaseCharacter owner, string ID)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -161,7 +167,7 @@ namespace Character
             return null;
         }
 
-        public virtual CharacterEffect GetEffect(BaseCharacter owner, Type type)
+        public virtual Condition GetEffect(BaseCharacter owner, Type type)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -177,7 +183,7 @@ namespace Character
         {
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
-                CharacterEffect effect = effects[i];
+                Condition effect = effects[i];
                 effect.OnUpdate(this, Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)
@@ -186,5 +192,14 @@ namespace Character
                 }
             }
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Entity"))
+            {
+                OnCharacterCollision?.Invoke(collision.gameObject.GetComponent<BaseCharacter>());
+            }
+        }
     }
+
 }

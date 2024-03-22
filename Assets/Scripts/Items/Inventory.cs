@@ -33,7 +33,6 @@ namespace Items
         public UnityEvent<Item> ItemRemoved;
         public UnityEvent<Item> ItemAdded;
 
-        GameObject ItemPrefab;
         Stat CarryWeight;
         BaseCharacter Owner;
 
@@ -45,7 +44,6 @@ namespace Items
             this.Owner = Owner;
             CarryWeight = Owner.Stats.GetStat("CarryWeight");
             items = new List<InventoryItem>();
-            ItemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefab");
 
             foreach (Item item in startingItems)
             {
@@ -66,7 +64,9 @@ namespace Items
             {
                 var item = ipEvent.item;
                 if (AddItems(item.item, item.amount))
-                    Object.Destroy((data.source as ItemPickup).transform.root.gameObject);
+                {
+                    ItemDisplayHandler.Instance.RemoveItemPickup((data.source as ItemPickup));
+                }
             }
         }
 
@@ -147,9 +147,7 @@ namespace Items
                     } else InventoryChanged?.Invoke();
                     
                     Physics.Raycast(Owner.transform.position + new Vector3(0, 1, 0), -Owner.transform.up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
-                    GameObject droppedItem = Object.Instantiate(ItemPrefab, null);
-                    droppedItem.transform.position = hit.point;
-                    droppedItem.GetComponentInChildren<ItemPickup>().Setup(item, amount);
+                    ItemDisplayHandler.Instance.SpawnItem(item, amount, hit.point + new Vector3(0, 1, 0));
                     break;
                 }
             }
