@@ -40,7 +40,7 @@ public class EnemyNPC : BaseCharacter
         base.Die();
         spawner.RemoveEnemy(this);
         LootGenerator.Instance.GenerateLootOnKill(this);
-        EventManager.Defer("XP", new DefaultEventData { data = XpOnDeath, source = this }, DeferredEventType.Update);
+        EventManager.Defer("XP", new DefaultEventData { data = XpOnDeath, source = this });
         gameObject.SetActive(false);
         Destroy(gameObject, 1);
     }

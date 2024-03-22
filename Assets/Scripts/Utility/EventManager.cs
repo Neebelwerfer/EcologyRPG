@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,8 +31,7 @@ public static class EventManager
     public static Dictionary<string, UnityEvent<EventData>> events = new();
 
     public static Queue<DeferredEvent> updateEvents = new();
-    public static Queue<DeferredEvent> fixedUpdateEvents = new();
-    public static Queue<DeferredEvent> lateUpdateEvents = new();
+    static Stopwatch stopwatch = new Stopwatch();
 
     public static void AddListener(string eventName, UnityAction<EventData> listener)
     {
@@ -82,37 +82,22 @@ public static class EventManager
     /// <param name="eventName"></param>
     /// <param name="data"></param>
     /// <param name="deferredEventType"></param>
-    public static void Defer(string eventName, EventData data, DeferredEventType deferredEventType)
+    public static void Defer(string eventName, EventData data)
     {
-        if(deferredEventType == DeferredEventType.Update)
-            updateEvents.Enqueue(new DeferredEvent() { data = data, eventName = eventName });
-        else if(deferredEventType == DeferredEventType.FixedUpdate)
-            fixedUpdateEvents.Enqueue(new DeferredEvent() { data = data, eventName = eventName });
-        else if(deferredEventType == DeferredEventType.LateUpdate)
-            lateUpdateEvents.Enqueue(new DeferredEvent() { data = data, eventName = eventName });
+        updateEvents.Enqueue(new DeferredEvent() { data = data, eventName = eventName });
     }
 
     public static void UpdateQueue()
     {
         if(updateEvents.Count == 0) return;
+        stopwatch.Reset();
+        stopwatch.Start();
 
-        var e = updateEvents.Dequeue();
-        Dispatch(e.eventName, e.data);
-    }
-
-    public static void FixedUpdateQueue()
-    {
-        if(fixedUpdateEvents.Count == 0) return;
-
-        var e = fixedUpdateEvents.Dequeue();
-        Dispatch(e.eventName, e.data);
-    }
-
-    public static void LateUpdateQueue()
-    {
-        if(lateUpdateEvents.Count == 0) return;
-
-        var e = lateUpdateEvents.Dequeue();
-        Dispatch(e.eventName, e.data);
+        while(updateEvents.Count > 0 && stopwatch.Elapsed.TotalSeconds < 0.4f)
+        {
+            var e = updateEvents.Dequeue();
+            Dispatch(e.eventName, e.data);
+        }
+        stopwatch.Stop();
     }
 }

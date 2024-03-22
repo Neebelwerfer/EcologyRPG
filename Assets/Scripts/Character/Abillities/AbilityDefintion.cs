@@ -91,7 +91,7 @@ namespace Character.Abilities
         {
             if (!CanActivate(caster)) return false;
             //Debug.Log("CASTING " + DisplayName);
-            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this), DeferredEventType.Update);
+            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this));
             caster.owner.StartCoroutine(HandleCast(caster));
             return true;
         }   
