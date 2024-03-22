@@ -1,5 +1,6 @@
 using Character;
 using Character.Abilities;
+using UnityEditor;
 using UnityEngine;
 
 public class StatDown : DebuffCondition
@@ -31,3 +32,19 @@ public class StatDown : DebuffCondition
 
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(StatDown))]
+public class StatDownEditor : ConditionEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        StatDown ability = (StatDown)target;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("StatName"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ModType"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("Value"));
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif

@@ -1,17 +1,18 @@
 ﻿using Character;
 using Character.Abilities;
+using UnityEditor;
 using UnityEngine;
 
 public class KnockCondition : DebuffCondition
 {
-    enum KnockType
+    public enum KnockType
     {
         Away,
         Towards
     }
 
     public float KnockBackDistance = 2;
-    [SerializeField] KnockType knockType;
+    public KnockType knockType;
 
     Vector3 startPos;
     Vector3 targetPos;
@@ -55,3 +56,18 @@ public class KnockCondition : DebuffCondition
         return targetPos;
     }
 }
+
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(KnockCondition))]
+public class KnockConditionEditor : ConditionEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("KnockBackDistance"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("knockType"));
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif

@@ -1,5 +1,6 @@
 using Character;
 using Character.Abilities;
+using UnityEditor;
 using UnityEngine.AI;
 
 public class Stun : DebuffCondition
@@ -28,3 +29,11 @@ public class Stun : DebuffCondition
 
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(Stun))]
+public class StunEditor : ConditionEditor
+{
+
+}
+#endif

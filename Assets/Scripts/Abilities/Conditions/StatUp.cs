@@ -1,5 +1,6 @@
 using Character;
 using Character.Abilities;
+using UnityEditor;
 using UnityEngine;
 
 public class StatUp : BuffCondition
@@ -32,3 +33,19 @@ public class StatUp : BuffCondition
 
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(StatUp))]
+public class StatUpEditor : ConditionEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        StatUp ability = (StatUp)target;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("StatName"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ModType"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("Value"));
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif

@@ -11,7 +11,7 @@ public class DamageNumberHandler : MonoBehaviour
     public GameObject DamageNumberPrefab;
     public GameObject DamageNumberCanvas;
     GameObjectPool damageNumberPool;
-    List<DamageText> damageNumbers = new();
+    readonly List<DamageText> damageNumbers = new();
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class DamageNumberHandler : MonoBehaviour
     {
         if(damageEvent is DamageEvent de)
         {
-            var damageNumber = damageNumberPool.GetObject(de.target.transform.position, Quaternion.identity);
+            var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity);
             damageNumber.transform.SetParent(DamageNumberCanvas.transform);
             var damageText = damageNumber.GetComponent<DamageText>();
             damageText.Init(de.damageTaken, GetDamageColor(de));
