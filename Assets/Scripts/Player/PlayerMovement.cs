@@ -45,7 +45,7 @@ namespace Player
             var rb = player.Rigidbody;
             Vector2 movement = Movement.action.ReadValue<Vector2>();
 
-            if(player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
+            if(!player.CanMove || player.state == CharacterStates.disabled || player.state == CharacterStates.dead || player.state == CharacterStates.dodging )
             {
                 return;
             }

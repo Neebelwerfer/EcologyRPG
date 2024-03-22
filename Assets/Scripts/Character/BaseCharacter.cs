@@ -67,15 +67,16 @@ namespace Character
         }
 
         public CharacterStates state = CharacterStates.active;
+        public bool CanMove { get { return canMove; } }
 
         public UnityEvent<BaseCharacter> OnCharacterCollision = new();
-
         readonly List<Condition> effects = new();
 
         protected int level;
         protected AttributeModification[] levelMods;
-        Resource Health;
-        Rigidbody rb;
+        protected bool canMove = true;
+        protected Resource Health;
+        protected Rigidbody rb;
 
 
         public virtual void Start()
@@ -120,7 +121,7 @@ namespace Character
             }
         }
 
-        public virtual void ApplyEffect(CastInfo caster, Condition effect)
+        public virtual void ApplyCondition(CastInfo caster, Condition effect)
         {
             if(state == CharacterStates.dead)
             {
@@ -143,19 +144,19 @@ namespace Character
             effect.OnApply(caster, this);
         }
 
-        public virtual void RemoveEffect(Condition effect)
+        public virtual void RemoveCondition(Condition effect)
         {
             //Debug.Log("Removing CharacterModification " + effect.displayName);
             effects.Remove(effect);
             effect.OnRemoved(this);
         }
 
-        public virtual Condition[] GetEffects()
+        public virtual Condition[] GetCondition()
         {
             return effects.ToArray();
         }
 
-        public virtual Condition GetEffect(BaseCharacter owner, string ID)
+        public virtual Condition GetCondition(BaseCharacter owner, string ID)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -167,7 +168,7 @@ namespace Character
             return null;
         }
 
-        public virtual Condition GetEffect(BaseCharacter owner, Type type)
+        public virtual Condition GetCondition(BaseCharacter owner, Type type)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -179,6 +180,16 @@ namespace Character
             return null;
         }
 
+        public virtual void StopMovement()
+        {
+            canMove = false;
+        }
+
+        public virtual void StartMovement()
+        {
+            canMove = true;
+        }
+
         public virtual void Update()
         {
             for (int i = effects.Count -1 ; i >= 0; i--)
@@ -188,7 +199,7 @@ namespace Character
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)
                 {
-                    RemoveEffect(effect);
+                    RemoveCondition(effect);
                 }
             }
         }

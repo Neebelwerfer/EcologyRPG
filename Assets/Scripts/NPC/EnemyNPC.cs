@@ -52,7 +52,7 @@ public class EnemyNPC : BaseCharacter
 
     public void UpdateBehaviour()
     {
-        if (behaviour != null && (state != CharacterStates.disabled && state != CharacterStates.dead))
+        if (behaviour != null && canMove && (state != CharacterStates.disabled && state != CharacterStates.dead))
         {
             Agent.isStopped = false;
             Agent.speed = Stats.GetStat("movementSpeed").Value;
@@ -63,5 +63,11 @@ public class EnemyNPC : BaseCharacter
     public EnemySpawner GetSpawner()
     {
         return spawner;
+    }
+
+    public override void StopMovement()
+    {
+        base.StopMovement();
+        Agent.isStopped = true;
     }
 }

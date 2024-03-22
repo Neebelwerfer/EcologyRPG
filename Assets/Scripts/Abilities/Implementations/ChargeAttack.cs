@@ -20,7 +20,7 @@ public class ChargeAttack : AttackAbility
         dash.OnFirstHitEffects = OnFirstHit;
         dash.OnHitEffects = OnHitEffects;
 
-        castInfo.owner.ApplyEffect(castInfo, Instantiate(dash));
+        castInfo.owner.ApplyCondition(castInfo, Instantiate(dash));
     }
 
 }

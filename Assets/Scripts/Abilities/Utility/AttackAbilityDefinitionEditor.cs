@@ -31,6 +31,7 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         {
             showCooldownValue = false;
         }
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.BlockMovementOnWindup)));
 
         if (ability.Ability == null)
         {

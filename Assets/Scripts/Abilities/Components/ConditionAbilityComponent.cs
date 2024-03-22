@@ -10,7 +10,7 @@ namespace Character.Abilities.AbilityComponents
 
         public override void ApplyEffect(CastInfo cast, BaseCharacter target)
         {
-            target.ApplyEffect(cast, Instantiate(DebuffCondition));
+            target.ApplyCondition(cast, Instantiate(DebuffCondition));
         }
     }
 }

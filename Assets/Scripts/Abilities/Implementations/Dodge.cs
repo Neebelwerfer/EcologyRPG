@@ -19,7 +19,7 @@ public class Dodge : BaseAbility
 
     public override void Cast(CastInfo caster)
     {
-        caster.owner.ApplyEffect(caster, Instantiate(dodgeEffect));
+        caster.owner.ApplyCondition(caster, Instantiate(dodgeEffect));
     }
 }
 

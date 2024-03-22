@@ -26,10 +26,10 @@ public class Sprint : BaseAbility
 
         if(castInfo.owner.Stats.GetResource("Stamina") < 5)
         {
-            castInfo.owner.ApplyEffect(castInfo, Instantiate(Exhaustion));
+            castInfo.owner.ApplyCondition(castInfo, Instantiate(Exhaustion));
         }
 
-        castInfo.owner.ApplyEffect(castInfo, Instantiate(statUP));
+        castInfo.owner.ApplyCondition(castInfo, Instantiate(statUP));
     }
 }
 
