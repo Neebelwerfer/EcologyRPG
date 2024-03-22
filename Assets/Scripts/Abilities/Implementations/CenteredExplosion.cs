@@ -42,7 +42,7 @@ public class CenteredExplosion : BaseAbility
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         foreach (var effect in OnHitEffects)
         {
