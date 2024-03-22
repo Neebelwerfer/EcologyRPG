@@ -51,7 +51,7 @@ MonoBehaviour:
   OnCastEffects: []
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 5
+  BaseDamage: 8
   DamageType: 1
   AllowVariance: 1

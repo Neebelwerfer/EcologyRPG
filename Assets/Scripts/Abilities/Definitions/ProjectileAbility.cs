@@ -21,8 +21,6 @@ public abstract class ProjectileAbility : AttackAbility
 [CustomEditor(typeof(ProjectileAbility), false)]
 public class ProjectileAbilityEditor : AttackAbilityEditor
 {
-    bool test = true;
-    int index = 0;
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();

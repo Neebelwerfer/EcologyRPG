@@ -15,8 +15,6 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         ExpandingProjectile,
         MeleeAttack,
         ChargeAttack,
-        Dodge,
-        Sprint
     }
     bool foldOut = true;
 
@@ -120,14 +118,6 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         else if (ability == SelectableAbilities.ChargeAttack)
         {
             return CreateInstance<ChargeAttack>();
-        }
-        else if (ability == SelectableAbilities.Dodge)
-        {
-            return CreateInstance<Dodge>();
-        }
-        else if (ability == SelectableAbilities.Sprint)
-        {
-            return CreateInstance<Sprint>();
         }
         else
         {

@@ -50,7 +50,8 @@ public class AbilityComponentEditor : EditorWindow
     
     static List<DisplayComponent> effects = new List<DisplayComponent>
     {
-        new DisplayComponent { name = "Damage", ClassType = typeof(AbilityDamageComponent), DisplayType = DisplayComponentType.Combat },
+        new DisplayComponent { name = "AbilityDamage", ClassType = typeof(AbilityDamageComponent), DisplayType = DisplayComponentType.Combat },
+        new DisplayComponent { name = "WeaponDamage", ClassType = typeof(WeaponDamageComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "Condition", ClassType = typeof(ConditionAbilityComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "Ability Cast", ClassType = typeof(CastAbilityComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "VFX", ClassType = typeof(VFXAbilityComponent), DisplayType = DisplayComponentType.Visual}
@@ -88,7 +89,7 @@ public class AbilityComponentEditor : EditorWindow
     }
     AbilityComponent GetEffect(DisplayComponent effect)
     {
-        return (AbilityComponent)Activator.CreateInstance(effect.ClassType);
+        return (AbilityComponent)CreateInstance(effect.ClassType);
     }
 
     public static void Display(string Header, List<AbilityComponent> components, ScriptableObject owner, DisplayComponentType displayComponentType)

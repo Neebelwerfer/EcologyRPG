@@ -20,6 +20,7 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  BlockMovementOnWindup: 0
   Ability: {fileID: 676731462999206808}
   ResourceName: water
   ResourceCost: 5
@@ -103,6 +104,7 @@ MonoBehaviour:
   state: 0
   CastWindUp:
   - {fileID: 3801731306647452522}
+  BlockMovementOnWindup: 0
   Ability: {fileID: 6634139780745373765}
 --- !u!114 &6634139780745373765
 MonoBehaviour:
