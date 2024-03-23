@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 struct BindedButton
 {
-    public Button button;
+    public InventoryButton button;
     public InventoryItem item;
 }
 
@@ -94,9 +94,8 @@ public class InventoryUI : MonoBehaviour
     {
         GameObject button = Instantiate(InventoryButtonPrefab, InventoryView.transform);
         button.transform.position = InventoryView.transform.position;
-        TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = item.amount + "x " + item.item.Name;
-        var buttonComponent = button.GetComponent<Button>();
+        var buttonComponent = button.GetComponent<InventoryButton>();
+        buttonComponent.Setup(item);
         buttonComponent.onClick.AddListener(() => OnInventoryButtonClicked(item));
         BindedButtons.Add(new BindedButton { button = buttonComponent, item = item });
     }
