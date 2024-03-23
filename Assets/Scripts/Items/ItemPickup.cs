@@ -5,8 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utility.Events;
 
-public class ItemPickup : Button
+public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
 {
     public float pickupRadius = 5;
 
@@ -38,5 +39,29 @@ public class ItemPickup : Button
 
         var text = GetComponentInChildren<TextMeshProUGUI>();
         text.text = InventoryItem.item.Name + " x" + InventoryItem.amount;
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        {
+            base.OnPointerEnter(eventData);
+        }
+        EventManager.Defer("TooltipEntered", new TooltipEvent() { source = this, Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() }, Utility.Collections.Priority.VeryLow);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        {
+            base.OnPointerExit(eventData);
+        }
+        EventManager.Defer("TooltipExited", new TooltipEvent() { source = this }, Utility.Collections.Priority.VeryLow);
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        EventManager.Defer("TooltipExited", new TooltipEvent() { source = this }, Utility.Collections.Priority.VeryLow);
     }
 }

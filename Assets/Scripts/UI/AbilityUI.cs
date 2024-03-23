@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Player;
 using Character.Abilities;
+using UnityEngine.EventSystems;
+using Utility.Events;
 
-public class AbilityUI : MonoBehaviour
+public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Ability")]
     private string abilityName;
@@ -48,7 +50,7 @@ public class AbilityUI : MonoBehaviour
     public void SetUpAbilityUI()
     {
         if (ability == null) return;
-        abilityName = ability.name;
+        abilityName = ability.DisplayName;
         cooldown = ability.Cooldown;
         if (ability.Icon != null)
             abilitySprite = ability.Icon;
@@ -59,5 +61,22 @@ public class AbilityUI : MonoBehaviour
     {
         ability = newAbility;
         SetUpAbilityUI();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        EventManager.Defer("TooltipExited", new EventData { source = gameObject }, Utility.Collections.Priority.VeryLow);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        var tooltipEvent = new TooltipEvent
+        {
+            Title = abilityName,
+            Icon = abilitySprite,
+            Description = ability.name,
+            source = gameObject
+        };
+        EventManager.Defer("TooltipEntered", tooltipEvent, Utility.Collections.Priority.VeryLow);
     }
 }
