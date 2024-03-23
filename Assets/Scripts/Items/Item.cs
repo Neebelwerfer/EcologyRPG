@@ -11,6 +11,8 @@ public class Item : ScriptableObject
     public Sprite Icon;
     public float Weight;
 
+    protected string DisplayString;
+
     public virtual string GetDisplayString()
     {
         return "Decsription: " + Description + "\n" + "Weight: " + Weight + "\n";

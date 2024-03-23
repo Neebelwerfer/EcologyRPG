@@ -19,21 +19,24 @@ MonoBehaviour:
   Weight: 30
   equipmentType: 0
   Modifiers:
-  - name: armor
+  - StatName: armor
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 7
     maxValue: 10
     GrowthPerLevel: 2
     growthType: 0
-  - name: movementSpeed
+  - StatName: movementSpeed
+    AttributeName: 
     type: 1
     modType: 100
     minValue: -5
     maxValue: -2
     GrowthPerLevel: 0
     growthType: 0
-  - name: strength
+  - StatName: 
+    AttributeName: 
     type: 0
     modType: 100
     minValue: 0

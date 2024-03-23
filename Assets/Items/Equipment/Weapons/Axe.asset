@@ -45,9 +45,11 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  BlockMovementOnWindup: 0
   Ability: {fileID: -3963916033993564669}
   ResourceName: 
   ResourceCost: 0
+  Description: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +67,23 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Weight: 35
   equipmentType: 1
-  Modifiers: []
+  Modifiers:
+  - StatName: 
+    AttributeName: strength
+    type: 0
+    modType: 0
+    minValue: 1
+    maxValue: 3
+    GrowthPerLevel: 1
+    growthType: 0
+  - StatName: weaponDamage
+    AttributeName: strength
+    type: 1
+    modType: 200
+    minValue: 0.05
+    maxValue: 0.07
+    GrowthPerLevel: 0.01
+    growthType: 0
   minDamage: 8
   maxDamage: 14
   GrowthPerLevel: 0

@@ -19,8 +19,6 @@ namespace Items
         public List<StatModification> statModifiers = new List<StatModification>();
         public List<AttributeModification> attributeModifiers = new List<AttributeModification>();
 
-        string DisplayString;
-
         public virtual void Equip(BaseCharacter character)
         {
             if(statModifiers == null)
@@ -29,11 +27,13 @@ namespace Items
             }
             foreach (StatModification mod in statModifiers)
             {
+                if(string.IsNullOrEmpty(mod.StatName)) continue;
                 character.Stats.AddStatModifier(mod);
             }
 
             foreach (AttributeModification mod in attributeModifiers)
             {
+                if(string.IsNullOrEmpty(mod.AttributeName)) continue;
                 character.Stats.AddAttributeModifier(mod);
             }
         }
@@ -49,15 +49,7 @@ namespace Items
             if (string.IsNullOrEmpty(DisplayString))
             {
                 var desc = Description + "\n";
-                var mods = "\n";
-                foreach (var mod in statModifiers)
-                {
-                    mods += mod.StatName + ": " + GetStatModValue(mod) + "\n";
-                }
-                foreach (var mod in attributeModifiers)
-                {
-                    mods += mod.name + ": " + mod.Value + "\n";
-                }
+                var mods = GetModifiers();
                 DisplayString = desc + mods;
                 return DisplayString;
             }
@@ -67,15 +59,36 @@ namespace Items
             }
         }
 
+        protected string GetModifiers()
+        {
+            var mods = "";
+            foreach (var mod in statModifiers)
+            {
+                if (string.IsNullOrEmpty(mod.StatName)) continue;
+                var stat = Stats.StatsData.Stats.Find(x => x.name == mod.StatName);
+                if (stat.ShowOptions == ShowOptions.Never) continue;
+                var displayName = stat.displayName;
+                mods += displayName + ": " + GetStatModValue(mod) + "\n";
+            }
+            foreach (var mod in attributeModifiers)
+            {
+                if (string.IsNullOrEmpty(mod.AttributeName)) continue;
+                var attr = Stats.StatsData.Attributes.Find(x => x.name == mod.AttributeName);
+                var displayName = attr.displayName;
+                mods += displayName + ": " + mod.Value + "\n";
+            }
+            return mods;
+        }
+
         string GetStatModValue(StatModification mod)
         {
             if (mod.ModType == StatModType.Flat)
             {
-                return mod.Value.ToString();
+                return ((int)mod.Value).ToString();
             }
             else
             {
-                return (mod.Value * 100).ToString() + "%";
+                return ((int)(mod.Value * 100)).ToString() + "%";
             }
         }
     }
@@ -103,6 +116,23 @@ namespace Items
         public Weapon()
         {
             equipmentType = EquipmentType.Weapon;
+        }
+
+        public override string GetDisplayString()
+        {
+            if (string.IsNullOrEmpty(DisplayString))
+            {
+                var desc = Description + "\n";
+                var weaponDamage = (int)statModifiers.Find(x => x.StatName == "rawWeaponDamage").Value;
+                desc += "Damage: " + weaponDamage + "\n";
+                var mods = GetModifiers();
+                DisplayString = desc + mods;
+                return DisplayString;
+            }
+            else
+            {
+                return DisplayString;
+            }
         }
     }
 

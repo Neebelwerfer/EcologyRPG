@@ -34,7 +34,8 @@ MonoBehaviour:
   Weight: 60
   equipmentType: 1
   Modifiers:
-  - name: strength
+  - StatName: 
+    AttributeName: strength
     type: 0
     modType: 0
     minValue: 0
@@ -66,9 +67,11 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  BlockMovementOnWindup: 0
   Ability: {fileID: 9071571606418511176}
   ResourceName: stamina
   ResourceCost: 10
+  Description: 
 --- !u!114 &9071571606418511176
 MonoBehaviour:
   m_ObjectHideFlags: 0
