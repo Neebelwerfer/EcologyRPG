@@ -11,6 +11,8 @@ public class PlayerAbilityDefinition : AttackAbilityDefinition
     public string ResourceName;
     [Tooltip("The resource cost of this ability")]
     public float ResourceCost = 0;
+    [Tooltip("The description of the ability"), TextArea(1, 5)]
+    public string Description;
 
     public override bool CanActivate(CastInfo caster)
     {

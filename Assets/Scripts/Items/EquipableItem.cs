@@ -19,6 +19,8 @@ namespace Items
         public List<StatModification> statModifiers = new List<StatModification>();
         public List<AttributeModification> attributeModifiers = new List<AttributeModification>();
 
+        string DisplayString;
+
         public virtual void Equip(BaseCharacter character)
         {
             if(statModifiers == null)
@@ -40,6 +42,41 @@ namespace Items
         {
             character.Stats.RemoveStatModifiersFromSource(this);
             character.Stats.RemoveAttributeModifiersFromSource(this);
+        }
+
+        public override string GetDisplayString()
+        {
+            if (string.IsNullOrEmpty(DisplayString))
+            {
+                var desc = Description + "\n";
+                var mods = "\n";
+                foreach (var mod in statModifiers)
+                {
+                    mods += mod.StatName + ": " + GetStatModValue(mod) + "\n";
+                }
+                foreach (var mod in attributeModifiers)
+                {
+                    mods += mod.name + ": " + mod.Value + "\n";
+                }
+                DisplayString = desc + mods;
+                return DisplayString;
+            }
+            else
+            {
+                return DisplayString;
+            }
+        }
+
+        string GetStatModValue(StatModification mod)
+        {
+            if (mod.ModType == StatModType.Flat)
+            {
+                return mod.Value.ToString();
+            }
+            else
+            {
+                return (mod.Value * 100).ToString() + "%";
+            }
         }
     }
 

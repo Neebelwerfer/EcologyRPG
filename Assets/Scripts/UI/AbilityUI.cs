@@ -14,7 +14,7 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private PlayerCharacter player;
     private float cooldown;
     [SerializeField] private AbilitySlots abilitySlot;
-    [SerializeField] private AbilityDefintion ability;
+    [SerializeField] private PlayerAbilityDefinition ability;
     [SerializeField] private Image abilityImage;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite abilitySprite;
@@ -26,7 +26,7 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         abilityImage.fillAmount = 1;
         player = PlayerManager.Instance.GetPlayerCharacter();
         player.playerAbilitiesHandler.AddListener(abilitySlot, SetAbility);
-        ability = player.playerAbilitiesHandler.GetAbility(abilitySlot);
+        ability = (PlayerAbilityDefinition)player.playerAbilitiesHandler.GetAbility(abilitySlot);
         SetUpAbilityUI();
     }
 
@@ -59,7 +59,7 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void SetAbility(AbilityDefintion newAbility)
     {
-        ability = newAbility;
+        ability = (PlayerAbilityDefinition)newAbility;
         SetUpAbilityUI();
     }
 
@@ -74,7 +74,7 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             Title = abilityName,
             Icon = abilitySprite,
-            Description = ability.name,
+            Description = ability.Description,
             source = gameObject
         };
         EventManager.Defer("TooltipEntered", tooltipEvent, Utility.Collections.Priority.VeryLow);
