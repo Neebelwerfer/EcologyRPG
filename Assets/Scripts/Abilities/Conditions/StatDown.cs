@@ -1,10 +1,12 @@
 using Character;
 using Character.Abilities;
+using Character.Attributes;
 using UnityEditor;
 using UnityEngine;
 
 public class StatDown : DebuffCondition
 {
+    [StatAttribute(StatType.Stat)]
     public string StatName;
     [SerializeField] StatModType ModType;
     public float Value;

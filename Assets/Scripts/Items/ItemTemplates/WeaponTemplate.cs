@@ -34,7 +34,7 @@ namespace Items.ItemTemplates
             item.Weight = Weight;
 
             var ability = Instantiate(WeaponAttackAbility);
-            var range = new Ranges { minValue = minDamage, maxValue = maxDamage, GrowthPerLevel = GrowthPerLevel, growthType = growthType, modType = StatModType.Flat, name = "rawWeaponDamage", type = ModType.Stat };
+            var range = new Ranges { minValue = minDamage, maxValue = maxDamage, GrowthPerLevel = GrowthPerLevel, growthType = growthType, modType = StatModType.Flat, StatName = "rawWeaponDamage", type = ModType.Stat };
             range.ApplyMod(level, item);
             item.WeaponAbility = ability;
 

@@ -9,7 +9,7 @@ namespace Items.ItemTemplates
         public WaterTankTemplate()
         {
             equipmentType = EquipmentType.WaterTank;
-            Modifiers.Add(new Ranges { name = "armor", modType = StatModType.Flat, minValue = 0, maxValue = 0 });
+            Modifiers.Add(new Ranges { StatName = "armor", modType = StatModType.Flat, minValue = 0, maxValue = 0 });
         }
 
         public override InventoryItem GenerateItem(int level)

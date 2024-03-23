@@ -1,11 +1,12 @@
 using Character;
 using Character.Abilities;
+using Character.Attributes;
 using UnityEditor;
 using UnityEngine;
 
 public class StatUp : BuffCondition
 {
-
+    [StatAttribute(StatType.Stat)]
     public string StatName;
     public StatModType ModType;
     public float Value;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
+using Utility.Collections;
 
 public class EventData
 {
@@ -29,8 +30,7 @@ public enum DeferredEventType
 public static class EventManager
 {
     public static Dictionary<string, UnityEvent<EventData>> events = new();
-
-    public static Queue<DeferredEvent> updateEvents = new();
+    public static PriorityQueue<DeferredEvent> deferredEvents = new();
     static Stopwatch stopwatch = new Stopwatch();
 
     public static void AddListener(string eventName, UnityAction<EventData> listener)
@@ -82,20 +82,20 @@ public static class EventManager
     /// <param name="eventName"></param>
     /// <param name="data"></param>
     /// <param name="deferredEventType"></param>
-    public static void Defer(string eventName, EventData data)
+    public static void Defer(string eventName, EventData data, Priority priority = Priority.Normal)
     {
-        updateEvents.Enqueue(new DeferredEvent() { data = data, eventName = eventName });
+        deferredEvents.Enqueue(new DeferredEvent() { data = data, eventName = eventName }, priority);
     }
 
     public static void UpdateQueue()
     {
-        if(updateEvents.Count == 0) return;
+        if(deferredEvents.Count == 0) return;
         stopwatch.Reset();
         stopwatch.Start();
 
-        while(updateEvents.Count > 0 && stopwatch.Elapsed.TotalSeconds < 0.4f)
+        while(deferredEvents.Count > 0 && stopwatch.Elapsed.TotalSeconds < 0.4f)
         {
-            var e = updateEvents.Dequeue();
+            var e = deferredEvents.Dequeue();
             Dispatch(e.eventName, e.data);
         }
         stopwatch.Stop();

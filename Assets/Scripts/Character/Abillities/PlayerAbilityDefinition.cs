@@ -1,4 +1,5 @@
 using Character.Abilities;
+using Character.Attributes;
 using System.Collections;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ using UnityEngine;
 public class PlayerAbilityDefinition : AttackAbilityDefinition
 {
     [Header("Resources")]
-    [Tooltip("The resource that get used for the ability cost")]
+    [Tooltip("The resource that get used for the ability cost"), StatAttribute(StatType.Resource)]
     public string ResourceName;
     [Tooltip("The resource cost of this ability")]
     public float ResourceCost = 0;
