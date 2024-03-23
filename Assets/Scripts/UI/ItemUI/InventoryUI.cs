@@ -23,14 +23,10 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI ItemName;
 
     [Header("Equipment View")]
-    public Button MaskButton;
-    public TextMeshProUGUI MaskText;
-    public Button ArmorButton;
-    public TextMeshProUGUI ArmorText;
-    public Button WaterTankButton;
-    public TextMeshProUGUI WaterTankText;
-    public Button WeaponButton;
-    public TextMeshProUGUI WeaponText;
+    public EquipmentButton MaskButton;
+    public EquipmentButton ArmorButton;
+    public EquipmentButton WaterTankButton;
+    public EquipmentButton WeaponButton;
 
     List<BindedButton> BindedButtons;
 
@@ -77,16 +73,16 @@ public class InventoryUI : MonoBehaviour
     void GetEquipmentInfo()
     {
         var mask = player.Inventory.equipment.GetEquipment(EquipmentType.Mask);
-        MaskText.text = mask == null ? "Empty" : mask.Name;
+        MaskButton.Setup(mask);
 
         var armor = player.Inventory.equipment.GetEquipment(EquipmentType.Armour);
-        ArmorText.text = armor == null ? "Empty" : armor.Name;
+        ArmorButton.Setup(armor);
 
         var waterTank = player.Inventory.equipment.GetEquipment(EquipmentType.WaterTank);
-        WaterTankText.text = waterTank == null ? "Empty" : waterTank.Name;
+        WaterTankButton.Setup(waterTank);
 
         var weapon = player.Inventory.equipment.GetEquipment(EquipmentType.Weapon);
-        WeaponText.text = weapon == null ? "Empty" : weapon.Name;
+        WeaponButton.Setup(weapon);
 
     }
 
