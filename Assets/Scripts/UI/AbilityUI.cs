@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Player;
 using Character.Abilities;
 using UnityEngine.EventSystems;
-using Utility.Events;
 
 public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -65,18 +64,11 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        EventManager.Defer("TooltipExited", new EventData { source = gameObject }, Utility.Collections.Priority.VeryLow);
+        Tooltip.HideTooltip(gameObject);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var tooltipEvent = new TooltipEvent
-        {
-            Title = abilityName,
-            Icon = abilitySprite,
-            Description = ability.Description,
-            source = gameObject
-        };
-        EventManager.Defer("TooltipEntered", tooltipEvent, Utility.Collections.Priority.VeryLow);
+        Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = ability.Description });
     }
 }

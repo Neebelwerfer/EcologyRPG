@@ -278,6 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 133529123}
+  - component: {fileID: 133529127}
   - component: {fileID: 133529126}
   - component: {fileID: 133529122}
   - component: {fileID: 133529121}
@@ -448,13 +449,22 @@ MonoBehaviour:
   CharacterUIButton: {fileID: 7477748582021791194, guid: d845ac9316e93d841aad5e9d3451edb0,
     type: 3}
   characterUI: {fileID: 444516288}
-  Tooltip: {fileID: 881865188}
+--- !u!114 &133529127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133529119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ff67f4df8b3964e992e19804f2f884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipObject: {fileID: 881865188}
   Title: {fileID: 446040680}
   Icon: {fileID: 1792729139}
   Description: {fileID: 28431842}
-  UILayers:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &179012809
 GameObject:
   m_ObjectHideFlags: 0

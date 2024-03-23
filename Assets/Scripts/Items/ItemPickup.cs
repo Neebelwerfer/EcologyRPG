@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Utility.Events;
 
 public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
 {
@@ -47,7 +46,7 @@ public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
         {
             base.OnPointerEnter(eventData);
         }
-        EventManager.Defer("TooltipEntered", new TooltipEvent() { source = this, Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() }, Utility.Collections.Priority.VeryLow);
+        Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() });
     }
 
     public override void OnPointerExit(PointerEventData eventData)
@@ -56,12 +55,12 @@ public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
         {
             base.OnPointerExit(eventData);
         }
-        EventManager.Defer("TooltipExited", new TooltipEvent() { source = this }, Utility.Collections.Priority.VeryLow);
+        Tooltip.HideTooltip(gameObject);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        EventManager.Defer("TooltipExited", new TooltipEvent() { source = this }, Utility.Collections.Priority.VeryLow);
+        Tooltip.HideTooltip(gameObject);
     }
 }
