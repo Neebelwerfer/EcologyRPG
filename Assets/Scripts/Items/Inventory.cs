@@ -33,6 +33,8 @@ namespace Items
         public UnityEvent<Item> ItemRemoved;
         public UnityEvent<Item> ItemAdded;
 
+        public float MaxCarryWeight { get { return CarryWeight.Value; } }
+
         Stat CarryWeight;
         BaseCharacter Owner;
 
@@ -79,7 +81,7 @@ namespace Items
         {
             foreach (InventoryItem inventoryItem in items)
             {
-                if (inventoryItem.item == item)
+                if (inventoryItem.item.Equals(item))
                 {
                     return true;
                 }
@@ -91,7 +93,7 @@ namespace Items
         {
             foreach (InventoryItem inventoryItem in items)
             {
-                if (inventoryItem.item.Name == item.Name)
+                if (inventoryItem.item.Equals(item))
                 {
                     return inventoryItem;
                 }
@@ -106,21 +108,35 @@ namespace Items
                 return false;
             }
 
-            var getInventoryItem = GetInventoryItem(item);
             currentWeight += item.Weight * amount;
 
-            if (getInventoryItem != null)
+            if (item is EquipableItem)
             {
-                GetInventoryItem(item).amount += amount;
-                InventoryChanged?.Invoke();
-                return true;
-            }
-            else
-            {
-                items.Add(new InventoryItem(item, amount));
+                for (int i = 0; i < amount; i++)
+                {
+                    items.Add(new InventoryItem(item, 1));
+                }
                 ItemAdded?.Invoke(item);
                 return true;
+            } 
+            else
+            {
+                var getInventoryItem = GetInventoryItem(item);
+
+                if (getInventoryItem != null)
+                {
+                    GetInventoryItem(item).amount += amount;
+                    InventoryChanged?.Invoke();
+                    return true;
+                }
+                else
+                {
+                    items.Add(new InventoryItem(item, amount));
+                    ItemAdded?.Invoke(item);
+                    return true;
+                }
             }
+            
         }
 
         public bool AddItem(Item item)
@@ -132,7 +148,7 @@ namespace Items
         {
             for (int i = items.Count - 1; i >= 0; i--)
             {
-                if (items[i].item == item)
+                if (items[i].item.Equals(item))
                 {
                     if (items[i].amount < amount)
                     {
@@ -159,7 +175,7 @@ namespace Items
         {
             for (int i = items.Count - 1; i >= 0; i--)
             {
-                if (items[i].item == item)
+                if (items[i].item.Equals(item))
                 {
                     currentWeight -= item.Weight;
                     items[i].amount--;
@@ -175,6 +191,18 @@ namespace Items
                         break;
                     }
                 }
+            }
+        }
+
+        public void UseItem(InventoryItem item)
+        {
+            if(item.item is ConsumableItem consumable)
+            {
+                ConsumeItem(consumable);
+            }
+            else if(item.item is EquipableItem equipable)
+            {
+                EquipItem(equipable);
             }
         }
 

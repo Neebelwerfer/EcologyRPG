@@ -14,7 +14,7 @@ namespace Items.ItemTemplates
 
         public override InventoryItem GenerateItem(int level)
         {
-            var item = new WaterTank();
+            var item = CreateInstance<WaterTank>();
             item.Name = Name;
             item.Description = Description;
             item.Icon = Icon;

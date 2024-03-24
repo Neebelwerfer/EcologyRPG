@@ -1,16 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class IngameUIManager : MonoBehaviour
 {
     public InputActionReference CharacterUIButton;
-
     public GameObject characterUI;
-
-
     Action<InputAction.CallbackContext> toggleCharacterAction;
 
     private void Awake()
@@ -22,10 +19,12 @@ public class IngameUIManager : MonoBehaviour
         CharacterUIButton.action.started += toggleCharacterAction;
     }
 
+
     private void ToggleCharacterUI()
     {
         characterUI.SetActive(!characterUI.activeSelf);
     }
+
 
     private void OnDestroy()
     {

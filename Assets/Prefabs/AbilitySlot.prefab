@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4793112e581ed40b8b79ddef71a9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitySlot: 0
   ability: {fileID: 0}
   abilityImage: {fileID: 7230657143778733143}
   backgroundImage: {fileID: 1528548421581348966}

@@ -27,7 +27,7 @@ namespace Items.ItemTemplates
 
         public override InventoryItem GenerateItem(int level)
         {
-            var item = ScriptableObject.CreateInstance<Weapon>();
+            var item = CreateInstance<Weapon>();
             item.Name = Name;
             item.Description = Description;
             item.Icon = Icon;

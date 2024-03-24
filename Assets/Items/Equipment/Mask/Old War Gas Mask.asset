@@ -19,14 +19,16 @@ MonoBehaviour:
   Weight: 25
   equipmentType: 2
   Modifiers:
-  - name: toxicProtection
+  - StatName: armor
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 10
     maxValue: 12
     GrowthPerLevel: 2
     growthType: 0
-  - name: armor
+  - StatName: toxicProtection
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 1

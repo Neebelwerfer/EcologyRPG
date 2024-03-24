@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 struct BindedButton
 {
-    public Button button;
+    public InventoryButton button;
     public InventoryItem item;
 }
 
@@ -18,19 +18,15 @@ public class InventoryUI : MonoBehaviour
     public GameObject InventoryButtonPrefab;
     public GameObject InventoryView;
 
-    public GameObject InventoryMenuView;
     public Button UseButton;
     public TextMeshProUGUI ItemName;
+    public TextMeshProUGUI CarryWeight;
 
     [Header("Equipment View")]
-    public Button MaskButton;
-    public TextMeshProUGUI MaskText;
-    public Button ArmorButton;
-    public TextMeshProUGUI ArmorText;
-    public Button WaterTankButton;
-    public TextMeshProUGUI WaterTankText;
-    public Button WeaponButton;
-    public TextMeshProUGUI WeaponText;
+    public EquipmentButton MaskButton;
+    public EquipmentButton ArmorButton;
+    public EquipmentButton WaterTankButton;
+    public EquipmentButton WeaponButton;
 
     List<BindedButton> BindedButtons;
 
@@ -43,22 +39,19 @@ public class InventoryUI : MonoBehaviour
         player = PlayerManager.Instance.GetPlayerCharacter();
         for (int i = 0; i < player.Inventory.items.Count; i++)
         {
-            CreateInventoryItemButton(player.Inventory.items[i], i + 1);
+            CreateInventoryItemButton(player.Inventory.items[i]);
         }
         player.Inventory.InventoryChanged.AddListener(UpdateReferences);
         player.Inventory.ItemAdded.AddListener(OnItemAdded);
         player.Inventory.ItemRemoved.AddListener(OnItemRemoved);
         player.Inventory.equipment.EquipmentUpdated.AddListener((int type) => GetEquipmentInfo());
-    }
-
-    private void OnDisable()
-    {
-        HideMenuView();
+        CarryWeight.text = player.Inventory.CurrentWeight + "/" + player.Inventory.MaxCarryWeight;
     }
 
     void OnItemAdded(Item item)
     {
-        CreateInventoryItemButton(player.Inventory.GetInventoryItem(item), BindedButtons.Count + 1);
+        CreateInventoryItemButton(player.Inventory.GetInventoryItem(item));
+        CarryWeight.text = player.Inventory.CurrentWeight + "/" + player.Inventory.MaxCarryWeight;
     }
 
     void OnItemRemoved(Item item)
@@ -72,32 +65,58 @@ public class InventoryUI : MonoBehaviour
                 break;
             }
         }
+        CarryWeight.text = player.Inventory.CurrentWeight + "/" + player.Inventory.MaxCarryWeight;
     }
 
     void GetEquipmentInfo()
     {
         var mask = player.Inventory.equipment.GetEquipment(EquipmentType.Mask);
-        MaskText.text = mask == null ? "Empty" : mask.Name;
+        MaskButton.Setup(mask);
+        MaskButton.Unequip = () =>
+        {
+            player.Inventory.UnequipItem(mask);
+            MaskButton.Setup(null);
+        };
 
         var armor = player.Inventory.equipment.GetEquipment(EquipmentType.Armour);
-        ArmorText.text = armor == null ? "Empty" : armor.Name;
+        ArmorButton.Setup(armor);
+        ArmorButton.Unequip = () =>
+        {
+            player.Inventory.UnequipItem(armor);
+            ArmorButton.Setup(null);
+        };
 
         var waterTank = player.Inventory.equipment.GetEquipment(EquipmentType.WaterTank);
-        WaterTankText.text = waterTank == null ? "Empty" : waterTank.Name;
+        WaterTankButton.Setup(waterTank);
+        WaterTankButton.Unequip = () =>
+        {
+            player.Inventory.UnequipItem(waterTank);
+            WaterTankButton.Setup(null);
+        };
 
         var weapon = player.Inventory.equipment.GetEquipment(EquipmentType.Weapon);
-        WeaponText.text = weapon == null ? "Empty" : weapon.Name;
-
+        WeaponButton.Setup(weapon);
+        WeaponButton.Unequip = () =>
+        {
+            player.Inventory.UnequipItem(weapon);
+            WeaponButton.Setup(null);
+        };
+        CarryWeight.text = player.Inventory.CurrentWeight + "/" + player.Inventory.MaxCarryWeight;
     }
 
-    void CreateInventoryItemButton(InventoryItem item, int order)
+    private void OnEnable()
+    {
+        if (player != null)
+            CarryWeight.text = player.Inventory.CurrentWeight + "/" + player.Inventory.MaxCarryWeight;
+    }
+
+    void CreateInventoryItemButton(InventoryItem item)
     {
         GameObject button = Instantiate(InventoryButtonPrefab, InventoryView.transform);
         button.transform.position = InventoryView.transform.position;
-        TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = item.amount + "x " + item.item.Name;
-        var buttonComponent = button.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(() => OnInventoryButtonClicked(item));
+        var buttonComponent = button.GetComponent<InventoryButton>();
+        buttonComponent.Setup(item);
+        buttonComponent.inventory = player.Inventory;
         BindedButtons.Add(new BindedButton { button = buttonComponent, item = item });
     }
 
@@ -109,49 +128,13 @@ public class InventoryUI : MonoBehaviour
             if (BindedButtons[i].item.amount == 0)
             {
                 Destroy(BindedButtons[i].button.gameObject);
-                if (BindedButtons[i].item == selectedItem)
-                {
-                    HideMenuView();
-                }
                 BindedButtons.RemoveAt(i);
 
                 continue;
             }
             TextMeshProUGUI text = BindedButtons[i].button.GetComponentInChildren<TextMeshProUGUI>();
-            text.text = BindedButtons[i].item.amount + "x " + BindedButtons[i].item.item.Name;
+            text.text = BindedButtons[i].item.amount + "x";
         }
-    }
-
-    private void OnInventoryButtonClicked(InventoryItem item)
-    {
-        selectedItem = item;
-        ItemName.text = item.item.Name;
-        InventoryMenuView.SetActive(true);
-        UseButton.onClick.RemoveAllListeners();
-
-        if (item.item is ConsumableItem ci)
-        {
-            UseButton.gameObject.SetActive(true);
-            UseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Use";
-            UseButton.onClick.AddListener(() => player.Inventory.ConsumeItem(ci));
-        }
-        else if (item.item is EquipableItem ei)
-        {
-            UseButton.gameObject.SetActive(true);
-            UseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
-            UseButton.onClick.AddListener(() => player.Inventory.EquipItem(ei));
-        }
-        else
-        {
-            UseButton.gameObject.SetActive(false);
-        }
-    }
-
-    public void HideMenuView()
-    {
-        selectedItem = null;
-        InventoryMenuView.SetActive(false);
-        UseButton.gameObject.SetActive(false);
     }
 
     public void DropOneSelectedItem()

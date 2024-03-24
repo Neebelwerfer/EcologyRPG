@@ -64,3 +64,4 @@ MonoBehaviour:
   Ability: {fileID: -6701787922667511886}
   ResourceName: stamina
   ResourceCost: 5
+  Description: 

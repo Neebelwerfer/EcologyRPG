@@ -18,14 +18,16 @@ MonoBehaviour:
   Weight: 10
   equipmentType: 0
   Modifiers:
-  - name: armor
+  - StatName: healthRegen
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 7
     maxValue: 10
     GrowthPerLevel: 2
     growthType: 0
-  - name: movementSpeed
+  - StatName: movementSpeed
+    AttributeName: 
     type: 1
     modType: 100
     minValue: -5

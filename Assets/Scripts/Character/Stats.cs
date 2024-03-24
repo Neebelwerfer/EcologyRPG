@@ -26,6 +26,18 @@ namespace Character
         public ReadOnlyCollection<Stat> _stats;
         public ReadOnlyCollection<Attribute> _attributes;
         public ReadOnlyCollection<Resource> _resources;
+        static SerializableStats serializableStats;
+        public static SerializableStats StatsData { 
+            get
+            {
+                if (serializableStats == null)
+                {
+                    var json = Resources.Load<TextAsset>("CharacterStats").text;
+                    serializableStats = JsonUtility.FromJson<SerializableStats>(json);
+                }
+                return serializableStats;
+            }
+        }
 
         List<Stat> StatList;
         List<Attribute> AttributeList;
@@ -42,20 +54,17 @@ namespace Character
             ResourceList = new List<Resource>();
             _resources = ResourceList.AsReadOnly();
 
-            var json = Resources.Load<TextAsset>("CharacterStats").text;
-            var newList = JsonUtility.FromJson<SerializableStats>(json);
-
-            foreach (StatData data in newList.Stats)
+            foreach (StatData data in StatsData.Stats)
             {
                 StatList.Add(new Stat(data));
             }
 
-            foreach (AttributeData data in newList.Attributes)
+            foreach (AttributeData data in StatsData.Attributes)
             {
                 AttributeList.Add(new Attribute(data, this));
             }
 
-            foreach (ResourceData data in newList.Resources)
+            foreach (ResourceData data in StatsData.Resources)
             {
                 ResourceList.Add(new Resource(data, this));
             }
@@ -124,7 +133,7 @@ namespace Character
 
         public void AddAttributeModifier(AttributeModification mod)
         {
-            GetAttribute(mod.name).AddModifier(mod);
+            GetAttribute(mod.AttributeName).AddModifier(mod);
         }
 
         public void RemoveAttributeModifiersFromSource(object source)

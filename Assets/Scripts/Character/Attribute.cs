@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class AttributeModification
 {
     public object Source;
-    public string name;
+    public string AttributeName;
 
     int _value;
     public int Value
@@ -27,7 +27,7 @@ public class AttributeModification
 
     public AttributeModification(string name, int value, object source)
     {
-        this.name = name;
+        this.AttributeName = name;
         _value = value;
         Source = source;
     }
