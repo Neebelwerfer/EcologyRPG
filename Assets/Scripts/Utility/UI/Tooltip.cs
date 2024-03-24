@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour
 {
+    public Vector2 Offset;
     public GameObject TooltipObject;
     public TextMeshProUGUI Title;
     public Image Icon;
@@ -25,7 +26,7 @@ public class Tooltip : MonoBehaviour
     {
         if (activeTooltipSource == source) return;
         TooltipObject.SetActive(true);
-        TooltipObject.transform.position = Mouse.current.position.ReadValue();
+        TooltipObject.transform.position = Mouse.current.position.ReadValue() + Offset;
         Title.text = data.Title;
         Icon.sprite = data.Icon;
         Description.text = data.Description;
@@ -46,13 +47,15 @@ public class Tooltip : MonoBehaviour
 
     public static void HideTooltip(object source)
     {
-        instance.Hide(source);
+        if(instance != null)
+            instance.Hide(source);
     }
 
     public static void ShowTooltip(object source, TooltipData data)
     {
         instance.Show(source, data);
     }
+
 }
 
 public class TooltipData

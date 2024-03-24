@@ -19,6 +19,31 @@ namespace Items
         public List<StatModification> statModifiers = new List<StatModification>();
         public List<AttributeModification> attributeModifiers = new List<AttributeModification>();
 
+        public override bool Equals(Item other)
+        {
+            if(!base.Equals(other)) return false;
+            var equipable = other as EquipableItem;
+            if(equipable == null) return false;
+            if(equipable.equipmentType != equipmentType) return false;
+            foreach (StatModification mod in statModifiers)
+            {
+                var otherStat = equipable.statModifiers.Find(x => x.StatName == mod.StatName);
+                if(otherStat == null || otherStat.Value != mod.Value)
+                {
+                    return false;
+                }
+            }
+            foreach (AttributeModification mod in attributeModifiers)
+            {
+                var otherAttr = equipable.attributeModifiers.Find(x => x.AttributeName == mod.AttributeName);
+                if(otherAttr == null || otherAttr.Value != mod.Value)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public virtual void Equip(BaseCharacter character)
         {
             if(statModifiers == null)

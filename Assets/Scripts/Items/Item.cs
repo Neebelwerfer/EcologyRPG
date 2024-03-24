@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Items/Item")]
-public class Item : ScriptableObject
+public class Item : ScriptableObject, IEquatable<Item>
 {
     [Header("Item Properties")]
     public string Name;
@@ -12,6 +13,11 @@ public class Item : ScriptableObject
     public float Weight;
 
     protected string DisplayString;
+
+    public virtual bool Equals(Item other)
+    {
+        return Name == other.Name;
+    }
 
     public virtual string GetDisplayString()
     {
