@@ -30,7 +30,6 @@ public class BasicBehaviour : NPCBehaviour
 
         aggroState.SetOnEnterAction((npc) =>
         {
-            Debug.Log(npc.name + " has found target");
         });
 
         var Chase = new ActionNode((npc) =>
@@ -56,7 +55,7 @@ public class BasicBehaviour : NPCBehaviour
         var inAttackRange = new DecisionNode((npc) =>
         {
             var dist = Vector3.Distance(npc.transform.position, target.transform.position);
-            return dist < attackAbility.attackAbilityEffect.Range;
+            return dist < attackAbility.Ability.Range;
 
         }, Attack, Chase);
 
@@ -83,14 +82,12 @@ public class BasicBehaviour : NPCBehaviour
         {
             target = null;
             npc.Agent.ResetPath();
-            Debug.Log(npc.name + " has lost target");
         });
 
         var Wander = new ActionNode((npc) =>
         {
             var agent = npc.Agent;
             if (agent.remainingDistance > 0.1f) return;
-            Debug.Log("Wandering");
             var wanderPos = NPCUtility.GetRandomPointInRadius(npc.GetSpawner().transform.position, WanderRadius);
             agent.SetDestination(wanderPos);
         });

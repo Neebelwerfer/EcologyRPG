@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c74d41452afa04fb392d44d32cef4f, type: 3}
+  m_Name: Small Tank
+  m_EditorClassIdentifier: 
+  Name: Small Tank
+  Description: A small metal water tank, it is almost completely sealed
+  Icon: {fileID: 21300000, guid: 9336d076073e93344afcdc14d0508357, type: 3}
+  Weight: 15
+  equipmentType: 3
+  Modifiers:
+  - name: maxWater
+    type: 1
+    modType: 100
+    minValue: 8
+    maxValue: 14
+    GrowthPerLevel: 1
+    growthType: 0
+  - name: waterDrain
+    type: 1
+    modType: 100
+    minValue: -8
+    maxValue: -5
+    GrowthPerLevel: -2
+    growthType: 1

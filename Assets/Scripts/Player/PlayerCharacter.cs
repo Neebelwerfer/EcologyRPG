@@ -22,6 +22,8 @@ namespace Player
         public override Vector3 Forward => playerMovement.transform.forward;
         public override Vector3 Position => playerMovement.transform.position;
 
+        public override Transform Transform => playerMovement.transform;
+
         readonly List<PlayerModule> modules = new();
 
         public override void Start()

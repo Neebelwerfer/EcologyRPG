@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7342690159600307372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: 5337038202547872604}
+--- !u!114 &-7306455827021756874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc18c463614d2d248bed0880b02bb9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 140066e4-84fb-4187-a80b-92c9a45029b6
+  displayName: DashCondition
+  duration: 0.8
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  directionMode: 0
+  dashRange: 10
+  StopOnHit: 0
+  OnFirstHitEffects: []
+  OnHitEffects:
+  - {fileID: 8135120934020641073}
+  - {fileID: -4234209422774469049}
+  - {fileID: -7342690159600307372}
+--- !u!114 &-4234209422774469049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: 5567569746077819594}
+--- !u!114 &-676121089416390121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b496b20a30e194091db8085a051176, type: 3}
+  m_Name: ChargeAttack(Clone)
+  m_EditorClassIdentifier: 
+  Range: 10
+  OnCastEffects: []
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  useMouseDirection: 1
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: 8135120934020641073}
+  - {fileID: -4234209422774469049}
+  - {fileID: -7342690159600307372}
+  displayFirstHitEffects: 1
+  dash: {fileID: -7306455827021756874}
+--- !u!114 &-335376713036280820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b58fc36c39bd50499b1a99c8f64c82b, type: 3}
+  m_Name: ConditionAbilityEffect
+  m_EditorClassIdentifier: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: Charge
+  m_EditorClassIdentifier: 
+  DisplayName: ChargeAttack
+  Cooldown: 2
+  CastWindupTime: 0
+  Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  BlockMovementOnWindup: 0
+  Ability: {fileID: -676121089416390121}
+  ResourceName: stamina
+  ResourceCost: 10
+--- !u!114 &5337038202547872604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb26fe960241c6e4c9ab047f17df747c, type: 3}
+  m_Name: StunConditiont
+  m_EditorClassIdentifier: 
+  ID: 34005312-327d-41a1-b7b9-b91835575a86
+  displayName: stun
+  duration: 0.1
+  remainingDuration: 0
+  Owner: {fileID: 0}
+--- !u!114 &5567569746077819594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition
+  m_EditorClassIdentifier: 
+  ID: 53145e4c-7332-44d6-b6df-f9c063670ebe
+  displayName: KnockCondition
+  duration: 0.3
+  remainingDuration: 0
+  Owner: {fileID: 0}
+  KnockBackDistance: 2
+  knockType: 0
+--- !u!114 &8135120934020641073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: DamageAbilityEffect
+  m_EditorClassIdentifier: 
+  BaseDamage: 15
+  DamageType: 0
+  AllowVariance: 1

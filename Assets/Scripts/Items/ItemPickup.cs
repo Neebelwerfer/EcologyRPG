@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemPickup : Button
+public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
 {
     public float pickupRadius = 5;
 
@@ -18,9 +18,6 @@ public class ItemPickup : Button
         base.Start();
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         onClick.AddListener(OnClicked);
-
-        var text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = InventoryItem.item.Name + " x" + InventoryItem.amount;
     }
     public override void OnPointerClick(PointerEventData eventData)
     {
@@ -38,5 +35,32 @@ public class ItemPickup : Button
     public void Setup(Item item, int amount)
     {
         InventoryItem = new InventoryItem(item, amount);
+
+        var text = GetComponentInChildren<TextMeshProUGUI>();
+        text.text = InventoryItem.item.Name + " x" + InventoryItem.amount;
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        {
+            base.OnPointerEnter(eventData);
+        }
+        Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() });
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        {
+            base.OnPointerExit(eventData);
+        }
+        Tooltip.HideTooltip(gameObject);
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        Tooltip.HideTooltip(gameObject);
     }
 }

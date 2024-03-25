@@ -48,8 +48,8 @@
                 },
                 {
                     "statName": "weaponDamage",
-                    "modType": 100,
-                    "startValue": 1.0,
+                    "modType": 200,
+                    "startValue": 0.0,
                     "changePerPoint": 0.05000000074505806
                 }
             ]
@@ -115,6 +115,7 @@
         {
             "name": "movementSpeed",
             "displayName": "Movement Speed",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 5.0,
             "MaxValue": 20.0,
@@ -124,6 +125,7 @@
         {
             "name": "maxHP",
             "displayName": "Max HP",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
@@ -133,6 +135,7 @@
         {
             "name": "maxStamina",
             "displayName": "Stamina",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
@@ -142,6 +145,7 @@
         {
             "name": "staminaGain",
             "displayName": "Stamina Gain",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 10.0,
             "MaxValue": 3.4028234663852887e38,
@@ -151,6 +155,7 @@
         {
             "name": "carryWeight",
             "displayName": "Carry Weight",
+            "DisplayOptions": 0,
             "ShowOptions": 1,
             "baseValue": 50.0,
             "MaxValue": 3.4028234663852887e38,
@@ -160,8 +165,9 @@
         {
             "name": "weaponDamage",
             "displayName": "Weapon Damage",
-            "ShowOptions": 1,
-            "baseValue": 0.0,
+            "DisplayOptions": 1,
+            "ShowOptions": 0,
+            "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
             "description": "Governs a characters weapon damage, based on strength"
@@ -169,6 +175,7 @@
         {
             "name": "abilityDamage",
             "displayName": "Ability Damage",
+            "DisplayOptions": 1,
             "ShowOptions": 2,
             "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
@@ -178,6 +185,7 @@
         {
             "name": "maxFood",
             "displayName": "Food",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
@@ -187,6 +195,7 @@
         {
             "name": "foodDrain",
             "displayName": "Food Drain",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 0.5,
             "MaxValue": 3.4028234663852887e38,
@@ -196,6 +205,7 @@
         {
             "name": "maxWater",
             "displayName": "Water",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
@@ -205,6 +215,7 @@
         {
             "name": "waterDrain",
             "displayName": "water Drain",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
@@ -214,6 +225,7 @@
         {
             "name": "maxToxicWater",
             "displayName": "Toxic Water",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 1000.0,
             "MaxValue": 3.4028234663852887e38,
@@ -223,6 +235,7 @@
         {
             "name": "healthRegen",
             "displayName": "Health Regen",
+            "DisplayOptions": 0,
             "ShowOptions": 0,
             "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
@@ -232,29 +245,42 @@
         {
             "name": "armor",
             "displayName": "Armor",
+            "DisplayOptions": 0,
             "ShowOptions": 2,
-            "baseValue": 0.0,
+            "baseValue": 0.10000000149011612,
             "MaxValue": 3.4028234663852887e38,
-            "MinValue": 0.0,
+            "MinValue": 0.10000000149011612,
             "description": "Governs a characters armor value used for physical damage reduction"
         },
         {
             "name": "waterArmor",
             "displayName": "Water Armor",
+            "DisplayOptions": 0,
             "ShowOptions": 2,
-            "baseValue": 0.0,
+            "baseValue": 0.10000000149011612,
             "MaxValue": 3.4028234663852887e38,
-            "MinValue": 0.0,
+            "MinValue": 0.10000000149011612,
             "description": "Governs a characters armor value used for water damage reduction"
         },
         {
             "name": "toxicProtection",
             "displayName": "Toxic Protection",
+            "DisplayOptions": 0,
             "ShowOptions": 2,
             "baseValue": 0.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
             "description": "Governs a characters protection value used for toxic damage and effect reduction"
+        },
+        {
+            "name": "rawWeaponDamage",
+            "displayName": "Raw weapon Damage",
+            "DisplayOptions": 0,
+            "ShowOptions": 1,
+            "baseValue": 0.0,
+            "MaxValue": 3.4028234663852887e38,
+            "MinValue": 0.0,
+            "description": "the weapon damage value"
         }
     ],
     "Resources": [

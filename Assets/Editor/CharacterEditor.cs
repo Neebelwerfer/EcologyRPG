@@ -81,6 +81,7 @@ public class CharacterEditor : EditorWindow
         writer.Write(json);
         writer.Close();
         AssetDatabase.ImportAsset(path);
+        StatAttributeDrawer.IsDirty = true;
         Debug.Log("Successfully saved to " + path);
     }
 

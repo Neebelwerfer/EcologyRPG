@@ -1,16 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class IngameUIManager : MonoBehaviour
 {
     public InputActionReference CharacterUIButton;
-
     public GameObject characterUI;
-    public GameObject DamageNumberPrefab;
-
     Action<InputAction.CallbackContext> toggleCharacterAction;
 
     private void Awake()
@@ -20,13 +17,14 @@ public class IngameUIManager : MonoBehaviour
         CharacterUIButton.action.Enable();
         toggleCharacterAction = _ => ToggleCharacterUI();
         CharacterUIButton.action.started += toggleCharacterAction;
-        DamageNumberHandler.Instance.Init(DamageNumberPrefab);
     }
+
 
     private void ToggleCharacterUI()
     {
         characterUI.SetActive(!characterUI.activeSelf);
     }
+
 
     private void OnDestroy()
     {
