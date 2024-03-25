@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Flooded_Grounds/Content/Materials/BGR_Water_IAn.mat.meta
 guid: ef00a377ef5986140bc0935a742de4fc
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
+========
+guid: 2a0312b2c4058d94aa24f4e98e3acc03
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+>>>>>>>> dev:Assets/Items/Equipment/Armor/Cloth Coat.asset.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

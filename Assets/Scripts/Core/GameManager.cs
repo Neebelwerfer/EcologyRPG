@@ -39,20 +39,4 @@ public class GameManager : MonoBehaviour
             EventManager.UpdateQueue();
         }
     }
-
-    public void FixedUpdate()
-    {
-        if(CurrentState == Game_State.Playing)
-        {
-            EventManager.FixedUpdateQueue();
-        }
-    }
-
-    public void LateUpdate()
-    {
-        if(CurrentState == Game_State.Playing)
-        {
-            EventManager.LateUpdateQueue();
-        }
-    }
 }

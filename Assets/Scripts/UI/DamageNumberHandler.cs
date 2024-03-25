@@ -1,27 +1,67 @@
 using Character;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
-public class DamageNumberHandler
+public class DamageNumberHandler : MonoBehaviour
 {
     static DamageNumberHandler _instance;
-    public static DamageNumberHandler Instance { get { return _instance ?? (_instance = new DamageNumberHandler()); } }
+    public static DamageNumberHandler Instance { get { return _instance; } }
 
-    GameObject DamageNumberPrefab;
+    public GameObject DamageNumberPrefab;
+    public GameObject DamageNumberCanvas;
+    GameObjectPool damageNumberPool;
+    readonly List<DamageText> damageNumbers = new();
+    readonly List<DamageEvent> damageEvents = new();
 
-    public void Init(GameObject DamageNumberPrefab)
+    private void Awake()
     {
-        this.DamageNumberPrefab = DamageNumberPrefab;
-        EventManager.AddListener("DamageEvent", OnDamageEvent);
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        damageNumberPool = new GameObjectPool(DamageNumberPrefab);
+        damageNumberPool.Preload(20, DamageNumberCanvas.transform);
+        EventManager.AddListener("DamageEvent", AddDamageEvent);
     }
 
-    private void OnDamageEvent(EventData data)
+    public void AddDamageEvent(EventData damageEvent)
     {
-        if (data is DamageEvent damageEvent)
+        if(damageEvent is DamageEvent de)
         {
-            Debug.Log("Damage Event Received");
-            var damageNumber = GameObject.Instantiate(DamageNumberPrefab, damageEvent.target.transform.position, Quaternion.identity);
-            damageNumber.GetComponentInChildren<DamageText>().Init(damageEvent.damageTaken, GetDamageColor(damageEvent));
+            damageEvents.Add(de);
+        }
+    }
+
+    private void Update()
+    {
+        foreach (var de in damageEvents)
+        {
+            var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity);
+            damageNumber.transform.SetParent(DamageNumberCanvas.transform);
+            var damageText = damageNumber.GetComponent<DamageText>();
+            damageText.Init(de.damageTaken, GetDamageColor(de));
+            damageNumbers.Add(damageText);
+        }
+        damageEvents.Clear();
+
+        for (int i = damageNumbers.Count - 1; i >= 0; i--)
+        {
+            var damageNumber = damageNumbers[i];
+            if (damageNumber == null)
+            {
+                damageNumbers.RemoveAt(i);
+            }
+            damageNumber.OnUpdate();
+            if(damageNumber.RemainingDuration <= 0)
+            {
+                damageNumbers.RemoveAt(i);
+                damageNumberPool.ReturnObject(damageNumber.gameObject);
+            }
         }
     }
 

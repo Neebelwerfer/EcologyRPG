@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using Player;
 using Character.Abilities;
+using UnityEngine.EventSystems;
 
-public class AbilityUI : MonoBehaviour
+public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Ability")]
     private string abilityName;
     private PlayerCharacter player;
     private float cooldown;
     [SerializeField] private AbilitySlots abilitySlot;
-    [SerializeField] private BaseAbilityHolder ability;
+    [SerializeField] private PlayerAbilityDefinition ability;
     [SerializeField] private Image abilityImage;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Sprite abilitySprite;
@@ -24,7 +25,7 @@ public class AbilityUI : MonoBehaviour
         abilityImage.fillAmount = 1;
         player = PlayerManager.Instance.GetPlayerCharacter();
         player.playerAbilitiesHandler.AddListener(abilitySlot, SetAbility);
-        ability = player.playerAbilitiesHandler.GetAbility(abilitySlot);
+        ability = (PlayerAbilityDefinition)player.playerAbilitiesHandler.GetAbility(abilitySlot);
         SetUpAbilityUI();
     }
 
@@ -48,16 +49,26 @@ public class AbilityUI : MonoBehaviour
     public void SetUpAbilityUI()
     {
         if (ability == null) return;
-        abilityName = ability.name;
+        abilityName = ability.DisplayName;
         cooldown = ability.Cooldown;
         if (ability.Icon != null)
             abilitySprite = ability.Icon;
         abilityImage.sprite = abilitySprite;
         backgroundImage.sprite = abilitySprite;
     }
-    public void SetAbility(BaseAbilityHolder newAbility)
+    public void SetAbility(AbilityDefintion newAbility)
     {
-        ability = newAbility;
+        ability = (PlayerAbilityDefinition)newAbility;
         SetUpAbilityUI();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Tooltip.HideTooltip(gameObject);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = ability.Description });
     }
 }

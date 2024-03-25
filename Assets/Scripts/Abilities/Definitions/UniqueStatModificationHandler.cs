@@ -6,7 +6,7 @@ public class UniqueStatModificationHandler
 {
     class Value
     {
-        public CharacterEffect effect;
+        public Condition effect;
         public float value;
     }
 
@@ -30,7 +30,7 @@ public class UniqueStatModificationHandler
         this.shouldFindMax = shouldFindMax;
     }
 
-    public void AddValue(BaseCharacter target, CharacterEffect effect, float value)
+    public void AddValue(BaseCharacter target, Condition effect, float value)
     {
         UniqueStatMap ??= new Dictionary<BaseCharacter, UniqueStatModification>();
 
@@ -53,7 +53,7 @@ public class UniqueStatModificationHandler
         Recalculate(target);
     }
 
-    public void RemoveValue(BaseCharacter target, CharacterEffect effect)
+    public void RemoveValue(BaseCharacter target, Condition effect)
     {
         if (!UniqueStatMap.ContainsKey(target)) return;
 
@@ -73,7 +73,7 @@ public class UniqueStatModificationHandler
 
     }
 
-    public void UpdateValue(BaseCharacter target, CharacterEffect effect, float value)
+    public void UpdateValue(BaseCharacter target, Condition effect, float value)
     {
         if (!UniqueStatMap.ContainsKey(target)) return;
 

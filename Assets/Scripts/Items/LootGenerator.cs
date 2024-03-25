@@ -20,7 +20,6 @@ public class LootGenerator
         }
     }
 
-    GameObject ItemPickupPrefab;
     LootDatabase lootDatabase;
     BaseCharacter Player;
 
@@ -28,13 +27,11 @@ public class LootGenerator
     {
         lootDatabase = Resources.Load<LootDatabase>("Config/Loot Database");
         Player = CharacterManager.Instance.GetCharacterByTag("Player");
-        ItemPickupPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefab");
     }
 
     public void GenerateLootOnKill(BaseCharacter deadNPC)
     {
         var lootChanceRoll = Player.Random.NextFloat(0, 100);
-        Debug.Log("Loot Chance Roll: " + lootChanceRoll);
         if (lootChanceRoll > lootDatabase.lootChance)
             return;
 
@@ -49,10 +46,7 @@ public class LootGenerator
             var origin = deadNPC.transform.position;
             var point = UnityEngine.Random.insideUnitCircle * 2;
             var position = new Vector3(point.x, 0, point.y);
-            var itemPickup = GameObject.Instantiate(ItemPickupPrefab, origin + position, Quaternion.identity);
-            var itemPickupComponent = itemPickup.GetComponentInChildren<ItemPickup>();
-            itemPickupComponent.Setup(generatedItem.item, generatedItem.amount);
-
+            ItemDisplayHandler.Instance.SpawnItem(generatedItem.item, generatedItem.amount, origin + position);
         }
     }
 }
