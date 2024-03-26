@@ -1,4 +1,3 @@
-using Character;
 using Character.Abilities;
 using System.Collections;
 using UnityEditor;
@@ -10,26 +9,25 @@ public class Sprint : BaseAbility
     public Exhaustion Exhaustion;
     public float sprintSpeedMultiplier = 1f;
 
-    static StatUp statUP;
+    static SprintCondition sprintCondition;
 
 
     public override void Cast(CastInfo castInfo)
     {
-        if(statUP == null)
+        if(sprintCondition == null)
         {
-            statUP = CreateInstance<StatUp>();
-            statUP.StatName = "movementSpeed";
-            statUP.ModType = StatModType.PercentMult;
-            statUP.Value = sprintSpeedMultiplier;
-            statUP.duration = 0.25f;
+            sprintCondition = CreateInstance<SprintCondition>();
+            sprintCondition.Value = sprintSpeedMultiplier;
+            sprintCondition.duration = 0.25f;
         }
+
 
         if(castInfo.owner.Stats.GetResource("Stamina") < 5)
         {
             castInfo.owner.ApplyCondition(castInfo, Instantiate(Exhaustion));
         }
 
-        castInfo.owner.ApplyCondition(castInfo, Instantiate(statUP));
+        castInfo.owner.ApplyCondition(castInfo, Instantiate(sprintCondition));
     }
 }
 

@@ -64,19 +64,19 @@ public class PlayerAbilitiesHandler : PlayerModule
 
         if(player.Inventory.equipment.GetEquipment(EquipmentType.Weapon) is Weapon weapon)
         {
-            abilitySlots[4] = UnityEngine.Object.Instantiate(weapon.WeaponAbility);
+            abilitySlots[4] = Init(weapon.WeaponAbility);
         } else
         {
-            abilitySlots[4] = UnityEngine.Object.Instantiate(settings.FistAttackAbility);
+            abilitySlots[4] = Init(settings.FistAttackAbility);
         }
         abilityInputs[4] = settings.WeaponAttack;
         WeaponAttackAction = (ctx) => ActivateAbility(4, ctx);
 
 
-        abilitySlots[5] = UnityEngine.Object.Instantiate(settings.DodgeAbility);
+        abilitySlots[5] = Init(settings.DodgeAbility);
         abilityInputs[5] = settings.Dodge;
         dodgeAction = (ctx) => ActivateAbility(5, ctx);
-        abilitySlots[6] = UnityEngine.Object.Instantiate(settings.SprintAbility);
+        abilitySlots[6] = Init(settings.SprintAbility);
         abilityInputs[6] = settings.Sprint;
         sprintAction = (ctx) => ActivateAbility(6, ctx);
 
@@ -111,11 +111,18 @@ public class PlayerAbilitiesHandler : PlayerModule
         }
     }
 
+    PlayerAbilityDefinition Init(PlayerAbilityDefinition ability)
+    {
+        var newAbility = UnityEngine.Object.Instantiate(ability);
+        newAbility.Initialize(Player);
+        return newAbility;
+    }
+
     private void OnEquipmentChange(int arg0)
     {
         if(arg0 == (int)Items.EquipmentType.Weapon)
         {
-            var item = Player.Inventory.equipment.GetEquipment(Items.EquipmentType.Weapon);
+            var item = Player.Inventory.equipment.GetEquipment(EquipmentType.Weapon);
             if (item == null || ((Weapon)item).WeaponAbility == null) SetAbility(AbilitySlots.WeaponAttack, settings.FistAttackAbility);
             else if (item is Weapon weapon) SetAbility(AbilitySlots.WeaponAttack, weapon.WeaponAbility);
         }
@@ -146,7 +153,7 @@ public class PlayerAbilitiesHandler : PlayerModule
         if(ability == null)
             abilitySlots[(int)slot] = null;
         else
-            abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
+            abilitySlots[(int)slot] = Init(ability);
 
         OnAbilityChange[(int)slot]?.Invoke(abilitySlots[(int)slot]);
     }

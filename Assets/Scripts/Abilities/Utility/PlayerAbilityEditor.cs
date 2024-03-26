@@ -16,6 +16,7 @@ public class PlayerAbilityEditor : AttackAbilityDefinitionEditor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("ResourceCost"));
         }
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.Description)));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.AnimationTrigger)));
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         base.OnInspectorGUI();
         serializedObject.ApplyModifiedProperties();

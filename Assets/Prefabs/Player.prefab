@@ -879,6 +879,7 @@ GameObject:
   - component: {fileID: 5684938332524369826}
   - component: {fileID: 6162241161689435313}
   - component: {fileID: 2543650304166867409}
+  - component: {fileID: 5662182030027922909}
   - component: {fileID: 4873096029965989401}
   - component: {fileID: 1679155341025298424}
   m_Layer: 3
@@ -917,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4357573941c1ad49904bdb7e3c142ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityPoint: {fileID: 6579097318845773308}
+  AbilityPoint: {fileID: 5070985066624179290}
   Tags:
   - Player
   faction: 0
@@ -976,6 +977,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &5662182030027922909
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3988276762825930337}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f81261255c4c72c4582e9e7f4a428096, type: 3}
+  m_Controller: {fileID: 9100000, guid: 84a1b97e4801c404ea1353fc21fa63e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4873096029965989401
 MonoBehaviour:
   m_ObjectHideFlags: 0
