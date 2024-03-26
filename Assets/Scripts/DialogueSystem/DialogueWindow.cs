@@ -23,6 +23,8 @@ namespace DialogueWindows
         [SerializeField] private Button option2;
         [SerializeField] private Button option3;
         [SerializeField] private Button option4;
+        [SerializeField] private Button exitDialogue;
+        [SerializeField] private Button nextDialogue;
         [SerializeField] private TextMeshProUGUI option1Text;
         [SerializeField] private TextMeshProUGUI option2Text;
         [SerializeField] private TextMeshProUGUI option3Text;
@@ -39,47 +41,15 @@ namespace DialogueWindows
         {
             animator = GetComponent<Animator>();
         }
+        private void Start()
+        {
+            exitDialogue.onClick.AddListener(delegate { Close(); });
+            nextDialogue.onClick.AddListener(delegate { Next(); });
+        }
 
         private void Update()
         {
-            // remove when not testing
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                Open(testPath);
-            }
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                Open(testChoices);
-            }
 
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                if (GameManager.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
-                {
-
-
-                    currentPathDialogueIndex++;
-                    if (currentPathDialogueIndex < currentPath.Dialogues.Count)
-                    {
-                        DisplayDialogue(currentPath.Dialogues[currentPathDialogueIndex]);
-                    }
-                    else
-                    {
-                        if (ChoicesDialogue)
-                        {
-                            TransistionToDialogueChoices(currentChoices);
-                        }
-                        else if (!ChoicesDialogue)
-                        {
-                            Close();
-                        }
-                    }
-                }
-                else if (GameManager.Instance.CurrentState.Equals(Game_State.DialogueChoices))
-                {
-                    Close();
-                }
-            }
         }
 
         public void Open(DialoguePathLine pathToPlay)
@@ -95,10 +65,10 @@ namespace DialogueWindows
         }
         public void Open(DialogueChoices choices)
         {
+            currentChoices = choices;
             playerUIHandler.ToggleUI(false);
             GameManager.Instance.CurrentState = Game_State.DialogueChoices;
             ActivateForDialogueChoices();
-            currentChoices = choices;
             DisplayChoices(currentChoices);
 
             animator.SetBool(dialogueOpenParameter, true);
@@ -144,7 +114,6 @@ namespace DialogueWindows
 
         private void Close()
         {
-
             DeactivateForDialoguePath();
             DeactivateForDialogueChoices();
 
@@ -153,17 +122,41 @@ namespace DialogueWindows
 
             animator.SetBool(dialogueOpenParameter, false);
         }
+        private void Next()
+        {
+            if (GameManager.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
+            {
+                currentPathDialogueIndex++;
+                if (currentPathDialogueIndex < currentPath.Dialogues.Count)
+                {
+                    DisplayDialogue(currentPath.Dialogues[currentPathDialogueIndex]);
+                }
+                else
+                {
+                    if (ChoicesDialogue)
+                    {
+                        TransistionToDialogueChoices(currentChoices);
+                    }
+                    else if (!ChoicesDialogue)
+                    {
+                        Close();
+                    }
+                }
+            }
+        }
         private void ActivateForDialoguePath()
         {
             portrait.gameObject.SetActive(true);
             moniker.gameObject.SetActive(true);
             message.gameObject.SetActive(true);
+            nextDialogue.gameObject.SetActive(true);
         }
         private void DeactivateForDialoguePath()
         {
             portrait.gameObject.SetActive(false);
             moniker.gameObject.SetActive(false);
             message.gameObject.SetActive(false);
+            nextDialogue.gameObject.SetActive(false);
         }
         private void ActivateForDialogueChoices()
         {

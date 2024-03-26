@@ -4,19 +4,54 @@ using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 using Utility;
 using DialogueWindows;
+using Player;
+using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour, IInteractable
 {
+    private InputActionReference Interacts;
+
     [SerializeField] private Interaction interaction;
     [SerializeField] private DialogueWindow dialogueWindow;
+    private PlayerCharacter player;
+    private Vector3 playerPosition;
+    private Vector3 position;
+    private Vector3 distanceVector;
+    [SerializeField] private float distance;
+    private bool initialized = false;
 
     public Interaction Interaction => interaction;
 
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerCharacter>();
+        Interacts = player.playerSettings.Interact;
+        Interacts.action.Enable();
+        position = transform.position;
+    }
 
     private void Update()
     {
-        if (dialogueWindow != null) { dialogueWindow = FindObjectOfType<DialogueWindow>(); }
-        //On use initialise interaction, call Interact()
+        if (!initialized) 
+        {
+            dialogueWindow = FindObjectOfType<DialogueWindow>();
+            if (dialogueWindow != null ) { initialized = true; }
+        }
+
+        findDistance();
+        if (distance <= 2.5)
+        {
+            if (Interacts.action.ReadValue<float>() == 1)
+            {
+                Interact();
+            }
+        }
+    }
+    public void findDistance()
+    {
+        playerPosition = player.Transform.position;
+        distanceVector = playerPosition - position;
+        distance = distanceVector.magnitude;
     }
 
     public void Interact()

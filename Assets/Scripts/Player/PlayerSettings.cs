@@ -11,6 +11,7 @@ namespace Player
     {
         [Header("References")]
         public InputActionReference Movement;
+        public InputActionReference Interact;
         public InputActionReference Sprint;
         public InputActionReference Dodge;
         public InputActionReference WeaponAttack;
