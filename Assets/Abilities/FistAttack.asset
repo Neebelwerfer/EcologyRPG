@@ -61,6 +61,7 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  BlockRotationOnWindup: 1
   Ability: {fileID: -6701787922667511886}
   ResourceName: stamina
   ResourceCost: 5
