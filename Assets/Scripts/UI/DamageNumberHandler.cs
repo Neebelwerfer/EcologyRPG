@@ -41,8 +41,7 @@ public class DamageNumberHandler : MonoBehaviour
     {
         foreach (var de in damageEvents)
         {
-            var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity);
-            damageNumber.transform.SetParent(DamageNumberCanvas.transform);
+            var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity, DamageNumberCanvas.transform);
             var damageText = damageNumber.GetComponent<DamageText>();
             damageText.Init(de.damageTaken, GetDamageColor(de));
             damageNumbers.Add(damageText);

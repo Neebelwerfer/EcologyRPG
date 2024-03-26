@@ -67,6 +67,7 @@ namespace Character
 
         public CharacterStates state = CharacterStates.active;
         public bool CanMove { get { return canMove; } }
+        public bool CanRotate { get { return canRotate; } }
 
         public UnityEvent<BaseCharacter> OnCharacterCollision = new();
         readonly List<Condition> effects = new();
@@ -74,6 +75,7 @@ namespace Character
         protected int level;
         protected AttributeModification[] levelMods;
         protected bool canMove = true;
+        protected bool canRotate = true;
         protected Resource Health;
         protected Rigidbody rb;
         protected Animator animator;
@@ -97,7 +99,7 @@ namespace Character
         {
             damageInfo.damage = CalculateDamage(damageInfo);
             Health -= damageInfo.damage;
-            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Position };
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Transform.position };
             EventManager.Defer("DamageEvent", damageEvent);
 
             if (Health.CurrentValue <= 0)
@@ -210,6 +212,16 @@ namespace Character
                 }
             }
             return null;
+        }
+
+        public virtual void StopRotation()
+        {
+            canRotate = false;
+        }
+
+        public virtual void StartRotation()
+        {
+            canRotate = true;
         }
 
         public virtual void StopMovement()
