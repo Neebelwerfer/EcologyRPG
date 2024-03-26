@@ -21,4 +21,10 @@ public class AbilityButton : Button
         if (ability == null) return;
         Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = ability.DisplayName, Icon = ability.Icon, Description = ability.Description });
     }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        Tooltip.HideTooltip(gameObject);
+    }
 }

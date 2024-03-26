@@ -28,6 +28,12 @@ namespace Player
 
         StatModification sprintMod;
 
+        int isStill = Animator.StringToHash("Is_Still");
+        int isWalking = Animator.StringToHash("Is_Walking");
+        int isRunning = Animator.StringToHash("Is_Running");
+
+        Animator animator;
+
         // Start is called before the first frame update
         public override void Initialize(PlayerCharacter player)
         {
@@ -38,6 +44,8 @@ namespace Player
             transform = player.transform.Find("VisualPlayer");
 
             MovementSpeed = player.Stats.GetStat("movementSpeed");
+            animator = player.Animator;
+            animator.SetBool(isStill, true);
         }
 
         public override void FixedUpdate()
@@ -52,6 +60,8 @@ namespace Player
 
             if (movement.magnitude > 0)
             {
+                animator.SetBool(isStill, false);
+                animator.SetBool(isWalking, true);
                 var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
                 var dir = (movement.y * forward + movement.x * right).normalized;
                 Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Ground"));
@@ -61,6 +71,8 @@ namespace Player
             }
             else
             {
+                animator.SetBool(isWalking, false);
+                animator.SetBool(isStill, true);
                 UpdateRotationBasedOnMouse();
             }
         }

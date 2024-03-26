@@ -40,6 +40,7 @@ namespace Character
 
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Animator))]
     public abstract class BaseCharacter : MonoBehaviour
     {
         public GameObject AbilityPoint;
@@ -52,12 +53,10 @@ namespace Character
         public virtual Vector3 Forward { get { return transform.forward; } }
         public virtual Vector3 Position { get { return transform.position; } }
         public virtual Vector3 CastPos { get { return AbilityPoint.transform.position; } }
-
         public virtual Transform Transform { get { return transform; } }
-
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return rb; } }
-
+        public Animator Animator { get { return animator; } }
         public Stats Stats { get; private set; }
 
         public Random Random { get 
@@ -77,6 +76,7 @@ namespace Character
         protected bool canMove = true;
         protected Resource Health;
         protected Rigidbody rb;
+        protected Animator animator;
 
 
         public virtual void Start()
@@ -87,6 +87,7 @@ namespace Character
             Health = Stats.GetResource("health");
             rb = GetComponent<Rigidbody>();
             if(AbilityPoint == null) AbilityPoint = gameObject;
+            animator = GetComponent<Animator>();
 
             level = 1;
             InitLevel();
