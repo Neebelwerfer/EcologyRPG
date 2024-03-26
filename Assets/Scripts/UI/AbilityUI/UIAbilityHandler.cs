@@ -22,6 +22,7 @@ public class UIAbilityHandler : MonoBehaviour
     [SerializeField] private AbilityUI ability2UI;
     [SerializeField] private AbilityUI ability3UI;
     [SerializeField] private AbilityUI ability4UI;
+    [SerializeField] private GameObject abilitySelectionUI;
 
     private void Start()
     {
@@ -40,6 +41,8 @@ public class UIAbilityHandler : MonoBehaviour
         ability3UI.SetAbility(ability3);
         ability4 = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Ability4);
         ability4UI.SetAbility(ability4);
+
+        AbilitySelectionUI.Instance.Setup(abilitySelectionUI);
 
     }
 

@@ -6,13 +6,13 @@ using Player;
 using Character.Abilities;
 using UnityEngine.EventSystems;
 
-public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Ability")]
     private string abilityName;
     private PlayerCharacter player;
     private float cooldown;
-    [SerializeField] private AbilitySlots abilitySlot;
+    public AbilitySlots abilitySlot;
     [SerializeField] private PlayerAbilityDefinition ability;
     [SerializeField] private Image abilityImage;
     [SerializeField] private Image backgroundImage;
@@ -48,7 +48,14 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void SetUpAbilityUI()
     {
-        if (ability == null) return;
+        if (ability == null) 
+        {
+            abilitySprite = null;
+            abilityImage.sprite = abilitySprite;
+            backgroundImage.sprite = abilitySprite;
+            return;
+        };
+
         abilityName = ability.DisplayName;
         cooldown = ability.Cooldown;
         if (ability.Icon != null)
@@ -69,6 +76,12 @@ public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (ability == null) return;
         Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = ability.Description });
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        AbilitySelectionUI.Instance.Show(this);
     }
 }

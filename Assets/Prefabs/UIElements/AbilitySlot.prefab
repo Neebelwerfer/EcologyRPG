@@ -122,14 +122,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5302128378497083093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa4793112e581ed40b8b79ddef71a9b1, type: 3}
+  m_Script: {fileID: 11500000, guid: dead92d9d87b34c4389742bea32804bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySlot: 0
   ability: {fileID: 0}
-  abilityImage: {fileID: 7230657143778733143}
-  backgroundImage: {fileID: 1528548421581348966}
-  abilitySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  abilityImage: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  abilitySprite: {fileID: 0}
   isCoolDown: 0
 --- !u!1 &9198131993196387341
 GameObject:

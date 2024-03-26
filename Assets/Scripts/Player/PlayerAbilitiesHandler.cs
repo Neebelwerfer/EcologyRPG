@@ -53,16 +53,12 @@ public class PlayerAbilitiesHandler : PlayerModule
         settings.Ability3.action.Enable();
         settings.Ability4.action.Enable();
 
-        abilitySlots[0] = UnityEngine.Object.Instantiate(settings.Ability1Reference);
         abilityInputs[0] = settings.Ability1;
         Ability1Action = (ctx) => ActivateAbility(0, ctx);
-        abilitySlots[1] = UnityEngine.Object.Instantiate(settings.Ability2Reference);
         abilityInputs[1] = settings.Ability2;
         Ability2Action = (ctx) => ActivateAbility(1, ctx);
-        abilitySlots[2] = UnityEngine.Object.Instantiate(settings.Ability3Reference);
         abilityInputs[2] = settings.Ability3;
         Ability3Action = (ctx) => ActivateAbility(2, ctx);
-        abilitySlots[3] = UnityEngine.Object.Instantiate(settings.Ability4Reference);
         abilityInputs[3] = settings.Ability4;
         Ability4Action = (ctx) => ActivateAbility(3, ctx);
 
@@ -130,10 +126,29 @@ public class PlayerAbilitiesHandler : PlayerModule
         return abilitySlots[(int)slot];
     }
 
+    public bool GotAbility(PlayerAbilityDefinition ability, out AbilitySlots? slot)
+    {
+        for (int i = 0; i < abilitySlots.Length; i++)
+        {
+            if (abilitySlots[i] == null) continue;
+            if (abilitySlots[i].DisplayName == ability.DisplayName)
+            {
+                slot = (AbilitySlots)i;
+                return true;
+            }
+        }
+        slot = null;
+        return false;
+    }
+
     public void SetAbility(AbilitySlots slot, PlayerAbilityDefinition ability)
     {
-        abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
-        OnAbilityChange[(int)slot]?.Invoke(ability);
+        if(ability == null)
+            abilitySlots[(int)slot] = null;
+        else
+            abilitySlots[(int)slot] = UnityEngine.Object.Instantiate(ability);
+
+        OnAbilityChange[(int)slot]?.Invoke(abilitySlots[(int)slot]);
     }
 
     void ActivateAbility(int slot, InputAction.CallbackContext context)

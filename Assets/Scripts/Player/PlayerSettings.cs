@@ -27,10 +27,6 @@ namespace Player
         public float GlobalCooldown = 0.5f;
         public PlayerAbilityDefinition SprintAbility;
         public PlayerAbilityDefinition DodgeAbility;
-        public PlayerAbilityDefinition Ability1Reference;
-        public PlayerAbilityDefinition Ability2Reference;
-        public PlayerAbilityDefinition Ability3Reference;
-        public PlayerAbilityDefinition Ability4Reference;
         public PlayerAbilityDefinition FistAttackAbility;
 
         [Header("Inventory Settings")]
