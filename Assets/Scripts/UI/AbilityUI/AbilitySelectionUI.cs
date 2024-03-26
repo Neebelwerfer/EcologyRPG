@@ -32,10 +32,13 @@ public class AbilitySelectionUI
         var abilityHandler = player.playerAbilitiesHandler;
         if(abilityHandler.GotAbility(ability, out var slot))
         {
-            Debug.Log("Ability already assigned to slot: " + slot.Value);
             if (slot.HasValue)
             {
-                Debug.Log("Removing ability from slot: " + slot.Value);
+                if(slot.Value == selectedAbilityUI.abilitySlot)
+                {
+                    Hide();
+                    return;
+                }
                 abilityHandler.SetAbility(slot.Value, null);
             }
         }

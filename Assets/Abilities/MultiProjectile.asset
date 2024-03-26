@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: MultiProjectile
   m_EditorClassIdentifier: 
-  DisplayName: BasicProjectile
+  DisplayName: Basic Projectile
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}

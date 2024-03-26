@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Lopped Projectile
   m_EditorClassIdentifier: 
-  DisplayName: LoppedProjectile
+  DisplayName: Lopped Projectile
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
@@ -24,6 +24,7 @@ MonoBehaviour:
   Ability: {fileID: 676731462999206808}
   ResourceName: water
   ResourceCost: 5
+  Description: 
 --- !u!114 &676731462999206808
 MonoBehaviour:
   m_ObjectHideFlags: 0
