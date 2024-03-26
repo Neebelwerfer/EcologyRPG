@@ -1,4 +1,3 @@
-using Character;
 using Character.Abilities;
 using System.Collections;
 using UnityEditor;
@@ -17,7 +16,7 @@ public class Sprint : BaseAbility
     {
         if(sprintCondition == null)
         {
-            sprintCondition = new();
+            sprintCondition = CreateInstance<SprintCondition>();
             sprintCondition.Value = sprintSpeedMultiplier;
             sprintCondition.duration = 0.25f;
         }
@@ -29,33 +28,6 @@ public class Sprint : BaseAbility
         }
 
         castInfo.owner.ApplyCondition(castInfo, Instantiate(sprintCondition));
-    }
-}
-
-public class SprintCondition : BuffCondition
-{
-    public float Value;
-    Stat stat;
-    public override void OnApply(CastInfo Caster, BaseCharacter target)
-    {
-        stat = target.Stats.GetStat("movementSpeed");
-        stat.AddModifier(new StatModification("movementSpeed", Value, StatModType.PercentMult, this));
-        target.Animator.SetBool("Is_Running", true);
-    }
-
-    public override void OnReapply(BaseCharacter target)
-    {
-        remainingDuration = duration;
-    }
-
-    public override void OnRemoved(BaseCharacter target)
-    {
-        stat.RemoveAllModifiersFromSource(this);
-        target.Animator.SetBool("Is_Running", false);
-    }
-
-    public override void OnUpdate(BaseCharacter target, float deltaTime)
-    {
     }
 }
 
