@@ -116,6 +116,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1a8ecbd-3fa3-41c9-9fe4-27a55276abf2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -283,6 +292,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""CharacterMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d1bb2a0-3f8c-4ad5-90a0-a2b9bcaa72cb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -301,6 +321,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_InGame_AbilitySlot4 = m_InGame.FindAction("Ability Slot 4", throwIfNotFound: true);
         m_InGame_WeaponAttack = m_InGame.FindAction("WeaponAttack", throwIfNotFound: true);
         m_InGame_CharacterMenu = m_InGame.FindAction("CharacterMenu", throwIfNotFound: true);
+        m_InGame_Interact = m_InGame.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +393,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_AbilitySlot4;
     private readonly InputAction m_InGame_WeaponAttack;
     private readonly InputAction m_InGame_CharacterMenu;
+    private readonly InputAction m_InGame_Interact;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -386,6 +408,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @AbilitySlot4 => m_Wrapper.m_InGame_AbilitySlot4;
         public InputAction @WeaponAttack => m_Wrapper.m_InGame_WeaponAttack;
         public InputAction @CharacterMenu => m_Wrapper.m_InGame_CharacterMenu;
+        public InputAction @Interact => m_Wrapper.m_InGame_Interact;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -425,6 +448,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @CharacterMenu.started += instance.OnCharacterMenu;
             @CharacterMenu.performed += instance.OnCharacterMenu;
             @CharacterMenu.canceled += instance.OnCharacterMenu;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -459,6 +485,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @CharacterMenu.started -= instance.OnCharacterMenu;
             @CharacterMenu.performed -= instance.OnCharacterMenu;
             @CharacterMenu.canceled -= instance.OnCharacterMenu;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -488,5 +517,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnAbilitySlot4(InputAction.CallbackContext context);
         void OnWeaponAttack(InputAction.CallbackContext context);
         void OnCharacterMenu(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

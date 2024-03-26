@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "New Dialogue Choices")]
 
-public class DialogueChoices : ScriptableObject
+public class DialogueChoices : Interaction
 {
     [SerializeField] private List<DialogueChoice> options;
 

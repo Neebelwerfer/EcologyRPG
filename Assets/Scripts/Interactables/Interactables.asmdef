@@ -1,11 +1,13 @@
 {
-    "name": "DialogueSystem",
+    "name": "Interactables",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:88b3be567192a424ca6baadd02eb21da",
-        "GUID:1f4e66bdd15fa0740839928b1222bc94",
-        "GUID:4aafcecd01a78eb4b9237855ed825fe6"
+        "GUID:4aafcecd01a78eb4b9237855ed825fe6",
+        "GUID:21eacf7b2b08c074c8a760d210ef307b",
+        "GUID:948aaa0a1f60bbd4da235bfd5a927fcc",
+        "GUID:e6f13cce094af9f4ea8f5503e2368926",
+        "GUID:f48955dd5eb492442ac0e292d6310e8a",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
