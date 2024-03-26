@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: Lopped Projectile
   m_EditorClassIdentifier: 
   DisplayName: Lopped Projectile
-  Cooldown: 0.5
-  CastWindupTime: 0
+  Cooldown: 6
+  CastWindupTime: 0.75
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
+  BlockMovementOnWindup: 1
   Ability: {fileID: 676731462999206808}
   ResourceName: water
   ResourceCost: 5
   Description: 
+  AnimationTrigger: Water_LopBomb
 --- !u!114 &676731462999206808
 MonoBehaviour:
   m_ObjectHideFlags: 0

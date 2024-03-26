@@ -112,6 +112,8 @@ MonoBehaviour:
   Ability: {fileID: -676121089416390121}
   ResourceName: stamina
   ResourceCost: 10
+  Description: 
+  AnimationTrigger: 
 --- !u!114 &5337038202547872604
 MonoBehaviour:
   m_ObjectHideFlags: 0
