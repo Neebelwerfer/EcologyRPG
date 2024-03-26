@@ -15,19 +15,32 @@ namespace Utility
             pool = new Stack<GameObject>();
         }
 
-        public GameObject GetObject(Vector3 pos, Quaternion rot)
+        public GameObject GetObject(Transform parent)
+        {
+            var obj = GetObject();
+            obj.transform.SetParent(parent);
+            return obj;
+        }
+
+        public GameObject GetObject(Vector3 pos, Quaternion rot, Transform parent = null)
+        {
+            var obj = GetObject();
+            obj.transform.SetPositionAndRotation(pos, rot);
+            obj.transform.SetParent(parent);
+            return obj;
+        }
+
+        public GameObject GetObject()
         {
             if(pool.Count > 0)
             {
                 var obj = pool.Pop();
-                obj.transform.SetPositionAndRotation(pos, rot);
                 obj.SetActive(true);
                 return obj;
             }
             else
             {
                 var obj = Instantiate(prefab);
-                obj.transform.SetPositionAndRotation(pos, rot);
                 return obj;
             }
         }
@@ -39,8 +52,12 @@ namespace Utility
             return obj;
         }
 
-        public void ReturnObject(GameObject obj)
+        public void ReturnObject(GameObject obj, bool resetParent = false)
         {
+            if(resetParent)
+            {
+                obj.transform.SetParent(null);
+            }
             obj.SetActive(false);
             pool.Push(obj);
         }
