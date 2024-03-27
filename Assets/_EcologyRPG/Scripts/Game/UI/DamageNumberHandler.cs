@@ -1,86 +1,90 @@
-using Character;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
+using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
-using Utility;
 
-public class DamageNumberHandler : MonoBehaviour
+namespace EcologyRPG.Game.UI
 {
-    static DamageNumberHandler _instance;
-    public static DamageNumberHandler Instance { get { return _instance; } }
-
-    public GameObject DamageNumberPrefab;
-    public GameObject DamageNumberCanvas;
-    GameObjectPool damageNumberPool;
-    readonly List<DamageText> damageNumbers = new();
-    readonly List<DamageEvent> damageEvents = new();
-
-    private void Awake()
+    public class DamageNumberHandler : MonoBehaviour
     {
-        if(_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-        damageNumberPool = new GameObjectPool(DamageNumberPrefab);
-        damageNumberPool.Preload(20, DamageNumberCanvas.transform);
-        EventManager.AddListener("DamageEvent", AddDamageEvent);
-    }
+        static DamageNumberHandler _instance;
+        public static DamageNumberHandler Instance { get { return _instance; } }
 
-    public void AddDamageEvent(EventData damageEvent)
-    {
-        if(damageEvent is DamageEvent de)
-        {
-            damageEvents.Add(de);
-        }
-    }
+        public GameObject DamageNumberPrefab;
+        public GameObject DamageNumberCanvas;
+        GameObjectPool damageNumberPool;
+        readonly List<DamageText> damageNumbers = new();
+        readonly List<DamageEvent> damageEvents = new();
 
-    private void Update()
-    {
-        foreach (var de in damageEvents)
+        private void Awake()
         {
-            var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity, DamageNumberCanvas.transform);
-            var damageText = damageNumber.GetComponent<DamageText>();
-            damageText.Init(de.damageTaken, GetDamageColor(de));
-            damageNumbers.Add(damageText);
-        }
-        damageEvents.Clear();
-
-        for (int i = damageNumbers.Count - 1; i >= 0; i--)
-        {
-            var damageNumber = damageNumbers[i];
-            if (damageNumber == null)
+            if (_instance != null && _instance != this)
             {
-                damageNumbers.RemoveAt(i);
+                Destroy(this.gameObject);
             }
-            damageNumber.OnUpdate();
-            if(damageNumber.RemainingDuration <= 0)
+            else
             {
-                damageNumbers.RemoveAt(i);
-                damageNumberPool.ReturnObject(damageNumber.gameObject);
+                _instance = this;
+            }
+            damageNumberPool = new GameObjectPool(DamageNumberPrefab);
+            damageNumberPool.Preload(20, DamageNumberCanvas.transform);
+            EventManager.AddListener("DamageEvent", AddDamageEvent);
+        }
+
+        public void AddDamageEvent(EventData damageEvent)
+        {
+            if (damageEvent is DamageEvent de)
+            {
+                damageEvents.Add(de);
             }
         }
-    }
 
-    Color GetDamageColor(DamageEvent damageEvent)
-    {
-        if(damageEvent.damageType == Character.Abilities.DamageType.Physical)
+        private void Update()
         {
-            return Color.red;
+            foreach (var de in damageEvents)
+            {
+                var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity, DamageNumberCanvas.transform);
+                var damageText = damageNumber.GetComponent<DamageText>();
+                damageText.Init(de.damageTaken, GetDamageColor(de));
+                damageNumbers.Add(damageText);
+            }
+            damageEvents.Clear();
+
+            for (int i = damageNumbers.Count - 1; i >= 0; i--)
+            {
+                var damageNumber = damageNumbers[i];
+                if (damageNumber == null)
+                {
+                    damageNumbers.RemoveAt(i);
+                }
+                damageNumber.OnUpdate();
+                if (damageNumber.RemainingDuration <= 0)
+                {
+                    damageNumbers.RemoveAt(i);
+                    damageNumberPool.ReturnObject(damageNumber.gameObject);
+                }
+            }
         }
-        else if(damageEvent.damageType == Character.Abilities.DamageType.Water)
+
+        Color GetDamageColor(DamageEvent damageEvent)
         {
-            return Color.blue;
-        }
-        else if(damageEvent.damageType == Character.Abilities.DamageType.Toxic)
-        {
-            return Color.magenta;
-        }
-        else
-        {
-            return Color.white;
+            if (damageEvent.damageType == DamageType.Physical)
+            {
+                return Color.red;
+            }
+            else if (damageEvent.damageType == DamageType.Water)
+            {
+                return Color.blue;
+            }
+            else if (damageEvent.damageType == DamageType.Toxic)
+            {
+                return Color.magenta;
+            }
+            else
+            {
+                return Color.white;
+            }
         }
     }
 }

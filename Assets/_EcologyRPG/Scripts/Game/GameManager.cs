@@ -3,40 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum Game_State
+namespace EcologyRPG.Game
 {
-    Menu,
-    Playing,
-    Paused,
-    DialoguePlaying,
-    DialogueChoices,
-}
-
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance;
-
-    public Game_State CurrentState = Game_State.Menu;
-        
-    // Start is called before the first frame update
-    
-    void Awake()
+    public enum Game_State
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Menu,
+        Playing,
+        Paused,
+        DialoguePlaying,
+        DialogueChoices,
     }
 
-    public void Update()
+    public class GameManager : MonoBehaviour
     {
-        if(CurrentState == Game_State.Playing)
+        public static GameManager Instance;
+
+        public Game_State CurrentState = Game_State.Menu;
+
+        // Start is called before the first frame update
+
+        void Awake()
         {
-            EventManager.UpdateQueue();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void Update()
+        {
+            if (CurrentState == Game_State.Playing)
+            {
+                EventManager.UpdateQueue();
+            }
         }
     }
 }

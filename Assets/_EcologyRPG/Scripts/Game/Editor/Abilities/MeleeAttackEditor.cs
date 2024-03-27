@@ -1,5 +1,7 @@
-﻿using UnityEditor;
-using static WeaponAttack;
+﻿using EcologyRPG.Game.Abilities.Implementations;
+using UnityEditor;
+using static EcologyRPG.Game.Abilities.Definitions.WeaponAttack;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(MeleeAttack))]
 public class MeleeAttackEditor : WeaponAttackEditor

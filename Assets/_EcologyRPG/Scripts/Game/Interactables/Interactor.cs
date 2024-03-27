@@ -1,68 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements.Experimental;
-using Utility;
-using DialogueWindows;
-using Player;
+using EcologyRPG.Game.Dialogue;
 using UnityEngine.InputSystem;
+using UnityEngine;
+using EcologyRPG.Utility.Interactions;
+using EcologyRPG.Game.Player;
 
-public class Interactor : MonoBehaviour, IInteractable
+namespace EcologyRPG.Game.Interactables
 {
-    private InputActionReference Interacts;
-
-    [SerializeField] private Interaction interaction;
-    [SerializeField] private DialogueWindow dialogueWindow;
-    private PlayerCharacter player;
-    private Vector3 playerPosition;
-    private Vector3 position;
-    private Vector3 distanceVector;
-    [SerializeField] private float distance;
-    private bool initialized = false;
-
-    public Interaction Interaction => interaction;
-
-    private void Start()
+    public class Interactor : MonoBehaviour, IInteractable
     {
-        player = FindObjectOfType<PlayerCharacter>();
-        Interacts = player.playerSettings.Interact;
-        Interacts.action.Enable();
-        position = transform.position;
-    }
+        private InputActionReference Interacts;
 
-    private void Update()
-    {
-        if (!initialized) 
+        [SerializeField] private Interaction interaction;
+        [SerializeField] private DialogueWindow dialogueWindow;
+        private PlayerCharacter player;
+        private Vector3 playerPosition;
+        private Vector3 position;
+        private Vector3 distanceVector;
+        [SerializeField] private float distance;
+        private bool initialized = false;
+
+        public Interaction Interaction => interaction;
+
+        private void Start()
         {
-            dialogueWindow = FindObjectOfType<DialogueWindow>();
-            if (dialogueWindow != null ) { initialized = true; }
+            player = PlayerManager.Instance.GetPlayerCharacter();
+            Interacts = player.playerSettings.Interact;
+            Interacts.action.Enable();
+            position = transform.position;
         }
 
-        findDistance();
-        if (distance <= 2.5)
+        private void Update()
         {
-            if (Interacts.action.ReadValue<float>() == 1)
+            if (!initialized)
             {
-                Interact();
+                dialogueWindow = FindObjectOfType<DialogueWindow>();
+                if (dialogueWindow != null) { initialized = true; }
+            }
+
+            findDistance();
+            if (distance <= 2.5)
+            {
+                if (Interacts.action.ReadValue<float>() == 1)
+                {
+                    Interact();
+                }
             }
         }
-    }
-    public void findDistance()
-    {
-        playerPosition = player.Transform.position;
-        distanceVector = playerPosition - position;
-        distance = distanceVector.magnitude;
-    }
-
-    public void Interact()
-    {
-        if (interaction is DialoguePathLine path)
+        public void findDistance()
         {
-            dialogueWindow.Open(path);
+            playerPosition = player.Transform.position;
+            distanceVector = playerPosition - position;
+            distance = distanceVector.magnitude;
         }
-        else if (interaction is DialogueChoices choices)
+
+        public void Interact()
         {
-            dialogueWindow.Open(choices);
+            if (interaction is DialoguePathLine path)
+            {
+                dialogueWindow.Open(path);
+            }
+            else if (interaction is DialogueChoices choices)
+            {
+                dialogueWindow.Open(choices);
+            }
         }
     }
 }

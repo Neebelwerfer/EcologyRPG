@@ -1,90 +1,95 @@
-using System;
-using System.Collections;
+using EcologyRPG.Core.UI;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine;
 using UnityEngine.UI;
+using System;
+using EcologyRPG.Core.Items;
+using System.Collections;
 
-public class EquipmentButton : Button
+namespace EcologyRPG.Game.UI
 {
-    public TextMeshProUGUI Name;
-    public Image Image;
-    public Action Unequip;
-
-    Item item;
-
-
-    bool clickedOnce = false;
-
-
-    public void Setup(Item item)
+    public class EquipmentButton : Button
     {
-        if(Name == null)
-            Name = transform.parent.Find("Name").GetComponent<TextMeshProUGUI>();
-        if(Image == null)
-            Image = GetComponent<Image>();
-        if(item == null)
+        public TextMeshProUGUI Name;
+        public Image Image;
+        public Action Unequip;
+
+        Item item;
+
+
+        bool clickedOnce = false;
+
+
+        public void Setup(Item item)
         {
-            Name.text = "Empty";
-            Image.sprite = null;
-        }
-        else
-        {
-            this.item = item;
-            Name.text = item.Name;
-            Image.sprite = item.Icon;
-        }
-    }
-
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        if(item == null) return;
-        Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = item.Name, Icon = item.Icon, Description = item.GetDisplayString() });
-    }
-
-    public override void OnPointerExit(PointerEventData eventData)
-    {
-        Tooltip.HideTooltip(gameObject);
-    }
-
-
-    public override void OnPointerClick(PointerEventData eventData)
-    {
-        if(item == null) return;
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-
-
-            if (!clickedOnce)
+            if (Name == null)
+                Name = transform.parent.Find("Name").GetComponent<TextMeshProUGUI>();
+            if (Image == null)
+                Image = GetComponent<Image>();
+            if (item == null)
             {
-                clickedOnce = true;
-                StartCoroutine(ResetClick());
-                return;
+                Name.text = "Empty";
+                Image.sprite = null;
             }
-            if (clickedOnce)
+            else
             {
-                Unequip?.Invoke();
-                clickedOnce = false;
-                return;
+                this.item = item;
+                Name.text = item.Name;
+                Image.sprite = item.Icon;
             }
         }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+
+        public override void OnPointerEnter(PointerEventData eventData)
         {
-            ContextUI.Instance.Open();
-            ContextUI.Instance.CreateButton("Unequip", Unequip);
+            if (item == null) return;
+            Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = item.Name, Icon = item.Icon, Description = item.GetDisplayString() });
         }
-    }
+
+        public override void OnPointerExit(PointerEventData eventData)
+        {
+            Tooltip.HideTooltip(gameObject);
+        }
 
 
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        Tooltip.HideTooltip(gameObject);    
-    }
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            if (item == null) return;
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
 
-    public IEnumerator ResetClick()
-    {
-        yield return new WaitForSeconds(0.5f);
-        clickedOnce = false;
+
+                if (!clickedOnce)
+                {
+                    clickedOnce = true;
+                    StartCoroutine(ResetClick());
+                    return;
+                }
+                if (clickedOnce)
+                {
+                    Unequip?.Invoke();
+                    clickedOnce = false;
+                    return;
+                }
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                ContextUI.Instance.Open();
+                ContextUI.Instance.CreateButton("Unequip", Unequip);
+            }
+        }
+
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            Tooltip.HideTooltip(gameObject);
+        }
+
+        public IEnumerator ResetClick()
+        {
+            yield return new WaitForSeconds(0.5f);
+            clickedOnce = false;
+        }
     }
 }

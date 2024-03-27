@@ -1,16 +1,19 @@
-using Character.Abilities;
+using EcologyRPG.Core.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Ability/NPC Ability Data", fileName = "New NPC Ability Data")]
-public class NPCAbility : AbilityDefintion
+namespace EcologyRPG.Game.NPC
 {
-    public BaseAbility Ability;
-
-    public override void CastEnded(CastInfo caster)
+    [CreateAssetMenu(menuName = "Ability/NPC Ability Data", fileName = "New NPC Ability Data")]
+    public class NPCAbility : AbilityDefintion
     {
-        base.CastEnded(caster);
-        caster.castPos = caster.owner.CastPos;
-        caster.dir = caster.owner.transform.forward;
-        Ability.Cast(caster);
+        public BaseAbility Ability;
+
+        public override void CastEnded(CastInfo caster)
+        {
+            base.CastEnded(caster);
+            caster.castPos = caster.owner.CastPos;
+            caster.dir = caster.owner.transform.forward;
+            Ability.Cast(caster);
+        }
     }
 }

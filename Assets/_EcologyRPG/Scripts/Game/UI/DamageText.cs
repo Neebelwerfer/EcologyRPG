@@ -1,27 +1,30 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class DamageText : MonoBehaviour
+namespace EcologyRPG.Game.UI
 {
-    public float Duration = 1f;
-    public float Speed = 1f;
-
-    [HideInInspector] public float RemainingDuration;
-    Vector3 Dir;
-    public void Init(float damage, Color textColor)
+    public class DamageText : MonoBehaviour
     {
-        var text = GetComponent<TextMeshProUGUI>();
-        var damageRounded = Mathf.Ceil(damage);
-        text.text = damageRounded.ToString();
-        text.color = textColor;
-        RemainingDuration = Duration;
-        Dir = -Camera.main.transform.up;
-    }
+        public float Duration = 1f;
+        public float Speed = 1f;
 
-    public void OnUpdate()
-    {
-        RemainingDuration -= Time.deltaTime;
+        [HideInInspector] public float RemainingDuration;
+        Vector3 Dir;
+        public void Init(float damage, Color textColor)
+        {
+            var text = GetComponent<TextMeshProUGUI>();
+            var damageRounded = Mathf.Ceil(damage);
+            text.text = damageRounded.ToString();
+            text.color = textColor;
+            RemainingDuration = Duration;
+            Dir = -Camera.main.transform.up;
+        }
 
-        transform.position += Speed * Time.deltaTime * Dir;
+        public void OnUpdate()
+        {
+            RemainingDuration -= Time.deltaTime;
+
+            transform.position += Speed * Time.deltaTime * Dir;
+        }
     }
 }

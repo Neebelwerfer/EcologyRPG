@@ -1,15 +1,19 @@
 using UnityEngine;
 
-public abstract class WeaponAttack : AttackAbility
+namespace EcologyRPG.Game.Abilities.Definitions
 {
-    public enum TargetType
+    public abstract class WeaponAttack : AttackAbility
     {
-        Line,
-        Cone,
-        Circular
-    }
+        public enum TargetType
+        {
+            Line,
+            Cone,
+            Circular
+        }
 
-    [Header("Weapon Attack")]
-    [Tooltip("The type of targeting this ability will use")]
-    public TargetType targetType;
+        [Header("Weapon Attack")]
+        [Tooltip("The type of targeting this ability will use")]
+        public TargetType targetType;
+    }
 }
+

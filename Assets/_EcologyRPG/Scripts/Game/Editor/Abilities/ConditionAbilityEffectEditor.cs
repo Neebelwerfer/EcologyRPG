@@ -1,6 +1,7 @@
-﻿using Character.Abilities.AbilityComponents;
+﻿using EcologyRPG.Game.Abilities.Components;
 using UnityEditor;
 using UnityEngine;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(ConditionAbilityComponent))]
 public class ConditionAbilityEffectEditor : Editor

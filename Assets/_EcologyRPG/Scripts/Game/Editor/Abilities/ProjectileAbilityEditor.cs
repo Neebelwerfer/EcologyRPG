@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Game.Abilities.Definitions;
+using UnityEditor;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(ProjectileAbility), false)]
 public class ProjectileAbilityEditor : AttackAbilityEditor

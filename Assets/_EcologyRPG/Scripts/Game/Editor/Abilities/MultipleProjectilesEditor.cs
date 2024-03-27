@@ -1,5 +1,8 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Game.Abilities.Definitions;
+using EcologyRPG.Game.Abilities.Implementations;
+using UnityEditor;
 using UnityEngine;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(MultipleProjectiles))]
 public class MultipleProjectilesEditor : ProjectileAbilityEditor

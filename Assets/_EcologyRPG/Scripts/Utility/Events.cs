@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utility.Events
+namespace EcologyRPG.Utility.Events
 {
 
 }

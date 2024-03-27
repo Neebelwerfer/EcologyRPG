@@ -1,17 +1,12 @@
-using Character.Abilities;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Utility;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SceneManagement;
-using Utility;
 using Random = Unity.Mathematics.Random;
 
-namespace Character
+namespace EcologyRPG.Core.Character
 {
     public enum CharacterStates
     {

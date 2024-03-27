@@ -1,53 +1,51 @@
-using Character;
-using Character.Abilities;
-using Character.Abilities.AbilityComponents;
+using EcologyRPG.Core.Abilities.AbilityComponents;
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-public abstract class BaseAbility : ScriptableObject
+namespace EcologyRPG.Core.Abilities
 {
-    [Tooltip("The range of the ability")]
-    public float Range;
-    public List<AbilityComponent> OnCastEffects = new();
-
-    public virtual void Cast(CastInfo castInfo)
+    public abstract class BaseAbility : ScriptableObject
     {
-        foreach (var effect in OnCastEffects)
+        [Tooltip("The range of the ability")]
+        public float Range;
+        public List<AbilityComponent> OnCastEffects = new();
+
+        public virtual void Cast(CastInfo castInfo)
         {
-            effect.ApplyEffect(castInfo, null);
+            foreach (var effect in OnCastEffects)
+            {
+                effect.ApplyEffect(castInfo, null);
+            }
         }
-    }
 
-    public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true, bool useWeaponDamage = false)
-    {
-        DamageInfo damageInfo = new()
+        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true, bool useWeaponDamage = false)
         {
-            type = damageType,
-            source = caster
-        };
+            DamageInfo damageInfo = new()
+            {
+                type = damageType,
+                source = caster
+            };
 
-        Stat ad;
-        if(useWeaponDamage)
-        {
-            ad = caster.Stats.GetStat("weaponDamage");
+            Stat ad;
+            if (useWeaponDamage)
+            {
+                ad = caster.Stats.GetStat("weaponDamage");
+            }
+            else
+            {
+                ad = caster.Stats.GetStat("abilityDamage");
+            }
+            var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
+            damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
+
+            return damageInfo;
         }
-        else
+
+        [ContextMenu("Delete")]
+        protected virtual void Delete()
         {
-            ad = caster.Stats.GetStat("abilityDamage");
+            DestroyImmediate(this, true);
         }
-        var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
-        damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
-
-        return damageInfo;
-    }
-
-    [ContextMenu("Delete")]
-    protected virtual void Delete()
-    {
-        DestroyImmediate(this, true);
     }
 }
-
-#if UNITY_EDITOR
-#endif

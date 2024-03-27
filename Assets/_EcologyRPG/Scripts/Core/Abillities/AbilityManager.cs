@@ -1,72 +1,73 @@
-using Character.Abilities;
 using System.Collections.Generic;
 using UnityEngine;
-using Utility;
 
-public class AbilityManager : MonoBehaviour
+namespace EcologyRPG.Core.Abilities
 {
-    public static AbilityManager instance;
-
-    public List<AbilityDefintion> CooldownAbilities = new List<AbilityDefintion>();
-
-    private void Awake()
+    public class AbilityManager : MonoBehaviour
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
+        public static AbilityManager instance;
 
-    public void RegisterAbilityOnCooldown(AbilityDefintion ability)
-    {
-        if (!CooldownAbilities.Contains(ability))
-        {
-            CooldownAbilities.Add(ability);
-        }
-    }
+        public List<AbilityDefintion> CooldownAbilities = new List<AbilityDefintion>();
 
-    public void UnregisterAbilityOnCooldown(AbilityDefintion ability)
-    {
-        if (CooldownAbilities.Contains(ability))
+        private void Awake()
         {
-            CooldownAbilities.Remove(ability);
-        }
-    }
-
-    private void Update()
-    {
-        for (int i = CooldownAbilities.Count - 1; i >= 0; i--)
-        {
-            if (CooldownAbilities[i] == null)
+            if (instance == null)
             {
-                CooldownAbilities.RemoveAt(i);
-                continue;
+                instance = this;
             }
-
-            if (CooldownAbilities[i].state == AbilityStates.ready)
+            else
             {
-                CooldownAbilities.RemoveAt(i);
-                continue;
+                Destroy(this);
             }
-
-            CooldownAbilities[i].UpdateCooldown(Time.deltaTime);
         }
-    }
 
-    private void OnDestroy()
-    {
-        if(instance == this)
+        public void RegisterAbilityOnCooldown(AbilityDefintion ability)
         {
-            instance = null;
+            if (!CooldownAbilities.Contains(ability))
+            {
+                CooldownAbilities.Add(ability);
+            }
         }
-        foreach (var ability in CooldownAbilities)
+
+        public void UnregisterAbilityOnCooldown(AbilityDefintion ability)
         {
-            ability.remainingCooldown = 0;
-            ability.state = AbilityStates.ready;
+            if (CooldownAbilities.Contains(ability))
+            {
+                CooldownAbilities.Remove(ability);
+            }
+        }
+
+        private void Update()
+        {
+            for (int i = CooldownAbilities.Count - 1; i >= 0; i--)
+            {
+                if (CooldownAbilities[i] == null)
+                {
+                    CooldownAbilities.RemoveAt(i);
+                    continue;
+                }
+
+                if (CooldownAbilities[i].state == AbilityStates.ready)
+                {
+                    CooldownAbilities.RemoveAt(i);
+                    continue;
+                }
+
+                CooldownAbilities[i].UpdateCooldown(Time.deltaTime);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (instance == this)
+            {
+                instance = null;
+            }
+            foreach (var ability in CooldownAbilities)
+            {
+                ability.remainingCooldown = 0;
+                ability.state = AbilityStates.ready;
+            }
         }
     }
 }

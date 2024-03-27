@@ -1,5 +1,6 @@
-﻿using Character.Abilities;
+﻿using EcologyRPG.Core.Abilities;
 using UnityEditor;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(AbilityDefintion), false)]
 public class AbilityDefinitionEditor : Editor

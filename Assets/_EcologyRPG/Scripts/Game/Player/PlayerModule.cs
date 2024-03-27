@@ -1,4 +1,4 @@
-namespace Player
+namespace EcologyRPG.Game.Player
 {
     public abstract class PlayerModule
     {

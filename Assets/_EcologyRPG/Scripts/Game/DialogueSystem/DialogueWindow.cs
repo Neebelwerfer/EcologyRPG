@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using EcologyRPG.Game.UI;
 
-namespace DialogueWindows
+namespace EcologyRPG.Game.Dialogue
 {
-
-
     public class DialogueWindow : MonoBehaviour
     {
         //testing

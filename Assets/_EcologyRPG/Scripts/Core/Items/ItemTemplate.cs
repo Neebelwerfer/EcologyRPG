@@ -1,10 +1,8 @@
-using Character;
-using Character.Attributes;
-using System.Collections.Generic;
+using EcologyRPG.Core.Character;
 using UnityEditor;
 using UnityEngine;
 
-namespace Items.ItemTemplates
+namespace EcologyRPG.Core.Items
 {
     public enum GrowthType
     {

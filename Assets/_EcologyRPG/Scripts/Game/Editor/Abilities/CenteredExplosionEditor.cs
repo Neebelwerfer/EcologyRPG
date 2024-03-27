@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Game.Abilities.Implementations;
+using UnityEditor;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(CenteredExplosion))]
 public class CenteredExplosionEditor : AbilityDefinitionEditor

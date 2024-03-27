@@ -1,72 +1,73 @@
-using Player;
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRPG.Game.NPC;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealthBar : MonoBehaviour
+namespace EcologyRPG.Game.UI
 {
-    [SerializeField] private Slider barSlider;
-    [SerializeField] private Slider easeSlider;
-    [SerializeField] private float lerpSpeed;
-    [SerializeField] private string resourceName;
-    [SerializeField] private EnemyNPC character;
-    [SerializeField] private GameObject easingBar;
-    [SerializeField] private GameObject healthBar;
-
-    private bool initialized = false;
-
-    public float maxHealth = 100;
-    public float currentHealth;
-
-    private void Start()
+    public class EnemyHealthBar : MonoBehaviour
     {
-        InitializeBar(character, resourceName);
-        barSlider.maxValue = maxHealth;
-        barSlider.value = maxHealth;
-        currentHealth = maxHealth;
-    }
-    private void Update()
-    {
-        if (!initialized) InitializeBar(character, resourceName);
+        [SerializeField] private Slider barSlider;
+        [SerializeField] private Slider easeSlider;
+        [SerializeField] private float lerpSpeed;
+        [SerializeField] private string resourceName;
+        [SerializeField] private EnemyNPC character;
+        [SerializeField] private GameObject easingBar;
+        [SerializeField] private GameObject healthBar;
 
-        UpdateBar(character, resourceName);
-        VisibleBar();
-    }
+        private bool initialized = false;
 
-    public void InitializeBar(EnemyNPC nPC, string resourceName)
-    {
-        maxHealth = nPC.Stats.GetResource(resourceName).MaxValue;
-        barSlider.maxValue = maxHealth;
-        barSlider.value = barSlider.maxValue;
-        easeSlider.maxValue = barSlider.maxValue;
-        easeSlider.value = easeSlider.maxValue;
-        if (maxHealth != 0) initialized = true;
-    }
-    public void UpdateBar(EnemyNPC nPC, string resourceName)
-    {
-        currentHealth = nPC.Stats.GetResource(resourceName).CurrentValue;
-        if (barSlider.value != currentHealth)
+        public float maxHealth = 100;
+        public float currentHealth;
+
+        private void Start()
         {
-            barSlider.value = currentHealth;
+            InitializeBar(character, resourceName);
+            barSlider.maxValue = maxHealth;
+            barSlider.value = maxHealth;
+            currentHealth = maxHealth;
+        }
+        private void Update()
+        {
+            if (!initialized) InitializeBar(character, resourceName);
+
+            UpdateBar(character, resourceName);
+            VisibleBar();
         }
 
-        if (barSlider.value != easeSlider.value)
+        public void InitializeBar(EnemyNPC nPC, string resourceName)
         {
-            easeSlider.value = Mathf.Lerp(easeSlider.value, currentHealth, lerpSpeed);
+            maxHealth = nPC.Stats.GetResource(resourceName).MaxValue;
+            barSlider.maxValue = maxHealth;
+            barSlider.value = barSlider.maxValue;
+            easeSlider.maxValue = barSlider.maxValue;
+            easeSlider.value = easeSlider.maxValue;
+            if (maxHealth != 0) initialized = true;
         }
-    }
-    public void VisibleBar()
-    {
-        if(character.Stats.GetResource(resourceName).MaxValue == character.Stats.GetResource(resourceName).CurrentValue)
+        public void UpdateBar(EnemyNPC nPC, string resourceName)
         {
-            easingBar.SetActive(false);
-            healthBar.SetActive(false);
+            currentHealth = nPC.Stats.GetResource(resourceName).CurrentValue;
+            if (barSlider.value != currentHealth)
+            {
+                barSlider.value = currentHealth;
+            }
+
+            if (barSlider.value != easeSlider.value)
+            {
+                easeSlider.value = Mathf.Lerp(easeSlider.value, currentHealth, lerpSpeed);
+            }
         }
-        else
+        public void VisibleBar()
         {
-            easingBar.SetActive(true);
-            healthBar.SetActive(true);
+            if (character.Stats.GetResource(resourceName).MaxValue == character.Stats.GetResource(resourceName).CurrentValue)
+            {
+                easingBar.SetActive(false);
+                healthBar.SetActive(false);
+            }
+            else
+            {
+                easingBar.SetActive(true);
+                healthBar.SetActive(true);
+            }
         }
     }
 }

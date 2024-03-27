@@ -1,43 +1,45 @@
-using Player;
 using System.Collections.Generic;
 
-public class PlayerLevelHandler : PlayerModule
+namespace EcologyRPG.Game.Player
 {
-    PlayerCharacter player;
-    List<float> xpRequiredPerLevel;
-    float currentXp;
-
-    public override void Initialize(PlayerCharacter player)
+    public class PlayerLevelHandler : PlayerModule
     {
-        this.player = player;
-        EventManager.AddListener("XP", OnXpGain);
-        xpRequiredPerLevel = player.playerSettings.XpRequiredPerLevel;
-    }
+        PlayerCharacter player;
+        List<float> xpRequiredPerLevel;
+        float currentXp;
 
-    void OnXpGain(EventData data)
-    {
-        if (data is DefaultEventData eventData)
+        public override void Initialize(PlayerCharacter player)
         {
-            if (eventData.data is float xp)
+            this.player = player;
+            EventManager.AddListener("XP", OnXpGain);
+            xpRequiredPerLevel = player.playerSettings.XpRequiredPerLevel;
+        }
+
+        void OnXpGain(EventData data)
+        {
+            if (data is DefaultEventData eventData)
             {
-                currentXp += xp;
-                var xpRequired = xpRequiredPerLevel[player.Level - 1];
-                if (currentXp >= xpRequired)
+                if (eventData.data is float xp)
                 {
-                    currentXp -= xpRequired;
-                    player.LevelUp();
+                    currentXp += xp;
+                    var xpRequired = xpRequiredPerLevel[player.Level - 1];
+                    if (currentXp >= xpRequired)
+                    {
+                        currentXp -= xpRequired;
+                        player.LevelUp();
+                    }
                 }
             }
         }
-    }
 
-    public float GetXpPercantage()
-    {
-        return currentXp / xpRequiredPerLevel[player.Level - 1];
-    }
+        public float GetXpPercantage()
+        {
+            return currentXp / xpRequiredPerLevel[player.Level - 1];
+        }
 
-    public override void OnDestroy()
-    {
+        public override void OnDestroy()
+        {
 
+        }
     }
 }

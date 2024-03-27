@@ -1,12 +1,14 @@
-using System.Collections;
+using EcologyRPG.Utility.Interactions;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Dialogue", menuName = "New Dialogue Choices")]
-
-public class DialogueChoices : Interaction
+namespace EcologyRPG.Game.Dialogue
 {
-    [SerializeField] private List<DialogueChoice> options;
+    [CreateAssetMenu(fileName = "New Dialogue", menuName = "New Dialogue Choices")]
+    public class DialogueChoices : Interaction
+    {
+        [SerializeField] private List<DialogueChoice> options;
 
-    public IReadOnlyList<DialogueChoice> Options => options;
+        public IReadOnlyList<DialogueChoice> Options => options;
+    }
 }

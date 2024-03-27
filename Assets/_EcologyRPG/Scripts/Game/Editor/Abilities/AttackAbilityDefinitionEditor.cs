@@ -1,5 +1,9 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.Game.Abilities.Implementations;
+using UnityEditor;
 using UnityEngine;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(AttackAbilityDefinition))]
 public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor

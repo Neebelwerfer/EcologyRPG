@@ -1,13 +1,11 @@
-using Character;
-using Items;
-using log4net.Core;
-using System.Collections;
+
+using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Items;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace Player
+namespace EcologyRPG.Game.Player
 {
     public class PlayerCharacter : BaseCharacter
     {

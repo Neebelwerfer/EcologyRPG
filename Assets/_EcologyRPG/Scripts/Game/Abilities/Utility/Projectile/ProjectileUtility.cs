@@ -1,77 +1,79 @@
-using Character;
+using EcologyRPG.Core.Character;
 using System;
 using UnityEngine;
-using Character.Abilities;
 
-public static class ProjectileUtility
+namespace EcologyRPG.Game.Abilities.Utility
 {
-    public static void CreateProjectile(GameObject prefab, Vector3 Origin, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
+    public static class ProjectileUtility
     {
-        GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, Origin, Quaternion.identity);
-        if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
+        public static void CreateProjectile(GameObject prefab, Vector3 Origin, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
         {
-            projectile.Init(new Vector3[]
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, Origin, Quaternion.identity);
+            if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
             {
+                projectile.Init(new Vector3[]
+                {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
-        }
-        else
-        {
-            projectile = projectileObj.AddComponent<ProjectileBehaviour>();
-            projectile.Init(new Vector3[]
+                }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+            }
+            else
             {
+                projectile = projectileObj.AddComponent<ProjectileBehaviour>();
+                projectile.Init(new Vector3[]
+                {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+                }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+            }
         }
-    }
 
-    public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
-    {
-        GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
-        if(projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
+        public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
         {
-            projectile.Init(new Vector3[]
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+            if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
             {
+                projectile.Init(new Vector3[]
+                {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
-        }
-        else
-        {
-            projectile = projectileObj.AddComponent<ProjectileBehaviour>();
-            projectile.Init(new Vector3[]
+                }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+            }
+            else
             {
+                projectile = projectileObj.AddComponent<ProjectileBehaviour>();
+                projectile.Init(new Vector3[]
+                {
                 targetPos
-            }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+                }, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+            }
         }
-    }
 
-    public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
-    {
-        GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
-        if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
+        public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
         {
-            projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+            if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
+            {
+                projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
 
+            }
+            else
+            {
+                projectile = projectileObj.AddComponent<ProjectileBehaviour>();
+                projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
+
+            }
         }
-        else
-        {
-            projectile = projectileObj.AddComponent<ProjectileBehaviour>();
-            projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
 
-        }
-    }
-
-    public static void CreateCurvedProjectile(GameObject prefab, Vector3 targetPos, float time, float angle, LayerMask IgnoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit)
-    {
-        GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
-        if(projectileObj.TryGetComponent<CurvedProjectileBehaviour>(out var projectile))
+        public static void CreateCurvedProjectile(GameObject prefab, Vector3 targetPos, float time, float angle, LayerMask IgnoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit)
         {
-            projectile.Init(targetPos, time, angle, IgnoreMask, owner, OnGroundHit);
-        }
-        else
-        {
-            projectile = projectileObj.AddComponent<CurvedProjectileBehaviour>();
-            projectile.Init(targetPos, time, angle, IgnoreMask, owner, OnGroundHit);
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+            if (projectileObj.TryGetComponent<CurvedProjectileBehaviour>(out var projectile))
+            {
+                projectile.Init(targetPos, time, angle, IgnoreMask, owner, OnGroundHit);
+            }
+            else
+            {
+                projectile = projectileObj.AddComponent<CurvedProjectileBehaviour>();
+                projectile.Init(targetPos, time, angle, IgnoreMask, owner, OnGroundHit);
+            }
         }
     }
 }

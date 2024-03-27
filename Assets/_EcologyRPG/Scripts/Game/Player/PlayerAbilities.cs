@@ -1,27 +1,31 @@
+using EcologyRPG.Core.Abilities.AbilityData;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-class PlayerAbility
+namespace EcologyRPG.Game.Player
 {
-    public PlayerAbilityDefinition ability;
-    public uint LevelRequirement;
-}
-
-[CreateAssetMenu(fileName = "Ability Database", menuName = "Player/Player Ability Database")]
-public class PlayerAbilities : ScriptableObject
-{
-    [SerializeField] List<PlayerAbility> abilities;
-
-    public int Count => abilities.Count;
-
-    public List<PlayerAbilityDefinition> GetAllPlayerAbilities()
+    [System.Serializable]
+    class PlayerAbility
     {
-        return abilities.ConvertAll(x => x.ability);
+        public PlayerAbilityDefinition ability;
+        public uint LevelRequirement;
     }
 
-    public List<PlayerAbilityDefinition> GetPlayerAbilities(uint level)
+    [CreateAssetMenu(fileName = "Ability Database", menuName = "Player/Player Ability Database")]
+    public class PlayerAbilities : ScriptableObject
     {
-        return abilities.FindAll(x => x.LevelRequirement <= level).ConvertAll(x => x.ability);
+        [SerializeField] List<PlayerAbility> abilities;
+
+        public int Count => abilities.Count;
+
+        public List<PlayerAbilityDefinition> GetAllPlayerAbilities()
+        {
+            return abilities.ConvertAll(x => x.ability);
+        }
+
+        public List<PlayerAbilityDefinition> GetPlayerAbilities(uint level)
+        {
+            return abilities.FindAll(x => x.LevelRequirement <= level).ConvertAll(x => x.ability);
+        }
     }
 }

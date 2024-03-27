@@ -1,14 +1,9 @@
-using Character;
-using Codice.Client.Commands;
-using Codice.CM.Common;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRPG.Core.Character;
+using EcologyRPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utility;
 
-namespace Player
+namespace EcologyRPG.Game.Player
 {
     public class PlayerMovement : PlayerModule
     {

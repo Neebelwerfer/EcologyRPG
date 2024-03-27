@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.Abilities.Implementations;
+using EcologyRPG.Game.NPC;
+using UnityEditor;
 using UnityEngine;
 using static AttackAbilityDefinitionEditor;
 

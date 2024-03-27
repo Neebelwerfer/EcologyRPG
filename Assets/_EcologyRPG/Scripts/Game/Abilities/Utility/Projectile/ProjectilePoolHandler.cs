@@ -1,52 +1,54 @@
+using EcologyRPG.Utility;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using Utility;
 
-public class ProjectilePoolHandler
+namespace EcologyRPG.Game.Abilities.Utility
 {
-    static ProjectilePoolHandler instance;
-    public static ProjectilePoolHandler Instance
+    public class ProjectilePoolHandler
     {
-        get
+        static ProjectilePoolHandler instance;
+        public static ProjectilePoolHandler Instance
         {
-            instance ??= new ProjectilePoolHandler();
-            return instance;
-        }
-    }
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Setup()
-    {
-        instance = new ProjectilePoolHandler();
-    }
-
-    private readonly Dictionary<string, GameObjectPool> projectileMap;
-
-    private ProjectilePoolHandler()
-    {
-        projectileMap = new Dictionary<string, GameObjectPool>();
-    }
-
-    public GameObject GetProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
-    {
-        if (!projectileMap.ContainsKey(projectilePrefab.name))
-        {
-            projectileMap.Add(projectilePrefab.name, new GameObjectPool(projectilePrefab));
-            projectileMap[projectilePrefab.name].Preload(10);
+            get
+            {
+                instance ??= new ProjectilePoolHandler();
+                return instance;
+            }
         }
 
-        return projectileMap[projectilePrefab.name].GetObject(position, rotation);
-    }
-
-    public void ReturnProjectile(GameObject projectile)
-    {
-        if (!projectileMap.ContainsKey(projectile.name))
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Setup()
         {
-            Debug.LogError("ProjectilePoolHandler: ReturnProjectile: Projectile not found in pool");
-            return;
+            instance = new ProjectilePoolHandler();
         }
 
-        projectileMap[projectile.name].ReturnObject(projectile);
+        private readonly Dictionary<string, GameObjectPool> projectileMap;
+
+        private ProjectilePoolHandler()
+        {
+            projectileMap = new Dictionary<string, GameObjectPool>();
+        }
+
+        public GameObject GetProjectile(GameObject projectilePrefab, Vector3 position, Quaternion rotation)
+        {
+            if (!projectileMap.ContainsKey(projectilePrefab.name))
+            {
+                projectileMap.Add(projectilePrefab.name, new GameObjectPool(projectilePrefab));
+                projectileMap[projectilePrefab.name].Preload(10);
+            }
+
+            return projectileMap[projectilePrefab.name].GetObject(position, rotation);
+        }
+
+        public void ReturnProjectile(GameObject projectile)
+        {
+            if (!projectileMap.ContainsKey(projectile.name))
+            {
+                Debug.LogError("ProjectilePoolHandler: ReturnProjectile: Projectile not found in pool");
+                return;
+            }
+
+            projectileMap[projectile.name].ReturnObject(projectile);
+        }
     }
 }

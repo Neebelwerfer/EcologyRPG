@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IInteractable
+namespace EcologyRPG.Utility.Interactions
 {
-    Interaction Interaction { get; }
-    void Interact();
+    public interface IInteractable
+    {
+        Interaction Interaction { get; }
+        void Interact();
+    }
 }

@@ -1,8 +1,7 @@
+using EcologyRPG.Utility.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
 using UnityEngine.Events;
-using Utility.Collections;
 
 public class EventData
 {

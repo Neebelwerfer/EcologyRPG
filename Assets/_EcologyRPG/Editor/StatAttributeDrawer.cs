@@ -1,12 +1,9 @@
-using Character;
-using Character.Attributes;
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.UI.DefaultControls;
 
 [CustomPropertyDrawer(typeof(StatAttribute))]
 public class StatAttributeDrawer : PropertyDrawer

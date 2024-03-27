@@ -1,42 +1,44 @@
-using Character;
 using System.Collections.Generic;
 
-public class CharacterManager
+namespace EcologyRPG.Core.Character
 {
-    static CharacterManager instance;
-
-    public List<BaseCharacter> CharacterList = new List<BaseCharacter>();
-
-    public static CharacterManager Instance
+    public class CharacterManager
     {
-        get
+        static CharacterManager instance;
+
+        public List<BaseCharacter> CharacterList = new List<BaseCharacter>();
+
+        public static CharacterManager Instance
         {
-            instance ??= new CharacterManager();
-            return instance;
+            get
+            {
+                instance ??= new CharacterManager();
+                return instance;
+            }
         }
-    }
 
-    public void AddCharacter(BaseCharacter character)
-    {
-        CharacterList.Add(character);
-    }
+        public void AddCharacter(BaseCharacter character)
+        {
+            CharacterList.Add(character);
+        }
 
-    public void RemoveCharacter(BaseCharacter character)
-    {
-        CharacterList.Remove(character);
-    }
+        public void RemoveCharacter(BaseCharacter character)
+        {
+            CharacterList.Remove(character);
+        }
 
-    public BaseCharacter GetCharacter(string name)
-    {
-        return CharacterList.Find(x => x.name == name);
-    }
+        public BaseCharacter GetCharacter(string name)
+        {
+            return CharacterList.Find(x => x.name == name);
+        }
 
-    public BaseCharacter GetCharacterByTag(string tag)
-    {
-        return CharacterList.Find(x => x.Tags.Contains(tag));
-    }
-    public BaseCharacter[] GetCharactersByTag(string tag)
-    {
-        return CharacterList.FindAll(x => x.Tags.Contains(tag)).ToArray();
+        public BaseCharacter GetCharacterByTag(string tag)
+        {
+            return CharacterList.Find(x => x.Tags.Contains(tag));
+        }
+        public BaseCharacter[] GetCharactersByTag(string tag)
+        {
+            return CharacterList.FindAll(x => x.Tags.Contains(tag)).ToArray();
+        }
     }
 }

@@ -1,57 +1,57 @@
-using Character;
-using Items;
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Equipment
+namespace EcologyRPG.Core.Items
 {
-    public Item[] EquipmentSlots;
-    public UnityEvent<int> EquipmentUpdated;
-
-    BaseCharacter baseCharacter;
-    public Equipment(BaseCharacter baseCharacter)
+    public class Equipment
     {
-        this.baseCharacter = baseCharacter;
-        EquipmentSlots = new Item[4];
-        EquipmentUpdated = new UnityEvent<int>();
-    }
+        public Item[] EquipmentSlots;
+        public UnityEvent<int> EquipmentUpdated;
 
-    public void EquipItem(Item item)
-    {
-        if(item is EquipableItem equipable)
+        BaseCharacter baseCharacter;
+        public Equipment(BaseCharacter baseCharacter)
         {
-            EquipmentSlots[(int)equipable.equipmentType] = item;
-            equipable.Equip(baseCharacter);
-            EquipmentUpdated.Invoke((int)equipable.equipmentType);
-        } 
-        else
-        {
-            Debug.LogError("Item is not equipable");
+            this.baseCharacter = baseCharacter;
+            EquipmentSlots = new Item[4];
+            EquipmentUpdated = new UnityEvent<int>();
         }
-    }
 
-    public void UnequipItem(Item item)
-    {
-        if(item is EquipableItem equipable)
+        public void EquipItem(Item item)
         {
-            EquipmentSlots[(int)equipable.equipmentType] = null;
-            equipable.Unequip(baseCharacter);
-            EquipmentUpdated.Invoke((int)equipable.equipmentType);
+            if (item is EquipableItem equipable)
+            {
+                EquipmentSlots[(int)equipable.equipmentType] = item;
+                equipable.Equip(baseCharacter);
+                EquipmentUpdated.Invoke((int)equipable.equipmentType);
+            }
+            else
+            {
+                Debug.LogError("Item is not equipable");
+            }
         }
-        else
-        {
-            Debug.LogError("Item is not equipable");
-        }
-    }
 
-    public EquipableItem GetEquipment(EquipmentType equipmentType)
-    {
-        if (EquipmentSlots[(int)equipmentType] is EquipableItem equipable)
+        public void UnequipItem(Item item)
         {
-            return equipable;
+            if (item is EquipableItem equipable)
+            {
+                EquipmentSlots[(int)equipable.equipmentType] = null;
+                equipable.Unequip(baseCharacter);
+                EquipmentUpdated.Invoke((int)equipable.equipmentType);
+            }
+            else
+            {
+                Debug.LogError("Item is not equipable");
+            }
         }
-        return null;
+
+        public EquipableItem GetEquipment(EquipmentType equipmentType)
+        {
+            if (EquipmentSlots[(int)equipmentType] is EquipableItem equipable)
+            {
+                return equipable;
+            }
+            return null;
+        }
     }
 }

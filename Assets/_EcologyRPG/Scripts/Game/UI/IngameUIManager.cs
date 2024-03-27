@@ -1,34 +1,35 @@
 using System;
-using TMPro;
-using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using UnityEngine;
 
-public class IngameUIManager : MonoBehaviour
+namespace EcologyRPG.Game.UI
 {
-    public InputActionReference CharacterUIButton;
-    public GameObject characterUI;
-    Action<InputAction.CallbackContext> toggleCharacterAction;
-
-    private void Awake()
+    public class IngameUIManager : MonoBehaviour
     {
-        Debug.Log("Character UI Manager Started");
-        characterUI.SetActive(false);
-        CharacterUIButton.action.Enable();
-        toggleCharacterAction = _ => ToggleCharacterUI();
-        CharacterUIButton.action.started += toggleCharacterAction;
-    }
+        public InputActionReference CharacterUIButton;
+        public GameObject characterUI;
+        Action<InputAction.CallbackContext> toggleCharacterAction;
+
+        private void Awake()
+        {
+            Debug.Log("Character UI Manager Started");
+            characterUI.SetActive(false);
+            CharacterUIButton.action.Enable();
+            toggleCharacterAction = _ => ToggleCharacterUI();
+            CharacterUIButton.action.started += toggleCharacterAction;
+        }
 
 
-    private void ToggleCharacterUI()
-    {
-        characterUI.SetActive(!characterUI.activeSelf);
-    }
+        private void ToggleCharacterUI()
+        {
+            characterUI.SetActive(!characterUI.activeSelf);
+        }
 
 
-    private void OnDestroy()
-    {
-        CharacterUIButton.action.Disable();
-        CharacterUIButton.action.started -= toggleCharacterAction;
+        private void OnDestroy()
+        {
+            CharacterUIButton.action.Disable();
+            CharacterUIButton.action.started -= toggleCharacterAction;
+        }
     }
 }

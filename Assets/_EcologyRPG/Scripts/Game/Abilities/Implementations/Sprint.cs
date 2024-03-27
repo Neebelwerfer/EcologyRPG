@@ -1,53 +1,54 @@
-using Character.Abilities;
-using System.Collections;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.Abilities.Conditions;
 using UnityEditor;
-using UnityEngine;
-using Utility;
 
-public class Sprint : BaseAbility
+namespace EcologyRPG.Game.Abilities.Implementations
 {
-    public Exhaustion Exhaustion;
-    public float sprintSpeedMultiplier = 1f;
-
-    static SprintCondition sprintCondition;
-
-
-    public override void Cast(CastInfo castInfo)
+    public class Sprint : BaseAbility
     {
-        if(sprintCondition == null)
+        public Exhaustion Exhaustion;
+        public float sprintSpeedMultiplier = 1f;
+
+        static SprintCondition sprintCondition;
+
+
+        public override void Cast(CastInfo castInfo)
         {
-            sprintCondition = CreateInstance<SprintCondition>();
-            sprintCondition.Value = sprintSpeedMultiplier;
-            sprintCondition.duration = 0.25f;
+            if (sprintCondition == null)
+            {
+                sprintCondition = CreateInstance<SprintCondition>();
+                sprintCondition.Value = sprintSpeedMultiplier;
+                sprintCondition.duration = 0.25f;
+            }
+
+
+            if (castInfo.owner.Stats.GetResource("Stamina") < 5)
+            {
+                castInfo.owner.ApplyCondition(castInfo, Instantiate(Exhaustion));
+            }
+
+            castInfo.owner.ApplyCondition(castInfo, Instantiate(sprintCondition));
         }
-
-
-        if(castInfo.owner.Stats.GetResource("Stamina") < 5)
-        {
-            castInfo.owner.ApplyCondition(castInfo, Instantiate(Exhaustion));
-        }
-
-        castInfo.owner.ApplyCondition(castInfo, Instantiate(sprintCondition));
     }
-}
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(Sprint))]
-public class SprintEditor : Editor
-{
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(Sprint))]
+    public class SprintEditor : Editor
     {
-        Sprint ability = (Sprint)target;
-        if (ability.Exhaustion == null)
+        public override void OnInspectorGUI()
         {
-            ability.Exhaustion = CreateInstance<Exhaustion>();
-            ability.Exhaustion.name = "Exhaustion";
-            AssetDatabase.AddObjectToAsset(ability.Exhaustion, ability);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            Sprint ability = (Sprint)target;
+            if (ability.Exhaustion == null)
+            {
+                ability.Exhaustion = CreateInstance<Exhaustion>();
+                ability.Exhaustion.name = "Exhaustion";
+                AssetDatabase.AddObjectToAsset(ability.Exhaustion, ability);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+            else
+                ability.Exhaustion = (Exhaustion)EditorGUILayout.ObjectField("Exhaustion Effect", ability.Exhaustion, typeof(Exhaustion), false);
         }
-        else
-            ability.Exhaustion = (Exhaustion)EditorGUILayout.ObjectField("Exhaustion Effect", ability.Exhaustion, typeof(Exhaustion), false);
     }
-}
 #endif
+}

@@ -1,7 +1,8 @@
 
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
-namespace Character.Abilities.AbilityComponents
+namespace EcologyRPG.Core.Abilities.AbilityComponents
 {
     public abstract class AbilityComponent : ScriptableObject
     {

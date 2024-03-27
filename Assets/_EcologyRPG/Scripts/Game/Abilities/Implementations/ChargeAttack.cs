@@ -1,25 +1,29 @@
-using Character.Abilities;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.Abilities.Conditions;
+using EcologyRPG.Game.Abilities.Definitions;
 
-public class ChargeAttack : AttackAbility
+namespace EcologyRPG.Game.Abilities.Implementations
 {
-    public DashCondition dash;
-
-    public override void Cast(CastInfo castInfo)
+    public class ChargeAttack : AttackAbility
     {
-        base.Cast(castInfo);
-        if(useMouseDirection)
-        {
-            dash.directionMode = DirectionMode.Mouse;
-        }
-        else
-        {
-            dash.directionMode = DirectionMode.Movement;
-        }
-        dash.dashRange = Range;
-        dash.OnFirstHitEffects = OnFirstHit;
-        dash.OnHitEffects = OnHitEffects;
+        public DashCondition dash;
 
-        castInfo.owner.ApplyCondition(castInfo, Instantiate(dash));
+        public override void Cast(CastInfo castInfo)
+        {
+            base.Cast(castInfo);
+            if (useMouseDirection)
+            {
+                dash.directionMode = DirectionMode.Mouse;
+            }
+            else
+            {
+                dash.directionMode = DirectionMode.Movement;
+            }
+            dash.dashRange = Range;
+            dash.OnFirstHitEffects = OnFirstHit;
+            dash.OnHitEffects = OnHitEffects;
+
+            castInfo.owner.ApplyCondition(castInfo, Instantiate(dash));
+        }
     }
-
 }

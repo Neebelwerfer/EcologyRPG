@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Utility.Collections
+namespace EcologyRPG.Utility.Collections
 {
     public enum Priority
     {

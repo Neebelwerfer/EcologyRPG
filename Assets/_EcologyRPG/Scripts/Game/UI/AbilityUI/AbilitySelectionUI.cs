@@ -1,106 +1,109 @@
-using Player;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.Game.Player;
+using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using Utility;
 
-public class AbilitySelectionUI
+namespace EcologyRPG.Game.UI
 {
-    static AbilitySelectionUI _instance;
-    public static AbilitySelectionUI Instance
+    public class AbilitySelectionUI
     {
-        get
+        static AbilitySelectionUI _instance;
+        public static AbilitySelectionUI Instance
         {
-            if (_instance == null)
+            get
             {
-                _instance = new();
-            }
-            return _instance;
-        }
-    }
-    PlayerAbilities abilityLookup;
-    GameObject abilitySelectionUI;
-    GameObject buttonPrefab;
-
-    List<AbilityButton> buttonList;
-    AbilityUI selectedAbilityUI;
-    GameObjectPool ButtonPool;
-    PlayerCharacter player;
-
-    private void AssignAbility(PlayerAbilityDefinition ability)
-    {
-        var abilityHandler = player.playerAbilitiesHandler;
-        if(abilityHandler.GotAbility(ability, out var slot))
-        {
-            if (slot.HasValue)
-            {
-                if(slot.Value == selectedAbilityUI.abilitySlot)
+                if (_instance == null)
                 {
-                    Hide();
-                    return;
+                    _instance = new();
                 }
-                abilityHandler.SetAbility(slot.Value, null);
+                return _instance;
             }
         }
-        abilityHandler.SetAbility(selectedAbilityUI.abilitySlot, ability);
-        Hide();
-    }
+        PlayerAbilities abilityLookup;
+        GameObject abilitySelectionUI;
+        GameObject buttonPrefab;
 
-    public void Setup(GameObject abilitySelectionUI)
-    {
-        this.abilitySelectionUI = abilitySelectionUI;
-        abilitySelectionUI.SetActive(false);
-        player = PlayerManager.Instance.GetPlayerCharacter();
-        abilityLookup = Resources.Load<PlayerAbilities>("Player Abilities");
-        buttonPrefab = Resources.Load<GameObject>("UI/AbilityRef");
+        List<AbilityButton> buttonList;
+        AbilityUI selectedAbilityUI;
+        GameObjectPool ButtonPool;
+        PlayerCharacter player;
 
-        ButtonPool = new GameObjectPool(buttonPrefab);
-        ButtonPool.Preload(abilityLookup.Count);
-        buttonList = new();
-    }
-
-    public void Show(AbilityUI abilityUI)
-    {
-        if(abilityUI.abilitySlot == AbilitySlots.WeaponAttack || abilityUI.abilitySlot == AbilitySlots.Dodge)
+        private void AssignAbility(PlayerAbilityDefinition ability)
         {
-            return;
-        }
-
-        if(abilityUI == selectedAbilityUI)
-        {
-            Hide();
-            return;
-        }
-
-        if(selectedAbilityUI == null)
-        {
-            foreach (var ability in abilityLookup.GetPlayerAbilities((uint)player.Level))
+            var abilityHandler = player.playerAbilitiesHandler;
+            if (abilityHandler.GotAbility(ability, out var slot))
             {
-                var button = ButtonPool.GetObject(abilitySelectionUI.transform);
-                var buttonComponent = button.GetComponent<AbilityButton>();
-                buttonComponent.Setup(ability);
-                buttonComponent.onClick.AddListener(() => AssignAbility(ability));
-                buttonList.Add(buttonComponent);
+                if (slot.HasValue)
+                {
+                    if (slot.Value == selectedAbilityUI.abilitySlot)
+                    {
+                        Hide();
+                        return;
+                    }
+                    abilityHandler.SetAbility(slot.Value, null);
+                }
             }
+            abilityHandler.SetAbility(selectedAbilityUI.abilitySlot, ability);
+            Hide();
         }
 
-        var pos = abilityUI.transform.position;
-        var offset = abilitySelectionUI.GetComponent<RectTransform>().rect.height/1.5f;
-        pos.y += offset;
-        abilitySelectionUI.transform.position = pos;
-        selectedAbilityUI = abilityUI;
-        abilitySelectionUI.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        abilitySelectionUI.SetActive(false);
-        selectedAbilityUI = null;
-        foreach (var button in buttonList)
+        public void Setup(GameObject abilitySelectionUI)
         {
-            ButtonPool.ReturnObject(button.gameObject, true);
-            button.onClick.RemoveAllListeners();
+            this.abilitySelectionUI = abilitySelectionUI;
+            abilitySelectionUI.SetActive(false);
+            player = PlayerManager.Instance.GetPlayerCharacter();
+            abilityLookup = Resources.Load<PlayerAbilities>("Player Abilities");
+            buttonPrefab = Resources.Load<GameObject>("UI/AbilityRef");
+
+            ButtonPool = new GameObjectPool(buttonPrefab);
+            ButtonPool.Preload(abilityLookup.Count);
+            buttonList = new();
         }
-        buttonList.Clear();
+
+        public void Show(AbilityUI abilityUI)
+        {
+            if (abilityUI.abilitySlot == AbilitySlots.WeaponAttack || abilityUI.abilitySlot == AbilitySlots.Dodge)
+            {
+                return;
+            }
+
+            if (abilityUI == selectedAbilityUI)
+            {
+                Hide();
+                return;
+            }
+
+            if (selectedAbilityUI == null)
+            {
+                foreach (var ability in abilityLookup.GetPlayerAbilities((uint)player.Level))
+                {
+                    var button = ButtonPool.GetObject(abilitySelectionUI.transform);
+                    var buttonComponent = button.GetComponent<AbilityButton>();
+                    buttonComponent.Setup(ability);
+                    buttonComponent.onClick.AddListener(() => AssignAbility(ability));
+                    buttonList.Add(buttonComponent);
+                }
+            }
+
+            var pos = abilityUI.transform.position;
+            var offset = abilitySelectionUI.GetComponent<RectTransform>().rect.height / 1.5f;
+            pos.y += offset;
+            abilitySelectionUI.transform.position = pos;
+            selectedAbilityUI = abilityUI;
+            abilitySelectionUI.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            abilitySelectionUI.SetActive(false);
+            selectedAbilityUI = null;
+            foreach (var button in buttonList)
+            {
+                ButtonPool.ReturnObject(button.gameObject, true);
+                button.onClick.RemoveAllListeners();
+            }
+            buttonList.Clear();
+        }
     }
 }

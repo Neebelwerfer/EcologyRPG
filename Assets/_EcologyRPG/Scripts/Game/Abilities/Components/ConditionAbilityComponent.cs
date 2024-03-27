@@ -1,4 +1,8 @@
-namespace Character.Abilities.AbilityComponents
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Abilities.AbilityComponents;
+using EcologyRPG.Core.Character;
+
+namespace EcologyRPG.Game.Abilities.Components
 {
     public class ConditionAbilityComponent : CombatAbilityComponent
     {

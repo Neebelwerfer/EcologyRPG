@@ -1,6 +1,7 @@
+using EcologyRPG.Core.Items;
 using UnityEngine;
 
-namespace Items.ItemTemplates
+namespace EcologyRPG.Game.Items
 {
     [CreateAssetMenu(fileName = "Replenishing Potion", menuName = "Items/Templates/Replenishing Potion")]
     public class ReplenishingPotionTemplate : ConsumableItemTemplate

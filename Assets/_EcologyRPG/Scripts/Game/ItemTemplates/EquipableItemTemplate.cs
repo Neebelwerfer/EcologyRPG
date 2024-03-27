@@ -1,8 +1,8 @@
-using Character;
+using EcologyRPG.Core.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Items.ItemTemplates
+namespace EcologyRPG.Game.Items
 {
     public abstract class EquipableItemTemplate : ItemTemplate
     {

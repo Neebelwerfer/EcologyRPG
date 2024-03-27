@@ -4,34 +4,37 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+namespace EcologyRPG.Game
 {
-    public static LevelManager Instance;
-
-    public UnityEvent OnLevelStart;
-
-    public UnityEvent OnLevelAwake;
-
-    void Start()
+    public class LevelManager : MonoBehaviour
     {
-        OnLevelStart.Invoke();
-        GameManager.Instance.CurrentState = Game_State.Playing;
-    }
+        public static LevelManager Instance;
 
-    void Awake()
-    {
-        if (GameManager.Instance == null)
+        public UnityEvent OnLevelStart;
+
+        public UnityEvent OnLevelAwake;
+
+        void Start()
         {
-            SceneManager.LoadScene(0, LoadSceneMode.Additive);
+            OnLevelStart.Invoke();
+            GameManager.Instance.CurrentState = Game_State.Playing;
         }
-        if (Instance == null)
+
+        void Awake()
         {
-            Instance = this;
+            if (GameManager.Instance == null)
+            {
+                SceneManager.LoadScene(0, LoadSceneMode.Additive);
+            }
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            OnLevelAwake.Invoke();
         }
-        else
-        {
-            Destroy(gameObject);
-        }
-        OnLevelAwake.Invoke();
     }
 }

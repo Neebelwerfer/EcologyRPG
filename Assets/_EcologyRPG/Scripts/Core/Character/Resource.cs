@@ -1,11 +1,9 @@
-using Character;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Character
+namespace EcologyRPG.Core.Character
 {
     [Serializable]
     public class ResourceData

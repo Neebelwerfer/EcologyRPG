@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Core.Abilities;
+using UnityEditor;
+
 #if UNITY_EDITOR
 public class BaseAbilityEditor : Editor
 {

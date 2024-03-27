@@ -1,10 +1,9 @@
-using Character;
+using EcologyRPG.Core.Character;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using Utility;
 
 [Serializable]
 public class CharacterEditor : EditorWindow

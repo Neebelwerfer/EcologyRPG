@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BillboardUI : MonoBehaviour
+namespace EcologyRPG.Game.UI
 {
-    private void LateUpdate()
+    public class BillboardUI : MonoBehaviour
     {
-        transform.LookAt(transform.position + Camera.main.transform.forward);
+        private void LateUpdate()
+        {
+            transform.LookAt(transform.position + Camera.main.transform.forward);
+        }
     }
+
 }

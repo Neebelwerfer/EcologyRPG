@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using EcologyRPG.Core.Character;
+using EcologyRPG.Game.Abilities.Conditions;
+using UnityEditor;
+
 #if UNITY_EDITOR
 [CustomEditor(typeof(DashCondition))]
 public class DashConditionEditor : ConditionEditor

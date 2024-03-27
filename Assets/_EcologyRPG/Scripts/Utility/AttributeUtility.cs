@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Utility
+namespace EcologyRPG.Utility
 {
     public class ReadOnlyString : PropertyAttribute { }
 

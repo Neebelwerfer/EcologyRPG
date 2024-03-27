@@ -1,47 +1,48 @@
-using Character.Abilities;
-using Codice.Client.Commands;
-using log4net.Util;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.Abilities.Conditions;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Utility;
 
-public enum DirectionMode
+namespace EcologyRPG.Game.Abilities.Implementations
 {
-    Mouse,
-    Movement
-}
-
-public class Dodge : BaseAbility
-{
-    [Header("Dodge Settings")]
-    public DashCondition dodgeEffect;
-
-    public override void Cast(CastInfo caster)
+    public enum DirectionMode
     {
-        caster.owner.ApplyCondition(caster, Instantiate(dodgeEffect));
+        Mouse,
+        Movement
     }
-}
+
+    public class Dodge : BaseAbility
+    {
+        [Header("Dodge Settings")]
+        public DashCondition dodgeEffect;
+
+        public override void Cast(CastInfo caster)
+        {
+            caster.owner.ApplyCondition(caster, Instantiate(dodgeEffect));
+        }
+    }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(Dodge))]
-public class DodgeEditor : Editor
-{
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(Dodge))]
+    public class DodgeEditor : Editor
     {
-        Dodge ability = (Dodge)target;
-        if (ability.dodgeEffect == null)
+        public override void OnInspectorGUI()
         {
-            ability.dodgeEffect = CreateInstance<DashCondition>();
-            AssetDatabase.AddObjectToAsset(ability.dodgeEffect, ability);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
-        else
-        {
-            Editor editor = Editor.CreateEditor(ability.dodgeEffect); 
-            editor.OnInspectorGUI();
+            Dodge ability = (Dodge)target;
+            if (ability.dodgeEffect == null)
+            {
+                ability.dodgeEffect = CreateInstance<DashCondition>();
+                AssetDatabase.AddObjectToAsset(ability.dodgeEffect, ability);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+            else
+            {
+                Editor editor = Editor.CreateEditor(ability.dodgeEffect);
+                editor.OnInspectorGUI();
+            }
         }
     }
-}
 #endif
+}
+

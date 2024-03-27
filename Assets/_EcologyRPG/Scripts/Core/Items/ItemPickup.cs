@@ -1,66 +1,67 @@
-using Items;
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRPG.Core.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
+namespace EcologyRPG.Core.Items
 {
-    public float pickupRadius = 5;
-
-    InventoryItem InventoryItem;
-    GameObject PlayerObject;
-
-    protected override void Start()
+    public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
     {
-        base.Start();
-        PlayerObject = GameObject.FindGameObjectWithTag("Player");
-        onClick.AddListener(OnClicked);
-    }
-    public override void OnPointerClick(PointerEventData eventData)
-    {
-        if(Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        public float pickupRadius = 5;
+
+        InventoryItem InventoryItem;
+        GameObject PlayerObject;
+
+        protected override void Start()
         {
-            base.OnPointerClick(eventData);
+            base.Start();
+            PlayerObject = GameObject.FindGameObjectWithTag("Player");
+            onClick.AddListener(OnClicked);
         }
-    }
-
-    void OnClicked()
-    {
-        EventManager.Dispatch("ItemPickup", new ItemPickupEvent() { source = this, item = InventoryItem });
-    }
-
-    public void Setup(Item item, int amount)
-    {
-        InventoryItem = new InventoryItem(item, amount);
-
-        var text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = InventoryItem.item.Name + " x" + InventoryItem.amount;
-    }
-
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        public override void OnPointerClick(PointerEventData eventData)
         {
-            base.OnPointerEnter(eventData);
+            if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+            {
+                base.OnPointerClick(eventData);
+            }
         }
-        Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() });
-    }
 
-    public override void OnPointerExit(PointerEventData eventData)
-    {
-        if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+        void OnClicked()
         {
-            base.OnPointerExit(eventData);
+            EventManager.Dispatch("ItemPickup", new ItemPickupEvent() { source = this, item = InventoryItem });
         }
-        Tooltip.HideTooltip(gameObject);
-    }
 
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        Tooltip.HideTooltip(gameObject);
+        public void Setup(Item item, int amount)
+        {
+            InventoryItem = new InventoryItem(item, amount);
+
+            var text = GetComponentInChildren<TextMeshProUGUI>();
+            text.text = InventoryItem.item.Name + " x" + InventoryItem.amount;
+        }
+
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+            {
+                base.OnPointerEnter(eventData);
+            }
+            Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() });
+        }
+
+        public override void OnPointerExit(PointerEventData eventData)
+        {
+            if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
+            {
+                base.OnPointerExit(eventData);
+            }
+            Tooltip.HideTooltip(gameObject);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            Tooltip.HideTooltip(gameObject);
+        }
     }
 }

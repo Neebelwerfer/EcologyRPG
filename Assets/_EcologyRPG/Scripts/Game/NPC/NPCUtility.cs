@@ -1,25 +1,27 @@
-
 using UnityEngine;
 
-public static class NPCUtility
+namespace EcologyRPG.Game.NPC
 {
-    public static Vector3 GetRandomPointInRadius(Vector3 center, float radius)
+    public static class NPCUtility
     {
-        Vector3 point = Vector3.zero;
-        Vector3 randomPoint = center + Random.insideUnitSphere * radius;
-        randomPoint.y = 1000;
-        while (point == Vector3.zero)
+        public static Vector3 GetRandomPointInRadius(Vector3 center, float radius)
         {
-            if (Physics.BoxCast(randomPoint, Vector3.one * 0.5f, Vector3.down, out var hit, Quaternion.identity, 1001, LayerMask.GetMask("Ground")))
+            Vector3 point = Vector3.zero;
+            Vector3 randomPoint = center + Random.insideUnitSphere * radius;
+            randomPoint.y = 1000;
+            while (point == Vector3.zero)
             {
-                point = hit.point;
+                if (Physics.BoxCast(randomPoint, Vector3.one * 0.5f, Vector3.down, out var hit, Quaternion.identity, 1001, LayerMask.GetMask("Ground")))
+                {
+                    point = hit.point;
+                }
+                else
+                {
+                    randomPoint = center + Random.insideUnitSphere * radius;
+                    randomPoint.y = 1000;
+                }
             }
-            else
-            {
-                randomPoint = center + Random.insideUnitSphere * radius;
-                randomPoint.y = 1000;
-            }
+            return point;
         }
-        return point;
     }
 }

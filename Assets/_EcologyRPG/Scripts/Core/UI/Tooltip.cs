@@ -3,64 +3,67 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Tooltip : MonoBehaviour
+namespace EcologyRPG.Core.UI
 {
-    public Vector2 Offset;
-    public GameObject TooltipObject;
-    public TextMeshProUGUI Title;
-    public Image Icon;
-    public TextMeshProUGUI Description;
-
-    static Tooltip instance;
-    object activeTooltipSource;
-
-    private void Awake()
+    public class Tooltip : MonoBehaviour
     {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(this);
-    }
+        public Vector2 Offset;
+        public GameObject TooltipObject;
+        public TextMeshProUGUI Title;
+        public Image Icon;
+        public TextMeshProUGUI Description;
 
-    public void Show(object source, TooltipData data)
-    {
-        if (activeTooltipSource == source) return;
-        TooltipObject.SetActive(true);
-        TooltipObject.transform.position = Mouse.current.position.ReadValue() + Offset;
-        Title.text = data.Title;
-        Icon.sprite = data.Icon;
-        Description.text = data.Description;
-        activeTooltipSource = source;
-    }
+        static Tooltip instance;
+        object activeTooltipSource;
 
-    public void Hide(object source)
-    {
-        if (instance != null)
+        private void Awake()
         {
-            if (activeTooltipSource == source)
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(this);
+        }
+
+        public void Show(object source, TooltipData data)
+        {
+            if (activeTooltipSource == source) return;
+            TooltipObject.SetActive(true);
+            TooltipObject.transform.position = Mouse.current.position.ReadValue() + Offset;
+            Title.text = data.Title;
+            Icon.sprite = data.Icon;
+            Description.text = data.Description;
+            activeTooltipSource = source;
+        }
+
+        public void Hide(object source)
+        {
+            if (instance != null)
             {
-                activeTooltipSource = null;
-                TooltipObject.SetActive(false);
+                if (activeTooltipSource == source)
+                {
+                    activeTooltipSource = null;
+                    TooltipObject.SetActive(false);
+                }
             }
         }
+
+        public static void HideTooltip(object source)
+        {
+            if (instance != null)
+                instance.Hide(source);
+        }
+
+        public static void ShowTooltip(object source, TooltipData data)
+        {
+            instance.Show(source, data);
+        }
+
     }
 
-    public static void HideTooltip(object source)
+    public class TooltipData
     {
-        if(instance != null)
-            instance.Hide(source);
+        public string Title;
+        public Sprite Icon;
+        public string Description;
     }
-
-    public static void ShowTooltip(object source, TooltipData data)
-    {
-        instance.Show(source, data);
-    }
-
-}
-
-public class TooltipData
-{
-    public string Title;
-    public Sprite Icon;
-    public string Description;
 }
