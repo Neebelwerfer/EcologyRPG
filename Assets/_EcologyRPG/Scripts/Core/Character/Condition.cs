@@ -19,15 +19,11 @@ namespace EcologyRPG.Core.Character
         [HideInInspector] public float remainingDuration;
         [HideInInspector] public BaseCharacter Owner;
 
-        private void OnValidate()
+        public Condition()
         {
-            if (string.IsNullOrEmpty(ID))
-                ID = Guid.NewGuid().ToString();
+            ID = Guid.NewGuid().ToString();
+            displayName = GetType().Name;
 
-            if (string.IsNullOrEmpty(displayName))
-            {
-                displayName = this.GetType().Name;
-            }
         }
 
         public abstract void OnApply(CastInfo Caster, BaseCharacter target);
