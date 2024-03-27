@@ -136,6 +136,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaveExplosion
       objectReference: {fileID: 0}
+    - target: {fileID: 4702703722582917508, guid: 19774027f01b63b4881c2a30570292bc,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7414383138675422069, guid: 19774027f01b63b4881c2a30570292bc,
         type: 3}
       propertyPath: m_LocalPosition.x
