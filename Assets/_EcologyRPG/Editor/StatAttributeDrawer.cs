@@ -13,7 +13,7 @@ public class StatAttributeDrawer : PropertyDrawer
     public static List<string> Resources;
 
     public static bool IsDirty = true;
-    const string path = "Assets/Resources/CharacterStats.txt";
+    const string path = "Assets/_EcologyRPG/Resources/CharacterStats.txt";
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {

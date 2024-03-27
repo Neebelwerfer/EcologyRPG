@@ -17,7 +17,7 @@ public class CharacterEditor : EditorWindow
     [SerializeField]
     public List<ResourceData> resources;
 
-    const string path = "Assets/Resources/CharacterStats.txt";
+    const string path = "Assets/_EcologyRPG/Resources/CharacterStats.txt";
 
 
     SerializedObject so;
