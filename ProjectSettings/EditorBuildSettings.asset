@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Levels/GameManager.unity
+    path: Assets/_EcologyRPG/Levels/GameManager.unity
     guid: fc65d0021e4f49e4f8fc48d34ef67525
   - enabled: 1
-    path: Assets/Levels/UIScene.unity
+    path: Assets/_EcologyRPG/Levels/UIScene.unity
     guid: dfa227117625f5045bb0ae8ffd735d9f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9ec521ba337b89641ae2073fb9ee99de,
