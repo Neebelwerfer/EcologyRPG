@@ -1,10 +1,11 @@
 {
-    "name": "Editor",
-    "rootNamespace": "",
+    "name": "Game",
+    "rootNamespace": "Game",
     "references": [
-        "GUID:4aafcecd01a78eb4b9237855ed825fe6",
         "GUID:88b3be567192a424ca6baadd02eb21da",
-        "GUID:dfeb2c8bedb0c2a4b8632c6a765493c2"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:4aafcecd01a78eb4b9237855ed825fe6"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -12,9 +13,7 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [
-        "UNITY_EDITOR"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }
