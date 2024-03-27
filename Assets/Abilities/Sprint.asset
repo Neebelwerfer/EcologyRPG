@@ -37,9 +37,14 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 0
+  BlockRotationOnWindup: 1
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina
   ResourceCost: 0.3
+  Description: 
+  AnimationTrigger: 
 --- !u!114 &8200451567496563987
 MonoBehaviour:
   m_ObjectHideFlags: 0
