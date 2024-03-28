@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Character;
+using EcologyRPG.Game.Player;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Items
@@ -24,7 +25,7 @@ namespace EcologyRPG.Core.Items
         private LootGenerator()
         {
             lootDatabase = Resources.Load<LootDatabase>("Config/Loot Database");
-            Player = CharacterManager.Instance.GetCharacterByTag("Player");
+            Player = PlayerManager.Instance.GetPlayerCharacter();
         }
 
         public void GenerateLootOnKill(BaseCharacter deadNPC)
@@ -41,7 +42,7 @@ namespace EcologyRPG.Core.Items
             {
                 var generatedItem = item.GenerateItem(Player.Random.NextInt(Player.Level - 1, Player.Level + 1));
 
-                var origin = deadNPC.transform.position;
+                var origin = deadNPC.Transform.Position;
                 var point = UnityEngine.Random.insideUnitCircle * 2;
                 var position = new Vector3(point.x, 0, point.y);
                 ItemDisplayHandler.Instance.SpawnItem(generatedItem.item, generatedItem.amount, origin + position);

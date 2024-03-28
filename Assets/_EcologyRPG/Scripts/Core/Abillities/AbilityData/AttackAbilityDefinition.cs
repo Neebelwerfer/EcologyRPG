@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities.AbilityData
@@ -6,20 +7,23 @@ namespace EcologyRPG.Core.Abilities.AbilityData
     {
         public bool BlockMovementOnWindup = false;
         public bool RotatePlayerTowardsMouse = true;
+        public bool ReducedSpeedOnWindup = true;
         public bool BlockRotationOnWindup = true;
         public BaseAbility Ability;
 
         Vector3 MousePoint;
+        static StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
 
         public override void CastStarted(CastInfo caster)
         {
             base.CastStarted(caster);
             if (BlockRotationOnWindup) caster.owner.StopRotation();
             if (BlockMovementOnWindup) caster.owner.StopMovement();
+            if (ReducedSpeedOnWindup) caster.owner.Stats.AddStatModifier(HalfSpeed);
             var res = TargetUtility.GetMousePoint(Camera.main);
             MousePoint = res;
             if (!RotatePlayerTowardsMouse) return;
-            res.y = caster.owner.Transform.position.y;
+            res.y = caster.owner.Transform.Position.y;
             caster.owner.Transform.LookAt(res);
 
         }
@@ -32,6 +36,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             Ability.Cast(caster);
             if (BlockMovementOnWindup) caster.owner.StartMovement();
             if (BlockRotationOnWindup) caster.owner.StartRotation();
+            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
         }
 
         [ContextMenu("Delete")]

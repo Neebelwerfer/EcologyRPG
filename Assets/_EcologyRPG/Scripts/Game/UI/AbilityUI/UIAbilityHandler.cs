@@ -25,7 +25,7 @@ namespace EcologyRPG.Game.UI
         private void Start()
         {
 
-            player = FindObjectOfType<PlayerCharacter>();
+            player = PlayerManager.Instance.GetPlayerCharacter();
             weaponAttack = player.playerAbilitiesHandler.GetAbility(AbilitySlots.WeaponAttack);
             weaponAttackUI.SetAbility(weaponAttack);
             dodgeAbility = player.playerAbilitiesHandler.GetAbility(AbilitySlots.Dodge);

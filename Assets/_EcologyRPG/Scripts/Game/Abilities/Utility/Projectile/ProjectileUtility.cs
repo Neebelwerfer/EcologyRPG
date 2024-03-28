@@ -28,7 +28,7 @@ namespace EcologyRPG.Game.Abilities.Utility
 
         public static void CreateProjectile(GameObject prefab, Vector3 targetPos, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
         {
-            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.CastPos, Quaternion.identity);
             if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
             {
                 projectile.Init(new Vector3[]
@@ -48,7 +48,7 @@ namespace EcologyRPG.Game.Abilities.Utility
 
         public static void CreateProjectile(GameObject prefab, Vector3[] path, float speed, bool destroyOnhit, LayerMask mask, BaseCharacter owner, Action<BaseCharacter> onHit, Action<GameObject> onUpdate = null)
         {
-            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.CastPos, Quaternion.identity);
             if (projectileObj.TryGetComponent<ProjectileBehaviour>(out var projectile))
             {
                 projectile.Init(path, speed, destroyOnhit, mask, owner, onHit, onUpdate);
@@ -64,7 +64,7 @@ namespace EcologyRPG.Game.Abilities.Utility
 
         public static void CreateCurvedProjectile(GameObject prefab, Vector3 targetPos, float time, float angle, LayerMask IgnoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit)
         {
-            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.AbilityPoint.transform.position, Quaternion.identity);
+            GameObject projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, owner.CastPos, Quaternion.identity);
             if (projectileObj.TryGetComponent<CurvedProjectileBehaviour>(out var projectile))
             {
                 projectile.Init(targetPos, time, angle, IgnoreMask, owner, OnGroundHit);

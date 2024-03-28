@@ -305,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2300530453157254747, guid: ccf287b5bc91dd74f9fb642822fe9480,
     type: 3}
+  config: {fileID: 11400000, guid: f0b3082b7347b104aa9afb32346bba1c, type: 2}
   spawnRadius: 5
   numberOfEnemies: 5
   GroundMask:
@@ -518,6 +519,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 486656925332903349, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: playerSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239,
+        type: 2}
+    - target: {fileID: 486656925332903349, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: PlayerCameraPrefab
+      value: 
+      objectReference: {fileID: 5645843657675183423, guid: e6df41a9d4307244780139ad4b2d5847,
+        type: 3}
     - target: {fileID: 1686278734706028840, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
         type: 3}
       propertyPath: OnLevelAwake.m_PersistentCalls.m_Calls.Array.size
@@ -552,6 +565,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnLevelAwake.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111085262131217635, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: maxDistance
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3274307551831784034, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
         type: 3}
@@ -606,17 +624,37 @@ PrefabInstance:
     - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -56.874737
+      value: -46.37448
       objectReference: {fileID: 0}
     - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 52.49041
+      value: 82.3744
       objectReference: {fileID: 0}
     - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -57.847515
+      value: -47.347248
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8194912
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.42660013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.33944437
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622801555640398610, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.17670354
       objectReference: {fileID: 0}
     - target: {fileID: 5603927151771922326, guid: cb2bd010f0bc1b84bbb2cea084ae15ec,
         type: 3}

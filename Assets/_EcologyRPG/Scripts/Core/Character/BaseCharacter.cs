@@ -1,6 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,25 +34,25 @@ namespace EcologyRPG.Core.Character
         public float damageTaken;
     }
 
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(Animator))]
-    public abstract class BaseCharacter : MonoBehaviour
+    public abstract class BaseCharacter
     {
-        public GameObject AbilityPoint;
         [CharacterTag]
         public List<string> Tags = new List<string>();
 
-        [SerializeField] Faction faction = Faction.neutral;
+        protected Faction faction = Faction.neutral;
 
         public Faction Faction { get { return faction; } }
-        public virtual Vector3 Forward { get { return transform.forward; } }
-        public virtual Vector3 Position { get { return transform.position; } }
-        public virtual Vector3 CastPos { get { return AbilityPoint.transform.position; } }
-        public virtual Transform Transform { get { return transform; } }
+        public virtual GameObject GameObject { get 
+            { 
+                if(CharacterBinding != null) return CharacterBinding.gameObject;
+                else return null;
+            } 
+        }
+        public virtual Vector3 CastPos { get { return CharacterBinding.CastingPoint.position; } }
+        public virtual CharacterTransform Transform { get { return transform; } }
         public int Level { get { return level; } }
-        public Rigidbody Rigidbody { get { return rb; } }
-        public Animator Animator { get { return animator; } }
+        public Rigidbody Rigidbody { get { return CharacterBinding.Rigidbody; } }
+        public Animator Animator { get { return CharacterBinding.Animator; } }
         public Stats Stats { get; private set; }
 
         public Random Random { get 
@@ -64,6 +65,8 @@ namespace EcologyRPG.Core.Character
         public bool CanMove { get { return canMove; } }
         public bool CanRotate { get { return canRotate; } }
 
+        protected bool IsPaused { get { return CharacterBinding == null; } }
+
         public UnityEvent<BaseCharacter> OnCharacterCollision = new();
         readonly List<Condition> effects = new();
 
@@ -71,30 +74,40 @@ namespace EcologyRPG.Core.Character
         protected AttributeModification[] levelMods;
         protected bool canMove = true;
         protected bool canRotate = true;
+        protected CharacterTransform transform;
         protected Resource Health;
-        protected Rigidbody rb;
-        protected Animator animator;
+        protected CharacterBinding CharacterBinding { get; private set; }
 
 
-        public virtual void Start()
+        public BaseCharacter()
         {
-            
             CharacterManager.Instance.AddCharacter(this);
+            transform = new CharacterTransform();
             Stats = new Stats();
             Health = Stats.GetResource("health");
-            rb = GetComponent<Rigidbody>();
-            if(AbilityPoint == null) AbilityPoint = gameObject;
-            animator = GetComponent<Animator>();
-
             level = 1;
             InitLevel();
+        }
+
+        public virtual void SetBinding(CharacterBinding binding)
+        {
+            CharacterBinding = binding;
+            CharacterBinding.SetCharacter(this);
+            transform.SetBinding(binding);
+        }
+
+        public virtual void RemoveBinding()
+        {
+            CharacterBinding.SetCharacter(null);
+            CharacterBinding = null;
+            transform.RemoveBinding();
         }
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
             damageInfo.damage = CalculateDamage(damageInfo);
             Health -= damageInfo.damage;
-            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Transform.position };
+            var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Transform.Position };
             EventManager.Defer("DamageEvent", damageEvent);
 
             if (Health.CurrentValue <= 0)
@@ -144,7 +157,7 @@ namespace EcologyRPG.Core.Character
             levelMods = new AttributeModification[Stats._attributes.Count];
             for (int i = 0; i < Stats._attributes.Count; i++)
             {
-                AttributeModification attMod = new AttributeModification(Stats._attributes[i].Data.name, Level, gameObject);
+                AttributeModification attMod = new AttributeModification(Stats._attributes[i].Data.name, Level, this);
                 Stats._attributes[i].AddModifier(attMod);
                 levelMods[i] = attMod;
             }
@@ -162,12 +175,10 @@ namespace EcologyRPG.Core.Character
             {
                 if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
                 {
-                    //Debug.Log("Reapplying CharacterModification " + effect.displayName);
                     effects[i].OnReapply(this);
                     return;
                 }
             }
-            //Debug.Log("Applying CharacterModification " + effect.displayName + " with duration " + effect.duration);
             effect.remainingDuration = effect.duration;
             effects.Add(effect);
             effect.OnApply(caster, this);
@@ -231,6 +242,7 @@ namespace EcologyRPG.Core.Character
 
         public virtual void Update()
         {
+            if (IsPaused) return;
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
                 Condition effect = effects[i];
@@ -250,6 +262,28 @@ namespace EcologyRPG.Core.Character
                 OnCharacterCollision?.Invoke(collision.gameObject.GetComponent<BaseCharacter>());
             }
         }
+
+        public Coroutine StartCoroutine(string methodName)
+        {
+            return CharacterBinding.StartCoroutine(methodName);
+        }
+
+        public Coroutine StartCoroutine(string methodName, object value)
+        {
+            return CharacterBinding.StartCoroutine(methodName, value);
+        }
+
+        public Coroutine StartCoroutine(IEnumerator routine)
+        {
+            return CharacterBinding.StartCoroutine(routine);
+        }
+
+        public bool TryGetComponent<T>(out T component)
+        {
+            return CharacterBinding.TryGetComponent(out component);
+        }
+
+
     }
 
 }

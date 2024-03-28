@@ -63,10 +63,11 @@ namespace EcologyRPG.Game.Abilities.Utility
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject != owner.gameObject && other.gameObject.layer == LayerMask.NameToLayer("Entity"))
+            if (other.gameObject != owner.GameObject && other.gameObject.layer == LayerMask.NameToLayer("Entity"))
             {
-                if (other.gameObject.TryGetComponent<BaseCharacter>(out var character))
+                if (other.gameObject.TryGetComponent<CharacterBinding>(out var binding))
                 {
+                    BaseCharacter character = binding.Character;
                     if (character.Faction == owner.Faction) return;
                     OnHit(character);
                 }

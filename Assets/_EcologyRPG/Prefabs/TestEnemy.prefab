@@ -84,11 +84,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1434802821726953085}
+  - component: {fileID: 4211826279899675253}
   - component: {fileID: 674008287614049097}
   - component: {fileID: 3952474871368221412}
   - component: {fileID: 1044715631251844097}
   - component: {fileID: 4195974781294355924}
-  - component: {fileID: 7429797002112985476}
+  - component: {fileID: 8620060597110369130}
   - component: {fileID: 548688104669468024}
   m_Layer: 3
   m_Name: TestEnemy
@@ -113,6 +114,19 @@ Transform:
   - {fileID: 2657876444187640118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4211826279899675253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2300530453157254747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0927e1eda6d9143956252d4c6c0c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CastingPoint: {fileID: 1434802821726953085}
 --- !u!33 &674008287614049097
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -213,26 +227,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &7429797002112985476
-MonoBehaviour:
+--- !u!95 &8620060597110369130
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2300530453157254747}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1157d09cc5d511d4fa8719200c83dd67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityPoint: {fileID: 2300530453157254747}
-  Tags:
-  - Human
-  faction: 2
-  state: 0
-  behaviourReference: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}
-  XpOnDeath: 10
-  behaviour: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!195 &548688104669468024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -576,7 +591,6 @@ MonoBehaviour:
   easeSlider: {fileID: 4198250930768555591}
   lerpSpeed: 0.1
   resourceName: health
-  character: {fileID: 7429797002112985476}
   easingBar: {fileID: 7571843208485181708}
   healthBar: {fileID: 2593787661566729701}
   maxHealth: 100

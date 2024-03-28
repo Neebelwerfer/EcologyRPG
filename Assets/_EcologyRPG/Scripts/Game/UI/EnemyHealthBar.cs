@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using EcologyRPG.Game.NPC;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,6 @@ namespace EcologyRPG.Game.UI
         [SerializeField] private Slider easeSlider;
         [SerializeField] private float lerpSpeed;
         [SerializeField] private string resourceName;
-        [SerializeField] private EnemyNPC character;
         [SerializeField] private GameObject easingBar;
         [SerializeField] private GameObject healthBar;
 
@@ -19,8 +19,11 @@ namespace EcologyRPG.Game.UI
         public float maxHealth = 100;
         public float currentHealth;
 
+        BaseCharacter character;
+
         private void Start()
         {
+            character = GetComponentInParent<CharacterBinding>().Character;
             InitializeBar(character, resourceName);
             barSlider.maxValue = maxHealth;
             barSlider.value = maxHealth;
@@ -28,13 +31,17 @@ namespace EcologyRPG.Game.UI
         }
         private void Update()
         {
-            if (!initialized) InitializeBar(character, resourceName);
+            if (!initialized)
+            {
+                character = GetComponentInParent<CharacterBinding>().Character;
+                InitializeBar(character, resourceName);
+            }
 
             UpdateBar(character, resourceName);
             VisibleBar();
         }
 
-        public void InitializeBar(EnemyNPC nPC, string resourceName)
+        public void InitializeBar(BaseCharacter nPC, string resourceName)
         {
             maxHealth = nPC.Stats.GetResource(resourceName).MaxValue;
             barSlider.maxValue = maxHealth;
@@ -43,7 +50,7 @@ namespace EcologyRPG.Game.UI
             easeSlider.value = easeSlider.maxValue;
             if (maxHealth != 0) initialized = true;
         }
-        public void UpdateBar(EnemyNPC nPC, string resourceName)
+        public void UpdateBar(BaseCharacter nPC, string resourceName)
         {
             currentHealth = nPC.Stats.GetResource(resourceName).CurrentValue;
             if (barSlider.value != currentHealth)

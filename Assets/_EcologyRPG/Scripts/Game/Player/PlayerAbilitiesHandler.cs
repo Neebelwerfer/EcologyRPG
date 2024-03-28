@@ -103,7 +103,7 @@ namespace EcologyRPG.Game.Player
                         ActiveSlot = -1;
                         return;
                     }
-                    var castInfo = new CastInfo { activationInput = abilityInputs[ActiveSlot].action, castPos = Player.AbilityPoint.transform.position, owner = Player };
+                    var castInfo = new CastInfo { activationInput = abilityInputs[ActiveSlot].action, castPos = Player.CastPos, owner = Player };
                     ability.Activate(castInfo);
                 }
             }
@@ -162,7 +162,7 @@ namespace EcologyRPG.Game.Player
             if (ability == null) return;
 
             ActiveSlot = slot;
-            if (ability.Activate(new CastInfo { activationInput = context.action, castPos = Player.AbilityPoint.transform.position, owner = Player }))
+            if (ability.Activate(new CastInfo { activationInput = context.action, castPos = Player.CastPos, owner = Player }))
             {
 
             }

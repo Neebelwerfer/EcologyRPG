@@ -159,9 +159,9 @@ namespace EcologyRPG.Core.Items
                         ItemRemoved?.Invoke(item);
                     } else InventoryChanged?.Invoke();
                     
-                    Physics.Raycast(Owner.transform.position + new Vector3(0, 1, 0), -Owner.transform.up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
+                    Physics.Raycast(Owner.Transform.Position + new Vector3(0, 1, 0), -Owner.Transform.Up, out RaycastHit hit, 3, LayerMask.GetMask("Ground"));
                     ItemDisplayHandler.Instance.SpawnItem(item, amount, hit.point + new Vector3(0, 1, 0));
-                    break;
+                    break;  
                 }
             }
         }

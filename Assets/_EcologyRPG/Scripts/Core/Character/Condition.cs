@@ -23,7 +23,6 @@ namespace EcologyRPG.Core.Character
         {
             ID = Guid.NewGuid().ToString();
             displayName = GetType().Name;
-
         }
 
         public abstract void OnApply(CastInfo Caster, BaseCharacter target);
