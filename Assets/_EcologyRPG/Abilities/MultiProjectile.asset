@@ -21,6 +21,8 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
+  BlockRotationOnWindup: 1
   Ability: {fileID: -1452769123730355576}
 --- !u!114 &-3507227463433355515
 MonoBehaviour:
@@ -47,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f16083a2e4e8c4e876058d9ee109a5, type: 3}
   m_Name: MultipleProjectiles(Clone)
   m_EditorClassIdentifier: 
-  Range: 5
+  Range: 3
   OnCastEffects: []
   targetMask:
     serializedVersion: 2
@@ -59,12 +61,12 @@ MonoBehaviour:
   displayFirstHitEffects: 1
   destroyOnHit: 0
   type: 1
-  numberOfProjectiles: 5
-  ConeAngle: 90
+  numberOfProjectiles: 8
+  ConeAngle: 120
   LineWidth: 0
-  projectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
+  projectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
-  Speed: 10
+  Speed: 8
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +88,8 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
+  BlockRotationOnWindup: 1
   Ability: {fileID: 6692371911492626149}
   ResourceName: water
   ResourceCost: 10
@@ -130,7 +134,7 @@ MonoBehaviour:
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
-  Speed: 5
+  Speed: 8
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
 --- !u!114 &9103281277816228108
