@@ -45,7 +45,6 @@ namespace EcologyRPG.Game.Player
 
             faction = Faction.player;
             Tags = playerSettings.Tags;
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         }
 
 

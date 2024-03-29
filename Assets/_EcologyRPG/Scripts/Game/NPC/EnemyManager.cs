@@ -2,6 +2,7 @@ using EcologyRPG.Core.Character;
 using EcologyRPG.Game.Player;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -16,12 +17,16 @@ namespace EcologyRPG.Game.NPC
         public GameObject prefab;
     }
 
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager
     {
         public static EnemyManager instance;
-        public float maxDistance = 200f;
 
-        [SerializeField] List<NPCData> characterList = new List<NPCData>();
+        public NPCGameObjectPool NPCPool;
+
+        public float maxDistance = 200f;
+        public float activeEnemyUpdateRate = 0.2f;
+
+        List<NPCData> characterList = new();
 
         PlayerCharacter player;
         PlayerCharacter Player { get 
@@ -31,21 +36,23 @@ namespace EcologyRPG.Game.NPC
             }
         }
 
+        float timer = 0;
         readonly List<NPCData> activeEnemies = new List<NPCData>();
 
-        private void Start()
+        EnemyManager(float maxDistance, float activeEnemyUpdateRate)
         {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(this);
-            }
+            this.maxDistance = maxDistance;
+            this.activeEnemyUpdateRate = activeEnemyUpdateRate;
             EventManager.AddListener("EnemyDeath", OnEnemyDeath);
-            InvokeRepeating(nameof(UpdateActiveEnemies), 0, 0.5f);
             player = PlayerManager.Instance.GetPlayerCharacter();
+            NPCPool = new NPCGameObjectPool();
+        }
+
+        public static EnemyManager Init(float maxDistance, float activeEnemyUpdateRate)
+        {
+            instance = new EnemyManager(maxDistance, activeEnemyUpdateRate);
+            return instance;
+
         }
 
         private void OnEnemyDeath(EventData arg0)
@@ -54,7 +61,7 @@ namespace EcologyRPG.Game.NPC
             {
                 if(data.data is EnemyNPC enemy)
                 {
-                    NPCGameObjectPool.Instance.ReturnGameObject(enemy.GameObject);
+                    NPCPool.ReturnGameObject(enemy.GameObject);
                     RemoveCharacter(enemy);
                 }
             }
@@ -77,7 +84,7 @@ namespace EcologyRPG.Game.NPC
                         activeEnemies.Add(characterData);   
                         if(character.GameObject == null)
                         {
-                            var obj = NPCGameObjectPool.Instance.GetGameObject(characterData.prefab);
+                            var obj = NPCPool.GetGameObject(characterData.prefab);
                             obj.transform.SetPositionAndRotation(character.Transform.Position, character.Transform.Rotation);
                             character.SetBinding(obj.GetComponent<CharacterBinding>());
                         }
@@ -89,22 +96,29 @@ namespace EcologyRPG.Game.NPC
                     if (activeEnemies.Contains(characterData))
                     {
                         activeEnemies.Remove(characterData);
-                        NPCGameObjectPool.Instance.ReturnGameObject(character.GameObject);
+                        NPCPool.ReturnGameObject(character.GameObject);
                         character.RemoveBinding();
                     }
                 }
             }
         }
 
-        private void Update()
+        public void Update()
         {
+            timer += Time.deltaTime;
+            if(timer > activeEnemyUpdateRate)
+            {
+                UpdateActiveEnemies();
+                timer = 0;
+            }
+
             foreach (var character in activeEnemies)
             {
                 character.enemy.Update();
             }
         }
 
-        private void LateUpdate()
+        public void LateUpdate()
         {
             foreach (var character in activeEnemies)
             {

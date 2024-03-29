@@ -3,7 +3,7 @@ using EcologyRPG.Game.Abilities.Conditions;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public enum DirectionMode
     {

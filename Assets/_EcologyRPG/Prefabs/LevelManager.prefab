@@ -182,9 +182,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3274307551831784034}
   - component: {fileID: 1686278734706028840}
-  - component: {fileID: 486656925332903349}
-  - component: {fileID: 2111085262131217635}
-  - component: {fileID: 8125800186541536497}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -220,64 +217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae8dd9b56feed84ab4edc06345234e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDistance: 200
+  activeEnemyUpdateRate: 0.2
   OnLevelStart:
     m_PersistentCalls:
       m_Calls: []
   OnLevelAwake:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 486656925332903349}
-        m_TargetAssemblyTypeName: PlayerManager, Core
-        m_MethodName: SpawnPlayer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &486656925332903349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859839487391953796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff29f94fcb7cae4c8c49ecc495a5055, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 3988276762825930337, guid: 4b437b720a042ca4e9489ff55549356e,
-    type: 3}
-  OnPlayerSpawned:
-    m_PersistentCalls:
       m_Calls: []
---- !u!114 &2111085262131217635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859839487391953796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c9b4e799aa4c4f41ae755c96cd94e92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterList: []
---- !u!114 &8125800186541536497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859839487391953796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc61fcac252aa574181f20eb7f18bffd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CooldownAbilities: []

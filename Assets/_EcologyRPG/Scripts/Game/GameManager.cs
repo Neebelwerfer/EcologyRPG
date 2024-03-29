@@ -1,3 +1,4 @@
+using EcologyRPG.Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,15 @@ namespace EcologyRPG.Game
     {
         public static GameManager Instance;
 
+        [Header("Player Settings")]
+        public GameObject PlayerPrefab;
+        public GameObject PlayerCameraPrefab;
+        public PlayerSettings playerSettings;
+
+
         public Game_State CurrentState = Game_State.Menu;
+
+        PlayerManager PlayerManager;
 
         // Start is called before the first frame update
 
@@ -32,6 +41,7 @@ namespace EcologyRPG.Game
             {
                 Destroy(gameObject);
             }
+            PlayerManager = PlayerManager.Init(PlayerPrefab, PlayerCameraPrefab, playerSettings);
         }
 
         public void Update()
@@ -39,6 +49,23 @@ namespace EcologyRPG.Game
             if (CurrentState == Game_State.Playing)
             {
                 EventManager.UpdateQueue();
+                PlayerManager.Update();
+            }
+        }
+
+        public void FixedUpdate()
+        {
+            if (CurrentState == Game_State.Playing)
+            {
+                PlayerManager.FixedUpdate();
+            }
+        }
+
+        public void LateUpdate()
+        {
+            if (CurrentState == Game_State.Playing)
+            {
+                PlayerManager.LateUpdate();
             }
         }
     }

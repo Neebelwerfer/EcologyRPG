@@ -131,6 +131,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 900735172225046899, guid: b6f5deaab21bdf34682182d7d0d6ed9b,
+        type: 3}
+      propertyPath: PlayerPrefab
+      value: 
+      objectReference: {fileID: 3988276762825930337, guid: 4b437b720a042ca4e9489ff55549356e,
+        type: 3}
+    - target: {fileID: 900735172225046899, guid: b6f5deaab21bdf34682182d7d0d6ed9b,
+        type: 3}
+      propertyPath: playerSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239,
+        type: 2}
+    - target: {fileID: 900735172225046899, guid: b6f5deaab21bdf34682182d7d0d6ed9b,
+        type: 3}
+      propertyPath: PlayerCameraPrefab
+      value: 
+      objectReference: {fileID: 7209086482422051327, guid: 22f5560ecfb4bb04abbbf50dcc927cc5,
+        type: 3}
     - target: {fileID: 3444350039980747972, guid: b6f5deaab21bdf34682182d7d0d6ed9b,
         type: 3}
       propertyPath: m_Name

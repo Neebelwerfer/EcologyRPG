@@ -6,27 +6,12 @@ namespace EcologyRPG.Game.NPC
 {
     public class NPCGameObjectPool
     {
-        static NPCGameObjectPool instance;
 
-        readonly Dictionary<string, GameObjectPool> pool = new();
+        readonly Dictionary<string, GameObjectPool> pool;
 
-        public static NPCGameObjectPool Instance
+        public NPCGameObjectPool()
         {
-            get
-            {
-                return instance;
-            }
-        }
-
-        NPCGameObjectPool()
-        {
-
-        }
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void Setup()
-        {
-            instance = new NPCGameObjectPool();
+            pool = new();
         }
 
         public GameObject GetGameObject(GameObject prefab)

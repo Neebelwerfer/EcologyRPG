@@ -105,6 +105,11 @@ namespace EcologyRPG.Core.Character
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
+            if(state == CharacterStates.dead)
+            {
+                return;
+            }
+
             damageInfo.damage = CalculateDamage(damageInfo);
             Health -= damageInfo.damage;
             var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Transform.Position };

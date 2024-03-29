@@ -1,5 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.NPC;
+using EcologyRPG.Game.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -10,14 +11,24 @@ namespace EcologyRPG.Game
     {
         public static LevelManager Instance;
 
-        public UnityEvent OnLevelStart;
+        [Header("NPC Settings")]
+        public float maxDistance = 200f;
+        public float activeEnemyUpdateRate = 0.2f;
 
+        public UnityEvent OnLevelStart;
         public UnityEvent OnLevelAwake;
+
+        EnemyManager enemyManager;
 
         void Start()
         {
             OnLevelStart.Invoke();
+            enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
+            AbilityManager.Init();
+
             GameManager.Instance.CurrentState = Game_State.Playing;
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            PlayerManager.Instance.SpawnPlayer();
         }
 
         void Awake()
@@ -35,6 +46,24 @@ namespace EcologyRPG.Game
                 Destroy(gameObject);
             }
             OnLevelAwake.Invoke();
+
+        }
+
+        public void Update()
+        {
+            if (GameManager.Instance.CurrentState == Game_State.Playing)
+            {
+                enemyManager.Update();
+                AbilityManager.instance.Update();
+            }
+        }
+
+        public void LateUpdate()
+        {
+            if (GameManager.Instance.CurrentState == Game_State.Playing)
+            {
+                enemyManager.LateUpdate();
+            }
         }
     }
 }

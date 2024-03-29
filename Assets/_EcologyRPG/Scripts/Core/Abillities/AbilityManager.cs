@@ -3,22 +3,15 @@ using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities
 {
-    public class AbilityManager : MonoBehaviour
+    public class AbilityManager
     {
         public static AbilityManager instance;
 
         public List<AbilityDefintion> CooldownAbilities = new List<AbilityDefintion>();
 
-        private void Awake()
+        public static void Init()
         {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(this);
-            }
+            instance = new();
         }
 
         public void RegisterAbilityOnCooldown(AbilityDefintion ability)
@@ -37,7 +30,7 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
-        private void Update()
+        public void Update()
         {
             for (int i = CooldownAbilities.Count - 1; i >= 0; i--)
             {
@@ -54,19 +47,6 @@ namespace EcologyRPG.Core.Abilities
                 }
 
                 CooldownAbilities[i].UpdateCooldown(Time.deltaTime);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (instance == this)
-            {
-                instance = null;
-            }
-            foreach (var ability in CooldownAbilities)
-            {
-                ability.remainingCooldown = 0;
-                ability.state = AbilityStates.ready;
             }
         }
     }

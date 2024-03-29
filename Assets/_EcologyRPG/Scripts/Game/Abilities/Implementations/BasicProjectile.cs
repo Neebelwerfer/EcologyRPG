@@ -1,9 +1,7 @@
 using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.Abilities.Definitions;
-using EcologyRPG.Game.Abilities.Utility;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class BasicProjectile : ProjectileAbility
     {

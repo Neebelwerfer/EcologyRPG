@@ -51,7 +51,7 @@ namespace EcologyRPG.Game.NPC
             for (int i = 0; i < amount; i++)
             {
                 var spawnPoint = SpawnablePoint();
-                var enemyObj = NPCGameObjectPool.Instance.GetGameObject(enemyPrefab, spawnPoint, Quaternion.identity);
+                var enemyObj = EnemyManager.instance.NPCPool.GetGameObject(enemyPrefab, spawnPoint, Quaternion.identity);
                 var enemy = new EnemyNPC(config);
                 enemy.Transform.Position = spawnPoint;
                 enemy.SetBinding(enemyObj.GetComponent<CharacterBinding>());

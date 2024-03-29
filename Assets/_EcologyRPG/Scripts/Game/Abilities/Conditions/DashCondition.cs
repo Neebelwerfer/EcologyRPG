@@ -3,7 +3,6 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
-using EcologyRPG.Game.Abilities.Implementations;
 
 namespace EcologyRPG.Game.Abilities.Conditions
 {
