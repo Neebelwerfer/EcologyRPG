@@ -1,5 +1,6 @@
 using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Core.Items;
+using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,5 +35,9 @@ namespace EcologyRPG.Game.Player
 
         [Header("Level Settings")]
         public List<float> XpRequiredPerLevel = new List<float>(10);
+
+        [Header("Ohter")]
+        [CharacterTag]
+        public List<string> Tags = new List<string>();
     }
 }

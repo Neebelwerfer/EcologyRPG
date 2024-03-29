@@ -38,6 +38,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
         public override void OnInspectorGUI()
         {
             Sprint ability = (Sprint)target;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.sprintSpeedMultiplier)));
             if (ability.Exhaustion == null)
             {
                 ability.Exhaustion = CreateInstance<Exhaustion>();

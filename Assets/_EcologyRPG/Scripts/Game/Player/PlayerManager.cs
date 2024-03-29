@@ -1,5 +1,7 @@
 using UnityEngine.Events;
 using UnityEngine;
+using EcologyRPG.Core.Character;
+using Cinemachine;
 
 namespace EcologyRPG.Game.Player
 {
@@ -8,11 +10,16 @@ namespace EcologyRPG.Game.Player
         public static PlayerManager Instance;
 
         public GameObject PlayerPrefab;
+        public GameObject PlayerCameraPrefab;
+        public PlayerSettings playerSettings;
 
         public UnityEvent OnPlayerSpawned;
 
         GameObject Player;
         PlayerCharacter playerCharacter;
+
+        GameObject PlayerCamera;
+        CinemachineVirtualCamera playerCamera;
 
         public void Init()
         {
@@ -25,6 +32,7 @@ namespace EcologyRPG.Game.Player
             {
                 Destroy(this);
             }
+            playerCharacter = new(playerSettings);
             SpawnPlayer();
         }
 
@@ -35,13 +43,24 @@ namespace EcologyRPG.Game.Player
             if (spawn != null)
             {
                 Player = Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
-                playerCharacter = Player.GetComponent<PlayerCharacter>();
+                var binding = Player.GetComponent<CharacterBinding>();
+                playerCharacter.SetBinding(binding);
+
+                PlayerCamera = Instantiate(PlayerCameraPrefab);
+                playerCamera = PlayerCamera.GetComponent<CinemachineVirtualCamera>();
+                playerCamera.Follow = Player.transform;
+                playerCamera.LookAt = Player.transform;
                 OnPlayerSpawned?.Invoke();
             }
             else
             {
                 Debug.LogError("No player spawn found in scene");
             }
+        }
+
+        public void PlayerDead()
+        {
+
         }
 
         public GameObject GetPlayer()
@@ -52,6 +71,24 @@ namespace EcologyRPG.Game.Player
         public PlayerCharacter GetPlayerCharacter()
         {
             return playerCharacter;
+        }
+
+        private void Update()
+        {
+            if (Player != null)
+                playerCharacter.Update();
+        }
+
+        private void FixedUpdate()
+        {
+            if (Player != null)
+                playerCharacter.FixedUpdate();
+        }
+
+        private void LateUpdate()
+        {
+            if (Player != null)
+                playerCharacter.LateUpdate();
         }
     }
 }

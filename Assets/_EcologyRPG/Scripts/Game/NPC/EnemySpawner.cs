@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
 namespace EcologyRPG.Game.NPC
@@ -6,6 +7,7 @@ namespace EcologyRPG.Game.NPC
     public class EnemySpawner : MonoBehaviour
     {
         public GameObject enemyPrefab;
+        public NPCConfig config;
         public float spawnRadius = 5;
         public int numberOfEnemies = 5;
         public LayerMask GroundMask;
@@ -49,12 +51,15 @@ namespace EcologyRPG.Game.NPC
             for (int i = 0; i < amount; i++)
             {
                 var spawnPoint = SpawnablePoint();
-                var enemy = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
-                enemies[i] = enemy.GetComponent<EnemyNPC>();
+                var enemyObj = NPCGameObjectPool.Instance.GetGameObject(enemyPrefab, spawnPoint, Quaternion.identity);
+                var enemy = new EnemyNPC(config);
+                enemy.Transform.Position = spawnPoint;
+                enemy.SetBinding(enemyObj.GetComponent<CharacterBinding>());
+                enemies[i] = enemy;
                 enemies[i].SetSpawner(this);
             }
             currentEnemies += amount;
-            EnemyManager.instance.AddCharacters(enemies);
+            EnemyManager.instance.AddCharacters(enemies, enemyPrefab);
             return enemies;
         }
 

@@ -17,19 +17,15 @@ namespace EcologyRPG.Game.Player
 
         public Inventory Inventory { get; private set; }
 
-        public override Vector3 Forward => playerMovement.transform.forward;
-        public override Vector3 Position => playerMovement.transform.position;
-
-        public override Transform Transform => playerMovement.transform;
-
         readonly List<PlayerModule> modules = new();
 
-        public override void Start()
+        public PlayerCharacter(PlayerSettings playerSettings) : base()
         {
-            base.Start();
+            this.playerSettings = playerSettings;
 
             playerMovement = new PlayerMovement();
             modules.Add(playerMovement);
+            playerMovement.Initialize(this);
 
             playerResourceManager = new PlayerResourceManager();
             modules.Add(playerResourceManager);
@@ -47,7 +43,16 @@ namespace EcologyRPG.Game.Player
                 module.Initialize(this);
             }
 
+            faction = Faction.player;
+            Tags = playerSettings.Tags;
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        }
+
+
+        public override void Die()
+        {
+            base.Die();
+            PlayerManager.Instance.PlayerDead();
         }
 
         public virtual void LevelUp()
@@ -61,6 +66,7 @@ namespace EcologyRPG.Game.Player
 
         public override void Update()
         {
+            if (IsPaused) return;
             base.Update();
             foreach (PlayerModule module in modules)
             {
@@ -68,27 +74,21 @@ namespace EcologyRPG.Game.Player
             }
         }
 
-        void FixedUpdate()
+        public void FixedUpdate()
         {
+            if (IsPaused) return;
             foreach (PlayerModule module in modules)
             {
                 module.FixedUpdate();
             }
         }
 
-        void LateUpdate()
+        public void LateUpdate()
         {
+            if (IsPaused) return;
             foreach (PlayerModule module in modules)
             {
                 module.LateUpdate();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            foreach (PlayerModule module in modules)
-            {
-                module.OnDestroy();
             }
         }
     }

@@ -16,7 +16,6 @@ MonoBehaviour:
   displayName: Exhaustion
   duration: 0
   remainingDuration: 0
-  Owner: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,7 +38,8 @@ MonoBehaviour:
   CastWindUp: []
   BlockMovementOnWindup: 0
   RotatePlayerTowardsMouse: 0
-  BlockRotationOnWindup: 1
+  ReducedSpeedOnWindup: 0
+  BlockRotationOnWindup: 0
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina
   ResourceCost: 0.3

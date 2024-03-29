@@ -6,7 +6,7 @@ namespace EcologyRPG.Core.Character
     {
         static CharacterManager instance;
 
-        public List<BaseCharacter> CharacterList = new List<BaseCharacter>();
+        public List<BaseCharacter> CharacterList = new();
 
         public static CharacterManager Instance
         {
@@ -27,15 +27,6 @@ namespace EcologyRPG.Core.Character
             CharacterList.Remove(character);
         }
 
-        public BaseCharacter GetCharacter(string name)
-        {
-            return CharacterList.Find(x => x.name == name);
-        }
-
-        public BaseCharacter GetCharacterByTag(string tag)
-        {
-            return CharacterList.Find(x => x.Tags.Contains(tag));
-        }
         public BaseCharacter[] GetCharactersByTag(string tag)
         {
             return CharacterList.FindAll(x => x.Tags.Contains(tag)).ToArray();

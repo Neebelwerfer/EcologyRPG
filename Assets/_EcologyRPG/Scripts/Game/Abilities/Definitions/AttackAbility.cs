@@ -61,7 +61,7 @@ namespace EcologyRPG.Game.Abilities.Definitions
             }
             else
             {
-                return castInfo.owner.Forward;
+                return castInfo.owner.Transform.Forward;
             }
         }
     }

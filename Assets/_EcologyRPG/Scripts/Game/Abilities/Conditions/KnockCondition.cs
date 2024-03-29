@@ -25,12 +25,12 @@ namespace EcologyRPG.Game.Abilities.Conditions
 
         public override void OnApply(CastInfo caster, BaseCharacter target)
         {
-            startPos = target.Position;
+            startPos = target.Transform.Position;
             Vector3 dir;
             if (knockType == KnockType.Away)
-                dir = (target.Position - caster.castPos).normalized;
+                dir = (target.Transform.Position - caster.castPos).normalized;
             else
-                dir = (caster.castPos - target.Position).normalized;
+                dir = (caster.castPos - target.Transform.Position).normalized;
 
             targetPos = KnockCondition.CalculateTargetPos(target, dir, KnockBackDistance);
             timer = 0;
@@ -48,14 +48,14 @@ namespace EcologyRPG.Game.Abilities.Conditions
 
         public override void OnUpdate(BaseCharacter target, float deltaTime)
         {
-            target.transform.position = Vector3.Lerp(startPos, targetPos, timer / duration);
+            target.Transform.Position = Vector3.Lerp(startPos, targetPos, timer / duration);
             timer += deltaTime;
         }
 
         public static Vector3 CalculateTargetPos(BaseCharacter target, Vector3 direction, float distance)
         {
-            var targetPos = target.transform.position + (direction * distance);
-            targetPos.y = target.transform.position.y;
+            var targetPos = target.Transform.Position + (direction * distance);
+            targetPos.y = target.Transform.Position.y;
             return targetPos;
         }
     }
