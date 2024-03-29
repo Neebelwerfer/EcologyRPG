@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace EcologyRPG.Game.UI
 {
-    public class EquipmentButton : Button
+    public class EquipmentButton : Button, ITooltip
     {
         public TextMeshProUGUI Name;
         public Image Image;
@@ -43,12 +43,12 @@ namespace EcologyRPG.Game.UI
         public override void OnPointerEnter(PointerEventData eventData)
         {
             if (item == null) return;
-            Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = item.Name, Icon = item.Icon, Description = item.GetDisplayString() });
+            Tooltip.ShowTooltip(this);
         }
 
         public override void OnPointerExit(PointerEventData eventData)
         {
-            Tooltip.HideTooltip(gameObject);
+            Tooltip.HideTooltip(this);
         }
 
 
@@ -90,6 +90,11 @@ namespace EcologyRPG.Game.UI
         {
             yield return new WaitForSeconds(0.5f);
             clickedOnce = false;
+        }
+
+        public TooltipData GetTooltipData()
+        {
+            return new TooltipData() { Title = item.Name, Icon = item.Icon, Description = item.GetDisplayString() };
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace EcologyRPG.Game.UI
 {
-    public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ITooltip
     {
         [SerializeField] private Slider barSlider;
         [SerializeField] private Slider easeSlider;
@@ -76,12 +76,17 @@ namespace EcologyRPG.Game.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Tooltip.ShowTooltip(this, new TooltipData { Title = resourceName, Description = $"{(int)statValue}/{(int)maxValue}" });
+            Tooltip.ShowTooltip(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             Tooltip.HideTooltip(this);
+        }
+
+        public TooltipData GetTooltipData()
+        {
+            return new TooltipData { Title = resourceName, Description = $"{(int)statValue}/{(int)maxValue}" };
         }
     }
 }

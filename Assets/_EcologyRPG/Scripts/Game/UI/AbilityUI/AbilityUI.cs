@@ -8,7 +8,7 @@ using EcologyRPG.Game.Player;
 
 namespace EcologyRPG.Game.UI
 {
-    public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, ITooltip
     {
         [Header("Ability")]
         private string abilityName;
@@ -73,18 +73,23 @@ namespace EcologyRPG.Game.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Tooltip.HideTooltip(gameObject);
+            Tooltip.HideTooltip(this);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (ability == null) return;
-            Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = ability.Description });
+            Tooltip.ShowTooltip(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             AbilitySelectionUI.Instance.Show(this);
+        }
+
+        public TooltipData GetTooltipData()
+        {
+            return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = ability.Description };
         }
     }
 }

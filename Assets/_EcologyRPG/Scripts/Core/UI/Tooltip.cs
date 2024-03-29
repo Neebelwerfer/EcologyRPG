@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 namespace EcologyRPG.Core.UI
 {
+    public interface ITooltip
+    {
+        TooltipData GetTooltipData();
+    }
     public class Tooltip : MonoBehaviour
     {
         public Vector2 Offset;
@@ -13,8 +17,9 @@ namespace EcologyRPG.Core.UI
         public Image Icon;
         public TextMeshProUGUI Description;
 
+        ITooltip tooltipData;
+
         static Tooltip instance;
-        object activeTooltipSource;
 
         private void Awake()
         {
@@ -24,25 +29,32 @@ namespace EcologyRPG.Core.UI
                 Destroy(this);
         }
 
-        public void Show(object source, TooltipData data)
+        public void UpdateTooltip()
         {
-            if (activeTooltipSource == source) return;
-            TooltipObject.SetActive(true);
-            TooltipObject.transform.position = Mouse.current.position.ReadValue() + Offset;
+            var data = tooltipData.GetTooltipData();
             Title.text = data.Title;
             Icon.sprite = data.Icon;
             Description.text = data.Description;
-            activeTooltipSource = source;
+        }
+        public void Show(ITooltip tooltipData)
+        {
+            if (this.tooltipData == tooltipData) return;
+            this.tooltipData = tooltipData;
+            var data = tooltipData.GetTooltipData();
+            TooltipObject.SetActive(true);
+            TooltipObject.transform.position = Mouse.current.position.ReadValue() + Offset;
+            InvokeRepeating(nameof(UpdateTooltip), 0f, 0.3f);
         }
 
         public void Hide(object source)
         {
             if (instance != null)
             {
-                if (activeTooltipSource == source)
+                if (tooltipData == source)
                 {
-                    activeTooltipSource = null;
+                    tooltipData = null;
                     TooltipObject.SetActive(false);
+                    CancelInvoke(nameof(UpdateTooltip));
                 }
             }
         }
@@ -53,9 +65,9 @@ namespace EcologyRPG.Core.UI
                 instance.Hide(source);
         }
 
-        public static void ShowTooltip(object source, TooltipData data)
+        public static void ShowTooltip(ITooltip tooltipData)
         {
-            instance.Show(source, data);
+            instance.Show(tooltipData);
         }
 
     }
