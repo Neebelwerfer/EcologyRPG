@@ -44,6 +44,7 @@ namespace EcologyRPG.Game.UI
 
         public void InitializeBar(BaseCharacter nPC, string resourceName)
         {
+            if(nPC == null) return;
             maxHealth = nPC.Stats.GetResource(resourceName).MaxValue;
             barSlider.maxValue = maxHealth;
             barSlider.value = barSlider.maxValue;

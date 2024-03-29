@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using EcologyRPG.Core.UI;
 using EcologyRPG.Game.Player;
 using UnityEngine;
@@ -23,10 +24,11 @@ namespace EcologyRPG.Game.UI
         [SerializeField] private Sprite statShell;
 
         private PlayerCharacter character;
+        private Resource resource;
         private bool initialized = false;
 
         public float maxValue;
-        public float statValue;
+        public float resourceValue;
 
         // Start is called before the first frame update
         void Start()
@@ -43,34 +45,46 @@ namespace EcologyRPG.Game.UI
             {
                 InitializeBar(character, resourceName);
             }
-            UpdateBar(character, resourceName);
+            else
+            {
+                UpdateBar();
+            }
         }
 
         public void InitializeBar(PlayerCharacter player, string resourceName)
         {
+            resource = player.Stats.GetResource(resourceName);
             icon.sprite = statIcon;
             shell.sprite = statShell;
             fillImage.sprite = fillSprite;
             easeImage.sprite = fillSprite;
             backgroundImage.sprite = fillSprite;
-            maxValue = player.Stats.GetResource(resourceName).MaxValue;
+            maxValue = resource.MaxValue;
             barSlider.maxValue = maxValue;
             barSlider.value = barSlider.maxValue;
             easeSlider.maxValue = barSlider.maxValue;
             easeSlider.value = easeSlider.maxValue;
             if (maxValue != 0) initialized = true;
         }
-        public void UpdateBar(PlayerCharacter player, string resourceName)
+
+        public void UpdateMaxValue()
         {
-            statValue = player.Stats.GetResource(resourceName).CurrentValue;
-            if (barSlider.value != statValue)
+            maxValue = resource.MaxValue;
+            barSlider.maxValue = maxValue;
+            easeSlider.maxValue = barSlider.maxValue;
+        }
+        public void UpdateBar()
+        {
+            UpdateMaxValue();
+            resourceValue = resource.CurrentValue;
+            if (barSlider.value != resourceValue)
             {
-                barSlider.value = statValue;
+                barSlider.value = resourceValue;
             }
 
             if (barSlider.value != easeSlider.value)
             {
-                easeSlider.value = Mathf.Lerp(easeSlider.value, statValue, lerpSpeed);
+                easeSlider.value = Mathf.Lerp(easeSlider.value, resourceValue, lerpSpeed);
             }
         }
 
@@ -86,7 +100,7 @@ namespace EcologyRPG.Game.UI
 
         public TooltipData GetTooltipData()
         {
-            return new TooltipData { Title = resourceName, Description = $"{(int)statValue}/{(int)maxValue}" };
+            return new TooltipData { Title = resourceName, Description = $"{(int)resourceValue}/{(int)maxValue}" };
         }
     }
 }
