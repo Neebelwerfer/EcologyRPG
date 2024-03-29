@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace EcologyRPG.Core.Character
 {
@@ -21,6 +22,7 @@ namespace EcologyRPG.Core.Character
             }
         }
 
+        public UnityEvent CharacterUpdated = new UnityEvent();
 
         public BaseCharacter Character { get { return character; } }
 
@@ -31,6 +33,7 @@ namespace EcologyRPG.Core.Character
         public void SetCharacter(BaseCharacter character)
         {
             this.character = character;
+            CharacterUpdated.Invoke();
         }
     }
 }

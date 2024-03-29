@@ -19,12 +19,13 @@ namespace EcologyRPG.Game.UI
         public float maxHealth = 100;
         public float currentHealth;
 
-        BaseCharacter character;
+        CharacterBinding characterBinding;
 
         private void Start()
         {
-            character = GetComponentInParent<CharacterBinding>().Character;
-            InitializeBar(character, resourceName);
+            characterBinding = GetComponentInParent<CharacterBinding>();
+            characterBinding.CharacterUpdated.AddListener(() => InitializeBar(characterBinding.Character, resourceName));
+            InitializeBar(characterBinding.Character, resourceName);
             barSlider.maxValue = maxHealth;
             barSlider.value = maxHealth;
             currentHealth = maxHealth;
@@ -33,11 +34,11 @@ namespace EcologyRPG.Game.UI
         {
             if (!initialized)
             {
-                character = GetComponentInParent<CharacterBinding>().Character;
-                InitializeBar(character, resourceName);
+                characterBinding = GetComponentInParent<CharacterBinding>();
+                InitializeBar(characterBinding.Character, resourceName);
             }
 
-            UpdateBar(character, resourceName);
+            UpdateBar(characterBinding.Character, resourceName);
             VisibleBar();
         }
 
@@ -65,7 +66,7 @@ namespace EcologyRPG.Game.UI
         }
         public void VisibleBar()
         {
-            if (character.Stats.GetResource(resourceName).MaxValue == character.Stats.GetResource(resourceName).CurrentValue)
+            if (characterBinding.Character.Stats.GetResource(resourceName).MaxValue == characterBinding.Character.Stats.GetResource(resourceName).CurrentValue)
             {
                 easingBar.SetActive(false);
                 healthBar.SetActive(false);
