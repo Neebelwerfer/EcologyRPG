@@ -15,44 +15,46 @@ namespace EcologyRPG.Core.Character
 
     public class Resource
     {
-        public float CurrentValue { get { return currentValue; } set { ModifyCurrentValue(value); } }
+        public float CurrentValue { get { return currentValuePercent * MaxValue; } set { ModifyCurrentValue(value); } }
         public float MaxValue { get { return MaxValueStat.Value; } }
         public readonly ResourceData Data;
         public UnityEvent<float> OnValueChanged;
 
-        float currentValue;
+        float currentValuePercent;
         readonly Stat MaxValueStat;
 
         public Resource(ResourceData data, Stats stats)
         {
             Data = data;
             MaxValueStat = stats.GetStat(Data.MaxValueStat);
-            currentValue = MaxValueStat.Value;
+            currentValuePercent = 1;
             OnValueChanged = new UnityEvent<float>();
         }
 
         public void SetCurrentValue(float value)
         {
-            if(value == currentValue)
+            if(value == CurrentValue)
                 return;
-            currentValue = value;
-            currentValue = Mathf.Clamp(currentValue, 0, MaxValueStat.Value);
-            OnValueChanged.Invoke(currentValue);
+            var percent = value / MaxValue;
+            currentValuePercent = percent;
+            currentValuePercent = Mathf.Clamp(currentValuePercent, 0, 1);
+            OnValueChanged.Invoke(CurrentValue);
         }
 
         public void ModifyCurrentValue(float value)
         {
             if(value == 0)
                 return;
-            currentValue += value;
-            currentValue = Mathf.Clamp(currentValue, 0, MaxValueStat.Value);
-            OnValueChanged.Invoke(currentValue);
+            var percent = value / MaxValue;
+            currentValuePercent += percent;
+            currentValuePercent = Mathf.Clamp(currentValuePercent, 0, 1);
+            OnValueChanged.Invoke(CurrentValue);
         }
 
         public void Reset()
         {
-            currentValue = MaxValueStat.Value;
-            OnValueChanged.Invoke(currentValue);
+            CurrentValue = MaxValueStat.Value;
+            OnValueChanged.Invoke(CurrentValue);
         }
 
         public override bool Equals(object obj)
@@ -92,38 +94,38 @@ namespace EcologyRPG.Core.Character
 
         public static bool operator ==(Resource a, float b)
         {
-            return a.currentValue == b;
+            return a.CurrentValue == b;
         }
 
         public static bool operator !=(Resource a, float b)
         {
-            return a.currentValue != b;
+            return a.CurrentValue != b;
         }
 
         public static bool operator >(Resource a, float b)
         {
-            return a.currentValue > b;
+            return a.CurrentValue > b;
         }
 
         public static bool operator <(Resource a, float b)
         {
-            return a.currentValue < b;
+            return a.CurrentValue < b;
         }
 
         public static bool operator >=(Resource a, float b)
         {
-            return a.currentValue >= b;
+            return a.CurrentValue >= b;
         }
 
         public static bool operator <=(Resource a, float b)
         {
-            return a.currentValue <= b;
+            return a.CurrentValue <= b;
         }
 
         public static float operator /(Resource a, float b)
         {
-            a.SetCurrentValue(a.currentValue / b);
-            return a.currentValue;
+            a.SetCurrentValue(a.CurrentValue / b);
+            return a.CurrentValue;
         }
     }
 }

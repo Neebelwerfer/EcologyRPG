@@ -15,28 +15,15 @@ namespace EcologyRPG.Game
         public float maxDistance = 200f;
         public float activeEnemyUpdateRate = 0.2f;
 
-        public UnityEvent OnLevelStart;
-        public UnityEvent OnLevelAwake;
-
         EnemyManager enemyManager;
 
         void Start()
         {
-            OnLevelStart.Invoke();
-            enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
-            AbilityManager.Init();
-
             GameManager.Instance.CurrentState = Game_State.Playing;
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-            PlayerManager.Instance.SpawnPlayer();
         }
 
         void Awake()
         {
-            if (GameManager.Instance == null)
-            {
-                SceneManager.LoadScene(0, LoadSceneMode.Additive);
-            }
             if (Instance == null)
             {
                 Instance = this;
@@ -45,7 +32,11 @@ namespace EcologyRPG.Game
             {
                 Destroy(gameObject);
             }
-            OnLevelAwake.Invoke();
+
+            enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
+            AbilityManager.Init();
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            PlayerManager.Instance.SpawnPlayer();
 
         }
 

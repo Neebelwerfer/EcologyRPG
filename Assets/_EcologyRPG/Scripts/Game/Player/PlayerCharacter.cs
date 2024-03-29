@@ -51,7 +51,7 @@ namespace EcologyRPG.Game.Player
         public override void Die()
         {
             base.Die();
-            PlayerManager.Instance.PlayerDead();
+            EventManager.Defer("PlayerDeath", new DefaultEventData() { data = this, source = this});
         }
 
         public virtual void LevelUp()

@@ -1,8 +1,13 @@
+using EcologyRPG.Core;
+using EcologyRPG.Core.Character;
 using EcologyRPG.Game.Player;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using PlayerSettings = EcologyRPG.Game.Player.PlayerSettings;
 
 namespace EcologyRPG.Game
 {
@@ -15,21 +20,25 @@ namespace EcologyRPG.Game
         DialogueChoices,
     }
 
+    [DefaultExecutionOrder(-1000)]
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
-
-        [Header("Player Settings")]
-        public GameObject PlayerPrefab;
-        public GameObject PlayerCameraPrefab;
-        public PlayerSettings playerSettings;
+        public static GameSettings Settings;
 
 
         public Game_State CurrentState = Game_State.Menu;
 
-        PlayerManager PlayerManager;
-
         // Start is called before the first frame update
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Load()
+        {
+            Settings = Resources.Load<GameSettings>("Config/GameSettings");
+            PlayerManager.Init(Settings.playerSettings);
+            Flags.Init();
+            SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        }
 
         void Awake()
         {
@@ -41,7 +50,6 @@ namespace EcologyRPG.Game
             {
                 Destroy(gameObject);
             }
-            PlayerManager = PlayerManager.Init(PlayerPrefab, PlayerCameraPrefab, playerSettings);
         }
 
         public void Update()
@@ -49,7 +57,8 @@ namespace EcologyRPG.Game
             if (CurrentState == Game_State.Playing)
             {
                 EventManager.UpdateQueue();
-                PlayerManager.Update();
+                PlayerManager.Instance.Update();
+                
             }
         }
 
@@ -57,7 +66,7 @@ namespace EcologyRPG.Game
         {
             if (CurrentState == Game_State.Playing)
             {
-                PlayerManager.FixedUpdate();
+                PlayerManager.Instance.FixedUpdate();
             }
         }
 
@@ -65,7 +74,7 @@ namespace EcologyRPG.Game
         {
             if (CurrentState == Game_State.Playing)
             {
-                PlayerManager.LateUpdate();
+                PlayerManager.Instance.LateUpdate();
             }
         }
     }

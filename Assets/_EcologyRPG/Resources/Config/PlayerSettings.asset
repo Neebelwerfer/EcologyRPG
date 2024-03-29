@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e3f9e114554944d895bb39a1c0a344, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
+  PlayerModel: {fileID: 3988276762825930337, guid: 4b437b720a042ca4e9489ff55549356e,
+    type: 3}
+  Camera: {fileID: 7209086482422051327, guid: 22f5560ecfb4bb04abbbf50dcc927cc5, type: 3}
   Movement: {fileID: 2064913705141883547, guid: d845ac9316e93d841aad5e9d3451edb0,
     type: 3}
   Interact: {fileID: -4484485176183111489, guid: d845ac9316e93d841aad5e9d3451edb0,
@@ -32,10 +35,6 @@ MonoBehaviour:
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: 23d7b1d1678030f499cfb49d2b6ae21a, type: 2}
-  Ability1Reference: {fileID: 11400000, guid: 3cf113f3b7daf80449edc46ea76bf931, type: 2}
-  Ability2Reference: {fileID: 11400000, guid: 8651e5f082142e74fb19ab0136a10a57, type: 2}
-  Ability3Reference: {fileID: 11400000, guid: 0a8cf090d5192014ab8120fbb30bcf2c, type: 2}
-  Ability4Reference: {fileID: 11400000, guid: ce6480a11a212a24eaf41b1fa144969b, type: 2}
   FistAttackAbility: {fileID: 11400000, guid: 5bd58d82414bb4f42bb5751211d4c9eb, type: 2}
   StartingItems:
   - {fileID: 11400000, guid: 80c2d0b652b09dd488fd91db9ee5e3c2, type: 2}
@@ -47,3 +46,4 @@ MonoBehaviour:
   - 100
   - 5000
   - 10000
+  Tags: []

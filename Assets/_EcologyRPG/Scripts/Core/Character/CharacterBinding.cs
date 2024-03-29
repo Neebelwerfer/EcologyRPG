@@ -24,6 +24,10 @@ namespace EcologyRPG.Core.Character
 
         public UnityEvent CharacterUpdated = new UnityEvent();
 
+        public UnityEvent<Collision> OnCollisionEnterEvent = new UnityEvent<Collision>();
+        public UnityEvent<Collision> OnCollisionStayEvent = new UnityEvent<Collision>();
+        public UnityEvent<Collision> OnCollisionExitEvent = new UnityEvent<Collision>();
+
         public BaseCharacter Character { get { return character; } }
 
         BaseCharacter character;
@@ -34,6 +38,29 @@ namespace EcologyRPG.Core.Character
         {
             this.character = character;
             CharacterUpdated.Invoke();
+        }
+
+        public void Reset()
+        {
+            character = null;
+            OnCollisionExitEvent.RemoveAllListeners();
+            OnCollisionStayEvent.RemoveAllListeners();
+            OnCollisionEnterEvent.RemoveAllListeners();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            OnCollisionEnterEvent?.Invoke(collision);
+        }
+
+        private void OnCollisionStay(Collision collision)
+        {
+            OnCollisionStayEvent?.Invoke(collision);
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            OnCollisionExitEvent?.Invoke(collision);
         }
     }
 }

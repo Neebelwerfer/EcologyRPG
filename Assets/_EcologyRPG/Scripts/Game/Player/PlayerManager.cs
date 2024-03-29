@@ -21,17 +21,17 @@ namespace EcologyRPG.Game.Player
         GameObject PlayerCamera;
         CinemachineVirtualCamera playerCamera;
 
-        PlayerManager(GameObject playerPrefab, GameObject playerCameraPrefab, PlayerSettings playerSettings)
+        PlayerManager(PlayerSettings playerSettings)
         {
-            PlayerPrefab = playerPrefab;
-            PlayerCameraPrefab = playerCameraPrefab;
+            PlayerPrefab = playerSettings.PlayerModel;
+            PlayerCameraPrefab = playerSettings.Camera;
             this.playerSettings = playerSettings;
             playerCharacter = new(playerSettings);
         }
 
-        public static PlayerManager Init(GameObject playerPrefab, GameObject playerCameraPrefab, PlayerSettings playerSettings)
+        public static PlayerManager Init(PlayerSettings playerSettings)
         {
-            Instance = new PlayerManager(playerPrefab, playerCameraPrefab, playerSettings);
+            Instance = new PlayerManager(playerSettings);
             return Instance;
         }
 
