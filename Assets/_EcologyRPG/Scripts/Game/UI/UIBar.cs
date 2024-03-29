@@ -1,10 +1,12 @@
+using EcologyRPG.Core.UI;
 using EcologyRPG.Game.Player;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace EcologyRPG.Game.UI
 {
-    public class UIBar : MonoBehaviour
+    public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Slider barSlider;
         [SerializeField] private Slider easeSlider;
@@ -70,6 +72,16 @@ namespace EcologyRPG.Game.UI
             {
                 easeSlider.value = Mathf.Lerp(easeSlider.value, statValue, lerpSpeed);
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            Tooltip.ShowTooltip(this, new TooltipData { Title = resourceName, Description = $"{(int)statValue}/{(int)maxValue}" });
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            Tooltip.HideTooltip(this);
         }
     }
 }
