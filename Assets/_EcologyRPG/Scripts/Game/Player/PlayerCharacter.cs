@@ -45,14 +45,13 @@ namespace EcologyRPG.Game.Player
 
             faction = Faction.player;
             Tags = playerSettings.Tags;
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         }
 
 
         public override void Die()
         {
             base.Die();
-            PlayerManager.Instance.PlayerDead();
+            EventManager.Defer("PlayerDeath", new DefaultEventData() { data = this, source = this});
         }
 
         public virtual void LevelUp()

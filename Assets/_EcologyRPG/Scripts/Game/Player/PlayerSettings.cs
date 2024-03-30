@@ -10,6 +10,10 @@ namespace EcologyRPG.Game.Player
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Player/PlayerSettings")]
     public class PlayerSettings : ScriptableObject
     {
+        [Header("Model & Camera")]
+        public GameObject PlayerModel;
+        public GameObject Camera;
+
         [Header("References")]
         public InputActionReference Movement;
         public InputActionReference Interact;
@@ -36,7 +40,7 @@ namespace EcologyRPG.Game.Player
         [Header("Level Settings")]
         public List<float> XpRequiredPerLevel = new List<float>(10);
 
-        [Header("Ohter")]
+        [Header("Other")]
         [CharacterTag]
         public List<string> Tags = new List<string>();
     }

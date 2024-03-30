@@ -92,6 +92,7 @@ namespace EcologyRPG.Core.Character
         public virtual void SetBinding(CharacterBinding binding)
         {
             CharacterBinding = binding;
+            binding.OnCollisionEnterEvent.AddListener(OnCollisionEnter);
             CharacterBinding.SetCharacter(this);
             transform.SetBinding(binding);
         }
@@ -105,6 +106,11 @@ namespace EcologyRPG.Core.Character
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
+            if(state == CharacterStates.dead || state == CharacterStates.dodging)
+            {
+                return;
+            }
+
             damageInfo.damage = CalculateDamage(damageInfo);
             Health -= damageInfo.damage;
             var damageEvent = new DamageEvent { damageTaken = damageInfo.damage, source = damageInfo.source, target = this, damageType = damageInfo.type, premitigationDamage = damageInfo.damage, Point = Transform.Position };
@@ -259,7 +265,7 @@ namespace EcologyRPG.Core.Character
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Entity"))
             {
-                OnCharacterCollision?.Invoke(collision.gameObject.GetComponent<BaseCharacter>());
+                OnCharacterCollision?.Invoke(collision.gameObject.GetComponent<CharacterBinding>().Character);
             }
         }
 

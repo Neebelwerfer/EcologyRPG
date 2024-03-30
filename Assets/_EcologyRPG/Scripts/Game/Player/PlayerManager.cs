@@ -5,7 +5,7 @@ using Cinemachine;
 
 namespace EcologyRPG.Game.Player
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager
     {
         public static PlayerManager Instance;
 
@@ -21,19 +21,18 @@ namespace EcologyRPG.Game.Player
         GameObject PlayerCamera;
         CinemachineVirtualCamera playerCamera;
 
-        public void Init()
+        PlayerManager(PlayerSettings playerSettings)
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                Debug.Log("PlayerManager created");
-            }
-            else
-            {
-                Destroy(this);
-            }
+            PlayerPrefab = playerSettings.PlayerModel;
+            PlayerCameraPrefab = playerSettings.Camera;
+            this.playerSettings = playerSettings;
             playerCharacter = new(playerSettings);
-            SpawnPlayer();
+        }
+
+        public static PlayerManager Init(PlayerSettings playerSettings)
+        {
+            Instance = new PlayerManager(playerSettings);
+            return Instance;
         }
 
         public void SpawnPlayer()
@@ -42,11 +41,11 @@ namespace EcologyRPG.Game.Player
 
             if (spawn != null)
             {
-                Player = Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
+                Player = Object.Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
                 var binding = Player.GetComponent<CharacterBinding>();
                 playerCharacter.SetBinding(binding);
 
-                PlayerCamera = Instantiate(PlayerCameraPrefab);
+                PlayerCamera = Object.Instantiate(PlayerCameraPrefab);
                 playerCamera = PlayerCamera.GetComponent<CinemachineVirtualCamera>();
                 playerCamera.Follow = Player.transform;
                 playerCamera.LookAt = Player.transform;
@@ -60,7 +59,6 @@ namespace EcologyRPG.Game.Player
 
         public void PlayerDead()
         {
-
         }
 
         public GameObject GetPlayer()
@@ -73,19 +71,19 @@ namespace EcologyRPG.Game.Player
             return playerCharacter;
         }
 
-        private void Update()
+        public void Update()
         {
             if (Player != null)
                 playerCharacter.Update();
         }
 
-        private void FixedUpdate()
+        public void FixedUpdate()
         {
             if (Player != null)
                 playerCharacter.FixedUpdate();
         }
 
-        private void LateUpdate()
+        public void LateUpdate()
         {
             if (Player != null)
                 playerCharacter.LateUpdate();

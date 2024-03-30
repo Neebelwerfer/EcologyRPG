@@ -1,5 +1,5 @@
-﻿using EcologyRPG.Game.Abilities.Definitions;
-using EcologyRPG.Game.Abilities.Implementations;
+﻿using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.Abilities;
 using UnityEditor;
 using UnityEngine;
 

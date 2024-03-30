@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda30c7c33a07bb4381ab93dc4dce6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalReferences: {fileID: 11400000, guid: fa773bd8e4dd75840ae09ef71bf4e54f, type: 2}
+  PlayerPrefab: {fileID: 3988276762825930337, guid: 4b437b720a042ca4e9489ff55549356e,
+    type: 3}
+  PlayerCameraPrefab: {fileID: 7209086482422051327, guid: 22f5560ecfb4bb04abbbf50dcc927cc5,
+    type: 3}
+  playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
   CurrentState: 0

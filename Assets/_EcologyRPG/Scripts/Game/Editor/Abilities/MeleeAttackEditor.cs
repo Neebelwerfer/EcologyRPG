@@ -1,6 +1,6 @@
-﻿using EcologyRPG.Game.Abilities.Implementations;
+﻿using EcologyRPG.Game.Abilities;
 using UnityEditor;
-using static EcologyRPG.Game.Abilities.Definitions.WeaponAttack;
+using static EcologyRPG.Core.Abilities.WeaponAttack;
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(MeleeAttack))]

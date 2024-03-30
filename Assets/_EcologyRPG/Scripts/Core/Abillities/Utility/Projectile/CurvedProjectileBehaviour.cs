@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Utility
+namespace EcologyRPG.Core.Abilities
 {
     [RequireComponent(typeof(Collider))]
     public class CurvedProjectileBehaviour : MonoBehaviour

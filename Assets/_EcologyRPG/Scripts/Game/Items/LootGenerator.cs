@@ -11,10 +11,7 @@ namespace EcologyRPG.Core.Items
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new LootGenerator();
-                }
+                _instance ??= new LootGenerator();
                 return _instance;
             }
         }

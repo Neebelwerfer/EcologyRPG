@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Definitions
+namespace EcologyRPG.Core.Abilities
 {
     public enum ProjectileType
     {
