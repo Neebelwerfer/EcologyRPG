@@ -36,19 +36,19 @@ namespace EcologyRPG.Core
             instance._SetString(key, value);
         }
 
-        public static int GetInt(string key)
+        public static int GetInt(string key, int defaultValue)
         {
-            return instance._GetInt(key);
+            return instance._GetInt(key, defaultValue);
         }
 
-        public static float GetFloat(string key)
+        public static float GetFloat(string key, float defaultValue)
         {
-            return instance._GetFloat(key);
+            return instance._GetFloat(key, defaultValue);
         }
 
-        public static string GetString(string key)
+        public static string GetString(string key, string defaultValue)
         {
-            return instance._GetString(key);
+            return instance._GetString(key, defaultValue);
         }
 
         protected void _SetFloat(string key, float value)
@@ -74,19 +74,29 @@ namespace EcologyRPG.Core
                 _intFlags.Add(key, value);
         }
 
-        protected float _GetFloat(string key)
+        protected float _GetFloat(string key, float defaultValue)
         {
-            return _floatFlags[key];
+            if(_floatFlags.ContainsKey(key))
+                return _floatFlags[key];
+            
+            _floatFlags.Add(key, defaultValue);
+            return defaultValue;
         }
 
-        protected string _GetString(string key)
+        protected string _GetString(string key, string defaultValue)
         {
-            return _stringFlags[key];
+            if(_stringFlags.ContainsKey(key))
+                return _stringFlags[key];
+            _stringFlags.Add(key, defaultValue);
+            return defaultValue;
         }
 
-        protected int _GetInt(string key)
+        protected int _GetInt(string key, int defaultValue)
         {
-            return _intFlags[key];
+            if(_intFlags.ContainsKey(key))
+                return _intFlags[key];
+            _intFlags.Add(key, defaultValue);
+            return defaultValue;
         }
     }
 }
