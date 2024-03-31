@@ -22,7 +22,7 @@ namespace EcologyRPG.Game.UI
             EventManager.AddListener("PlayerDeath", OnPlayerDeath);
             EventManager.AddListener("PlayerSpawn", OnPlayerSpawn);
 
-            if(PlayerManager.Instance.GetPlayer() != null) playerUI.SetActive(true);
+            if (PlayerManager.IsPlayerAlive) playerUI.SetActive(true);
         }
 
         private void OnPlayerSpawn(EventData arg0)

@@ -9,17 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ece2fa7b9ec5d54cac5e65d11c8d562, type: 3}
+  m_Script: {fileID: 11500000, guid: af618f851f4b85046b6132a852834a2b, type: 3}
   m_Name: PlayerAbilities
   m_EditorClassIdentifier: 
-  abilities:
-  - ability: {fileID: 11400000, guid: 0a8cf090d5192014ab8120fbb30bcf2c, type: 2}
-    LevelRequirement: 0
-  - ability: {fileID: 11400000, guid: ce6480a11a212a24eaf41b1fa144969b, type: 2}
-    LevelRequirement: 0
-  - ability: {fileID: 11400000, guid: 8651e5f082142e74fb19ab0136a10a57, type: 2}
-    LevelRequirement: 0
-  - ability: {fileID: 11400000, guid: 58d5579e44f56b44b897510b7258b96e, type: 2}
-    LevelRequirement: 2
-  - ability: {fileID: 11400000, guid: 3cf113f3b7daf80449edc46ea76bf931, type: 2}
-    LevelRequirement: 0
+  abilities: []

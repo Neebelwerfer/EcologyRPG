@@ -5,17 +5,18 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using EcologyRPG.Game.Player;
 
 namespace EcologyRPG.Game.UI
 {
     public class InventoryButton : Button, ITooltip
     {
-        public Inventory inventory;
         InventoryItem item;
         Image Image;
         TextMeshProUGUI text;
 
         bool clickedOnce = false;
+        Inventory inventory;
 
         public void Setup(InventoryItem item)
         {
@@ -27,6 +28,7 @@ namespace EcologyRPG.Game.UI
             this.item = item;
             text.text = item.amount + "x ";
             Image.sprite = item.item.Icon;
+            inventory = PlayerManager.PlayerInventory;
         }
 
         public override void OnPointerEnter(PointerEventData eventData)

@@ -9,7 +9,8 @@ namespace EcologyRPG.Core.Items
         public Item[] EquipmentSlots;
         public UnityEvent<int> EquipmentUpdated;
 
-        BaseCharacter baseCharacter;
+        readonly BaseCharacter baseCharacter;
+
         public Equipment(BaseCharacter baseCharacter)
         {
             this.baseCharacter = baseCharacter;

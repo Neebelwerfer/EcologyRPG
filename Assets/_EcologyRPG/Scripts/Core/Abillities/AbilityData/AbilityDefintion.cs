@@ -87,16 +87,15 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
-        public virtual bool Activate(CastInfo caster)
+        public virtual bool Activate(CastInfo castInfo)
         {
-            if (!CanActivate(caster)) return false;
-            //Debug.Log("CASTING " + DisplayName);
-            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this));
-            caster.owner.StartCoroutine(HandleCast(caster));
+            if (!CanActivate(castInfo.owner)) return false;
+            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(castInfo, this));
+            castInfo.owner.StartCoroutine(HandleCast(castInfo));
             return true;
         }   
 
-        public virtual bool CanActivate(CastInfo caster)
+        public virtual bool CanActivate(BaseCharacter caster)
         {
             if (state == AbilityStates.cooldown)
             {
@@ -109,6 +108,12 @@ namespace EcologyRPG.Core.Abilities
                 //Debug.Log("Ability already casting");
                 return false;
             }
+
+            if (caster.state != CharacterStates.active)
+            {
+                return false;
+            }
+
             return true;
         }
 

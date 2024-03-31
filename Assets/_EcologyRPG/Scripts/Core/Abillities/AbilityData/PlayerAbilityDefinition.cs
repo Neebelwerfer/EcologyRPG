@@ -25,12 +25,11 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             triggerHash = Animator.StringToHash(AnimationTrigger);
         }
 
-        public override bool CanActivate(CastInfo caster)
+        public override bool CanActivate(BaseCharacter caster)
         {
             if (!base.CanActivate(caster)) return false;
-            if (ResourceName != "" && caster.owner.Stats.GetResource(ResourceName) < ResourceCost)
+            if (ResourceName != "" && caster.Stats.GetResource(ResourceName) < ResourceCost)
             {
-                Debug.Log("Not enough resource");
                 return false;
             }
             return true;

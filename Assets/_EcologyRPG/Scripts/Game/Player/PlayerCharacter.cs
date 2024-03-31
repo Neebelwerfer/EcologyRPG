@@ -13,9 +13,6 @@ namespace EcologyRPG.Game.Player
 
         PlayerMovement playerMovement;
         PlayerResourceManager playerResourceManager;
-        public PlayerAbilitiesHandler playerAbilitiesHandler;
-
-        public Inventory Inventory { get; private set; }
 
         readonly List<PlayerModule> modules = new();
 
@@ -32,11 +29,6 @@ namespace EcologyRPG.Game.Player
 
             PlayerLevelHandler playerLevelHandler = new PlayerLevelHandler();
             modules.Add(playerLevelHandler);
-
-            Inventory = new Inventory(this, playerSettings.StartingItems);
-
-            playerAbilitiesHandler = new PlayerAbilitiesHandler();
-            modules.Add(playerAbilitiesHandler);
 
             foreach (PlayerModule module in modules)
             {

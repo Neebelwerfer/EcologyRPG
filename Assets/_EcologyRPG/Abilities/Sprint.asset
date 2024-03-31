@@ -42,7 +42,7 @@ MonoBehaviour:
   BlockRotationOnWindup: 0
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina
-  ResourceCost: 0.3
+  ResourceCost: 5
   Description: 
   AnimationTrigger: 
 --- !u!114 &8200451567496563987
