@@ -13,10 +13,8 @@ namespace EcologyRPG.Game.Player
         public GameObject PlayerCameraPrefab;
         public PlayerSettings playerSettings;
 
-        public UnityEvent OnPlayerSpawned;
-
-        GameObject Player;
-        PlayerCharacter playerCharacter;
+        GameObject PlayerObject;
+        readonly PlayerCharacter playerCharacter;
 
         GameObject PlayerCamera;
         CinemachineVirtualCamera playerCamera;
@@ -41,15 +39,15 @@ namespace EcologyRPG.Game.Player
 
             if (spawn != null)
             {
-                Player = Object.Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
-                var binding = Player.GetComponent<CharacterBinding>();
+                PlayerObject = Object.Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
+                var binding = PlayerObject.GetComponent<CharacterBinding>();
                 playerCharacter.SetBinding(binding);
 
                 PlayerCamera = Object.Instantiate(PlayerCameraPrefab);
                 playerCamera = PlayerCamera.GetComponent<CinemachineVirtualCamera>();
-                playerCamera.Follow = Player.transform;
-                playerCamera.LookAt = Player.transform;
-                OnPlayerSpawned?.Invoke();
+                playerCamera.Follow = PlayerObject.transform;
+                playerCamera.LookAt = PlayerObject.transform;
+                EventManager.Defer("PlayerSpawn", new DefaultEventData() { data = playerCharacter, source = this });
             }
             else
             {
@@ -61,32 +59,31 @@ namespace EcologyRPG.Game.Player
         {
         }
 
-        public GameObject GetPlayer()
-        {
-            return Player;
-        }
-
-        public PlayerCharacter GetPlayerCharacter()
-        {
-            return playerCharacter;
-        }
-
         public void Update()
         {
-            if (Player != null)
+            if (PlayerObject != null)
                 playerCharacter.Update();
         }
 
         public void FixedUpdate()
         {
-            if (Player != null)
+            if (PlayerObject != null)
                 playerCharacter.FixedUpdate();
         }
 
         public void LateUpdate()
         {
-            if (Player != null)
+            if (PlayerObject != null)
                 playerCharacter.LateUpdate();
         }
+
+        public static bool IsPlayerAlive => Instance.PlayerObject != null;
+
+        public static PlayerCharacter GetPlayer()
+        {
+            return Instance.playerCharacter;
+        }
+
+       
     }
 }

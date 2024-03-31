@@ -36,7 +36,7 @@ namespace EcologyRPG.Game
             enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
             AbilityManager.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-            PlayerManager.Instance.SpawnPlayer();
+            Player.PlayerManager.Instance.SpawnPlayer();
 
         }
 

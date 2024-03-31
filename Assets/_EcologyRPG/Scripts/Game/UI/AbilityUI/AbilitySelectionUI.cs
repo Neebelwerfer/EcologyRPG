@@ -52,7 +52,7 @@ namespace EcologyRPG.Game.UI
         {
             this.abilitySelectionUI = abilitySelectionUI;
             abilitySelectionUI.SetActive(false);
-            player = PlayerManager.Instance.GetPlayerCharacter();
+            player = Player.PlayerManager.GetPlayer();
             abilityLookup = Resources.Load<PlayerAbilities>("PlayerAbilities");
             buttonPrefab = Resources.Load<GameObject>("UI/AbilityRef");
 

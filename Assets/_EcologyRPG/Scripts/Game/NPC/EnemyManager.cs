@@ -31,7 +31,7 @@ namespace EcologyRPG.Game.NPC
         PlayerCharacter player;
         PlayerCharacter Player { get 
             {
-                player ??= PlayerManager.Instance.GetPlayerCharacter();
+                player ??= Game.Player.PlayerManager.GetPlayer();
                 return player;
             }
         }
@@ -44,7 +44,7 @@ namespace EcologyRPG.Game.NPC
             this.maxDistance = maxDistance;
             this.activeEnemyUpdateRate = activeEnemyUpdateRate;
             EventManager.AddListener("EnemyDeath", OnEnemyDeath);
-            player = PlayerManager.Instance.GetPlayerCharacter();
+            player = Game.Player.PlayerManager.GetPlayer();
             NPCPool = new NPCGameObjectPool();
         }
 

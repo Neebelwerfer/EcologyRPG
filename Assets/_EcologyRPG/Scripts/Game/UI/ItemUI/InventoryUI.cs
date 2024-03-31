@@ -36,7 +36,7 @@ namespace EcologyRPG.Game.UI
         private void Awake()
         {
             BindedButtons ??= new List<BindedButton>();
-            player = PlayerManager.Instance.GetPlayerCharacter();
+            player = Player.PlayerManager.GetPlayer();
             for (int i = 0; i < player.Inventory.items.Count; i++)
             {
                 CreateInventoryItemButton(player.Inventory.items[i]);

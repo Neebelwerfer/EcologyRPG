@@ -35,7 +35,7 @@ namespace EcologyRPG.Game
         static void Load()
         {
             Settings = Resources.Load<GameSettings>("Config/GameSettings");
-            PlayerManager.Init(Settings.playerSettings);
+            Player.PlayerManager.Init(Settings.playerSettings);
             Flags.Init();
             SceneManager.LoadScene(0, LoadSceneMode.Additive);
         }
@@ -57,7 +57,7 @@ namespace EcologyRPG.Game
             if (CurrentState == Game_State.Playing)
             {
                 EventManager.UpdateQueue();
-                PlayerManager.Instance.Update();
+                Player.PlayerManager.Instance.Update();
                 
             }
         }
@@ -66,7 +66,7 @@ namespace EcologyRPG.Game
         {
             if (CurrentState == Game_State.Playing)
             {
-                PlayerManager.Instance.FixedUpdate();
+                Player.PlayerManager.Instance.FixedUpdate();
             }
         }
 
@@ -74,7 +74,7 @@ namespace EcologyRPG.Game
         {
             if (CurrentState == Game_State.Playing)
             {
-                PlayerManager.Instance.LateUpdate();
+                Player.PlayerManager.Instance.LateUpdate();
             }
         }
     }
