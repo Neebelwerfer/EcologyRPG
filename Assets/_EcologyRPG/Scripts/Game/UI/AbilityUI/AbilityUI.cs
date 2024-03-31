@@ -32,9 +32,9 @@ namespace EcologyRPG.Game.UI
         void Start()
         {
             abilityImage.fillAmount = 1;
-            player = PlayerManager.GetPlayer();
-            player.playerAbilitiesHandler.AddListener(abilitySlot, SetAbility);
-            ability = (PlayerAbilityDefinition)player.playerAbilitiesHandler.GetAbility(abilitySlot);
+            player = PlayerManager.Player;
+            PlayerManager.PlayerAbilities.AddListener(abilitySlot, SetAbility);
+            ability = (PlayerAbilityDefinition)PlayerManager.PlayerAbilities.GetAbility(abilitySlot);
             abilityAction.action.started += ActivateAbility;
             abilityAction.action.canceled += StoppedAction;
             SetUpAbilityUI();
@@ -80,6 +80,7 @@ namespace EcologyRPG.Game.UI
                 yield return null;
             }
             coroutineStarted = false;
+            abilityImage.fillAmount = 1;
         }
 
         public void SetUpAbilityUI()

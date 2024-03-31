@@ -23,7 +23,7 @@ namespace EcologyRPG.Game.Interactables
 
         private void Start()
         {
-            player = Player.PlayerManager.GetPlayer();
+            player = PlayerManager.Player;
             Interacts = player.playerSettings.Interact;
             Interacts.action.Enable();
             position = transform.position;

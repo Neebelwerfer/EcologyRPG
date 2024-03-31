@@ -88,7 +88,7 @@ namespace EcologyRPG.Game.UI
 
         private void Awake()
         {
-            player = Player.PlayerManager.GetPlayer();
+            player = PlayerManager.Player;
             StatBindings = new List<StatBinding>();
             AttributeBindings = new List<AttributeBinding>();
 

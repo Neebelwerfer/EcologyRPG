@@ -22,7 +22,7 @@ namespace EcologyRPG.Core.Items
         private LootGenerator()
         {
             lootDatabase = Resources.Load<LootDatabase>("Config/Loot Database");
-            Player = Game.Player.PlayerManager.GetPlayer();
+            Player = PlayerManager.Player;
         }
 
         public void GenerateLootOnKill(BaseCharacter deadNPC)

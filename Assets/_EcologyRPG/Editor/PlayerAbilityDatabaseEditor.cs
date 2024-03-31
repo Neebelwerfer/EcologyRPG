@@ -16,11 +16,11 @@ public class PlayerAbilityDatabaseEditor : EditorWindow
         GetWindow<PlayerAbilityDatabaseEditor>("Player Ability Database");
     }
 
-    PlayerAbilities PlayerAbilities;
+    PlayerAbilitiesDatabase PlayerAbilities;
 
     private void OnEnable()
     {
-        PlayerAbilities = AssetDatabase.LoadAssetAtPath<PlayerAbilities>(path);
+        PlayerAbilities = AssetDatabase.LoadAssetAtPath<PlayerAbilitiesDatabase>(path);
     }
 
     private void OnGUI()

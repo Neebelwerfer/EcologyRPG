@@ -49,6 +49,7 @@ namespace EcologyRPG.Core.Items
                 if(item != null)
                     AddItem(item);
             }
+            Debug.Log("Inventory created");
             equipment = new Equipment(Owner);
             InventoryChanged = new UnityEvent();
             ItemRemoved = new UnityEvent<Item>();

@@ -2,6 +2,7 @@ using UnityEngine.Events;
 using UnityEngine;
 using EcologyRPG.Core.Character;
 using Cinemachine;
+using EcologyRPG.Core.Items;
 
 namespace EcologyRPG.Game.Player
 {
@@ -15,9 +16,17 @@ namespace EcologyRPG.Game.Player
 
         GameObject PlayerObject;
         readonly PlayerCharacter playerCharacter;
+        readonly PlayerAbilities playerAbilities;
+        readonly Inventory Inventory;
 
         GameObject PlayerCamera;
         CinemachineVirtualCamera playerCamera;
+
+        public static PlayerCharacter Player => Instance.playerCharacter;
+        public static PlayerAbilities PlayerAbilities => Instance.playerAbilities;
+        public static Inventory PlayerInventory => Instance.Inventory;
+        public static bool IsPlayerAlive => Instance.PlayerObject != null;
+
 
         PlayerManager(PlayerSettings playerSettings)
         {
@@ -25,6 +34,8 @@ namespace EcologyRPG.Game.Player
             PlayerCameraPrefab = playerSettings.Camera;
             this.playerSettings = playerSettings;
             playerCharacter = new(playerSettings);
+            Inventory = new(playerCharacter, playerSettings.StartingItems);
+            playerAbilities = new(playerCharacter, Inventory, playerSettings);
         }
 
         public static PlayerManager Init(PlayerSettings playerSettings)
@@ -75,15 +86,6 @@ namespace EcologyRPG.Game.Player
         {
             if (PlayerObject != null)
                 playerCharacter.LateUpdate();
-        }
-
-        public static bool IsPlayerAlive => Instance.PlayerObject != null;
-
-        public static PlayerCharacter GetPlayer()
-        {
-            return Instance.playerCharacter;
-        }
-
-       
+        }       
     }
 }
