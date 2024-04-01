@@ -20,7 +20,7 @@ namespace EcologyRPG.Game.NPC
 
     public class EnemyManager : SystemBehavior, IUpdateSystem, ILateUpdateSystem
     {
-        public static EnemyManager instance;
+        public static EnemyManager Instance;
 
         public NPCGameObjectPool NPCPool;
 
@@ -51,11 +51,10 @@ namespace EcologyRPG.Game.NPC
             NPCPool = new NPCGameObjectPool();
         }
 
-        public static EnemyManager Init(float maxDistance, float activeEnemyUpdateRate)
+        public static void Init(float maxDistance, float activeEnemyUpdateRate)
         {
-            instance = new EnemyManager(maxDistance, activeEnemyUpdateRate);
-            return instance;
-
+            if(Instance == null)
+                Instance = new EnemyManager(maxDistance, activeEnemyUpdateRate);
         }
 
         private void OnEnemyDeath(EventData arg0)
@@ -168,6 +167,7 @@ namespace EcologyRPG.Game.NPC
             NPCPool.Dispose();
             characterList.Clear();
             EventManager.RemoveListener("EnemyDeath", OnEnemyDeath);
+            Instance = null;
         }
     }
 }

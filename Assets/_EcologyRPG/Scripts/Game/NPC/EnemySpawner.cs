@@ -51,7 +51,7 @@ namespace EcologyRPG.Game.NPC
             for (int i = 0; i < amount; i++)
             {
                 var spawnPoint = SpawnablePoint();
-                var enemyObj = EnemyManager.instance.NPCPool.GetGameObject(enemyPrefab, spawnPoint, Quaternion.identity);
+                var enemyObj = EnemyManager.Instance.NPCPool.GetGameObject(enemyPrefab, spawnPoint, Quaternion.identity);
                 var enemy = new EnemyNPC(config);
                 enemy.Transform.Position = spawnPoint;
                 enemy.SetBinding(enemyObj.GetComponent<CharacterBinding>());
@@ -59,7 +59,7 @@ namespace EcologyRPG.Game.NPC
                 enemies[i].SetSpawner(this);
             }
             currentEnemies += amount;
-            EnemyManager.instance.AddCharacters(enemies, enemyPrefab);
+            EnemyManager.Instance.AddCharacters(enemies, enemyPrefab);
             return enemies;
         }
 
@@ -74,7 +74,7 @@ namespace EcologyRPG.Game.NPC
                     break;
                 }
             }
-            EnemyManager.instance.RemoveCharacter(enemy);
+            EnemyManager.Instance.RemoveCharacter(enemy);
         }
 
         private void OnTriggerEnter(Collider other)

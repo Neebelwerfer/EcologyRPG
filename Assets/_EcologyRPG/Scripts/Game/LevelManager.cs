@@ -26,9 +26,7 @@ namespace EcologyRPG.Game
         public GameObject night;
         public float cycleDuration = 60f;
 
-        EnemyManager enemyManager;
         DayNightCycle dayNightCycle;
-        AbilityManager abilityManager;
 
         void Awake()
         {
@@ -50,24 +48,21 @@ namespace EcologyRPG.Game
             }
             respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
 
-            enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
+            EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
             AbilityManager.Init();
             ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
             PlayerManager.Instance.SpawnPlayer();
-            if(day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
             GameManager.Instance.CurrentState = Game_State.Playing;
+            if (day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
         }
 
         private void OnDestroy()
         {
-            if (Instance == this)
-            {
-                Instance = null;
-            }
-            enemyManager.Dispose();
+            if (Instance == this) Instance = null;
             ProjectileSystem.Instance.Dispose();
             AbilityManager.Instance.Dispose();
+            EnemyManager.Instance.Dispose();
             dayNightCycle.Dispose();
             dayNightCycle = null;
             SceneManager.UnloadSceneAsync(1);

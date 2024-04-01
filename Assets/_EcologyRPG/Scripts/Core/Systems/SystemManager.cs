@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace EcologyRPG.Core.Systems
 {
-    public class SystemManager
+    public class SystemManager : IDisposable
     {
         public static SystemManager Instance;
         SystemManager() { }
@@ -14,8 +15,7 @@ namespace EcologyRPG.Core.Systems
         readonly List<ILateUpdateSystem> lateUpdateSystems = new List<ILateUpdateSystem>();
         readonly List<IFixedUpdateSystem> fixedUpdateSystems = new List<IFixedUpdateSystem>();
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-        static void Init()
+        public static void Init()
         {
             Instance = new SystemManager();
         }
@@ -55,11 +55,11 @@ namespace EcologyRPG.Core.Systems
 
         public static void Add(SystemBehavior system)
         {
-            Instance.AddSystem(system);
+            Instance?.AddSystem(system);
         }
         public static void Remove(SystemBehavior system)
         {
-            Instance.RemoveSystem(system);
+            Instance?.RemoveSystem(system);
         }
         public static void Update()
         {
@@ -137,6 +137,14 @@ namespace EcologyRPG.Core.Systems
 
                 return 0;
             });
+        }
+
+        public void Dispose()
+        {
+            Instance = null;
+            updateSystems.Clear();
+            lateUpdateSystems.Clear();
+            fixedUpdateSystems.Clear();
         }
     }
 }

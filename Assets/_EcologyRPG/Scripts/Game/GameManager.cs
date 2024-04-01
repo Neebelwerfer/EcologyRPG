@@ -47,6 +47,7 @@ namespace EcologyRPG.Game
         void Init()
         {
             Settings = Resources.Load<GameSettings>("Config/GameSettings");
+            SystemManager.Init();
             PlayerManager.Init(Settings.playerSettings);
             Flags.Init();
         }
@@ -81,6 +82,8 @@ namespace EcologyRPG.Game
             if (Instance == this)
             {
                 Instance = null;
+                SystemManager.Instance.Dispose();
+                PlayerManager.Instance.Dispose();
             }            
         }
     }
