@@ -10,6 +10,7 @@ namespace EcologyRPG.Game.UI
         public InputActionReference CharacterUIButton;
         public GameObject characterSheetUI;
         public GameObject playerUI;
+        public GameObject DeathScreen;
         Action<InputAction.CallbackContext> toggleCharacterAction;
 
         private void Awake()
@@ -34,6 +35,13 @@ namespace EcologyRPG.Game.UI
         {
             characterSheetUI.SetActive(false);
             playerUI.SetActive(false);
+            DeathScreen.SetActive(true);
+        }
+
+        public void RespawnPlayer()
+        {
+            DeathScreen.SetActive(false);
+            PlayerManager.Instance.RespawnPlayer();
         }
 
         private void ToggleCharacterUI()

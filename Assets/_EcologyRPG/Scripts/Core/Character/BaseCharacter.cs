@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Events;
 using EcologyRPG.Utility;
 using System;
 using System.Collections;
@@ -23,15 +24,6 @@ namespace EcologyRPG.Core.Character
         player,
         enemy,
         neutral
-    }
-    public class DamageEvent : EventData
-    {
-        public BaseCharacter target;
-        public new BaseCharacter source;
-        public Vector3 Point;
-        public DamageType damageType;
-        public float premitigationDamage;
-        public float damageTaken;
     }
 
     public abstract class BaseCharacter
@@ -192,7 +184,6 @@ namespace EcologyRPG.Core.Character
 
         public virtual void RemoveCondition(Condition effect)
         {
-            //Debug.Log("Removing CharacterModification " + effect.displayName);
             effects.Remove(effect);
             effect.OnRemoved(this);
         }

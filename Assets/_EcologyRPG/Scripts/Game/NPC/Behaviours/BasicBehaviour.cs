@@ -69,6 +69,7 @@ namespace EcologyRPG.Game.NPC.Behaviours
 
             var LeashRange = new DecisionNode((npc) =>
             {
+                if(target.GameObject == null) return false;
                 var distToSpawn = Vector3.Distance(npc.Transform.Position, npc.GetSpawner().transform.position);
                 return !(distToSpawn > MaxLeashRange);
             }, inAttackRange, stopChase);

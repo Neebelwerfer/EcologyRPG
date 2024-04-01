@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Systems;
 using EcologyRPG.Game.Player;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace EcologyRPG.Game.NPC
         public GameObject prefab;
     }
 
-    public class EnemyManager
+    public class EnemyManager : SystemBehavior, IUpdateSystem, ILateUpdateSystem
     {
         public static EnemyManager instance;
 
@@ -26,25 +27,27 @@ namespace EcologyRPG.Game.NPC
         public float maxDistance = 200f;
         public float activeEnemyUpdateRate = 0.2f;
 
-        List<NPCData> characterList = new();
+        readonly List<NPCData> characterList = new();
 
         PlayerCharacter player;
         PlayerCharacter Player { get 
             {
-                player ??= PlayerManager.Player;
+                player ??= PlayerManager.PlayerCharacter;
                 return player;
             }
         }
 
+        public bool Enabled => true;
+
         float timer = 0;
         readonly List<NPCData> activeEnemies = new List<NPCData>();
 
-        EnemyManager(float maxDistance, float activeEnemyUpdateRate)
+        EnemyManager(float maxDistance, float activeEnemyUpdateRate) : base()
         {
             this.maxDistance = maxDistance;
             this.activeEnemyUpdateRate = activeEnemyUpdateRate;
             EventManager.AddListener("EnemyDeath", OnEnemyDeath);
-            player = PlayerManager.Player;
+            player = PlayerManager.PlayerCharacter;
             NPCPool = new NPCGameObjectPool();
         }
 
@@ -103,10 +106,10 @@ namespace EcologyRPG.Game.NPC
             }
         }
 
-        public void Update()
+        public void OnUpdate()
         {
             timer += Time.deltaTime;
-            if(timer > activeEnemyUpdateRate)
+            if (timer > activeEnemyUpdateRate)
             {
                 UpdateActiveEnemies();
                 timer = 0;
@@ -118,7 +121,7 @@ namespace EcologyRPG.Game.NPC
             }
         }
 
-        public void LateUpdate()
+        public void OnLateUpdate()
         {
             foreach (var character in activeEnemies)
             {
@@ -157,6 +160,14 @@ namespace EcologyRPG.Game.NPC
             {
                 RemoveCharacter(character);
             }
+        }
+
+        override public void Dispose()
+        {
+            base.Dispose();
+            NPCPool.Dispose();
+            characterList.Clear();
+            EventManager.RemoveListener("EnemyDeath", OnEnemyDeath);
         }
     }
 }

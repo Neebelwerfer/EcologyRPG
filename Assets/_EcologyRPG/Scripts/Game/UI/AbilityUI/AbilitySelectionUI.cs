@@ -13,10 +13,7 @@ namespace EcologyRPG.Game.UI
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new();
-                }
+                _instance ??= new();
                 return _instance;
             }
         }
@@ -52,7 +49,7 @@ namespace EcologyRPG.Game.UI
         {
             this.abilitySelectionUI = abilitySelectionUI;
             abilitySelectionUI.SetActive(false);
-            player = PlayerManager.Player;
+            player = PlayerManager.PlayerCharacter;
             abilityLookup = Resources.Load<PlayerAbilitiesDatabase>("PlayerAbilities");
             buttonPrefab = Resources.Load<GameObject>("UI/AbilityRef");
 

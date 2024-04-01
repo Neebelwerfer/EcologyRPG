@@ -20,6 +20,7 @@ namespace EcologyRPG.Game.Player
 
         [Header("Movement Settings")]
         public float SprintMultiplier = 1.2f;
+        public float rotationSpeed = 4f;
 
         [Header("Ability Settings")]
         public float GlobalCooldown = 0.5f;

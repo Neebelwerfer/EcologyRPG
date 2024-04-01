@@ -49,8 +49,6 @@ public class PlayerAbilityDatabaseEditor : EditorWindow
             PlayerAbilities.AddAbility(null, 0);
         }
 
-
-    
+        EditorUtility.SetDirty(PlayerAbilities);  
     }
-
 }

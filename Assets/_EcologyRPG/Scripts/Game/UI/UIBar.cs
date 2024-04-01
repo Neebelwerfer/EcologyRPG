@@ -33,7 +33,7 @@ namespace EcologyRPG.Game.UI
         // Start is called before the first frame update
         void Start()
         {
-            character = PlayerManager.Player;
+            character = PlayerManager.PlayerCharacter;
             InitializeBar(character, resourceName);
 
         }

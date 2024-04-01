@@ -3,19 +3,19 @@ using EcologyRPG.Utility;
 
 namespace EcologyRPG.Game.Player
 {
-    public class PlayerResourceManager : PlayerModule
+    public class PlayerResourceManager
     {
         Resource Health;
         Resource Stamina;
         Resource Water;
         Resource Food;
 
-        Stat StaminaGain;
-        Stat WaterDrain;
-        Stat FoodDrain;
-        Stat HealthRegen;
+        readonly Stat StaminaGain;
+        readonly Stat WaterDrain;
+        readonly Stat FoodDrain;
+        readonly Stat HealthRegen;
 
-        public override void Initialize(PlayerCharacter player)
+        public PlayerResourceManager(PlayerCharacter player)
         {
             Health = player.Stats.GetResource("health");
             HealthRegen = player.Stats.GetStat("healthRegen");
@@ -26,7 +26,8 @@ namespace EcologyRPG.Game.Player
             Food = player.Stats.GetResource("food");
             FoodDrain = player.Stats.GetStat("foodDrain");
         }
-        public override void Update()
+
+        public void Update()
         {
             Stamina += StaminaGain.Value * TimeManager.IngameDeltaTime;
             Water -= WaterDrain.Value * TimeManager.IngameDeltaTime;
@@ -35,11 +36,6 @@ namespace EcologyRPG.Game.Player
             {
                 Health += HealthRegen.Value * TimeManager.IngameDeltaTime;
             }
-
-        }
-
-        public override void OnDestroy()
-        {
 
         }
     }

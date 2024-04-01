@@ -1,5 +1,6 @@
 using EcologyRPG.Core.Abilities.AbilityComponents;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -36,18 +37,6 @@ namespace EcologyRPG.Core.Abilities
         public DamageType type;
         public float damage;
         public BaseCharacter source;
-    }
-
-    public class AbilityCastEvent : EventData
-    {
-        public CastInfo Caster;
-        public AbilityDefintion Ability;
-
-        public AbilityCastEvent(CastInfo caster, AbilityDefintion ability)
-        {
-            Caster = caster;
-            Ability = ability;
-        }
     }
 
     public abstract class AbilityDefintion : ScriptableObject
@@ -134,7 +123,7 @@ namespace EcologyRPG.Core.Abilities
             {
                 state = AbilityStates.cooldown;
                 remainingCooldown = Cooldown;
-                AbilityManager.instance.RegisterAbilityOnCooldown(this);
+                AbilityManager.Instance.RegisterAbilityOnCooldown(this);
             } else
             {
                 state = AbilityStates.ready;

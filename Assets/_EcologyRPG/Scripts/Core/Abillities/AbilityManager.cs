@@ -1,18 +1,42 @@
+using EcologyRPG.Core.Systems;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace EcologyRPG.Core.Abilities
 {
-    public class AbilityManager
+    public class AbilityManager : SystemBehavior, IUpdateSystem, IDisposable
     {
-        public static AbilityManager instance;
+        public static AbilityManager Instance;
 
         public List<AbilityDefintion> CooldownAbilities = new List<AbilityDefintion>();
 
+        public bool Enabled => CooldownAbilities.Count > 0;
+
         public static void Init()
         {
-            instance = new();
+            Instance = new();
+        }
+
+        public void OnUpdate()
+        {
+            for (int i = CooldownAbilities.Count - 1; i >= 0; i--)
+            {
+                if (CooldownAbilities[i] == null)
+                {
+                    CooldownAbilities.RemoveAt(i);
+                    continue;
+                }
+
+                if (CooldownAbilities[i].state == AbilityStates.ready)
+                {
+                    CooldownAbilities.RemoveAt(i);
+                    continue;
+                }
+
+                CooldownAbilities[i].UpdateCooldown(Time.deltaTime);
+            }
         }
 
         public void RegisterAbilityOnCooldown(AbilityDefintion ability)
@@ -31,24 +55,16 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
-        public void Update()
+        public override void Dispose()
         {
-            for (int i = CooldownAbilities.Count - 1; i >= 0; i--)
+            base.Dispose();
+            foreach (var ability in CooldownAbilities)
             {
-                if (CooldownAbilities[i] == null)
-                {
-                    CooldownAbilities.RemoveAt(i);
-                    continue;
-                }
-
-                if (CooldownAbilities[i].state == AbilityStates.ready)
-                {
-                    CooldownAbilities.RemoveAt(i);
-                    continue;
-                }
-
-                CooldownAbilities[i].UpdateCooldown(Time.deltaTime);
+                ability.remainingCooldown = 0;
+                ability.state = AbilityStates.ready;
             }
+            CooldownAbilities.Clear();
+            Instance = null;
         }
     }
 }

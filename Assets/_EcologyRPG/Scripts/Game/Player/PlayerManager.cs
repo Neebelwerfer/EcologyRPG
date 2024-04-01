@@ -3,10 +3,13 @@ using UnityEngine;
 using EcologyRPG.Core.Character;
 using Cinemachine;
 using EcologyRPG.Core.Items;
+using EcologyRPG.Core.Systems;
+using System;
+using Object = UnityEngine.Object;
 
 namespace EcologyRPG.Game.Player
 {
-    public class PlayerManager
+    public class PlayerManager : SystemBehavior, IUpdateSystem, IFixedUpdateSystem
     {
         public static PlayerManager Instance;
 
@@ -17,16 +20,22 @@ namespace EcologyRPG.Game.Player
         GameObject PlayerObject;
         readonly PlayerCharacter playerCharacter;
         readonly PlayerAbilities playerAbilities;
+        readonly PlayerResourceManager playerResourceManager;
+        readonly PlayerMovement playerMovement;
+
         readonly Inventory Inventory;
 
         GameObject PlayerCamera;
         CinemachineVirtualCamera playerCamera;
 
-        public static PlayerCharacter Player => Instance.playerCharacter;
+        public static PlayerCharacter PlayerCharacter => Instance.playerCharacter;
         public static PlayerAbilities PlayerAbilities => Instance.playerAbilities;
         public static Inventory PlayerInventory => Instance.Inventory;
-        public static bool IsPlayerAlive => Instance.PlayerObject != null;
+        public static bool IsPlayerAlive => Instance.isPlayerSpawned;
 
+        public bool Enabled { get => IsPlayerAlive; }
+
+        bool isPlayerSpawned = false;
 
         PlayerManager(PlayerSettings playerSettings)
         {
@@ -36,6 +45,8 @@ namespace EcologyRPG.Game.Player
             playerCharacter = new(playerSettings);
             Inventory = new(playerCharacter, playerSettings.StartingItems);
             playerAbilities = new(playerCharacter, Inventory, playerSettings);
+            playerResourceManager = new(playerCharacter);
+            playerMovement = new PlayerMovement(playerCharacter);
         }
 
         public static PlayerManager Init(PlayerSettings playerSettings)
@@ -44,21 +55,27 @@ namespace EcologyRPG.Game.Player
             return Instance;
         }
 
+        void Spawn(Transform spawn)
+        {
+            PlayerObject = Object.Instantiate(PlayerPrefab, spawn.position, spawn.rotation);
+            var binding = PlayerObject.GetComponent<CharacterBinding>();
+            playerCharacter.SetBinding(binding);
+
+            PlayerCamera = Object.Instantiate(PlayerCameraPrefab);
+            playerCamera = PlayerCamera.GetComponent<CinemachineVirtualCamera>();
+            playerCamera.Follow = PlayerObject.transform;
+            playerCamera.LookAt = PlayerObject.transform;
+            isPlayerSpawned = true;
+            EventManager.Dispatch("PlayerSpawn", new DefaultEventData() { data = playerCharacter, source = this });
+        }
+
         public void SpawnPlayer()
         {
-            var spawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
+            var spawn = LevelManager.Instance.playerStartSpawnPoint;
 
             if (spawn != null)
             {
-                PlayerObject = Object.Instantiate(PlayerPrefab, spawn.transform.position, spawn.transform.rotation);
-                var binding = PlayerObject.GetComponent<CharacterBinding>();
-                playerCharacter.SetBinding(binding);
-
-                PlayerCamera = Object.Instantiate(PlayerCameraPrefab);
-                playerCamera = PlayerCamera.GetComponent<CinemachineVirtualCamera>();
-                playerCamera.Follow = PlayerObject.transform;
-                playerCamera.LookAt = PlayerObject.transform;
-                EventManager.Defer("PlayerSpawn", new DefaultEventData() { data = playerCharacter, source = this });
+                Spawn(spawn);
             }
             else
             {
@@ -66,26 +83,53 @@ namespace EcologyRPG.Game.Player
             }
         }
 
+        public void RespawnPlayer()
+        {
+            var spawn = ClosestSpawn();
+            if (spawn != null)
+            {
+                Spawn(spawn);
+                playerCharacter.Respawn();
+            }
+            else
+            {
+                Debug.LogError("No player spawn found in scene");
+            }
+        }
+
+        Transform ClosestSpawn()
+        {
+            Transform closest = null;
+            float distance = float.MaxValue;
+            foreach (var point in LevelManager.Instance.respawnPoints)
+            {
+                var dist = Vector3.Distance(point.transform.position, playerCharacter.Transform.Position);
+                if (dist < distance)
+                {
+                    distance = dist;
+                    closest = point.transform;
+                }
+            }
+            return closest;
+        }
+
         public void PlayerDead()
         {
+            isPlayerSpawned = false;
+            playerCharacter.RemoveBinding();
+            Object.Destroy(PlayerObject);
+            EventManager.Defer("PlayerDeath", new DefaultEventData() { data = playerCharacter, source = this });
         }
 
-        public void Update()
+        public void OnUpdate()
         {
-            if (PlayerObject != null)
-                playerCharacter.Update();
+            playerCharacter.Update();
+            playerResourceManager.Update();
         }
 
-        public void FixedUpdate()
+        public void OnFixedUpdate()
         {
-            if (PlayerObject != null)
-                playerCharacter.FixedUpdate();
+            playerMovement.FixedUpdate();
         }
-
-        public void LateUpdate()
-        {
-            if (PlayerObject != null)
-                playerCharacter.LateUpdate();
-        }       
     }
 }

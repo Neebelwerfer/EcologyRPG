@@ -1,10 +1,11 @@
 using EcologyRPG.Utility;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace EcologyRPG.Game.NPC
 {
-    public class NPCGameObjectPool
+    public class NPCGameObjectPool : IDisposable
     {
 
         readonly Dictionary<string, GameObjectPool> pool;
@@ -12,6 +13,14 @@ namespace EcologyRPG.Game.NPC
         public NPCGameObjectPool()
         {
             pool = new();
+        }
+
+        public void Dispose()
+        {
+            foreach (var gameObjectPool in pool)
+            {
+                gameObjectPool.Value.Dispose();
+            }
         }
 
         public GameObject GetGameObject(GameObject prefab)

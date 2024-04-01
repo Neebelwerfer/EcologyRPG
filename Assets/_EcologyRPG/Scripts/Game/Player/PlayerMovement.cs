@@ -5,17 +5,16 @@ using UnityEngine.InputSystem;
 
 namespace EcologyRPG.Game.Player
 {
-    public class PlayerMovement : PlayerModule
+    public class PlayerMovement
     {
-        InputActionReference Movement;
-
-        public float rotationSpeed = 4f;
+        readonly InputActionReference Movement;
+        readonly float rotationSpeed = 4f;
 
         //Rotated forward and right vectors to match the camera
-        Vector3 forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
-        Vector3 right = Quaternion.Euler(new Vector3(0, 135, 0)) * Vector3.forward;
+        readonly Vector3 forward = Quaternion.Euler(new Vector3(0, 45, 0)) * Vector3.forward;
+        readonly Vector3 right = Quaternion.Euler(new Vector3(0, 135, 0)) * Vector3.forward;
 
-        PlayerCharacter player;
+        readonly PlayerCharacter player;
 
         //Cached Character references
         Stat MovementSpeed;
@@ -26,16 +25,16 @@ namespace EcologyRPG.Game.Player
         int isWalking = Animator.StringToHash("Is_Walking");
         int isRunning = Animator.StringToHash("Is_Running");
 
-        public override void Initialize(PlayerCharacter player)
+        public PlayerMovement(PlayerCharacter player)
         {
             this.player = player;
             Movement = player.playerSettings.Movement;
             Movement.action.Enable();
-
+            rotationSpeed = player.playerSettings.rotationSpeed;
             MovementSpeed = player.Stats.GetStat("movementSpeed");
         }
 
-        public override void FixedUpdate()
+        public void FixedUpdate()
         {
             var transform = player.Transform;
             var animator = player.Animator;
@@ -81,10 +80,6 @@ namespace EcologyRPG.Game.Player
                 var rot = Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
                 transform.Rotation = rot;
             }
-        }
-
-        public override void OnDestroy()
-        {
         }
     }
 }

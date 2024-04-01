@@ -25,7 +25,7 @@ namespace EcologyRPG.Game.UI
         private void Start()
         {
 
-            player = PlayerManager.Player;
+            player = PlayerManager.PlayerCharacter;
             AbilitySelectionUI.Instance.Setup(abilitySelectionUI);
             
         }
