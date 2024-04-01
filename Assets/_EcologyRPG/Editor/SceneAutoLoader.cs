@@ -26,51 +26,26 @@ public static class SceneAutoLoader
     }
 
     // Menu items to select the "master" scene and control whether or not to load it.
-    [MenuItem("File/Scene Autoload/Select Master Scene...")]
+    [MenuItem("Scene Autoload/Select GameManager Scene...")]
     private static void SelectMasterScene()
     {
-        string masterScene = EditorUtility.OpenFilePanel("Select Master Scene", Application.dataPath, "unity");
-        if (!string.IsNullOrEmpty(masterScene))
+        string gameManagerScene = EditorUtility.OpenFilePanel("Select GameManager Scene", Application.dataPath, "unity");
+        if (!string.IsNullOrEmpty(gameManagerScene))
         {
-            MasterScene = masterScene;
-            LoadMasterOnPlay = true;
+            GameManagerScene = gameManagerScene;
         }
-    }
-
-    [MenuItem("File/Scene Autoload/Load Master On Play", true)]
-    private static bool ShowLoadMasterOnPlay()
-    {
-        return !LoadMasterOnPlay;
-    }
-    [MenuItem("File/Scene Autoload/Load Master On Play")]
-    private static void EnableLoadMasterOnPlay()
-    {
-        LoadMasterOnPlay = true;
-    }
-
-    [MenuItem("File/Scene Autoload/Don't Load Master On Play", true)]
-    private static bool ShowDontLoadMasterOnPlay()
-    {
-        return LoadMasterOnPlay;
-    }
-    [MenuItem("File/Scene Autoload/Don't Load Master On Play")]
-    private static void DisableLoadMasterOnPlay()
-    {
-        LoadMasterOnPlay = false;
     }
 
     // Play mode change callback handles the scene load/reload.
     private static void OnPlayModeChanged(PlayModeStateChange change)
     {
-        if (!LoadMasterOnPlay) return;
-
         if (change == PlayModeStateChange.ExitingEditMode)
         {
             // User pressed play -- autoload master scene.
             PreviousScene = SceneManager.GetActiveScene().path;
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
             {
-                EditorSceneManager.OpenScene(MasterScene, OpenSceneMode.Single);
+                EditorSceneManager.OpenScene(GameManagerScene, OpenSceneMode.Single);
             }
             else
             {
@@ -89,7 +64,7 @@ public static class SceneAutoLoader
         if (change == PlayModeStateChange.EnteredEditMode)
         {
             // User pressed stop -- reload previous scene.
-            if (SceneAutoLoader.PreviousScene != SceneAutoLoader.MasterScene)
+            if (SceneAutoLoader.PreviousScene != SceneAutoLoader.GameManagerScene)
             {
                 EditorApplication.update += ReloadLastScene;
             }
@@ -104,17 +79,11 @@ public static class SceneAutoLoader
     }
 
     // Properties are remembered as editor preferences.
-    private const string cEditorPrefLoadMasterOnPlay = "SceneAutoLoader.LoadMasterOnPlay";
     private const string cEditorPrefMasterScene = "SceneAutoLoader.MasterScene";
     private const string cEditorPrefPreviousScene = "SceneAutoLoader.PreviousScene";
 
-    public static bool LoadMasterOnPlay
-    {
-        get { return EditorPrefs.GetBool(cEditorPrefLoadMasterOnPlay, false); }
-        set { EditorPrefs.SetBool(cEditorPrefLoadMasterOnPlay, value); }
-    }
 
-    private static string MasterScene
+    private static string GameManagerScene
     {
         get { return EditorPrefs.GetString(cEditorPrefMasterScene, "Assets/_EcologyRPG/Levels/GameManager.unity"); }
         set { EditorPrefs.SetString(cEditorPrefMasterScene, value); }
