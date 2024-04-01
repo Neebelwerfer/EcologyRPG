@@ -26,10 +26,6 @@ namespace EcologyRPG.Game.Abilities
             }
 
             targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
-            Debug.Log("Casting explosion!");
-            Debug.Log("Targets: " + targets.Length);
-            Debug.Log("Target Mask: " + targetMask.value);
-            Debug.Log("Radius: " + Radius);
 
             if (targets != null && targets.Length > 0)
             {
