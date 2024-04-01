@@ -1,8 +1,9 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Game.NPC;
 using EcologyRPG.Game.Player;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace EcologyRPG.Game
@@ -11,16 +12,16 @@ namespace EcologyRPG.Game
     {
         public static LevelManager Instance;
 
+        [Header("Spawn Points")]
+        public Transform playerStartSpawnPoint;
+        [HideInInspector] public GameObject[] respawnPoints;
+
         [Header("NPC Settings")]
         public float maxDistance = 200f;
         public float activeEnemyUpdateRate = 0.2f;
 
         EnemyManager enemyManager;
-
-        void Start()
-        {
-            GameManager.Instance.CurrentState = Game_State.Playing;
-        }
+        AbilityManager abilityManager;
 
         void Awake()
         {
@@ -33,28 +34,30 @@ namespace EcologyRPG.Game
                 Destroy(gameObject);
             }
 
+            if(playerStartSpawnPoint == null)
+            {
+                Debug.LogError("Player Start Spawn Point not set in Level Manager");
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#endif
+            }
+            respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+
             enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
             AbilityManager.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-            Player.PlayerManager.Instance.SpawnPlayer();
-
+            PlayerManager.Instance.SpawnPlayer();
+            GameManager.Instance.CurrentState = Game_State.Playing;
         }
 
-        public void Update()
+        private void OnDestroy()
         {
-            if (GameManager.Instance.CurrentState == Game_State.Playing)
+            if (Instance == this)
             {
-                enemyManager.Update();
-                AbilityManager.instance.Update();
+                Instance = null;
             }
-        }
-
-        public void LateUpdate()
-        {
-            if (GameManager.Instance.CurrentState == Game_State.Playing)
-            {
-                enemyManager.LateUpdate();
-            }
+            enemyManager.Dispose();
+            SceneManager.UnloadSceneAsync(1);
         }
     }
 }

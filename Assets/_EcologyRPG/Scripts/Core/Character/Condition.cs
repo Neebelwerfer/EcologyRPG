@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace EcologyRPG.Core.Character
 {
-
     public abstract class Condition : ScriptableObject
     {
         protected const string CharacterEffectPath = "Condition/";

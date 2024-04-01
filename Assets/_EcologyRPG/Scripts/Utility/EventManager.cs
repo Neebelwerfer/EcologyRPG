@@ -13,7 +13,7 @@ public class DefaultEventData : EventData
     public object data;
 }
 
-public class DeferredEvent
+class DeferredEvent
 {
     public EventData data;
     public string eventName;

@@ -1,5 +1,6 @@
 using EcologyRPG.Core;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Systems;
 using EcologyRPG.Game.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,17 +30,6 @@ namespace EcologyRPG.Game
 
         public Game_State CurrentState = Game_State.Menu;
 
-        // Start is called before the first frame update
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void Load()
-        {
-            Settings = Resources.Load<GameSettings>("Config/GameSettings");
-            Player.PlayerManager.Init(Settings.playerSettings);
-            Flags.Init();
-            SceneManager.LoadScene(0, LoadSceneMode.Additive);
-        }
-
         void Awake()
         {
             if (Instance == null)
@@ -50,6 +40,15 @@ namespace EcologyRPG.Game
             {
                 Destroy(gameObject);
             }
+
+            Init();
+        }
+
+        void Init()
+        {
+            Settings = Resources.Load<GameSettings>("Config/GameSettings");
+            PlayerManager.Init(Settings.playerSettings);
+            Flags.Init();
         }
 
         public void Update()
@@ -57,8 +56,7 @@ namespace EcologyRPG.Game
             if (CurrentState == Game_State.Playing)
             {
                 EventManager.UpdateQueue();
-                Player.PlayerManager.Instance.Update();
-                
+                SystemManager.Update();
             }
         }
 
@@ -66,7 +64,7 @@ namespace EcologyRPG.Game
         {
             if (CurrentState == Game_State.Playing)
             {
-                Player.PlayerManager.Instance.FixedUpdate();
+                SystemManager.FixedUpdate();
             }
         }
 
@@ -74,8 +72,16 @@ namespace EcologyRPG.Game
         {
             if (CurrentState == Game_State.Playing)
             {
-                Player.PlayerManager.Instance.LateUpdate();
+                SystemManager.LateUpdate();
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }            
         }
     }
 }

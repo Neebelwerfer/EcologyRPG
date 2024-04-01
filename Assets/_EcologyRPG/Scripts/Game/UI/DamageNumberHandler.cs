@@ -1,5 +1,5 @@
 using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Events;
 using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,14 +42,17 @@ namespace EcologyRPG.Game.UI
 
         private void Update()
         {
-            foreach (var de in damageEvents)
+            if(damageEvents.Count > 0)
             {
-                var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity, DamageNumberCanvas.transform);
-                var damageText = damageNumber.GetComponent<DamageText>();
-                damageText.Init(de.damageTaken, GetDamageColor(de));
-                damageNumbers.Add(damageText);
+                foreach (var de in damageEvents)
+                {
+                    var damageNumber = damageNumberPool.GetObject(de.Point, Quaternion.identity, DamageNumberCanvas.transform);
+                    var damageText = damageNumber.GetComponent<DamageText>();
+                    damageText.Init(de.damageTaken, GetDamageColor(de));
+                    damageNumbers.Add(damageText);
+                }
+                damageEvents.Clear();
             }
-            damageEvents.Clear();
 
             for (int i = damageNumbers.Count - 1; i >= 0; i--)
             {

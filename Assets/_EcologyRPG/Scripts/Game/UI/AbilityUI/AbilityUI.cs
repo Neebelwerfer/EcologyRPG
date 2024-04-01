@@ -32,7 +32,7 @@ namespace EcologyRPG.Game.UI
         void Start()
         {
             abilityImage.fillAmount = 1;
-            player = PlayerManager.Player;
+            player = PlayerManager.PlayerCharacter;
             PlayerManager.PlayerAbilities.AddListener(abilitySlot, SetAbility);
             ability = (PlayerAbilityDefinition)PlayerManager.PlayerAbilities.GetAbility(abilitySlot);
             abilityAction.action.started += ActivateAbility;
@@ -104,7 +104,8 @@ namespace EcologyRPG.Game.UI
         private void ActivateAbility(InputAction.CallbackContext context)
         {
             if (ability == null) return;
-            InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
+            if (GameManager.Instance.CurrentState == Game_State.Playing)
+                InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
         }
 
         private void StoppedAction(InputAction.CallbackContext context)

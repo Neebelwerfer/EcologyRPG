@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace EcologyRPG.Utility
 {
-    public class GameObjectPool
+    public class GameObjectPool : IDisposable
     {
         public GameObject prefab;
 
@@ -91,6 +92,15 @@ namespace EcologyRPG.Utility
                     obj.transform.SetParent(parent);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            foreach (var obj in pool)
+            {
+                GameObject.Destroy(obj);
+            }
+            pool.Clear();
         }
     }
 }

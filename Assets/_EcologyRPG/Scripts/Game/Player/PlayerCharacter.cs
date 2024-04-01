@@ -1,49 +1,54 @@
 
 using EcologyRPG.Core.Character;
-using EcologyRPG.Core.Items;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace EcologyRPG.Game.Player
 {
     public class PlayerCharacter : BaseCharacter
     {
         public PlayerSettings playerSettings;
+        List<float> xpRequiredPerLevel;
+        float currentXp;
 
-        PlayerMovement playerMovement;
-        PlayerResourceManager playerResourceManager;
-
-        readonly List<PlayerModule> modules = new();
 
         public PlayerCharacter(PlayerSettings playerSettings) : base()
         {
             this.playerSettings = playerSettings;
-
-            playerMovement = new PlayerMovement();
-            modules.Add(playerMovement);
-            playerMovement.Initialize(this);
-
-            playerResourceManager = new PlayerResourceManager();
-            modules.Add(playerResourceManager);
-
-            PlayerLevelHandler playerLevelHandler = new PlayerLevelHandler();
-            modules.Add(playerLevelHandler);
-
-            foreach (PlayerModule module in modules)
-            {
-                module.Initialize(this);
-            }
-
             faction = Faction.player;
             Tags = playerSettings.Tags;
+            EventManager.AddListener("XP", OnXpGain);
+            xpRequiredPerLevel = playerSettings.XpRequiredPerLevel;
+            currentXp = 0;
+
         }
 
+        void OnXpGain(EventData data)
+        {
+            if (data is DefaultEventData eventData)
+            {
+                if (eventData.data is float xp)
+                {
+                    currentXp += xp;
+                    var xpRequired = xpRequiredPerLevel[Level - 1];
+                    if (currentXp >= xpRequired)
+                    {
+                        currentXp -= xpRequired;
+                        LevelUp();
+                    }
+                }
+            }
+        }
+
+        public void Respawn()
+        {
+            state = CharacterStates.active;
+            Health.CurrentValue = Health.MaxValue;
+        }
 
         public override void Die()
         {
             base.Die();
-            EventManager.Defer("PlayerDeath", new DefaultEventData() { data = this, source = this});
+            PlayerManager.Instance.PlayerDead();
         }
 
         public virtual void LevelUp()
@@ -59,28 +64,6 @@ namespace EcologyRPG.Game.Player
         {
             if (IsPaused) return;
             base.Update();
-            foreach (PlayerModule module in modules)
-            {
-                module.Update();
-            }
-        }
-
-        public void FixedUpdate()
-        {
-            if (IsPaused) return;
-            foreach (PlayerModule module in modules)
-            {
-                module.FixedUpdate();
-            }
-        }
-
-        public void LateUpdate()
-        {
-            if (IsPaused) return;
-            foreach (PlayerModule module in modules)
-            {
-                module.LateUpdate();
-            }
         }
     }
 
