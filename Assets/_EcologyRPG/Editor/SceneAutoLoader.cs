@@ -116,7 +116,7 @@ public static class SceneAutoLoader
 
     private static string MasterScene
     {
-        get { return EditorPrefs.GetString(cEditorPrefMasterScene, "Master.unity"); }
+        get { return EditorPrefs.GetString(cEditorPrefMasterScene, "Assets/_EcologyRPG/Levels/GameManager.unity"); }
         set { EditorPrefs.SetString(cEditorPrefMasterScene, value); }
     }
 

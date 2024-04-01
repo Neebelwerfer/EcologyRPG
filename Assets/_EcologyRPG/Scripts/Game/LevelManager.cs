@@ -45,6 +45,7 @@ namespace EcologyRPG.Game
 
             enemyManager = EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
             AbilityManager.Init();
+            ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
             PlayerManager.Instance.SpawnPlayer();
             GameManager.Instance.CurrentState = Game_State.Playing;
@@ -57,6 +58,8 @@ namespace EcologyRPG.Game
                 Instance = null;
             }
             enemyManager.Dispose();
+            ProjectileSystem.Instance.Dispose();
+            AbilityManager.Instance.Dispose();
             SceneManager.UnloadSceneAsync(1);
         }
     }
