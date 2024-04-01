@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerAbilities
   m_EditorClassIdentifier: 
   abilities:
-  - ability: {fileID: 11400000, guid: 3cf113f3b7daf80449edc46ea76bf931, type: 2}
+  - ability: {fileID: 11400000, guid: 9b676a91f7cbc4246ab9e00e3dbd5dc0, type: 2}
     LevelRequirement: 1
   - ability: {fileID: 11400000, guid: 0a8cf090d5192014ab8120fbb30bcf2c, type: 2}
     LevelRequirement: 1
