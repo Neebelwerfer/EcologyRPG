@@ -38,8 +38,14 @@ namespace EcologyRPG.Core.Abilities
         public override void OnUpdate()
         {
             OnUpdating?.Invoke(projectileObj);
-            projectileObj.transform.rotation = Quaternion.LookRotation(dir);
-            var travel = speed * Time.deltaTime * dir;
+            Vector3 normal = Vector3.up;
+            if(Physics.Raycast(projectileObj.transform.position, Vector3.down, out var hit, LayerMask.NameToLayer("Ground")))
+            {
+                normal = hit.normal;
+            }
+            var travelDir = Vector3.ProjectOnPlane(dir, normal).normalized;
+            projectileObj.transform.rotation = Quaternion.LookRotation(travelDir);
+            var travel = speed * Time.deltaTime * travelDir;
             projectileObj.transform.position += travel;
             range -= travel.magnitude;
             if (range <= 0)

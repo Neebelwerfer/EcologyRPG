@@ -1,3 +1,4 @@
+using EcologyRPG.Core;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Game.NPC;
 using EcologyRPG.Game.Player;
@@ -20,7 +21,13 @@ namespace EcologyRPG.Game
         public float maxDistance = 200f;
         public float activeEnemyUpdateRate = 0.2f;
 
+        [Header("Day Night Cycle")]
+        public GameObject day;
+        public GameObject night;
+        public float cycleDuration = 60f;
+
         EnemyManager enemyManager;
+        DayNightCycle dayNightCycle;
         AbilityManager abilityManager;
 
         void Awake()
@@ -48,6 +55,7 @@ namespace EcologyRPG.Game
             ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
             PlayerManager.Instance.SpawnPlayer();
+            if(day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
             GameManager.Instance.CurrentState = Game_State.Playing;
         }
 
@@ -60,6 +68,8 @@ namespace EcologyRPG.Game
             enemyManager.Dispose();
             ProjectileSystem.Instance.Dispose();
             AbilityManager.Instance.Dispose();
+            dayNightCycle.Dispose();
+            dayNightCycle = null;
             SceneManager.UnloadSceneAsync(1);
         }
     }
