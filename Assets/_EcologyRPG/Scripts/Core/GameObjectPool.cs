@@ -1,27 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace EcologyRPG.Utility
+namespace EcologyRPG.Core
 {
+    class PoolObject
+    {
+        public GameObject obj;
+        public TimeSpan timeAdded;
+    }
     public class GameObjectPool : IDisposable
     {
         public GameObject prefab;
 
-        readonly Stack<GameObject> pool;
+        Stack<PoolObject> pool;
+        bool taskRunning = false;
 
         public GameObjectPool(GameObject prefab)
         {
             this.prefab = prefab;
-            pool = new Stack<GameObject>();
+            pool = new Stack<PoolObject>();
         }
 
         GameObject Get()
         {
             if (pool.Count > 0)
             {
-                var obj = pool.Pop();
-                return obj;
+                var poolObj = pool.Pop();
+
+                if (taskRunning && pool.Count == 0)
+                {
+                    taskRunning = false;
+                    TaskManager.RemoveAllFromOwner(this);
+                }
+                return poolObj.obj;
             }
             else
             {
@@ -68,14 +81,24 @@ namespace EcologyRPG.Utility
                 obj.transform.SetParent(null);
             }
             obj.SetActive(false);
-            pool.Push(obj);
+            pool.Push(new PoolObject()
+            {
+                obj = obj,
+                timeAdded = DateTime.Now.TimeOfDay
+            });
+
+            if(!taskRunning)
+            {
+                taskRunning = true;
+                TaskManager.Add(this, CleanUp, 60f, true);
+            }
         }
 
         public void ClearPool()
         {
             foreach (var obj in pool)
             {
-                GameObject.Destroy(obj);
+                GameObject.Destroy(obj.obj);
             }
             pool.Clear();
         }
@@ -86,7 +109,11 @@ namespace EcologyRPG.Utility
             {
                 var obj = Instantiate(prefab);
                 obj.SetActive(false);
-                pool.Push(obj);
+                pool.Push(new PoolObject()
+                {
+                    obj = obj,
+                    timeAdded = DateTime.Now.TimeOfDay
+                });
                 if(parent != null)
                 {
                     obj.transform.SetParent(parent);
@@ -94,11 +121,29 @@ namespace EcologyRPG.Utility
             }
         }
 
+        public void CleanUp()
+        {
+            Debug.Log("Cleaning up Object Pool");
+            var list = pool.ToList();
+
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                var obj = list[i];
+                if (DateTime.Now.TimeOfDay - obj.timeAdded > TimeSpan.FromMinutes(5))
+                {
+                    GameObject.Destroy(obj.obj);
+                    list.RemoveAt(i);
+                }
+            }
+
+            pool = new Stack<PoolObject>(list);
+        }
+
         public void Dispose()
         {
             foreach (var obj in pool)
             {
-                GameObject.Destroy(obj);
+                GameObject.Destroy(obj.obj);
             }
             pool.Clear();
         }

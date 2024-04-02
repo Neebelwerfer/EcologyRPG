@@ -71,16 +71,16 @@ namespace EcologyRPG.Game.UI
             {
                 IngameMenu.SetActive(false);
                 playerUI.SetActive(true);
-                GameManager.Instance.CurrentState = Game_State.Playing;
+                GameManager.Instance.Resume();
             }
             else
             {
                 IngameMenu.SetActive(true);
                 playerUI.SetActive(false);
-                GameManager.Instance.CurrentState = Game_State.Paused;
+                characterSheetUI.SetActive(false);
+                GameManager.Instance.Pause();
             }
         }
-
 
         private void OnDestroy()
         {

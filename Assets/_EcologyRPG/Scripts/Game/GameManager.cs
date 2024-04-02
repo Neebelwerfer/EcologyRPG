@@ -1,14 +1,7 @@
 using EcologyRPG.Core;
-using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Systems;
 using EcologyRPG.Game.Player;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using PlayerSettings = EcologyRPG.Game.Player.PlayerSettings;
 
 namespace EcologyRPG.Game
 {
@@ -47,9 +40,22 @@ namespace EcologyRPG.Game
         void Init()
         {
             Settings = Resources.Load<GameSettings>("Config/GameSettings");
+            TaskManager.Init();
             SystemManager.Init();
             PlayerManager.Init(Settings.playerSettings);
             Flags.Init();
+        }
+
+        public void Pause()
+        {
+            CurrentState = Game_State.Paused;
+            Time.timeScale = 0;
+        }
+
+        public void Resume()
+        {
+            CurrentState = Game_State.Playing;
+            Time.timeScale = 1;
         }
 
         public void Update()
@@ -57,6 +63,7 @@ namespace EcologyRPG.Game
             if (CurrentState == Game_State.Playing)
             {
                 EventManager.UpdateQueue();
+                TaskManager.Update();
                 SystemManager.Update();
             }
         }
@@ -84,6 +91,7 @@ namespace EcologyRPG.Game
                 Instance = null;
                 SystemManager.Instance.Dispose();
                 PlayerManager.Instance.Dispose();
+                TaskManager.Instance.Dispose();
             }            
         }
     }

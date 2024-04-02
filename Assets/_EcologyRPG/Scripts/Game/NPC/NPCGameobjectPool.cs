@@ -1,4 +1,4 @@
-using EcologyRPG.Utility;
+using EcologyRPG.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
