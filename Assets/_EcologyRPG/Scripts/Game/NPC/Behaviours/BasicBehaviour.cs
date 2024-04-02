@@ -23,6 +23,7 @@ namespace EcologyRPG.Game.NPC.Behaviours
         public override void Init(EnemyNPC character)
         {
             attackAbility = Instantiate(attackAbilityReference);
+            attackAbility.Initialise();
             var aggroState = new State("Aggro");
             var passiveState = new State("Passive");
 
@@ -51,8 +52,7 @@ namespace EcologyRPG.Game.NPC.Behaviours
                 npc.Agent.ResetPath();
                 if (attackAbility.state != AbilityStates.ready) return;
                 npc.Transform.LookAt(target.Transform.Position);
-                npc.Animator.SetTrigger("Attack");
-                attackAbility.Activate(new CastInfo { activationInput = null, castPos = npc.CastPos, owner = npc });
+                npc.CastAbility(attackAbility, target.Transform.Position);
             });
 
             var inAttackRange = new DecisionNode((npc) =>

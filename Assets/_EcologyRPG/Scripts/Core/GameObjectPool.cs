@@ -123,7 +123,6 @@ namespace EcologyRPG.Core
 
         public void CleanUp()
         {
-            Debug.Log("Cleaning up Object Pool");
             var list = pool.ToList();
 
             for (int i = list.Count - 1; i >= 0; i--)
