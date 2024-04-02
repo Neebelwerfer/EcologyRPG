@@ -1,6 +1,6 @@
+using EcologyRPG.Core;
 using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Game.Player;
-using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 
