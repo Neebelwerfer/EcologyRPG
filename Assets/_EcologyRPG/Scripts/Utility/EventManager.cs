@@ -13,7 +13,7 @@ public class DefaultEventData : EventData
     public object data;
 }
 
-public class DeferredEvent
+class DeferredEvent
 {
     public EventData data;
     public string eventName;
@@ -28,9 +28,9 @@ public enum DeferredEventType
 
 public static class EventManager
 {
-    public static Dictionary<string, UnityEvent<EventData>> events = new();
-    public static PriorityQueue<DeferredEvent> deferredEvents = new();
-    static Stopwatch stopwatch = new Stopwatch();
+    static readonly Dictionary<string, UnityEvent<EventData>> events = new();
+    static readonly PriorityQueue<DeferredEvent> deferredEvents = new();
+    static readonly Stopwatch stopwatch = new Stopwatch();
 
     public static void AddListener(string eventName, UnityAction<EventData> listener)
     {

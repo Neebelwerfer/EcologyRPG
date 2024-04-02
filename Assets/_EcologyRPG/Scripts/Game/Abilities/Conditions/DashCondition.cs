@@ -3,7 +3,6 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
-using EcologyRPG.Game.Abilities.Implementations;
 
 namespace EcologyRPG.Game.Abilities.Conditions
 {
@@ -26,12 +25,12 @@ namespace EcologyRPG.Game.Abilities.Conditions
             if (directionMode == DirectionMode.Mouse)
             {
                 var lookAt = TargetUtility.GetMousePoint(Camera.main);
-                lookAt.y = caster.owner.Position.y;
-                direction = (lookAt - caster.owner.Position);
+                lookAt.y = caster.owner.Transform.Position.y;
+                direction = (lookAt - caster.owner.Transform.Position);
             }
             else
             {
-                direction = caster.owner.Forward.normalized;
+                direction = caster.owner.Transform.Forward.normalized;
             }
             dodgeSpeed = dashRange / duration;
             target.OnCharacterCollision.AddListener(OnHit);
@@ -41,7 +40,7 @@ namespace EcologyRPG.Game.Abilities.Conditions
         {
             CastInfo info = new();
             info.owner = Owner;
-            info.castPos = Owner.Position;
+            info.castPos = Owner.Transform.Position;
             if (StopOnHit) remainingDuration = 0;
             if (firstHit)
             {
@@ -72,7 +71,7 @@ namespace EcologyRPG.Game.Abilities.Conditions
             target.state = CharacterStates.dodging;
             //target.Rigidbody.isKinematic = false;
             //target.Rigidbody.velocity = dodgeSpeed * direction.normalized;
-            target.transform.position += deltaTime * dodgeSpeed * direction.normalized;
+            target.Transform.Position += deltaTime * dodgeSpeed * direction.normalized;
         }
 
         public override void OnRemoved(BaseCharacter target)

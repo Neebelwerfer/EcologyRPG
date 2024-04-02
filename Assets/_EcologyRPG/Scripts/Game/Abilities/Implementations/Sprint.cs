@@ -2,7 +2,7 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Game.Abilities.Conditions;
 using UnityEditor;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class Sprint : BaseAbility
     {
@@ -38,6 +38,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
         public override void OnInspectorGUI()
         {
             Sprint ability = (Sprint)target;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.sprintSpeedMultiplier)));
             if (ability.Exhaustion == null)
             {
                 ability.Exhaustion = CreateInstance<Exhaustion>();

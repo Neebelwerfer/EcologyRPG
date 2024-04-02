@@ -24,7 +24,7 @@ public class CharacterEditor : EditorWindow
     Vector2 scrollPos = Vector2.zero;
 
 
-    [MenuItem("Character/Character Editor")]
+    [MenuItem("Game/Character/Character Editor")]
     public static void ShowWindow()
     {
         GetWindow<CharacterEditor>("Character Editor");

@@ -12,7 +12,7 @@ namespace EcologyRPG.Game.NPC
         {
             base.CastEnded(caster);
             caster.castPos = caster.owner.CastPos;
-            caster.dir = caster.owner.transform.forward;
+            caster.dir = caster.owner.Transform.Forward;
             Ability.Cast(caster);
         }
     }

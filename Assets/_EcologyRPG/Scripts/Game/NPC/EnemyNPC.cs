@@ -5,35 +5,53 @@ using UnityEngine;
 
 namespace EcologyRPG.Game.NPC
 {
-    public enum EnemyQuality
-    {
-        Normal,
-        Elite,
-        Boss
-    }
-
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyNPC : BaseCharacter
     {
         [SerializeField] NPCBehaviour behaviourReference;
         [SerializeField] float XpOnDeath = 10;
 
-        public EnemyQuality Quality { get; private set; }
         public NavMeshAgent Agent { get; private set; }
 
         EnemySpawner spawner;
         [HideInInspector] public NPCBehaviour behaviour = null;
 
-        public override void Start()
+        public EnemyNPC(NPCConfig config) : base()
         {
-            base.Start();
-            Agent = GetComponent<NavMeshAgent>();
+            behaviourReference = config.NPCBehaviour;
+            level = (int)config.Level;
+            XpOnDeath = config.xp;
+            faction = Faction.enemy;
+            Tags = config.tags;
+        }
+
+        ~EnemyNPC()
+        {
+            if (behaviour != null)
+            {
+                Object.Destroy(behaviour);
+            }
+            spawner.RemoveEnemy(this);
+        }
+
+        public override void SetBinding(CharacterBinding binding)
+        {
+            base.SetBinding(binding);
+            var npcBinding = binding as NPCBinding;
+            Agent = npcBinding.Agent;
+            Agent.speed = Stats.GetStat("movementSpeed").Value;
+
             if (behaviourReference != null)
             {
-                behaviour = Instantiate(behaviourReference);
+                behaviour = Object.Instantiate(behaviourReference);
                 behaviour.Init(this);
             }
-            Agent.speed = Stats.GetStat("movementSpeed").Value;
+        }
+
+        public override void RemoveBinding()
+        {
+            Agent = null;
+            base.RemoveBinding();
         }
 
         public override void Die()
@@ -42,8 +60,7 @@ namespace EcologyRPG.Game.NPC
             spawner.RemoveEnemy(this);
             LootGenerator.Instance.GenerateLootOnKill(this);
             EventManager.Defer("XP", new DefaultEventData { data = XpOnDeath, source = this });
-            gameObject.SetActive(false);
-            Destroy(gameObject, 1);
+            EventManager.Defer("EnemyDeath", new DefaultEventData { data = this, source = this });
         }
 
         public void SetSpawner(EnemySpawner spawner)
@@ -51,14 +68,22 @@ namespace EcologyRPG.Game.NPC
             this.spawner = spawner;
         }
 
-        public void UpdateBehaviour()
+        public override void Update()
         {
+            base.Update();
+            if (IsPaused) return;
+
             if (behaviour != null && canMove && (state != CharacterStates.disabled && state != CharacterStates.dead))
             {
                 Agent.isStopped = false;
                 Agent.speed = Stats.GetStat("movementSpeed").Value;
                 behaviour.UpdateBehaviour(this);
             }
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            Agent.SetDestination(position);
         }
 
         public EnemySpawner GetSpawner()
@@ -70,6 +95,13 @@ namespace EcologyRPG.Game.NPC
         {
             base.StopMovement();
             Agent.isStopped = true;
+        }
+
+        public void LateUpdate()
+        {
+            if (IsPaused) return;
+            Transform.Position = Agent.transform.position;
+            Transform.Rotation = Agent.transform.rotation;
         }
     }
 }

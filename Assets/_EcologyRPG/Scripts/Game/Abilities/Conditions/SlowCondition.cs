@@ -1,6 +1,5 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
-using EcologyRPG.Game.Abilities.Utility;
 using UnityEditor;
 using UnityEngine;
 

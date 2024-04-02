@@ -1,8 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Game.Abilities.Conditions;
-using EcologyRPG.Game.Abilities.Definitions;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class ChargeAttack : AttackAbility
     {

@@ -1,6 +1,6 @@
 ﻿using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Game.Abilities.Implementations;
+using EcologyRPG.Game.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -35,6 +35,7 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         }
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.BlockMovementOnWindup)));
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.RotatePlayerTowardsMouse)));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.ReducedSpeedOnWindup)));
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.BlockRotationOnWindup)));
 
         if (ability.Ability == null)

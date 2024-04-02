@@ -1,4 +1,4 @@
-﻿using EcologyRPG.Game.Abilities.Definitions;
+﻿using EcologyRPG.Core.Abilities;
 using UnityEditor;
 
 #if UNITY_EDITOR

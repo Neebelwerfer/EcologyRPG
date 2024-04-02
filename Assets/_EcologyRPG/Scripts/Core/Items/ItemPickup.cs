@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace EcologyRPG.Core.Items
 {
-    public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler
+    public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler, ITooltip
     {
         public float pickupRadius = 5;
 
@@ -46,7 +46,7 @@ namespace EcologyRPG.Core.Items
             {
                 base.OnPointerEnter(eventData);
             }
-            Tooltip.ShowTooltip(gameObject, new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() });
+            Tooltip.ShowTooltip(this);
         }
 
         public override void OnPointerExit(PointerEventData eventData)
@@ -55,13 +55,18 @@ namespace EcologyRPG.Core.Items
             {
                 base.OnPointerExit(eventData);
             }
-            Tooltip.HideTooltip(gameObject);
+            Tooltip.HideTooltip(this);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            Tooltip.HideTooltip(gameObject);
+            Tooltip.HideTooltip(this);
+        }
+
+        public TooltipData GetTooltipData()
+        {
+            return new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() };
         }
     }
 }

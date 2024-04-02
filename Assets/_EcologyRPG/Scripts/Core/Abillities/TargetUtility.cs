@@ -15,8 +15,9 @@ public static class TargetUtility
 
         for (int i = 0; i < numHits; i++)
         {
-            if (colliderHits[i].TryGetComponent<BaseCharacter>(out var character))
+            if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
             {
+                var character = binding.Character;
                 targets[i] = character;
             }
         }
@@ -30,8 +31,9 @@ public static class TargetUtility
 
         for (int i = 0; i < numHits; i++)
         {
-            if (colliderHits[i].TryGetComponent<BaseCharacter>(out var character))
+            if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
             {
+                var character = binding.Character;
                 targets[i] = character;
             }
         }
@@ -47,8 +49,9 @@ public static class TargetUtility
         {
             if (Vector3.Angle(forward, colliderHits[i].transform.position - origin) < angle)
             {
-                if (colliderHits[i].TryGetComponent<BaseCharacter>(out var character))
+                if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
                 {
+                    var character = binding.Character;
                     targets[i] = character;
                 }
             }

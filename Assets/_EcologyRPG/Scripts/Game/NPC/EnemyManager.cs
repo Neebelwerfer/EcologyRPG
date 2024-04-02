@@ -1,55 +1,173 @@
+using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Systems;
+using EcologyRPG.Game.Player;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace EcologyRPG.Game.NPC
 {
-    public class EnemyManager : MonoBehaviour
+    class NPCData
     {
-        public static EnemyManager instance;
+        public EnemyNPC enemy;
+        public GameObject prefab;
+    }
 
-        [SerializeField] List<EnemyNPC> characterList = new List<EnemyNPC>();
+    public class EnemyManager : SystemBehavior, IUpdateSystem, ILateUpdateSystem
+    {
+        public static EnemyManager Instance;
 
-        private void Awake()
-        {
-            if (instance == null)
+        public NPCGameObjectPool NPCPool;
+
+        public float maxDistance = 200f;
+        public float activeEnemyUpdateRate = 0.2f;
+
+        readonly List<NPCData> characterList = new();
+
+        PlayerCharacter player;
+        PlayerCharacter Player { get 
             {
-                instance = this;
-            }
-            else
-            {
-                Destroy(this);
+                player ??= PlayerManager.PlayerCharacter;
+                return player;
             }
         }
 
-        private void Update()
+        public bool Enabled => true;
+
+        float timer = 0;
+        readonly List<NPCData> activeEnemies = new List<NPCData>();
+
+        EnemyManager(float maxDistance, float activeEnemyUpdateRate) : base()
         {
-            foreach (var character in characterList)
+            this.maxDistance = maxDistance;
+            this.activeEnemyUpdateRate = activeEnemyUpdateRate;
+            EventManager.AddListener("EnemyDeath", OnEnemyDeath);
+            player = PlayerManager.PlayerCharacter;
+            NPCPool = new NPCGameObjectPool();
+        }
+
+        public static void Init(float maxDistance, float activeEnemyUpdateRate)
+        {
+            if(Instance == null)
+                Instance = new EnemyManager(maxDistance, activeEnemyUpdateRate);
+        }
+
+        private void OnEnemyDeath(EventData arg0)
+        {
+            if(arg0 is DefaultEventData data)
             {
-                character.UpdateBehaviour();
+                if(data.data is EnemyNPC enemy)
+                {
+                    NPCPool.ReturnGameObject(enemy.GameObject);
+                    RemoveCharacter(enemy);
+                }
             }
         }
 
-        public void AddCharacter(EnemyNPC character)
+        void UpdateActiveEnemies()
         {
-            characterList.Add(character);
+            if(characterList.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var characterData in characterList)
+            {
+                var character = characterData.enemy;
+                if (Vector3.Distance(Player.Transform.Position, character.Transform.Position) < maxDistance)
+                {
+                    if (!activeEnemies.Contains(characterData))
+                    {
+                        activeEnemies.Add(characterData);   
+                        if(character.GameObject == null)
+                        {
+                            var obj = NPCPool.GetGameObject(characterData.prefab);
+                            obj.transform.SetPositionAndRotation(character.Transform.Position, character.Transform.Rotation);
+                            character.SetBinding(obj.GetComponent<CharacterBinding>());
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (activeEnemies.Contains(characterData))
+                    {
+                        activeEnemies.Remove(characterData);
+                        NPCPool.ReturnGameObject(character.GameObject);
+                        character.RemoveBinding();
+                    }
+                }
+            }
+        }
+
+        public void OnUpdate()
+        {
+            timer += Time.deltaTime;
+            if (timer > activeEnemyUpdateRate)
+            {
+                UpdateActiveEnemies();
+                timer = 0;
+            }
+
+            foreach (var character in activeEnemies)
+            {
+                character.enemy.Update();
+            }
+        }
+
+        public void OnLateUpdate()
+        {
+            foreach (var character in activeEnemies)
+            {
+                character.enemy.LateUpdate();
+            }
+        }
+
+        public void AddCharacter(EnemyNPC character, GameObject prefab)
+        {
+            var data = new NPCData { enemy = character, prefab = prefab };
+            characterList.Add(data);
+            activeEnemies.Add(data);
         }
 
         public void RemoveCharacter(EnemyNPC character)
         {
-            characterList.Remove(character);
+            var data = characterList.Find(x => x.enemy == character);
+            characterList.Remove(data);
+            if (activeEnemies.Contains(data))
+            {
+                activeEnemies.Remove(data);
+            }
         }
 
-        public void AddCharacters(EnemyNPC[] characters)
+        public void AddCharacters(EnemyNPC[] characters, GameObject prefab)
         {
-            characterList.AddRange(characters);
+            foreach (var character in characters)
+            {
+                AddCharacter(character, prefab);
+            }
         }
 
         public void RemoveCharacters(EnemyNPC[] characters)
         {
             foreach (var character in characters)
             {
-                characterList.Remove(character);
+                RemoveCharacter(character);
             }
+        }
+
+        override public void Dispose()
+        {
+            base.Dispose();
+            NPCPool.Dispose();
+            characterList.Clear();
+            EventManager.RemoveListener("EnemyDeath", OnEnemyDeath);
+            Instance = null;
         }
     }
 }

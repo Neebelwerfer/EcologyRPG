@@ -13,14 +13,11 @@ namespace EcologyRPG.Game.UI
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new();
-                }
+                _instance ??= new();
                 return _instance;
             }
         }
-        PlayerAbilities abilityLookup;
+        PlayerAbilitiesDatabase abilityLookup;
         GameObject abilitySelectionUI;
         GameObject buttonPrefab;
 
@@ -31,7 +28,7 @@ namespace EcologyRPG.Game.UI
 
         private void AssignAbility(PlayerAbilityDefinition ability)
         {
-            var abilityHandler = player.playerAbilitiesHandler;
+            var abilityHandler = PlayerManager.PlayerAbilities;
             if (abilityHandler.GotAbility(ability, out var slot))
             {
                 if (slot.HasValue)
@@ -52,8 +49,8 @@ namespace EcologyRPG.Game.UI
         {
             this.abilitySelectionUI = abilitySelectionUI;
             abilitySelectionUI.SetActive(false);
-            player = PlayerManager.Instance.GetPlayerCharacter();
-            abilityLookup = Resources.Load<PlayerAbilities>("Player Abilities");
+            player = PlayerManager.PlayerCharacter;
+            abilityLookup = Resources.Load<PlayerAbilitiesDatabase>("PlayerAbilities");
             buttonPrefab = Resources.Load<GameObject>("UI/AbilityRef");
 
             ButtonPool = new GameObjectPool(buttonPrefab);

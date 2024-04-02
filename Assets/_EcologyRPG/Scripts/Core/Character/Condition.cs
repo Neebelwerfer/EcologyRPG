@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace EcologyRPG.Core.Character
 {
-
     public abstract class Condition : ScriptableObject
     {
         protected const string CharacterEffectPath = "Condition/";
@@ -23,7 +22,6 @@ namespace EcologyRPG.Core.Character
         {
             ID = Guid.NewGuid().ToString();
             displayName = GetType().Name;
-
         }
 
         public abstract void OnApply(CastInfo Caster, BaseCharacter target);

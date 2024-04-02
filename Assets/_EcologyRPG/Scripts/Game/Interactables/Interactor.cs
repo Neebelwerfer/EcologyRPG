@@ -23,7 +23,7 @@ namespace EcologyRPG.Game.Interactables
 
         private void Start()
         {
-            player = PlayerManager.Instance.GetPlayerCharacter();
+            player = PlayerManager.PlayerCharacter;
             Interacts = player.playerSettings.Interact;
             Interacts.action.Enable();
             position = transform.position;
@@ -48,7 +48,7 @@ namespace EcologyRPG.Game.Interactables
         }
         public void findDistance()
         {
-            playerPosition = player.Transform.position;
+            playerPosition = player.Transform.Position;
             distanceVector = playerPosition - position;
             distance = distanceVector.magnitude;
         }

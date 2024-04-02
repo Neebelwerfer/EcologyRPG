@@ -1,9 +1,7 @@
 using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.Abilities.Definitions;
-using EcologyRPG.Game.Abilities.Utility;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class LoppedProjectile : AttackAbility
     {
@@ -20,7 +18,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
         public override void Cast(CastInfo caster)
         {
             Debug.DrawRay(caster.mousePoint, Vector3.up * 1, Color.red, 5);
-            ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
+            ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.castPos, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
             {
                 var newInfo = new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint };
                 Debug.DrawRay(projectileObject.transform.position, Vector3.up * 1, Color.green, 5);

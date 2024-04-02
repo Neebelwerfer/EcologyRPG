@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using EcologyRPG.Game.NPC;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,6 @@ namespace EcologyRPG.Game.UI
         [SerializeField] private Slider easeSlider;
         [SerializeField] private float lerpSpeed;
         [SerializeField] private string resourceName;
-        [SerializeField] private EnemyNPC character;
         [SerializeField] private GameObject easingBar;
         [SerializeField] private GameObject healthBar;
 
@@ -19,23 +19,32 @@ namespace EcologyRPG.Game.UI
         public float maxHealth = 100;
         public float currentHealth;
 
+        CharacterBinding characterBinding;
+
         private void Start()
         {
-            InitializeBar(character, resourceName);
+            characterBinding = GetComponentInParent<CharacterBinding>();
+            characterBinding.CharacterUpdated.AddListener(() => InitializeBar(characterBinding.Character, resourceName));
+            InitializeBar(characterBinding.Character, resourceName);
             barSlider.maxValue = maxHealth;
             barSlider.value = maxHealth;
             currentHealth = maxHealth;
         }
         private void Update()
         {
-            if (!initialized) InitializeBar(character, resourceName);
+            if (!initialized)
+            {
+                characterBinding = GetComponentInParent<CharacterBinding>();
+                InitializeBar(characterBinding.Character, resourceName);
+            }
 
-            UpdateBar(character, resourceName);
+            UpdateBar(characterBinding.Character, resourceName);
             VisibleBar();
         }
 
-        public void InitializeBar(EnemyNPC nPC, string resourceName)
+        public void InitializeBar(BaseCharacter nPC, string resourceName)
         {
+            if(nPC == null) return;
             maxHealth = nPC.Stats.GetResource(resourceName).MaxValue;
             barSlider.maxValue = maxHealth;
             barSlider.value = barSlider.maxValue;
@@ -43,7 +52,7 @@ namespace EcologyRPG.Game.UI
             easeSlider.value = easeSlider.maxValue;
             if (maxHealth != 0) initialized = true;
         }
-        public void UpdateBar(EnemyNPC nPC, string resourceName)
+        public void UpdateBar(BaseCharacter nPC, string resourceName)
         {
             currentHealth = nPC.Stats.GetResource(resourceName).CurrentValue;
             if (barSlider.value != currentHealth)
@@ -58,7 +67,7 @@ namespace EcologyRPG.Game.UI
         }
         public void VisibleBar()
         {
-            if (character.Stats.GetResource(resourceName).MaxValue == character.Stats.GetResource(resourceName).CurrentValue)
+            if (characterBinding.Character.Stats.GetResource(resourceName).MaxValue == characterBinding.Character.Stats.GetResource(resourceName).CurrentValue)
             {
                 easingBar.SetActive(false);
                 healthBar.SetActive(false);

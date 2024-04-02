@@ -15,7 +15,7 @@ namespace EcologyRPG.Game.Abilities.Components
             GameObject effect;
             if(target != null)
             {
-                effect = Instantiate(vfxPrefab, target.Position, Quaternion.identity);
+                effect = Instantiate(vfxPrefab, target.Transform.Position, Quaternion.identity);
             }
             else
             {

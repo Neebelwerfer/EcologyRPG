@@ -1,7 +1,10 @@
-using System.Collections;
+using EcologyRPG.Core;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Game.NPC;
+using EcologyRPG.Game.Player;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace EcologyRPG.Game
@@ -10,22 +13,23 @@ namespace EcologyRPG.Game
     {
         public static LevelManager Instance;
 
-        public UnityEvent OnLevelStart;
+        [Header("Spawn Points")]
+        public Transform playerStartSpawnPoint;
+        [HideInInspector] public GameObject[] respawnPoints;
 
-        public UnityEvent OnLevelAwake;
+        [Header("NPC Settings")]
+        public float maxDistance = 200f;
+        public float activeEnemyUpdateRate = 0.2f;
 
-        void Start()
-        {
-            OnLevelStart.Invoke();
-            GameManager.Instance.CurrentState = Game_State.Playing;
-        }
+        [Header("Day Night Cycle")]
+        public GameObject day;
+        public GameObject night;
+        public float cycleDuration = 60f;
+
+        DayNightCycle dayNightCycle;
 
         void Awake()
         {
-            if (GameManager.Instance == null)
-            {
-                SceneManager.LoadScene(0, LoadSceneMode.Additive);
-            }
             if (Instance == null)
             {
                 Instance = this;
@@ -34,7 +38,34 @@ namespace EcologyRPG.Game
             {
                 Destroy(gameObject);
             }
-            OnLevelAwake.Invoke();
+
+            if(playerStartSpawnPoint == null)
+            {
+                Debug.LogError("Player Start Spawn Point not set in Level Manager");
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#endif
+            }
+            respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+
+            EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
+            AbilityManager.Init();
+            ProjectileSystem.Init();
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            PlayerManager.Instance.SpawnPlayer();
+            GameManager.Instance.CurrentState = Game_State.Playing;
+            if (day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+            ProjectileSystem.Instance.Dispose();
+            AbilityManager.Instance.Dispose();
+            EnemyManager.Instance.Dispose();
+            dayNightCycle.Dispose();
+            dayNightCycle = null;
+            SceneManager.UnloadSceneAsync(1);
         }
     }
 }

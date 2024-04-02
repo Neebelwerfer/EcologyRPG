@@ -1,10 +1,8 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
-using EcologyRPG.Game.Abilities.Definitions;
-using EcologyRPG.Game.Abilities.Utility;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class MultipleProjectiles : ProjectileAbility
     {
@@ -47,7 +45,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
                 for (int i = 0; i < numberOfProjectiles; i++)
                 {
                     var pos = start + i * LineWidth * -left / (numberOfProjectiles - 1);
-                    ProjectileUtility.CreateProjectile(projectilePrefab, pos, pos + dir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, pos, dir, Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                     {
                         OnHit(caster, target, dir);
                     });
@@ -59,7 +57,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
                 for (int i = 0; i < numberOfProjectiles; i++)
                 {
                     var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * start;
-                    ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, caster.castPos, newDir, Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                     {
                         OnHit(caster, target, newDir);
                     });
@@ -70,7 +68,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
                 for (int i = 0; i < numberOfProjectiles; i++)
                 {
                     var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * dir;
-                    ProjectileUtility.CreateProjectile(projectilePrefab, caster.castPos, caster.castPos + newDir * Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
+                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, caster.castPos, newDir, Range, Speed, destroyOnHit, targetMask, caster.owner, (target) =>
                     {
                         OnHit(caster, target, newDir);
                     });
@@ -80,7 +78,7 @@ namespace EcologyRPG.Game.Abilities.Implementations
 
         void OnHit(CastInfo caster, BaseCharacter target, Vector3 direction)
         {
-            var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.transform.position, dir = direction, mousePoint = caster.mousePoint };
+            var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.Transform.Position, dir = direction, mousePoint = caster.mousePoint };
             DefaultOnHitAction()(newCastInfo, target);
         }
     }

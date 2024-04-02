@@ -1,9 +1,7 @@
 using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.Abilities.Definitions;
-using EcologyRPG.Game.Abilities.Utility;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class BasicProjectile : ProjectileAbility
     {
@@ -18,9 +16,9 @@ namespace EcologyRPG.Game.Abilities.Implementations
         {
             var dir = GetDir(castInfo);
             firstHit = true;
-            ProjectileUtility.CreateProjectile(ProjectilePrefab, castInfo.owner.CastPos + (dir * Range), Speed, destroyOnHit, targetMask, castInfo.owner, (target) =>
+            ProjectileUtility.CreateBasicProjectile(ProjectilePrefab, castInfo.castPos, dir, Range, Speed, destroyOnHit, targetMask, castInfo.owner, (target) =>
             {
-                var newCastInfo = new CastInfo { owner = castInfo.owner, castPos = target.transform.position, dir = dir, mousePoint = Vector3.zero };
+                var newCastInfo = new CastInfo { owner = castInfo.owner, castPos = target.Transform.Position, dir = dir, mousePoint = Vector3.zero };
                 DefaultOnHitAction()(newCastInfo, target);
             });
         }

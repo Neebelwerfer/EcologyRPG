@@ -9,8 +9,6 @@ namespace EcologyRPG.Game.NPC
 
         State currState;
 
-        float timeSinceLastUpdate = 0f;
-
         public void ChangeState(EnemyNPC character, State newState)
         {
             currState?.OnExit(character);

@@ -1,53 +1,54 @@
 
 using EcologyRPG.Core.Character;
-using EcologyRPG.Core.Items;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace EcologyRPG.Game.Player
 {
     public class PlayerCharacter : BaseCharacter
     {
         public PlayerSettings playerSettings;
+        List<float> xpRequiredPerLevel;
+        float currentXp;
 
-        PlayerMovement playerMovement;
-        PlayerResourceManager playerResourceManager;
-        public PlayerAbilitiesHandler playerAbilitiesHandler;
 
-        public Inventory Inventory { get; private set; }
-
-        public override Vector3 Forward => playerMovement.transform.forward;
-        public override Vector3 Position => playerMovement.transform.position;
-
-        public override Transform Transform => playerMovement.transform;
-
-        readonly List<PlayerModule> modules = new();
-
-        public override void Start()
+        public PlayerCharacter(PlayerSettings playerSettings) : base()
         {
-            base.Start();
+            this.playerSettings = playerSettings;
+            faction = Faction.player;
+            Tags = playerSettings.Tags;
+            EventManager.AddListener("XP", OnXpGain);
+            xpRequiredPerLevel = playerSettings.XpRequiredPerLevel;
+            currentXp = 0;
 
-            playerMovement = new PlayerMovement();
-            modules.Add(playerMovement);
+        }
 
-            playerResourceManager = new PlayerResourceManager();
-            modules.Add(playerResourceManager);
-
-            PlayerLevelHandler playerLevelHandler = new PlayerLevelHandler();
-            modules.Add(playerLevelHandler);
-
-            Inventory = new Inventory(this, playerSettings.StartingItems);
-
-            playerAbilitiesHandler = new PlayerAbilitiesHandler();
-            modules.Add(playerAbilitiesHandler);
-
-            foreach (PlayerModule module in modules)
+        void OnXpGain(EventData data)
+        {
+            if (data is DefaultEventData eventData)
             {
-                module.Initialize(this);
+                if (eventData.data is float xp)
+                {
+                    currentXp += xp;
+                    var xpRequired = xpRequiredPerLevel[Level - 1];
+                    if (currentXp >= xpRequired)
+                    {
+                        currentXp -= xpRequired;
+                        LevelUp();
+                    }
+                }
             }
+        }
 
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        public void Respawn()
+        {
+            state = CharacterStates.active;
+            Health.CurrentValue = Health.MaxValue;
+        }
+
+        public override void Die()
+        {
+            base.Die();
+            PlayerManager.Instance.PlayerDead();
         }
 
         public virtual void LevelUp()
@@ -61,35 +62,8 @@ namespace EcologyRPG.Game.Player
 
         public override void Update()
         {
+            if (IsPaused) return;
             base.Update();
-            foreach (PlayerModule module in modules)
-            {
-                module.Update();
-            }
-        }
-
-        void FixedUpdate()
-        {
-            foreach (PlayerModule module in modules)
-            {
-                module.FixedUpdate();
-            }
-        }
-
-        void LateUpdate()
-        {
-            foreach (PlayerModule module in modules)
-            {
-                module.LateUpdate();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            foreach (PlayerModule module in modules)
-            {
-                module.OnDestroy();
-            }
         }
     }
 

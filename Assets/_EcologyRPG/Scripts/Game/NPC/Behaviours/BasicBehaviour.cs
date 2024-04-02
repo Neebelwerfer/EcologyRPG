@@ -38,25 +38,25 @@ namespace EcologyRPG.Game.NPC.Behaviours
             {
                 var agent = npc.Agent;
                 if (target == null) return;
-                if (Vector3.Distance(npc.transform.position, target.transform.position) > MaxLeashRange)
+                if (Vector3.Distance(npc.Transform.Position, target.Transform.Position) > MaxLeashRange)
                 {
                     npc.behaviour.ChangeState(npc, passiveState);
                     return;
                 }
-                agent.SetDestination(target.transform.position);
+                character.MoveTo(target.Transform.Position);
             });
 
             var Attack = new ActionNode((npc) =>
             {
                 if (attackAbility.state != AbilityStates.ready) return;
                 npc.Agent.ResetPath();
-                npc.transform.LookAt(target.transform);
-                attackAbility.Activate(new CastInfo { activationInput = null, castPos = npc.AbilityPoint.transform.position, owner = npc });
+                npc.Transform.LookAt(target.Transform.Position);
+                attackAbility.Activate(new CastInfo { activationInput = null, castPos = npc.CastPos, owner = npc });
             });
 
             var inAttackRange = new DecisionNode((npc) =>
             {
-                var dist = Vector3.Distance(npc.transform.position, target.transform.position);
+                var dist = Vector3.Distance(npc.Transform.Position, target.Transform.Position);
                 return dist < attackAbility.Ability.Range;
 
             }, Attack, Chase);
@@ -69,7 +69,8 @@ namespace EcologyRPG.Game.NPC.Behaviours
 
             var LeashRange = new DecisionNode((npc) =>
             {
-                var distToSpawn = Vector3.Distance(npc.transform.position, npc.GetSpawner().transform.position);
+                if(target.GameObject == null) return false;
+                var distToSpawn = Vector3.Distance(npc.Transform.Position, npc.GetSpawner().transform.position);
                 return !(distToSpawn > MaxLeashRange);
             }, inAttackRange, stopChase);
 
@@ -106,16 +107,17 @@ namespace EcologyRPG.Game.NPC.Behaviours
                 if (targetSearchTimer < targetSearchCooldown) return false;
                 targetSearchTimer = 0;
 
-                var col = Physics.OverlapSphere(npc.transform.position, AggroRange, targetMask);
+                var col = Physics.OverlapSphere(npc.Transform.Position, AggroRange, targetMask);
                 if (col.Length == 0) return false;
 
                 foreach (var c in col)
                 {
-                    if (c.TryGetComponent<BaseCharacter>(out var baseCharacter))
+                    if (c.TryGetComponent<CharacterBinding>(out var characterBinding))
                     {
+                        var baseCharacter = characterBinding.Character;
                         if (baseCharacter.Faction != Faction.player) continue;
                         if (Vector3.Distance(npc.GetSpawner().transform.position, c.transform.position) > MaxLeashRange) continue;
-                        target = c.GetComponent<BaseCharacter>();
+                        target = baseCharacter;
                         return true;
                     }
                 }

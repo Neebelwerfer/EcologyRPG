@@ -4,7 +4,7 @@ using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Implementations
+namespace EcologyRPG.Game.Abilities
 {
     public class CenteredExplosion : BaseAbility
     {
@@ -26,10 +26,6 @@ namespace EcologyRPG.Game.Abilities.Implementations
             }
 
             targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
-            Debug.Log("Casting explosion!");
-            Debug.Log("Targets: " + targets.Length);
-            Debug.Log("Target Mask: " + targetMask.value);
-            Debug.Log("Radius: " + Radius);
 
             if (targets != null && targets.Length > 0)
             {

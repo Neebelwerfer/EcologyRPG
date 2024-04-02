@@ -1,5 +1,6 @@
 using EcologyRPG.Core.Abilities.AbilityComponents;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -36,18 +37,6 @@ namespace EcologyRPG.Core.Abilities
         public DamageType type;
         public float damage;
         public BaseCharacter source;
-    }
-
-    public class AbilityCastEvent : EventData
-    {
-        public CastInfo Caster;
-        public AbilityDefintion Ability;
-
-        public AbilityCastEvent(CastInfo caster, AbilityDefintion ability)
-        {
-            Caster = caster;
-            Ability = ability;
-        }
     }
 
     public abstract class AbilityDefintion : ScriptableObject
@@ -87,16 +76,15 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
-        public virtual bool Activate(CastInfo caster)
+        public virtual bool Activate(CastInfo castInfo)
         {
-            if (!CanActivate(caster)) return false;
-            //Debug.Log("CASTING " + DisplayName);
-            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(caster, this));
-            caster.owner.StartCoroutine(HandleCast(caster));
+            if (!CanActivate(castInfo.owner)) return false;
+            EventManager.Defer("OnAbilityCast", new AbilityCastEvent(castInfo, this));
+            castInfo.owner.StartCoroutine(HandleCast(castInfo));
             return true;
         }   
 
-        public virtual bool CanActivate(CastInfo caster)
+        public virtual bool CanActivate(BaseCharacter caster)
         {
             if (state == AbilityStates.cooldown)
             {
@@ -109,6 +97,12 @@ namespace EcologyRPG.Core.Abilities
                 //Debug.Log("Ability already casting");
                 return false;
             }
+
+            if (caster.state != CharacterStates.active)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -129,7 +123,7 @@ namespace EcologyRPG.Core.Abilities
             {
                 state = AbilityStates.cooldown;
                 remainingCooldown = Cooldown;
-                AbilityManager.instance.RegisterAbilityOnCooldown(this);
+                AbilityManager.Instance.RegisterAbilityOnCooldown(this);
             } else
             {
                 state = AbilityStates.ready;
