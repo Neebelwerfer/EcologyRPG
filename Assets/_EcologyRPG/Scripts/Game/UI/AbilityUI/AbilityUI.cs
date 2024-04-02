@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.UI;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Abilities.AbilityData;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Core.UI;
+using EcologyRPG._Game.Player;
 using UnityEngine.InputSystem;
 using System;
 using TMPro;
 using System.Collections;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, ITooltip
     {
@@ -104,7 +104,7 @@ namespace EcologyRPG.Game.UI
         private void ActivateAbility(InputAction.CallbackContext context)
         {
             if (ability == null) return;
-            if (GameManager.Instance.CurrentState == Game_State.Playing)
+            if (Game.Instance.CurrentState == Game_State.Playing)
                 InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
         }
 

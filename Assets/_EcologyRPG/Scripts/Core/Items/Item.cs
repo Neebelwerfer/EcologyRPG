@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Core.Items
+namespace EcologyRPG._Core.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Items/Item")]
     public class Item : ScriptableObject, IEquatable<Item>

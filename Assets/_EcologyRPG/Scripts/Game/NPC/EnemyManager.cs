@@ -1,6 +1,6 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Core.Systems;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Core.Systems;
+using EcologyRPG._Game.Player;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,7 +10,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG._Game.NPC
 {
     class NPCData
     {

@@ -1,8 +1,8 @@
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Game.Player;
 using UnityEngine;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class UIAbilityHandler : MonoBehaviour
     {

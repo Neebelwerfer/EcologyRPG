@@ -1,9 +1,9 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Game.NPC;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Game.NPC;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class EnemyHealthBar : MonoBehaviour
     {

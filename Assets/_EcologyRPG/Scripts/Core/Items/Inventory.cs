@@ -1,9 +1,9 @@
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EcologyRPG.Core.Items
+namespace EcologyRPG._Core.Items
 {
     public class InventoryItem
     {

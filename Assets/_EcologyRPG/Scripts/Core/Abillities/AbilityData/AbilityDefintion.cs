@@ -1,13 +1,13 @@
-using EcologyRPG.Core.Abilities.AbilityComponents;
-using EcologyRPG.Core.Character;
-using EcologyRPG.Core.Events;
+using EcologyRPG._Core.Abilities.AbilityComponents;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Core.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Core.Abilities
+namespace EcologyRPG._Core.Abilities
 {
     public enum AbilityStates
     {

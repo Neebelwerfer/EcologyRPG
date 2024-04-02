@@ -1,8 +1,8 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Game.Player;
 using UnityEngine;
 
-namespace EcologyRPG.Core.Items
+namespace EcologyRPG._Core.Items
 {
     public class LootGenerator
     {

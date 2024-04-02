@@ -1,11 +1,11 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Game.Player;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     class StatBinding
     {

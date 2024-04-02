@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
-namespace EcologyRPG.Core.Character
+namespace EcologyRPG._Core.Character
 {
     [Serializable]
     public class SerializableStats

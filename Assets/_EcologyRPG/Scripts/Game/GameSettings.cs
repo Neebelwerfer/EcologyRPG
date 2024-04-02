@@ -1,7 +1,7 @@
-using EcologyRPG.Game.Player;
+using EcologyRPG._Game.Player;
 using UnityEngine;
 
-namespace EcologyRPG.Game
+namespace EcologyRPG._Game
 {
     public class GameSettings : ScriptableObject
     {

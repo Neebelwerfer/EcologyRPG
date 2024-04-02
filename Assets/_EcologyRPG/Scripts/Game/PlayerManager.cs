@@ -1,13 +1,13 @@
 using UnityEngine.Events;
 using UnityEngine;
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Character;
 using Cinemachine;
-using EcologyRPG.Core.Items;
-using EcologyRPG.Core.Systems;
+using EcologyRPG._Core.Items;
+using EcologyRPG._Core.Systems;
 using System;
 using Object = UnityEngine.Object;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG._Game.Player
 {
     public class PlayerManager : SystemBehavior, IUpdateSystem, IFixedUpdateSystem
     {
@@ -71,7 +71,7 @@ namespace EcologyRPG.Game.Player
 
         public void SpawnPlayer()
         {
-            var spawn = LevelManager.Instance.playerStartSpawnPoint;
+            var spawn = Level.Instance.playerStartSpawnPoint;
 
             if (spawn != null)
             {
@@ -101,7 +101,7 @@ namespace EcologyRPG.Game.Player
         {
             Transform closest = null;
             float distance = float.MaxValue;
-            foreach (var point in LevelManager.Instance.respawnPoints)
+            foreach (var point in Level.Instance.respawnPoints)
             {
                 var dist = Vector3.Distance(point.transform.position, playerCharacter.Transform.Position);
                 if (dist < distance)

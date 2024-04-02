@@ -1,8 +1,8 @@
 
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Character;
 using System.Collections.Generic;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG._Game.Player
 {
     public class PlayerCharacter : BaseCharacter
     {

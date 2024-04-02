@@ -1,13 +1,13 @@
-using EcologyRPG.Core.Items;
-using EcologyRPG.Core.UI;
+using EcologyRPG._Core.Items;
+using EcologyRPG._Core.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Game.Player;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class InventoryButton : Button, ITooltip
     {

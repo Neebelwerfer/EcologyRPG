@@ -1,8 +1,8 @@
-using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG._Core.Abilities.AbilityData;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG._Game.Player
 {
     [System.Serializable]
     public class PlayerAbilityData

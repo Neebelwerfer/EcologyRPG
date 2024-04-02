@@ -1,9 +1,9 @@
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Core.Character;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Conditions
+namespace EcologyRPG._Game.Abilities.Conditions
 {
     public class StatDown : DebuffCondition
     {

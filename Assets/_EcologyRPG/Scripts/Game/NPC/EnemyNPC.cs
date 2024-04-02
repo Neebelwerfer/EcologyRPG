@@ -1,11 +1,11 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Core.Items;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Core.Items;
 using UnityEngine.AI;
 using UnityEngine;
-using EcologyRPG.Core.Abilities;
+using EcologyRPG._Core.Abilities;
 using log4net;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG._Game.NPC
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyNPC : BaseCharacter

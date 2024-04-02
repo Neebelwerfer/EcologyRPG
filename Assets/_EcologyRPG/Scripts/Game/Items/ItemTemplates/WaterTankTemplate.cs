@@ -1,8 +1,8 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Core.Items;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Core.Items;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Items
+namespace EcologyRPG._Game.Items
 {
     [CreateAssetMenu(fileName = "New WaterTank template", menuName = "Items/Templates/WaterTank")]
     public class WaterTankTemplate : EquipableItemTemplate

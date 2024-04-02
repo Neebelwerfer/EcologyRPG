@@ -1,11 +1,11 @@
-using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Items;
+using EcologyRPG._Core.Abilities.AbilityData;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Core.Items;
 using System;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG._Game.Player
 {
     public enum AbilitySlots
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG.Core.Abilities
+namespace EcologyRPG._Core.Abilities
 {
     public abstract class WeaponAttack : AttackAbility
     {

@@ -1,7 +1,7 @@
-using EcologyRPG.Core.Abilities;
+using EcologyRPG._Core.Abilities;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities
+namespace EcologyRPG._Game.Abilities
 {
     public class LoppedProjectile : AttackAbility
     {
