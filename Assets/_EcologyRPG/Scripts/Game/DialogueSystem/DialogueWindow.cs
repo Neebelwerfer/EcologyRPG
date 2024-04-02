@@ -7,9 +7,7 @@ namespace EcologyRPG.Game.Dialogue
 {
     public class DialogueWindow : MonoBehaviour
     {
-        //testing
-        [SerializeField] private DialoguePathLine testPath;
-        [SerializeField] private DialogueChoices testChoices;
+
         [SerializeField] private PlayerUIHandler playerUIHandler;
         [SerializeField] private DialoguePathLine currentPath;
         [SerializeField] private DialogueChoices currentChoices;
@@ -48,7 +46,6 @@ namespace EcologyRPG.Game.Dialogue
         {
 
         }
-
         public void Open(DialoguePathLine pathToPlay)
         {
             playerUIHandler.ToggleUI(false);
