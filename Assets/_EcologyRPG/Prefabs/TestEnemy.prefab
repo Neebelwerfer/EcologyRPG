@@ -127,6 +127,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CastingPoint: {fileID: 1434802821726953085}
+  CharacterUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!33 &674008287614049097
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -604,7 +616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7210289116579105411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8a64a53681d73d468526dff52001a0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 56c9bbebb21a9224585463f71192bd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7571843208485181708

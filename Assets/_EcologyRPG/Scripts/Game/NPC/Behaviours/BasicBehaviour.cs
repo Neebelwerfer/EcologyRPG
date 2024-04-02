@@ -48,9 +48,10 @@ namespace EcologyRPG.Game.NPC.Behaviours
 
             var Attack = new ActionNode((npc) =>
             {
-                if (attackAbility.state != AbilityStates.ready) return;
                 npc.Agent.ResetPath();
+                if (attackAbility.state != AbilityStates.ready) return;
                 npc.Transform.LookAt(target.Transform.Position);
+                npc.Animator.SetTrigger("Attack");
                 attackAbility.Activate(new CastInfo { activationInput = null, castPos = npc.CastPos, owner = npc });
             });
 
