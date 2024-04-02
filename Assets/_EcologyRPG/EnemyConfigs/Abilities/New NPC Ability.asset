@@ -38,13 +38,14 @@ MonoBehaviour:
   m_Name: New NPC Ability
   m_EditorClassIdentifier: 
   DisplayName: 
-  Cooldown: 1
+  Cooldown: 2
   CastWindupTime: 0
   Icon: {fileID: 0}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  AnimationTrigger: Attack
   Ability: {fileID: -6761183876930618398}
 --- !u!114 &2165584115140826151
 MonoBehaviour:
@@ -58,6 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 10
+  BaseDamage: 15
   DamageType: 0
   AllowVariance: 1
