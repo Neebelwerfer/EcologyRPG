@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG._Core.Character
+namespace EcologyRPG.Core.Character
 {
     public enum StatType
     {

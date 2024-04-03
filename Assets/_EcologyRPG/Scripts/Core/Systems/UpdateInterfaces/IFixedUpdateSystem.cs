@@ -1,4 +1,4 @@
-namespace EcologyRPG._Core.Systems
+namespace EcologyRPG.Core.Systems
 {
     public interface IFixedUpdateSystem : ISystem
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace EcologyRPG._Core.Systems
+namespace EcologyRPG.Core.Systems
 {
     public abstract class SystemBehavior : IDisposable
     {

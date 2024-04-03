@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-namespace EcologyRPG._Core.Character
+namespace EcologyRPG.Core.Character
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody))]

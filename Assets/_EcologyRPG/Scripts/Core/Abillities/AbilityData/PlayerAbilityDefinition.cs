@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using System.Collections;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities.AbilityData
+namespace EcologyRPG.Core.Abilities.AbilityData
 {
     [CreateAssetMenu(fileName = "new Player ability data", menuName = "Ability/Player Ability Data")]
     public class PlayerAbilityDefinition : AttackAbilityDefinition

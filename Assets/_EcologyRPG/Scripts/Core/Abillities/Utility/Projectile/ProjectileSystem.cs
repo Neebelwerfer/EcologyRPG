@@ -1,7 +1,7 @@
-using EcologyRPG._Core.Systems;
+using EcologyRPG.Core.Systems;
 using System.Collections.Generic;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public class ProjectileSystem : SystemBehavior, IFixedUpdateSystem
     {

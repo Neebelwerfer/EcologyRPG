@@ -1,22 +1,27 @@
-using EcologyRPG._Core.Systems;
+using EcologyRPG.Core.Systems;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public class AbilityManager : SystemBehavior, IUpdateSystem, IDisposable
     {
         public static AbilityManager Instance;
 
-        public List<AbilityDefintion> CooldownAbilities = new List<AbilityDefintion>();
+        List<AbilityDefintion> CooldownAbilities;
 
         public bool Enabled => CooldownAbilities.Count > 0;
 
         public static void Init()
         {
             Instance = new();
+        }
+
+        public AbilityManager()
+        {
+            CooldownAbilities = new List<AbilityDefintion>();
         }
 
         public void OnUpdate()

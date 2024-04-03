@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace EcologyRPG._Core.UI
+namespace EcologyRPG.Core.UI
 {
     public interface ITooltip
     {

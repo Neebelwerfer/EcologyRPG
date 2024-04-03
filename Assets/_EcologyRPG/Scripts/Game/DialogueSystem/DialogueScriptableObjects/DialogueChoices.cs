@@ -2,7 +2,7 @@ using EcologyRPG.Utility.Interactions;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Game.Dialogue
+namespace EcologyRPG.GameSystems.Dialogue
 {
     [CreateAssetMenu(fileName = "New Dialogue", menuName = "New Dialogue Choices")]
     public class DialogueChoices : Interaction

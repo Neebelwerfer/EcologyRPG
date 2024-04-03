@@ -1,11 +1,11 @@
-using EcologyRPG._Core.Abilities.AbilityData;
-using EcologyRPG._Core.Items;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.Core.Items;
 using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG._Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Player/PlayerSettings")]
     public class PlayerSettings : ScriptableObject

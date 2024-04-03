@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Character;
-using EcologyRPG._Core.Items;
+using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Items;
 using UnityEngine;
 
-namespace EcologyRPG._Game.Items
+namespace EcologyRPG.GameSystems.Items
 {
 
     [CreateAssetMenu(fileName = "New Armour template", menuName = "Items/Templates/Armour")]

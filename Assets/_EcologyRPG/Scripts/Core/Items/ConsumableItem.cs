@@ -1,7 +1,7 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Items
+namespace EcologyRPG.Core.Items
 {
     public class ConsumableItem : Item
     {

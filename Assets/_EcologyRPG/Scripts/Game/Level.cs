@@ -1,12 +1,12 @@
-using EcologyRPG._Core;
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Game.NPC;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.GameSystems.NPC;
+using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace EcologyRPG._Game
+namespace EcologyRPG.GameSystems
 {
     public class Level : MonoBehaviour
     {
@@ -51,7 +51,7 @@ namespace EcologyRPG._Game
             AbilityManager.Init();
             ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-            PlayerManager.Instance.SpawnPlayer();
+            Player.Instance.SpawnPlayer();
             Game.Instance.CurrentState = Game_State.Playing;
             if (day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
         }

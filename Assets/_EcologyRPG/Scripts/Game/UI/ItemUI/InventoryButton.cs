@@ -1,13 +1,13 @@
-using EcologyRPG._Core.Items;
-using EcologyRPG._Core.UI;
+using EcologyRPG.Core.Items;
+using EcologyRPG.Core.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using EcologyRPG._Game.Player;
+using EcologyRPG.GameSystems.PlayerSystems;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class InventoryButton : Button, ITooltip
     {
@@ -28,7 +28,7 @@ namespace EcologyRPG._Game.UI
             this.item = item;
             text.text = item.amount + "x ";
             Image.sprite = item.item.Icon;
-            inventory = PlayerManager.PlayerInventory;
+            inventory = Player.PlayerInventory;
         }
 
         public override void OnPointerEnter(PointerEventData eventData)

@@ -1,6 +1,6 @@
-﻿using EcologyRPG._Core.Abilities;
+﻿using EcologyRPG.Core.Abilities;
 
-namespace EcologyRPG._Core.Events
+namespace EcologyRPG.Core.Events
 {
     public class AbilityCastEvent : EventData
     {

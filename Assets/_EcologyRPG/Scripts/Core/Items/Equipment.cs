@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EcologyRPG._Core.Items
+namespace EcologyRPG.Core.Items
 {
     public class Equipment
     {

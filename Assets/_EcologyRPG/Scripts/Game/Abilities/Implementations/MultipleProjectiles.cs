@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
-namespace EcologyRPG._Game.Abilities
+namespace EcologyRPG.GameSystems.Abilities
 {
     public class MultipleProjectiles : ProjectileAbility
     {

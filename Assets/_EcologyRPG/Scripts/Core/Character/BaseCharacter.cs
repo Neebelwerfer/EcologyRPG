@@ -1,5 +1,5 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Events;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Events;
 using EcologyRPG.Utility;
 using System;
 using System.Collections;
@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = Unity.Mathematics.Random;
 
-namespace EcologyRPG._Core.Character
+namespace EcologyRPG.Core.Character
 {
     public enum CharacterStates
     {

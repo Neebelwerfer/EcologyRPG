@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Items
+namespace EcologyRPG.Core.Items
 {
     [System.Serializable]
     public class Loot

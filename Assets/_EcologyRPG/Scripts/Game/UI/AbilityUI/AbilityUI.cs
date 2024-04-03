@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using EcologyRPG._Core.Abilities.AbilityData;
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.UI;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.UI;
+using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine.InputSystem;
 using System;
 using TMPro;
 using System.Collections;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class AbilityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, ITooltip
     {
@@ -32,9 +32,9 @@ namespace EcologyRPG._Game.UI
         void Start()
         {
             abilityImage.fillAmount = 1;
-            player = PlayerManager.PlayerCharacter;
-            PlayerManager.PlayerAbilities.AddListener(abilitySlot, SetAbility);
-            ability = (PlayerAbilityDefinition)PlayerManager.PlayerAbilities.GetAbility(abilitySlot);
+            player = Player.PlayerCharacter;
+            Player.PlayerAbilities.AddListener(abilitySlot, SetAbility);
+            ability = (PlayerAbilityDefinition)Player.PlayerAbilities.GetAbility(abilitySlot);
             abilityAction.action.started += ActivateAbility;
             abilityAction.action.canceled += StoppedAction;
             SetUpAbilityUI();

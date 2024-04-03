@@ -1,6 +1,6 @@
-﻿using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Abilities.AbilityData;
-using EcologyRPG._Game.Abilities;
+﻿using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.GameSystems.Abilities;
 using UnityEditor;
 using UnityEngine;
 

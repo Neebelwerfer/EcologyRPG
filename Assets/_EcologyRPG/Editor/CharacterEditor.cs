@@ -1,4 +1,4 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using System;
 using System.Collections.Generic;
 using System.IO;

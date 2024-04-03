@@ -1,9 +1,9 @@
-using EcologyRPG._Core;
+using EcologyRPG.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Game.NPC
+namespace EcologyRPG.GameSystems.NPC
 {
     public class NPCGameObjectPool : IDisposable
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public abstract class ProjectileBehaviour
     {

@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public class UniqueStatModificationHandler
     {
