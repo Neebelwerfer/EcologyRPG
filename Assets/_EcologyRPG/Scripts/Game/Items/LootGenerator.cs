@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Character;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core.Character;
+using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Items
+namespace EcologyRPG.Core.Items
 {
     public class LootGenerator
     {
@@ -22,7 +22,7 @@ namespace EcologyRPG._Core.Items
         private LootGenerator()
         {
             lootDatabase = Resources.Load<LootDatabase>("Config/Loot Database");
-            Player = PlayerManager.PlayerCharacter;
+            Player = GameSystems.Player.PlayerCharacter;
         }
 
         public void GenerateLootOnKill(BaseCharacter deadNPC)

@@ -1,8 +1,8 @@
 
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 
-namespace EcologyRPG._Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     public class PlayerCharacter : BaseCharacter
     {
@@ -48,7 +48,7 @@ namespace EcologyRPG._Game.Player
         public override void Die()
         {
             base.Die();
-            PlayerManager.Instance.PlayerDead();
+            Player.Instance.PlayerDead();
         }
 
         public virtual void LevelUp()

@@ -1,8 +1,8 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class UIAbilityHandler : MonoBehaviour
     {
@@ -25,7 +25,7 @@ namespace EcologyRPG._Game.UI
         private void Start()
         {
 
-            player = PlayerManager.PlayerCharacter;
+            player = Player.PlayerCharacter;
             AbilitySelectionUI.Instance.Setup(abilitySelectionUI);
             
         }

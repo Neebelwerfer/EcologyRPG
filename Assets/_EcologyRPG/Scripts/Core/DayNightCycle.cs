@@ -1,9 +1,9 @@
-using EcologyRPG._Core.Systems;
+using EcologyRPG.Core.Systems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Core
+namespace EcologyRPG.Core
 {
     public class DayNightCycle : SystemBehavior, IUpdateSystem
     {

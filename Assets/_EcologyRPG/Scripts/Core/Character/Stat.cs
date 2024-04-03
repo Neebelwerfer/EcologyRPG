@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EcologyRPG._Core.Character
+namespace EcologyRPG.Core.Character
 {
     public enum StatModType
     {

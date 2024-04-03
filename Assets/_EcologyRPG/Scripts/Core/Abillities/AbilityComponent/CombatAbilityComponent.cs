@@ -1,5 +1,5 @@
 
-namespace EcologyRPG._Core.Abilities.AbilityComponents
+namespace EcologyRPG.Core.Abilities.AbilityComponents
 {
     public abstract class CombatAbilityComponent : AbilityComponent
     {

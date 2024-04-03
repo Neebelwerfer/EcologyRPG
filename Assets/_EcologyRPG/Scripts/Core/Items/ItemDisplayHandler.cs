@@ -2,7 +2,7 @@ using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Items
+namespace EcologyRPG.Core.Items
 {
     public class ItemDisplayHandler : MonoBehaviour
     {

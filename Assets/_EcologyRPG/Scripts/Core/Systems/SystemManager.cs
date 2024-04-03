@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Systems
+namespace EcologyRPG.Core.Systems
 {
     public class SystemManager : IDisposable
     {

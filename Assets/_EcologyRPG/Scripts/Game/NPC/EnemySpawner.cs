@@ -1,7 +1,7 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
-namespace EcologyRPG._Game.NPC
+namespace EcologyRPG.GameSystems.NPC
 {
     [RequireComponent(typeof(SphereCollider))]
     public class EnemySpawner : MonoBehaviour

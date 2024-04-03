@@ -1,11 +1,11 @@
-using EcologyRPG._Core.Character;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core.Character;
+using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     class StatBinding
     {
@@ -88,7 +88,7 @@ namespace EcologyRPG._Game.UI
 
         private void Awake()
         {
-            player = PlayerManager.PlayerCharacter;
+            player = Player.PlayerCharacter;
             StatBindings = new List<StatBinding>();
             AttributeBindings = new List<AttributeBinding>();
 

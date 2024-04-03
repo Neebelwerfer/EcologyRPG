@@ -1,7 +1,7 @@
-﻿using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Character;
+﻿using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
 
-namespace EcologyRPG._Game.Abilities.Conditions
+namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
     public class SprintCondition : BuffCondition
     {

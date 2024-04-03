@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace EcologyRPG._Core.UI
+namespace EcologyRPG.Core.UI
 {
     public class DamageText : MonoBehaviour
     {

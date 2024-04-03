@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace EcologyRPG._Game.NPC
+namespace EcologyRPG.GameSystems.NPC
 {
     public abstract class NPCBehaviour : ScriptableObject
     {

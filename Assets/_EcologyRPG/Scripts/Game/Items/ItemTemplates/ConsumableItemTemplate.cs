@@ -1,6 +1,6 @@
-using EcologyRPG._Core.Items;
+using EcologyRPG.Core.Items;
 
-namespace EcologyRPG._Game.Items
+namespace EcologyRPG.GameSystems.Items
 { 
     public abstract class ConsumableItemTemplate : ItemTemplate
     {

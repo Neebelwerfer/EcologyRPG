@@ -1,9 +1,9 @@
-using EcologyRPG._Core;
-using EcologyRPG._Core.Systems;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core;
+using EcologyRPG.Core.Systems;
+using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
 
-namespace EcologyRPG._Game
+namespace EcologyRPG.GameSystems
 {
     public enum Game_State
     {
@@ -42,7 +42,7 @@ namespace EcologyRPG._Game
             Settings = Resources.Load<GameSettings>("Config/GameSettings");
             TaskManager.Init();
             SystemManager.Init();
-            PlayerManager.Init(Settings.playerSettings);
+            Player.Init(Settings.playerSettings);
             Flags = new Flags();
         }
 
@@ -90,7 +90,7 @@ namespace EcologyRPG._Game
             {
                 Instance = null;
                 SystemManager.Instance.Dispose();
-                PlayerManager.Instance.Dispose();
+                Player.Instance.Dispose();
                 TaskManager.Instance.Dispose();
             }            
         }

@@ -1,9 +1,9 @@
-using EcologyRPG._Core.Abilities.AbilityComponents;
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Abilities.AbilityComponents;
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public abstract class BaseAbility : ScriptableObject
     {

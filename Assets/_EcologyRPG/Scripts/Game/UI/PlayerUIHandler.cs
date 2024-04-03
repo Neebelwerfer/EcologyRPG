@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class PlayerUIHandler : MonoBehaviour
     {

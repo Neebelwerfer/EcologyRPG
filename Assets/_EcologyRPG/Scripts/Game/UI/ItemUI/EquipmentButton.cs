@@ -1,13 +1,13 @@
-using EcologyRPG._Core.UI;
+using EcologyRPG.Core.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using EcologyRPG._Core.Items;
+using EcologyRPG.Core.Items;
 using System.Collections;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class EquipmentButton : Button, ITooltip
     {

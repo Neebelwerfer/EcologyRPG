@@ -1,8 +1,8 @@
-﻿using EcologyRPG._Core.Character;
+﻿using EcologyRPG.Core.Character;
 using System;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public class BasicProjectileBehaviour : ProjectileBehaviour
     {

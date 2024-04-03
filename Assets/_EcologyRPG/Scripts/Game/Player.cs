@@ -1,17 +1,17 @@
 using UnityEngine.Events;
 using UnityEngine;
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using Cinemachine;
-using EcologyRPG._Core.Items;
-using EcologyRPG._Core.Systems;
-using System;
+using EcologyRPG.Core.Items;
+using EcologyRPG.Core.Systems;
+using EcologyRPG.GameSystems.PlayerSystems;
 using Object = UnityEngine.Object;
 
-namespace EcologyRPG._Game.Player
+namespace EcologyRPG.GameSystems
 {
-    public class PlayerManager : SystemBehavior, IUpdateSystem, IFixedUpdateSystem
+    public class Player : SystemBehavior, IUpdateSystem, IFixedUpdateSystem
     {
-        public static PlayerManager Instance;
+        public static Player Instance;
 
         public GameObject PlayerPrefab;
         public GameObject PlayerCameraPrefab;
@@ -37,7 +37,7 @@ namespace EcologyRPG._Game.Player
 
         bool isPlayerSpawned = false;
 
-        PlayerManager(PlayerSettings playerSettings)
+        Player(PlayerSettings playerSettings)
         {
             PlayerPrefab = playerSettings.PlayerModel;
             PlayerCameraPrefab = playerSettings.Camera;
@@ -49,9 +49,9 @@ namespace EcologyRPG._Game.Player
             playerMovement = new PlayerMovement(playerCharacter);
         }
 
-        public static PlayerManager Init(PlayerSettings playerSettings)
+        public static Player Init(PlayerSettings playerSettings)
         {
-            Instance = new PlayerManager(playerSettings);
+            Instance = new Player(playerSettings);
             return Instance;
         }
 

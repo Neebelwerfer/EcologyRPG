@@ -1,9 +1,9 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG._Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     public class PlayerMovement
     {

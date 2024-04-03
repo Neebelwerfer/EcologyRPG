@@ -1,14 +1,14 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Abilities.AbilityData;
-using EcologyRPG._Core.Character;
-using EcologyRPG._Core.Items;
-using EcologyRPG._Game.Abilities;
-using EcologyRPG._Game.Abilities.Components;
-using EcologyRPG._Game.Items;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Items;
+using EcologyRPG.GameSystems.Abilities;
+using EcologyRPG.GameSystems.Abilities.Components;
+using EcologyRPG.GameSystems.Items;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG._Game.Items
+namespace EcologyRPG.GameSystems.Items
 {
     [CreateAssetMenu(fileName = "New Weapon template", menuName = "Items/Templates/Weapon")]
     public class WeaponTemplate : EquipableItemTemplate

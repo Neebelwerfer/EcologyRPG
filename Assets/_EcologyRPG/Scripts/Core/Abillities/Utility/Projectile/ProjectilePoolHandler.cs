@@ -2,7 +2,7 @@ using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     public class ProjectilePoolHandler
     {

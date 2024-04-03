@@ -1,9 +1,9 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
 using UnityEngine;
 
-namespace EcologyRPG._Game.NPC.Behaviours
+namespace EcologyRPG.GameSystems.NPC.Behaviours
 {
     [CreateAssetMenu(fileName = "Basic Behaviour", menuName = "NPC/Behaviours/BasicBehaviour")]
     public class BasicBehaviour : NPCBehaviour

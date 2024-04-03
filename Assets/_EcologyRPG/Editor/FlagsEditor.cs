@@ -1,5 +1,5 @@
-using EcologyRPG._Core;
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core;
+using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.UI.DefaultControls;
 
 [Serializable]
 class SerializableFlags

@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EcologyRPG._Core
+namespace EcologyRPG.Core
 {
     public class Flags
     {

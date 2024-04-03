@@ -1,10 +1,10 @@
-using EcologyRPG._Core;
-using EcologyRPG._Core.Abilities.AbilityData;
-using EcologyRPG._Game.Player;
+using EcologyRPG.Core;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class AbilitySelectionUI
     {
@@ -28,7 +28,7 @@ namespace EcologyRPG._Game.UI
 
         private void AssignAbility(PlayerAbilityDefinition ability)
         {
-            var abilityHandler = PlayerManager.PlayerAbilities;
+            var abilityHandler = Player.PlayerAbilities;
             if (abilityHandler.GotAbility(ability, out var slot))
             {
                 if (slot.HasValue)
@@ -49,7 +49,7 @@ namespace EcologyRPG._Game.UI
         {
             this.abilitySelectionUI = abilitySelectionUI;
             abilitySelectionUI.SetActive(false);
-            player = PlayerManager.PlayerCharacter;
+            player = Player.PlayerCharacter;
             abilityLookup = Resources.Load<PlayerAbilitiesDatabase>("PlayerAbilities");
             buttonPrefab = Resources.Load<GameObject>("UI/AbilityRef");
 

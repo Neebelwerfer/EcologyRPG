@@ -1,9 +1,9 @@
-﻿using EcologyRPG._Core.Character;
+﻿using EcologyRPG.Core.Character;
 using log4net.Util;
 using System;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities
+namespace EcologyRPG.Core.Abilities
 {
     [RequireComponent(typeof(Collider))]
     public class CurvedProjectileBehaviour : ProjectileBehaviour

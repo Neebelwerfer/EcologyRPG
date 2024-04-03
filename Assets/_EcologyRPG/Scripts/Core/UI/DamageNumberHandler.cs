@@ -1,10 +1,10 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Core.Events;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Events;
 using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG._Core.UI
+namespace EcologyRPG.Core.UI
 {
     public class DamageNumberHandler : MonoBehaviour
     {

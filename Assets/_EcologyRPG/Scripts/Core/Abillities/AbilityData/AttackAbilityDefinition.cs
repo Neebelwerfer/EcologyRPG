@@ -1,7 +1,7 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
-namespace EcologyRPG._Core.Abilities.AbilityData
+namespace EcologyRPG.Core.Abilities.AbilityData
 {
     public class AttackAbilityDefinition : AbilityDefintion
     {

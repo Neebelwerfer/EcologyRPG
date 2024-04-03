@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using EcologyRPG._Game.UI;
+using EcologyRPG.GameSystems.UI;
 
-namespace EcologyRPG._Game.Dialogue
+namespace EcologyRPG.GameSystems.Dialogue
 {
     public class DialogueWindow : MonoBehaviour
     {

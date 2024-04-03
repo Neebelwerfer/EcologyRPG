@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EcologyRPG._Core.Character
+namespace EcologyRPG.Core.Character
 {
     public class CharacterManager
     {

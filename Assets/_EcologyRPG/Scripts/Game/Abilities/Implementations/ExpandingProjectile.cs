@@ -1,7 +1,7 @@
-using EcologyRPG._Core.Abilities;
+using EcologyRPG.Core.Abilities;
 using UnityEngine;
 
-namespace EcologyRPG._Game.Abilities
+namespace EcologyRPG.GameSystems.Abilities
 {
     public class ExpandingProjectile : ProjectileAbility
     {

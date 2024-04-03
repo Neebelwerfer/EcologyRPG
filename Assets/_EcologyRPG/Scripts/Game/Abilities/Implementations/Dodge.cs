@@ -1,9 +1,9 @@
-using EcologyRPG._Core.Abilities;
-using EcologyRPG._Game.Abilities.Conditions;
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.GameSystems.Abilities.Conditions;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG._Game.Abilities
+namespace EcologyRPG.GameSystems.Abilities
 {
     public enum DirectionMode
     {

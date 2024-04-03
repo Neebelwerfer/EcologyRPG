@@ -1,10 +1,10 @@
-using EcologyRPG._Core.Abilities.AbilityData;
-using EcologyRPG._Core.UI;
+using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.Core.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EcologyRPG._Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class AbilityButton : Button, ITooltip
     {

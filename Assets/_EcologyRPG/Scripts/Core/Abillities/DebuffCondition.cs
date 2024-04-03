@@ -1,4 +1,4 @@
-using EcologyRPG._Core.Character;
+using EcologyRPG.Core.Character;
 
 public abstract class DebuffCondition : Condition
 {
