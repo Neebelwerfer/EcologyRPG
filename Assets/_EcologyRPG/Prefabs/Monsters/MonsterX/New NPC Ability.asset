@@ -39,7 +39,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: 
   Cooldown: 2
-  CastWindupTime: 0
+  CastWindupTime: 0.4
   Icon: {fileID: 0}
   BuffsOnCast: []
   remainingCooldown: 0
