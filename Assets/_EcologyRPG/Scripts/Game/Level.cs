@@ -62,8 +62,11 @@ namespace EcologyRPG.GameSystems
             ProjectileSystem.Instance.Dispose();
             AbilityManager.Instance.Dispose();
             EnemyManager.Instance.Dispose();
-            dayNightCycle.Dispose();
-            dayNightCycle = null;
+            if(dayNightCycle != null)
+            {
+                dayNightCycle.Dispose();
+                dayNightCycle = null;
+            }
             SceneManager.UnloadSceneAsync(1);
         }
     }

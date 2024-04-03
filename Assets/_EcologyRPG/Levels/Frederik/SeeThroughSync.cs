@@ -67,6 +67,7 @@ public class SeeThroughSync : MonoBehaviour
             {
                 var hit = hits[i];
                 if (hit.collider == null) continue;
+                if (hit.collider.isTrigger) continue;
                 if (!_MaterialsByName.ContainsKey(hit.collider) && hit.collider.gameObject.TryGetComponent<MeshRenderer>(out var meshRenderer))
                 {
                     Material mat = meshRenderer.material;
