@@ -809,6 +809,7 @@ GameObject:
   - component: {fileID: 2543650304166867409}
   - component: {fileID: 5662182030027922909}
   - component: {fileID: 4873096029965989401}
+  - component: {fileID: -6363229781415507538}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -845,6 +846,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CastingPoint: {fileID: 7257246030445037246}
+  CharacterUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionStayEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &6162241161689435313
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -934,6 +947,22 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!208 &-6363229781415507538
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3988276762825930337}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4068651742856474646
 GameObject:
   m_ObjectHideFlags: 0

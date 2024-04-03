@@ -4,7 +4,7 @@ using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG.Core.UI
 {
     public class DamageNumberHandler : MonoBehaviour
     {
