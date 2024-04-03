@@ -12,4 +12,3 @@ namespace EcologyRPG.Game.Dialogue
         public DialoguePathLine ChoicePath => choicePath;
     }
 }
-
