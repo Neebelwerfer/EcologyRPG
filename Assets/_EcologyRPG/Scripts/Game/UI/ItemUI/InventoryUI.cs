@@ -1,11 +1,11 @@
-using EcologyRPG.Core.Items;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Items;
+using EcologyRPG._Game.Player;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     struct BindedButton
     {

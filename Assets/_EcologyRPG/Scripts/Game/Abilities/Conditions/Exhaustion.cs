@@ -1,8 +1,8 @@
-﻿using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Character;
+﻿using EcologyRPG._Core.Abilities;
+using EcologyRPG._Core.Character;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Game.Abilities.Conditions
+namespace EcologyRPG._Game.Abilities.Conditions
 {
     public class Exhaustion : DebuffCondition
     {

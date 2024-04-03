@@ -1,9 +1,9 @@
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Game.Player;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class IngameUIManager : MonoBehaviour
     {
@@ -71,14 +71,14 @@ namespace EcologyRPG.Game.UI
             {
                 IngameMenu.SetActive(false);
                 playerUI.SetActive(true);
-                GameManager.Instance.Resume();
+                Game.Instance.Resume();
             }
             else
             {
                 IngameMenu.SetActive(true);
                 playerUI.SetActive(false);
                 characterSheetUI.SetActive(false);
-                GameManager.Instance.Pause();
+                Game.Instance.Pause();
             }
         }
 

@@ -1,5 +1,5 @@
-using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Abilities.AbilityData;
+using EcologyRPG._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;

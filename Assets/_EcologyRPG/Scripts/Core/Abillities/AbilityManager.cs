@@ -1,10 +1,10 @@
-using EcologyRPG.Core.Systems;
+using EcologyRPG._Core.Systems;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Core.Abilities
+namespace EcologyRPG._Core.Abilities
 {
     public class AbilityManager : SystemBehavior, IUpdateSystem, IDisposable
     {

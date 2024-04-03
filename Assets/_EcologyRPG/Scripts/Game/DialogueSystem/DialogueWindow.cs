@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using EcologyRPG.Game.UI;
+using EcologyRPG._Game.UI;
 
-namespace EcologyRPG.Game.Dialogue
+namespace EcologyRPG._Game.Dialogue
 {
     public class DialogueWindow : MonoBehaviour
     {
@@ -52,7 +52,7 @@ namespace EcologyRPG.Game.Dialogue
         public void Open(DialoguePathLine pathToPlay)
         {
             playerUIHandler.ToggleUI(false);
-            GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
+            Game.Instance.CurrentState = Game_State.DialoguePlaying;
             ActivateForDialoguePath();
             currentPath = pathToPlay;
             currentPathDialogueIndex = 0;
@@ -64,7 +64,7 @@ namespace EcologyRPG.Game.Dialogue
         {
             currentChoices = choices;
             playerUIHandler.ToggleUI(false);
-            GameManager.Instance.CurrentState = Game_State.DialogueChoices;
+            Game.Instance.CurrentState = Game_State.DialogueChoices;
             ActivateForDialogueChoices();
             DisplayChoices(currentChoices);
 
@@ -73,7 +73,7 @@ namespace EcologyRPG.Game.Dialogue
 
         public void TransistionToDialoguePlay(DialoguePathLine pathToPlay)
         {
-            GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
+            Game.Instance.CurrentState = Game_State.DialoguePlaying;
             ChoicesDialogue = true;
             DeactivateForDialogueChoices();
             ActivateForDialoguePath();
@@ -83,7 +83,7 @@ namespace EcologyRPG.Game.Dialogue
         }
         public void TransistionToDialogueChoices(DialogueChoices choices)
         {
-            GameManager.Instance.CurrentState = Game_State.DialogueChoices;
+            Game.Instance.CurrentState = Game_State.DialogueChoices;
             ChoicesDialogue = false;
             DeactivateForDialoguePath();
             ActivateForDialogueChoices();
@@ -114,14 +114,14 @@ namespace EcologyRPG.Game.Dialogue
             DeactivateForDialoguePath();
             DeactivateForDialogueChoices();
 
-            GameManager.Instance.CurrentState = Game_State.Menu;
+            Game.Instance.CurrentState = Game_State.Menu;
             playerUIHandler.ToggleUI(true);
 
             animator.SetBool(dialogueOpenParameter, false);
         }
         private void Next()
         {
-            if (GameManager.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
+            if (Game.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
             {
                 currentPathDialogueIndex++;
                 if (currentPathDialogueIndex < currentPath.Dialogues.Count)

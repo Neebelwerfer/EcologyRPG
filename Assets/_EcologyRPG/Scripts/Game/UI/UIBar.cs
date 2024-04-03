@@ -1,11 +1,11 @@
-using EcologyRPG.Core.Character;
-using EcologyRPG.Core.UI;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core.Character;
+using EcologyRPG._Core.UI;
+using EcologyRPG._Game.Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ITooltip
     {

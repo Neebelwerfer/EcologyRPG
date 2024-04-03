@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EcologyRPG.Core.Character
+namespace EcologyRPG._Core.Character
 {
     public class AttributeModification
     {

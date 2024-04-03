@@ -1,17 +1,16 @@
-using EcologyRPG.Core;
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.NPC;
-using EcologyRPG.Game.Player;
-using System.Collections.Generic;
+using EcologyRPG._Core;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Game.NPC;
+using EcologyRPG._Game.Player;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace EcologyRPG.Game
+namespace EcologyRPG._Game
 {
-    public class LevelManager : MonoBehaviour
+    public class Level : MonoBehaviour
     {
-        public static LevelManager Instance;
+        public static Level Instance;
 
         [Header("Spawn Points")]
         public Transform playerStartSpawnPoint;
@@ -53,7 +52,7 @@ namespace EcologyRPG.Game
             ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
             PlayerManager.Instance.SpawnPlayer();
-            GameManager.Instance.CurrentState = Game_State.Playing;
+            Game.Instance.CurrentState = Game_State.Playing;
             if (day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
         }
 

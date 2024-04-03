@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Core
+namespace EcologyRPG._Core
 {
     class Task : IComparable<Task>
     {

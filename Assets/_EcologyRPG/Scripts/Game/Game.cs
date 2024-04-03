@@ -1,9 +1,9 @@
-using EcologyRPG.Core;
-using EcologyRPG.Core.Systems;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core;
+using EcologyRPG._Core.Systems;
+using EcologyRPG._Game.Player;
 using UnityEngine;
 
-namespace EcologyRPG.Game
+namespace EcologyRPG._Game
 {
     public enum Game_State
     {
@@ -15,11 +15,11 @@ namespace EcologyRPG.Game
     }
 
     [DefaultExecutionOrder(-1000)]
-    public class GameManager : MonoBehaviour
+    public class Game : MonoBehaviour
     {
-        public static GameManager Instance;
+        public static Game Instance;
         public static GameSettings Settings;
-
+        public static Flags Flags;
 
         public Game_State CurrentState = Game_State.Menu;
 
@@ -43,7 +43,7 @@ namespace EcologyRPG.Game
             TaskManager.Init();
             SystemManager.Init();
             PlayerManager.Init(Settings.playerSettings);
-            Flags.Init();
+            Flags = new Flags();
         }
 
         public void Pause()

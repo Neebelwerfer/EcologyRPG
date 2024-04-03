@@ -1,10 +1,10 @@
-using EcologyRPG.Core.UI;
+using EcologyRPG._Core.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace EcologyRPG.Core.Items
+namespace EcologyRPG._Core.Items
 {
     public class ItemPickup : Button, IPointerEnterHandler, IPointerExitHandler, ITooltip
     {

@@ -1,7 +1,7 @@
-using EcologyRPG.Core.Abilities;
+using EcologyRPG._Core.Abilities;
 using UnityEngine;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG._Game.NPC
 {
     [CreateAssetMenu(menuName = "Ability/NPC Ability Data", fileName = "New NPC Ability Data")]
     public class NPCAbility : AbilityDefintion

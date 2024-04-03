@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG._Game.NPC
 {
     public static class NPCUtility
     {

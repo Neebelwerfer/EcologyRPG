@@ -1,8 +1,8 @@
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.Abilities.Conditions;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Game.Abilities.Conditions;
 using UnityEditor;
 
-namespace EcologyRPG.Game.Abilities
+namespace EcologyRPG._Game.Abilities
 {
     public class Sprint : BaseAbility
     {

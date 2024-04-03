@@ -1,10 +1,10 @@
-using EcologyRPG.Core.Abilities.AbilityComponents;
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Abilities.AbilityComponents;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities
+namespace EcologyRPG._Game.Abilities
 {
     public class CenteredExplosion : BaseAbility
     {

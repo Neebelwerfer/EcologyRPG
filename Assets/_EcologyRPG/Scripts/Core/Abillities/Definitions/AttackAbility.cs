@@ -1,10 +1,10 @@
-using EcologyRPG.Core.Abilities.AbilityComponents;
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Abilities.AbilityComponents;
+using EcologyRPG._Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace EcologyRPG.Core.Abilities
+namespace EcologyRPG._Core.Abilities
 {
     public abstract class AttackAbility : BaseAbility
     {

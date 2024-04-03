@@ -2,7 +2,7 @@ using EcologyRPG.Utility;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG._Game.NPC
 {
     [CreateAssetMenu(fileName = "NPCConfig", menuName = "NPC/Config")]
     public class NPCConfig : ScriptableObject

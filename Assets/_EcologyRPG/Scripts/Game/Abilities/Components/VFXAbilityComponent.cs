@@ -1,9 +1,9 @@
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Abilities.AbilityComponents;
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Abilities;
+using EcologyRPG._Core.Abilities.AbilityComponents;
+using EcologyRPG._Core.Character;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Components
+namespace EcologyRPG._Game.Abilities.Components
 {
     public class VFXAbilityComponent : VisualAbilityComponent
     {

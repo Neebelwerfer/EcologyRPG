@@ -1,9 +1,9 @@
-using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Abilities.AbilityData;
+using EcologyRPG._Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Core.Items
+namespace EcologyRPG._Core.Items
 {
     public enum EquipmentType
     {

@@ -1,5 +1,5 @@
-using EcologyRPG.Core.Abilities.AbilityComponents;
-using EcologyRPG.Game.Abilities.Components;
+using EcologyRPG._Core.Abilities.AbilityComponents;
+using EcologyRPG._Game.Abilities.Components;
 using System;
 using System.Collections.Generic;
 using UnityEditor;

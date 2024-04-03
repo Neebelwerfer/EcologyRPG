@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG.Core.UI
+namespace EcologyRPG._Core.UI
 {
     public class BillboardUI : MonoBehaviour
     {

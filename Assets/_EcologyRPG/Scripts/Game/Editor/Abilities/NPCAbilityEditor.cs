@@ -1,6 +1,6 @@
-﻿using EcologyRPG.Core.Abilities;
-using EcologyRPG.Game.Abilities;
-using EcologyRPG.Game.NPC;
+﻿using EcologyRPG._Core.Abilities;
+using EcologyRPG._Game.Abilities;
+using EcologyRPG._Game.NPC;
 using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;

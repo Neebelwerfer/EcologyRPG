@@ -1,5 +1,5 @@
-﻿using EcologyRPG.Game.Abilities;
-using EcologyRPG.Game.Abilities.Conditions;
+﻿using EcologyRPG._Game.Abilities;
+using EcologyRPG._Game.Abilities.Conditions;
 using UnityEditor;
 
 #if UNITY_EDITOR

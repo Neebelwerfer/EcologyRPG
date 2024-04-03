@@ -1,10 +1,10 @@
-using EcologyRPG.Game.Dialogue;
+using EcologyRPG._Game.Dialogue;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using EcologyRPG.Utility.Interactions;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Game.Player;
 
-namespace EcologyRPG.Game.Interactables
+namespace EcologyRPG._Game.Interactables
 {
     public class Interactor : MonoBehaviour, IInteractable
     {

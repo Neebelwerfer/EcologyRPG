@@ -1,8 +1,8 @@
-using EcologyRPG.Core.Character;
+using EcologyRPG._Core.Character;
 using System;
 using UnityEngine;
 
-namespace EcologyRPG.Core.Abilities
+namespace EcologyRPG._Core.Abilities
 {
     public static class ProjectileUtility
     {

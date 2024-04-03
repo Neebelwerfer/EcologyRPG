@@ -1,10 +1,10 @@
-using EcologyRPG.Core;
-using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Game.Player;
+using EcologyRPG._Core;
+using EcologyRPG._Core.Abilities.AbilityData;
+using EcologyRPG._Game.Player;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG._Game.UI
 {
     public class AbilitySelectionUI
     {

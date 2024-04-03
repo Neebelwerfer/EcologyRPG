@@ -1,11 +1,11 @@
-using EcologyRPG.Core.Abilities;
+using EcologyRPG._Core.Abilities;
 using EcologyRPG.Utility;
 using System;
 using UnityEditor;
 using UnityEngine;
 
 
-namespace EcologyRPG.Core.Character
+namespace EcologyRPG._Core.Character
 {
     public abstract class Condition : ScriptableObject
     {

@@ -1,4 +1,4 @@
-namespace EcologyRPG.Core.Systems
+namespace EcologyRPG._Core.Systems
 {
     public interface ISystem
     {
