@@ -1,0 +1,19 @@
+{
+    "name": "Game.Editor",
+    "rootNamespace": "EcologyRGP.Game.Editor",
+    "references": [
+        "GUID:88b3be567192a424ca6baadd02eb21da",
+        "GUID:dfeb2c8bedb0c2a4b8632c6a765493c2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_EDITOR"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
