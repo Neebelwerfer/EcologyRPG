@@ -3,7 +3,7 @@ using EcologyRPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     public class PlayerMovement
     {

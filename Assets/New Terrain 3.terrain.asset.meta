@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/New Material.mat.meta
+guid: 7d010e7eb5a41954aa77c43407eafe28
+========
 guid: f2c8bcfcb869b554d8583f8f5b31ede2
+>>>>>>>> dev:Assets/New Terrain 3.terrain.asset.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 15600000
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

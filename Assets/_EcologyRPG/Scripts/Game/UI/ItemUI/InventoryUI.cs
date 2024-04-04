@@ -1,11 +1,11 @@
 using EcologyRPG.Core.Items;
-using EcologyRPG.Game.Player;
+using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     struct BindedButton
     {
@@ -36,7 +36,7 @@ namespace EcologyRPG.Game.UI
         private void Awake()
         {
             BindedButtons ??= new List<BindedButton>();
-            Inventory Inventory = PlayerManager.PlayerInventory;
+            Inventory Inventory = Player.PlayerInventory;
             for (int i = 0; i < Inventory.items.Count; i++)
             {
                 CreateInventoryItemButton(Inventory.items[i]);
@@ -50,8 +50,8 @@ namespace EcologyRPG.Game.UI
 
         void OnItemAdded(Item item)
         {
-            CreateInventoryItemButton(PlayerManager.PlayerInventory.GetInventoryItem(item));
-            CarryWeight.text = PlayerManager.PlayerInventory.CurrentWeight + "/" + PlayerManager.PlayerInventory.MaxCarryWeight;
+            CreateInventoryItemButton(Player.PlayerInventory.GetInventoryItem(item));
+            CarryWeight.text = Player.PlayerInventory.CurrentWeight + "/" + Player.PlayerInventory.MaxCarryWeight;
         }
 
         void OnItemRemoved(Item item)
@@ -65,49 +65,49 @@ namespace EcologyRPG.Game.UI
                     break;
                 }
             }
-            CarryWeight.text = PlayerManager.PlayerInventory.CurrentWeight + "/" + PlayerManager.PlayerInventory.MaxCarryWeight;
+            CarryWeight.text = Player.PlayerInventory.CurrentWeight + "/" + Player.PlayerInventory.MaxCarryWeight;
         }
 
         void GetEquipmentInfo()
         {
-            var mask = PlayerManager.PlayerInventory.equipment.GetEquipment(EquipmentType.Mask);
+            var mask = Player.PlayerInventory.equipment.GetEquipment(EquipmentType.Mask);
             MaskButton.Setup(mask);
             MaskButton.Unequip = () =>
             {
-                PlayerManager.PlayerInventory.UnequipItem(mask);
+                Player.PlayerInventory.UnequipItem(mask);
                 MaskButton.Setup(null);
             };
 
-            var armor = PlayerManager.PlayerInventory.equipment.GetEquipment(EquipmentType.Armour);
+            var armor = Player.PlayerInventory.equipment.GetEquipment(EquipmentType.Armour);
             ArmorButton.Setup(armor);
             ArmorButton.Unequip = () =>
             {
-                PlayerManager.PlayerInventory.UnequipItem(armor);
+                Player.PlayerInventory.UnequipItem(armor);
                 ArmorButton.Setup(null);
             };
 
-            var waterTank = PlayerManager.PlayerInventory.equipment.GetEquipment(EquipmentType.WaterTank);
+            var waterTank = Player.PlayerInventory.equipment.GetEquipment(EquipmentType.WaterTank);
             WaterTankButton.Setup(waterTank);
             WaterTankButton.Unequip = () =>
             {
-                PlayerManager.PlayerInventory.UnequipItem(waterTank);
+                Player.PlayerInventory.UnequipItem(waterTank);
                 WaterTankButton.Setup(null);
             };
 
-            var weapon = PlayerManager.PlayerInventory.equipment.GetEquipment(EquipmentType.Weapon);
+            var weapon = Player.PlayerInventory.equipment.GetEquipment(EquipmentType.Weapon);
             WeaponButton.Setup(weapon);
             WeaponButton.Unequip = () =>
             {
-                PlayerManager.PlayerInventory.UnequipItem(weapon);
+                Player.PlayerInventory.UnequipItem(weapon);
                 WeaponButton.Setup(null);
             };
-            CarryWeight.text = PlayerManager.PlayerInventory.CurrentWeight + "/" + PlayerManager.PlayerInventory.MaxCarryWeight;
+            CarryWeight.text = Player.PlayerInventory.CurrentWeight + "/" + Player.PlayerInventory.MaxCarryWeight;
         }
 
         private void OnEnable()
         {
             if (player != null)
-                CarryWeight.text = PlayerManager.PlayerInventory.CurrentWeight + "/" + PlayerManager.PlayerInventory.MaxCarryWeight;
+                CarryWeight.text = Player.PlayerInventory.CurrentWeight + "/" + Player.PlayerInventory.MaxCarryWeight;
         }
 
         void CreateInventoryItemButton(InventoryItem item)
@@ -138,7 +138,7 @@ namespace EcologyRPG.Game.UI
 
         public void DropOneSelectedItem()
         {
-            PlayerManager.PlayerInventory.DropItem(selectedItem.item);
+            Player.PlayerInventory.DropItem(selectedItem.item);
         }
     }
 }

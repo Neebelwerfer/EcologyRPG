@@ -2,7 +2,7 @@ using EcologyRPG.Core.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Items
+namespace EcologyRPG.GameSystems.Items
 {
     public abstract class EquipableItemTemplate : ItemTemplate
     {

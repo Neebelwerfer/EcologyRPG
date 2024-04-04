@@ -1,4 +1,4 @@
-﻿using EcologyRPG.Game.Abilities.Components;
+﻿using EcologyRPG.GameSystems.Abilities.Components;
 using UnityEditor;
 using UnityEngine;
 

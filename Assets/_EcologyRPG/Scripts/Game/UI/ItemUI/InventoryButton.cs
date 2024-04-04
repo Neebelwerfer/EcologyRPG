@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using EcologyRPG.Game.Player;
+using EcologyRPG.GameSystems.PlayerSystems;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class InventoryButton : Button, ITooltip
     {
@@ -28,7 +28,7 @@ namespace EcologyRPG.Game.UI
             this.item = item;
             text.text = item.amount + "x ";
             Image.sprite = item.item.Icon;
-            inventory = PlayerManager.PlayerInventory;
+            inventory = Player.PlayerInventory;
         }
 
         public override void OnPointerEnter(PointerEventData eventData)

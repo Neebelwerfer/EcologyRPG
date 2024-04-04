@@ -1,4 +1,4 @@
-﻿using EcologyRPG.Game.Abilities;
+﻿using EcologyRPG.GameSystems.Abilities;
 using UnityEditor;
 using static EcologyRPG.Core.Abilities.WeaponAttack;
 

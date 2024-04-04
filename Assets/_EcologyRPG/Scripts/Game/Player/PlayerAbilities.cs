@@ -5,7 +5,7 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     public enum AbilitySlots
     {
@@ -21,7 +21,7 @@ namespace EcologyRPG.Game.Player
     public class PlayerAbilities
     {
         readonly PlayerSettings settings;
-        readonly PlayerCharacter Player;
+        readonly PlayerCharacter _Player;
         readonly PlayerAbilityDefinition[] abilitySlots = new PlayerAbilityDefinition[7];
 
 
@@ -29,7 +29,7 @@ namespace EcologyRPG.Game.Player
 
         public PlayerAbilities(PlayerCharacter player, Inventory inventory, PlayerSettings settings)
         {
-            Player = player;
+            _Player = player;
 
             abilitySlots[4] = Init(settings.FistAttackAbility);
             abilitySlots[5] = Init(settings.DodgeAbility);
@@ -41,7 +41,7 @@ namespace EcologyRPG.Game.Player
         PlayerAbilityDefinition Init(PlayerAbilityDefinition ability)
         {
             var newAbility = UnityEngine.Object.Instantiate(ability);
-            newAbility.Initialize(Player);
+            newAbility.Initialize(_Player);
             return newAbility;
         }
 
@@ -49,7 +49,7 @@ namespace EcologyRPG.Game.Player
         {
             if (arg0 == (int)EquipmentType.Weapon)
             {
-                var item = PlayerManager.PlayerInventory.equipment.GetEquipment(EquipmentType.Weapon);
+                var item = Player.PlayerInventory.equipment.GetEquipment(EquipmentType.Weapon);
                 if (item == null || ((Weapon)item).WeaponAbility == null) SetAbility(AbilitySlots.WeaponAttack, settings.FistAttackAbility);
                 else if (item is Weapon weapon) SetAbility(AbilitySlots.WeaponAttack, weapon.WeaponAbility);
             }

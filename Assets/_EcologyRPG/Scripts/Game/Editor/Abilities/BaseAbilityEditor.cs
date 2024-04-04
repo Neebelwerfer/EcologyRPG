@@ -10,6 +10,7 @@ public class BaseAbilityEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Range"));
 
         AbilityComponentEditor.Display("On Cast Components", abilityEffect.OnCastEffects, abilityEffect, DisplayComponentType.All);
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

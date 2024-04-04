@@ -5,6 +5,7 @@ using UnityEditor;
 [CustomEditor(typeof(AttackAbility), false)]
 public class AttackAbilityEditor : BaseAbilityEditor
 {
+    protected bool isPlayer = true;
 
     public override void OnInspectorGUI()
     {
@@ -14,6 +15,7 @@ public class AttackAbilityEditor : BaseAbilityEditor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("useMouseDirection"));
         if(abilityEffect.displayFirstHitEffects) AbilityComponentEditor.Display("On First Hit Components", abilityEffect.OnFirstHit, abilityEffect, DisplayComponentType.All);
         AbilityComponentEditor.Display("On Hit Components", abilityEffect.OnHitEffects, abilityEffect, DisplayComponentType.All);
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

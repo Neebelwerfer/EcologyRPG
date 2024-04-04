@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EcologyRPG.Game.Dialogue
+namespace EcologyRPG.GameSystems.Dialogue
 {
     [System.Serializable]
 

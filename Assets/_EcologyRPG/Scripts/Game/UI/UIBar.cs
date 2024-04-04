@@ -1,11 +1,11 @@
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.UI;
-using EcologyRPG.Game.Player;
+using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class UIBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ITooltip
     {
@@ -33,7 +33,7 @@ namespace EcologyRPG.Game.UI
         // Start is called before the first frame update
         void Start()
         {
-            character = PlayerManager.PlayerCharacter;
+            character = Player.PlayerCharacter;
             InitializeBar(character, resourceName);
 
         }

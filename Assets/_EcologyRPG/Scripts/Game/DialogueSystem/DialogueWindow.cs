@@ -1,41 +1,31 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using EcologyRPG.Game.UI;
+using EcologyRPG.GameSystems.UI;
 
-namespace EcologyRPG.Game.Dialogue
+namespace EcologyRPG.GameSystems.Dialogue
 {
     public class DialogueWindow : MonoBehaviour
     {
-
+        //testing
+        [SerializeField] private DialoguePathLine testPath;
+        [SerializeField] private DialogueChoices testChoices;
         [SerializeField] private PlayerUIHandler playerUIHandler;
-
         [SerializeField] private DialoguePathLine currentPath;
         [SerializeField] private DialogueChoices currentChoices;
-        [SerializeField] private DialogueConnector currentConnection;
-        [SerializeField] private DialogueQuest currentQuest;
-
-        [SerializeField] private GameObject talkingConversation;
-        [SerializeField] private GameObject choiceConversation;
-        [SerializeField] private GameObject questConversation;
-        [SerializeField] private GameObject connectionConversation;
-
         [SerializeField] private Image portrait;
         [SerializeField] private TextMeshProUGUI moniker;
         [SerializeField] private TextMeshProUGUI message;
-
-        [SerializeField] private Button exitDialogue;
-        [SerializeField] private Button nextDialogue;
-
         [SerializeField] private Button option1;
         [SerializeField] private Button option2;
         [SerializeField] private Button option3;
         [SerializeField] private Button option4;
+        [SerializeField] private Button exitDialogue;
+        [SerializeField] private Button nextDialogue;
         [SerializeField] private TextMeshProUGUI option1Text;
         [SerializeField] private TextMeshProUGUI option2Text;
         [SerializeField] private TextMeshProUGUI option3Text;
         [SerializeField] private TextMeshProUGUI option4Text;
-
         [SerializeField] private bool ChoicesDialogue = false;
 
 
@@ -54,10 +44,15 @@ namespace EcologyRPG.Game.Dialogue
             nextDialogue.onClick.AddListener(delegate { Next(); });
         }
 
+        private void Update()
+        {
+
+        }
+
         public void Open(DialoguePathLine pathToPlay)
         {
             playerUIHandler.ToggleUI(false);
-            GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
+            Game.Instance.CurrentState = Game_State.DialoguePlaying;
             ActivateForDialoguePath();
             currentPath = pathToPlay;
             currentPathDialogueIndex = 0;
@@ -69,7 +64,7 @@ namespace EcologyRPG.Game.Dialogue
         {
             currentChoices = choices;
             playerUIHandler.ToggleUI(false);
-            GameManager.Instance.CurrentState = Game_State.DialogueChoices;
+            Game.Instance.CurrentState = Game_State.DialogueChoices;
             ActivateForDialogueChoices();
             DisplayChoices(currentChoices);
 
@@ -78,7 +73,7 @@ namespace EcologyRPG.Game.Dialogue
 
         public void TransistionToDialoguePlay(DialoguePathLine pathToPlay)
         {
-            GameManager.Instance.CurrentState = Game_State.DialoguePlaying;
+            Game.Instance.CurrentState = Game_State.DialoguePlaying;
             ChoicesDialogue = true;
             DeactivateForDialogueChoices();
             ActivateForDialoguePath();
@@ -88,7 +83,7 @@ namespace EcologyRPG.Game.Dialogue
         }
         public void TransistionToDialogueChoices(DialogueChoices choices)
         {
-            GameManager.Instance.CurrentState = Game_State.DialogueChoices;
+            Game.Instance.CurrentState = Game_State.DialogueChoices;
             ChoicesDialogue = false;
             DeactivateForDialoguePath();
             ActivateForDialogueChoices();
@@ -119,14 +114,14 @@ namespace EcologyRPG.Game.Dialogue
             DeactivateForDialoguePath();
             DeactivateForDialogueChoices();
 
-            GameManager.Instance.CurrentState = Game_State.Playing;
+            Game.Instance.CurrentState = Game_State.Menu;
             playerUIHandler.ToggleUI(true);
 
             animator.SetBool(dialogueOpenParameter, false);
         }
         private void Next()
         {
-            if (GameManager.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
+            if (Game.Instance.CurrentState.Equals(Game_State.DialoguePlaying))
             {
                 currentPathDialogueIndex++;
                 if (currentPathDialogueIndex < currentPath.Dialogues.Count)
@@ -148,19 +143,31 @@ namespace EcologyRPG.Game.Dialogue
         }
         private void ActivateForDialoguePath()
         {
-            talkingConversation.SetActive(true);
+            portrait.gameObject.SetActive(true);
+            moniker.gameObject.SetActive(true);
+            message.gameObject.SetActive(true);
+            nextDialogue.gameObject.SetActive(true);
         }
         private void DeactivateForDialoguePath()
         {
-            talkingConversation.SetActive(false);
+            portrait.gameObject.SetActive(false);
+            moniker.gameObject.SetActive(false);
+            message.gameObject.SetActive(false);
+            nextDialogue.gameObject.SetActive(false);
         }
         private void ActivateForDialogueChoices()
         {
-            choiceConversation.SetActive(true);
+            option1.gameObject.SetActive(true);
+            option2.gameObject.SetActive(true);
+            option3.gameObject.SetActive(true);
+            option4.gameObject.SetActive(true);
         }
         private void DeactivateForDialogueChoices()
         {
-            choiceConversation.SetActive(false);
+            option1.gameObject.SetActive(false);
+            option2.gameObject.SetActive(false);
+            option3.gameObject.SetActive(false);
+            option4.gameObject.SetActive(false);
         }
     }
 }

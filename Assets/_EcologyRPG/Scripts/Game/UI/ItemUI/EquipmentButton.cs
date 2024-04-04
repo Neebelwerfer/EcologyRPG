@@ -7,7 +7,7 @@ using System;
 using EcologyRPG.Core.Items;
 using System.Collections;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class EquipmentButton : Button, ITooltip
     {

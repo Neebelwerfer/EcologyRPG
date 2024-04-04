@@ -2,7 +2,7 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using UnityEditor;
 
-namespace EcologyRPG.Game.Abilities.Conditions
+namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
     public class StatUp : BuffCondition
     {

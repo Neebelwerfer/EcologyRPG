@@ -1,4 +1,4 @@
-using EcologyRPG.Game;
+using EcologyRPG.GameSystems;
 using UnityEditor;
 
 public class GameSettingsEditor : EditorWindow

@@ -24,7 +24,7 @@ MonoBehaviour:
   displayFirstHitEffects: 1
   targetType: 1
   width: 0
-  angle: 45
+  angle: 60
 --- !u!114 &-1661089515007861369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +61,8 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
+  ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   Ability: {fileID: -6701787922667511886}
   ResourceName: stamina

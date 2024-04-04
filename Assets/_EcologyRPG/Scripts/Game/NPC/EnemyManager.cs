@@ -1,16 +1,10 @@
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Systems;
-using EcologyRPG.Game.Player;
-using System;
+using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections.Generic;
-using System.Threading;
-using Unity.Burst;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 using UnityEngine;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG.GameSystems.NPC
 {
     class NPCData
     {
@@ -30,9 +24,9 @@ namespace EcologyRPG.Game.NPC
         readonly List<NPCData> characterList = new();
 
         PlayerCharacter player;
-        PlayerCharacter Player { get 
+        PlayerCharacter PlayerCharacter { get 
             {
-                player ??= PlayerManager.PlayerCharacter;
+                player ??= Player.PlayerCharacter;
                 return player;
             }
         }
@@ -47,7 +41,7 @@ namespace EcologyRPG.Game.NPC
             this.maxDistance = maxDistance;
             this.activeEnemyUpdateRate = activeEnemyUpdateRate;
             EventManager.AddListener("EnemyDeath", OnEnemyDeath);
-            player = PlayerManager.PlayerCharacter;
+            player = Player.PlayerCharacter;
             NPCPool = new NPCGameObjectPool();
         }
 
@@ -79,7 +73,7 @@ namespace EcologyRPG.Game.NPC
             foreach (var characterData in characterList)
             {
                 var character = characterData.enemy;
-                if (Vector3.Distance(Player.Transform.Position, character.Transform.Position) < maxDistance)
+                if (Vector3.Distance(PlayerCharacter.Transform.Position, character.Transform.Position) < maxDistance)
                 {
                     if (!activeEnemies.Contains(characterData))
                     {

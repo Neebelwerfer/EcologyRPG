@@ -1,10 +1,10 @@
-using EcologyRPG.Game.Dialogue;
+using EcologyRPG.GameSystems.Dialogue;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using EcologyRPG.Utility.Interactions;
-using EcologyRPG.Game.Player;
+using EcologyRPG.GameSystems.PlayerSystems;
 
-namespace EcologyRPG.Game.Interactables
+namespace EcologyRPG.GameSystems.Interactables
 {
     public class Interactor : MonoBehaviour, IInteractable
     {
@@ -30,7 +30,7 @@ namespace EcologyRPG.Game.Interactables
 
         private void Start()
         {
-            player = PlayerManager.PlayerCharacter;
+            player = Player.PlayerCharacter;
             Interacts = player.playerSettings.Interact;
             Interacts.action.Enable();
             position = transform.position;

@@ -2,7 +2,7 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Abilities.AbilityComponents;
 using EcologyRPG.Core.Character;
 
-namespace EcologyRPG.Game.Abilities.Components
+namespace EcologyRPG.GameSystems.Abilities.Components
 {
     public class AbilityDamageComponent : CombatAbilityComponent
     {

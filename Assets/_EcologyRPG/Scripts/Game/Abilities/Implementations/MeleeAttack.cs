@@ -2,7 +2,7 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities
+namespace EcologyRPG.GameSystems.Abilities
 {
     public class MeleeAttack : WeaponAttack
     {

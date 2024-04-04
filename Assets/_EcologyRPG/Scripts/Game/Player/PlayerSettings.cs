@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Player/PlayerSettings")]
     public class PlayerSettings : ScriptableObject

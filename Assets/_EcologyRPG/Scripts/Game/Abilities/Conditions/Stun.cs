@@ -3,7 +3,7 @@ using EcologyRPG.Core.Character;
 using UnityEditor;
 using UnityEngine.AI;
 
-namespace EcologyRPG.Game.Abilities.Conditions
+namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
     public class Stun : DebuffCondition
     {

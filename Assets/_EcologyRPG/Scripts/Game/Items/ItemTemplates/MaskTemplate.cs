@@ -2,7 +2,7 @@ using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Items;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Items
+namespace EcologyRPG.GameSystems.Items
 {
     [CreateAssetMenu(fileName = "New Mask template", menuName = "Items/Templates/Mask")]
     public class MaskTemplate : EquipableItemTemplate

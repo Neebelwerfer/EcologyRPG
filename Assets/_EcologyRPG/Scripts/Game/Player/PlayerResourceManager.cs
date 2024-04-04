@@ -1,7 +1,7 @@
 using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
 
-namespace EcologyRPG.Game.Player
+namespace EcologyRPG.GameSystems.PlayerSystems
 {
     public class PlayerResourceManager
     {

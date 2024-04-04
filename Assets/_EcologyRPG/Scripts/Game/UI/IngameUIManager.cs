@@ -1,9 +1,9 @@
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using EcologyRPG.Game.Player;
+using EcologyRPG.GameSystems.PlayerSystems;
 
-namespace EcologyRPG.Game.UI
+namespace EcologyRPG.GameSystems.UI
 {
     public class IngameUIManager : MonoBehaviour
     {
@@ -30,7 +30,7 @@ namespace EcologyRPG.Game.UI
             EventManager.AddListener("PlayerDeath", OnPlayerDeath);
             EventManager.AddListener("PlayerSpawn", OnPlayerSpawn);
 
-            if (PlayerManager.IsPlayerAlive) playerUI.SetActive(true);
+            if (Player.IsPlayerAlive) playerUI.SetActive(true);
         }
 
         private void OnPlayerSpawn(EventData arg0)
@@ -48,7 +48,7 @@ namespace EcologyRPG.Game.UI
         public void RespawnPlayer()
         {
             DeathScreen.SetActive(false);
-            PlayerManager.Instance.RespawnPlayer();
+            Player.Instance.RespawnPlayer();
         }
 
         public void ExitGame()
@@ -71,16 +71,16 @@ namespace EcologyRPG.Game.UI
             {
                 IngameMenu.SetActive(false);
                 playerUI.SetActive(true);
-                GameManager.Instance.CurrentState = Game_State.Playing;
+                Game.Instance.Resume();
             }
             else
             {
                 IngameMenu.SetActive(true);
                 playerUI.SetActive(false);
-                GameManager.Instance.CurrentState = Game_State.Paused;
+                characterSheetUI.SetActive(false);
+                Game.Instance.Pause();
             }
         }
-
 
         private void OnDestroy()
         {

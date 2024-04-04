@@ -1,7 +1,7 @@
 using EcologyRPG.Core.Items;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Items
+namespace EcologyRPG.GameSystems.Items
 {
     [CreateAssetMenu(fileName = "New Item template", menuName = "Items/Templates/Item")]
     public class BasicItem : ItemTemplate

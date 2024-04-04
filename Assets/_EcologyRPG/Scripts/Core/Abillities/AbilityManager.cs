@@ -10,13 +10,18 @@ namespace EcologyRPG.Core.Abilities
     {
         public static AbilityManager Instance;
 
-        public List<AbilityDefintion> CooldownAbilities = new List<AbilityDefintion>();
+        List<AbilityDefintion> CooldownAbilities;
 
         public bool Enabled => CooldownAbilities.Count > 0;
 
         public static void Init()
         {
             Instance = new();
+        }
+
+        public AbilityManager()
+        {
+            CooldownAbilities = new List<AbilityDefintion>();
         }
 
         public void OnUpdate()

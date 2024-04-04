@@ -4,7 +4,7 @@ using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Conditions
+namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
     public class DashCondition : BuffCondition
     {

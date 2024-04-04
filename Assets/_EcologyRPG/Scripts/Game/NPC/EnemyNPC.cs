@@ -2,8 +2,10 @@ using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Items;
 using UnityEngine.AI;
 using UnityEngine;
+using EcologyRPG.Core.Abilities;
+using log4net;
 
-namespace EcologyRPG.Game.NPC
+namespace EcologyRPG.GameSystems.NPC
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyNPC : BaseCharacter
@@ -52,6 +54,16 @@ namespace EcologyRPG.Game.NPC
         {
             Agent = null;
             base.RemoveBinding();
+        }
+
+        public void CastAbility(AbilityDefintion ability)
+        {
+            CastAbility(ability, Vector3.zero);
+        }
+
+        public void CastAbility(AbilityDefintion ability, Vector3 target)
+        {
+            ability.Activate(new CastInfo { activationInput = null, castPos = CastPos, owner = this, dir = Transform.Forward, mousePoint = target});
         }
 
         public override void Die()

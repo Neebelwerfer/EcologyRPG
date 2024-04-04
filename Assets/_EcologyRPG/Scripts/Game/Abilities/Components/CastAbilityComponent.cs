@@ -2,11 +2,11 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Abilities.AbilityComponents;
 using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Core.Character;
-using EcologyRPG.Game.Abilities.Components;
+using EcologyRPG.GameSystems.Abilities.Components;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Abilities.Components
+namespace EcologyRPG.GameSystems.Abilities.Components
 {
     public class CastAbilityComponent : CombatAbilityComponent
     {

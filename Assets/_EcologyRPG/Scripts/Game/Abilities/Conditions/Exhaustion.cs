@@ -2,7 +2,7 @@
 using EcologyRPG.Core.Character;
 using UnityEngine.InputSystem;
 
-namespace EcologyRPG.Game.Abilities.Conditions
+namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
     public class Exhaustion : DebuffCondition
     {
