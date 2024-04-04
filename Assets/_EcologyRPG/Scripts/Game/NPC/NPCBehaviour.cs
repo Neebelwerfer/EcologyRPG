@@ -7,7 +7,7 @@ namespace EcologyRPG.GameSystems.NPC
     {
         public float UpdatePerSecond;
 
-        State currState;
+        protected State currState;
 
         public void ChangeState(EnemyNPC character, State newState)
         {

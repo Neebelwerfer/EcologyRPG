@@ -127,7 +127,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             passiveTree.SetRootNode(NearbyTarget);
             #endregion
 
-            ChangeState(character, passiveState);
+            currState = passiveState;
         }
     }
 }
