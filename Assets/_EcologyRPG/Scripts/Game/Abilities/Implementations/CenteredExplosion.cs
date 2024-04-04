@@ -9,8 +9,6 @@ namespace EcologyRPG.GameSystems.Abilities
     public class CenteredExplosion : BaseAbility
     {
         [Header("Centered Explosion")]
-        [Tooltip("The layer mask of the targets that will be hit by the explosion")]
-        public LayerMask targetMask;
         [Tooltip("The radius of the explosion")]
         public float Radius;
         [Tooltip("Debuffs that will be applied to the targets when the explosion hits")]
@@ -25,7 +23,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 effect.ApplyEffect(caster, null);
             }
 
-            targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, targetMask);
+            targets = TargetUtility.GetTargetsInRadius(caster.castPos, Radius, Game.Settings.EntityMask);
 
             if (targets != null && targets.Length > 0)
             {

@@ -14,7 +14,6 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         public float AggroRange;
         public float WanderRadius;
         public float MaxLeashRange;
-        public LayerMask targetMask;
 
         BaseCharacter target;
         NPCAbility attackAbility;
@@ -108,7 +107,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 if (targetSearchTimer < targetSearchCooldown) return false;
                 targetSearchTimer = 0;
 
-                var col = Physics.OverlapSphere(npc.Transform.Position, AggroRange, targetMask);
+                var col = Physics.OverlapSphere(npc.Transform.Position, AggroRange, Game.Settings.EntityMask);
                 if (col.Length == 0) return false;
 
                 foreach (var c in col)

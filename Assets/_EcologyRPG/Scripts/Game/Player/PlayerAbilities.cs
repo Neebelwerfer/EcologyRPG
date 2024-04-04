@@ -30,6 +30,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         public PlayerAbilities(PlayerCharacter player, Inventory inventory, PlayerSettings settings)
         {
             _Player = player;
+            this.settings = settings;
 
             abilitySlots[4] = Init(settings.FistAttackAbility);
             abilitySlots[5] = Init(settings.DodgeAbility);
