@@ -88,13 +88,11 @@ namespace EcologyRPG.Core.Abilities
         {
             if (state == AbilityStates.cooldown)
             {
-                //Debug.Log("On cooldown");
                 return false;
             }
 
             if (state == AbilityStates.casting)
             {
-                //Debug.Log("Ability already casting");
                 return false;
             }
 
@@ -142,6 +140,11 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
+        public virtual void CastCancelled(CastInfo caster)
+        {
+
+        }
+
 
         /// <summary>
         /// Called when the cast has ended
@@ -151,7 +154,7 @@ namespace EcologyRPG.Core.Abilities
         {
         }
 
-
+#if UNITY_EDITOR
         [ContextMenu("Delete")]
         protected virtual void Delete()
         {
@@ -159,6 +162,6 @@ namespace EcologyRPG.Core.Abilities
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-
+#endif
     }
 }

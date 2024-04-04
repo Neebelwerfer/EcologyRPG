@@ -18,11 +18,16 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public string AnimationTrigger;
 
         int triggerHash;
+        Resource resource;
 
         public override void Initialize(BaseCharacter owner)
         {
             base.Initialize(owner);
             triggerHash = Animator.StringToHash(AnimationTrigger);
+            if (ResourceName != "")
+            {
+                resource = owner.Stats.GetResource(ResourceName);
+            }
         }
 
         public override bool CanActivate(BaseCharacter caster)
@@ -44,6 +49,12 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             return base.HandleCast(caster);
         }
 
+        public override void CastCancelled(CastInfo caster)
+        {
+            base.CastCancelled(caster);
+            resource += ResourceCost;
+        }
+
         public override void CastStarted(CastInfo caster)
         {
             if (triggerHash != 0)
@@ -59,7 +70,6 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         /// <param name="caster"></param>
         protected virtual void InitialCastCost(CastInfo caster)
         {
-            var resource = caster.owner.Stats.GetResource(ResourceName);
             resource -= ResourceCost;
         }
     }

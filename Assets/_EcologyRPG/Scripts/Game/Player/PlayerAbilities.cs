@@ -93,6 +93,17 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             }
             OnAbilityChange[(int)slot].AddListener(action);
         }
+
+        public void PlayerDeath()
+        {
+            foreach (var ability in abilitySlots)
+            {
+                if (ability != null && ability.state == AbilityStates.casting)
+                {
+                    ability.CastCancelled(new CastInfo() { owner = _Player });
+                }
+            }
+        }
     }
 }
 
