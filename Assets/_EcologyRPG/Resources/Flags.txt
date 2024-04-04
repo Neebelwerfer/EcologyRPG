@@ -1,8 +1,10 @@
 {
     "keys": [
+        "Test1",
         "Test2"
     ],
     "values": [
+        0,
         0
     ]
 }

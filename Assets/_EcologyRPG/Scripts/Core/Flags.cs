@@ -12,7 +12,7 @@ namespace EcologyRPG.Core
 
         readonly Dictionary<string, int> flags;
 
-        public UnityEvent<string> OnFlagChanged;
+        public UnityEvent<string> OnFlagChanged = new UnityEvent<string>();
 
         public Flags()
         {

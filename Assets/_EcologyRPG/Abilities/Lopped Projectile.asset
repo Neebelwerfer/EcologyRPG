@@ -21,10 +21,11 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
   BlockRotationOnWindup: 1
   Ability: {fileID: 676731462999206808}
   ResourceName: water
-  ResourceCost: 5
+  ResourceCost: 10
   Description: 
   AnimationTrigger: Water_LopBomb
 --- !u!114 &676731462999206808
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 15
+  BaseDamage: 30
   DamageType: 1
   AllowVariance: 1
 --- !u!114 &3801731306647452522
@@ -108,6 +109,7 @@ MonoBehaviour:
   CastWindUp:
   - {fileID: 3801731306647452522}
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
   BlockRotationOnWindup: 1
   Ability: {fileID: 6634139780745373765}
 --- !u!114 &6634139780745373765
