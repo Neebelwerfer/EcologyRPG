@@ -36,6 +36,8 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 1
+  RotatePlayerTowardsMouse: 1
+  BlockRotationOnWindup: 1
   Ability: {fileID: 3082562889586705759}
   ResourceName: water
   ResourceCost: 10
@@ -59,7 +61,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 8
-  Radius: 5
+  Radius: 8
   OnHitEffects:
   - {fileID: 7810403523279891257}
   - {fileID: 7033203395989889724}
@@ -88,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: AbilityDamageComponent
   m_EditorClassIdentifier: 
-  BaseDamage: 15
+  BaseDamage: 24
   DamageType: 1
   AllowVariance: 1
 --- !u!114 &8581342304888942270
@@ -105,8 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2ac9690f-8108-4886-a1d8-67a51e86ce91
   displayName: KnockCondition
-  duration: 0.3
+  duration: 0.4
   remainingDuration: 0
   Owner: {fileID: 0}
-  KnockBackDistance: 2
+  KnockBackDistance: 4
   knockType: 0

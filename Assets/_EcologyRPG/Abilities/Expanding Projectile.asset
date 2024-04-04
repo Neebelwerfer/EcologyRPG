@@ -24,8 +24,8 @@ MonoBehaviour:
   - {fileID: -3610280243163357216}
   displayFirstHitEffects: 1
   destroyOnHit: 0
-  Speed: 3
-  GrowthRate: {x: 0.3, y: 0.3, z: 0.3}
+  Speed: 5
+  GrowthRate: {x: 1.25, y: 1.25, z: 1.25}
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
 --- !u!114 &-3610280243163357216
@@ -69,17 +69,19 @@ MonoBehaviour:
   m_Name: Expanding Projectile
   m_EditorClassIdentifier: 
   DisplayName: Expanding Projectile
-  Cooldown: 2
+  Cooldown: 8
   CastWindupTime: 0.7
-  Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
+  Icon: {fileID: 21300000, guid: 4e1bf72f28f587a4ea42f55e9cd7eaf4, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
+  BlockRotationOnWindup: 1
   Ability: {fileID: -5784286480726840949}
   ResourceName: water
-  ResourceCost: 0
+  ResourceCost: 25
   Description: 
   AnimationTrigger: Water_SingleShot
 --- !u!114 &794207685698056427

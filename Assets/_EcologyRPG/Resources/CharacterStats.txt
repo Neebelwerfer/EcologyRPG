@@ -197,7 +197,7 @@
             "displayName": "Food Drain",
             "DisplayOptions": 0,
             "ShowOptions": 0,
-            "baseValue": 0.5,
+            "baseValue": 0.10000000149011612,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters nutrition drains at baseline, while not moving"
@@ -217,7 +217,7 @@
             "displayName": "water Drain",
             "DisplayOptions": 0,
             "ShowOptions": 0,
-            "baseValue": 1.0,
+            "baseValue": 0.05000000074505806,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters water drains when not using abilities"
