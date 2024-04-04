@@ -17,6 +17,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         EnemySpawner spawner;
         [HideInInspector] public NPCBehaviour behaviour = null;
+        readonly int movingHash;
 
         public EnemyNPC(NPCConfig config) : base()
         {
@@ -25,6 +26,7 @@ namespace EcologyRPG.GameSystems.NPC
             XpOnDeath = config.xp;
             faction = Faction.enemy;
             Tags = config.tags;
+            movingHash = Animator.StringToHash("Moving");
         }
 
         ~EnemyNPC()
@@ -90,6 +92,8 @@ namespace EcologyRPG.GameSystems.NPC
                 Agent.isStopped = false;
                 Agent.speed = Stats.GetStat("movementSpeed").Value;
                 behaviour.UpdateBehaviour(this);
+                Animator.SetBool(movingHash, Agent.hasPath);
+
             }
         }
 
