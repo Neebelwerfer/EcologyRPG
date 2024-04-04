@@ -93,6 +93,10 @@ namespace EcologyRPG.GameSystems.Interactables
             {
                 dialogueWindow.Open(choices);
             }
+            else if (interaction is DialogueConnector connector)
+            {
+                dialogueWindow.Open(connector);
+            }
         }
     }
 }

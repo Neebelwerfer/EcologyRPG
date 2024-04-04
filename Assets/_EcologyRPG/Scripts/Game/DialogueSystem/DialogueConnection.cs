@@ -1,8 +1,9 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRPG.Game.Dialogue
+namespace EcologyRPG.GameSystems.Dialogue
 {
     [System.Serializable]
     public class DialogueConnection

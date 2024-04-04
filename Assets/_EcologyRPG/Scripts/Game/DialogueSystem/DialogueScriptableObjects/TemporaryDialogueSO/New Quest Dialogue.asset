@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216f67b70f581bb4fa29821f9c6df563, type: 3}
+  m_Name: New Quest Dialogue
+  m_EditorClassIdentifier: 
+  quests:
+  - questText: Water
+    infoPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
+    completionPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
+  - questText: Dirty Water
+    infoPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
+    completionPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
