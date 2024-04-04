@@ -256,7 +256,10 @@ namespace EcologyRPG.Core.Character
         {
             if (collision.gameObject.layer == GameObject.layer)
             {
-                OnCharacterCollision?.Invoke(collision.gameObject.GetComponent<CharacterBinding>().Character);
+                if (collision.gameObject.TryGetComponent(out CharacterBinding characterBinding))
+                {
+                    OnCharacterCollision?.Invoke(characterBinding.Character);
+                }
             }
         }
 
