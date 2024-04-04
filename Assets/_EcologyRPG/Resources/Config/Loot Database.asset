@@ -31,9 +31,6 @@ MonoBehaviour:
   - category: Equipable Items
     weight: 10
     items:
-    - ItemTemplate: {fileID: 11400000, guid: 2a0312b2c4058d94aa24f4e98e3acc03, type: 2}
-      weight: 100
-      allowedTags: []
     - ItemTemplate: {fileID: 11400000, guid: b2080562fa806634cafa3a1909a328f3, type: 2}
       weight: 200
       allowedTags: []

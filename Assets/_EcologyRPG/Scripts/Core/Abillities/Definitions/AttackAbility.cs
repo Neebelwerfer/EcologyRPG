@@ -9,8 +9,6 @@ namespace EcologyRPG.Core.Abilities
     public abstract class AttackAbility : BaseAbility
     {
         [Header("Attack Ability")]
-        [Tooltip("The layermask that the ability will target")]
-        public LayerMask targetMask;
         [Tooltip("Use the mouse direction as the direction of the ability instead of the cast position. This is useful for abilities that are casted in the direction of the mouse instead of the position of the caster.")]
         public bool useMouseDirection = true;
         [Tooltip("Effects that will be applied to the first target when the ability hits")]
@@ -21,10 +19,6 @@ namespace EcologyRPG.Core.Abilities
         public bool displayFirstHitEffects = true;
         protected bool firstHit = true;
 
-        private void OnEnable()
-        {
-            if (targetMask.value == 0) LayerMask.NameToLayer("Entity");
-        }
 
         protected virtual Action<CastInfo, BaseCharacter> DefaultOnHitAction()
         {

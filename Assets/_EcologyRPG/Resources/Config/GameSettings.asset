@@ -13,3 +13,12 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
+  EntityMask:
+    serializedVersion: 2
+    m_Bits: 8
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 144
+  lootGroundLayer:
+    serializedVersion: 2
+    m_Bits: 128
