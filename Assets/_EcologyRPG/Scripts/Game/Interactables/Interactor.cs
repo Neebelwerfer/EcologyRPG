@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using EcologyRPG.Utility.Interactions;
 using EcologyRPG.GameSystems.PlayerSystems;
+using EcologyRGP.Game;
 
 namespace EcologyRPG.GameSystems.Interactables
 {
@@ -96,6 +97,10 @@ namespace EcologyRPG.GameSystems.Interactables
             else if (interaction is DialogueConnector connector)
             {
                 dialogueWindow.Open(connector);
+            }
+            else if (interaction is QuestProgressor QP)
+            {
+                Game.Flags.SetFlag(QP.QuestFlag,QP.ProgessStage);
             }
         }
     }

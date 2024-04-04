@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using EcologyRPG.GameSystems.UI;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace EcologyRPG.GameSystems.Dialogue
 {
@@ -53,6 +54,7 @@ namespace EcologyRPG.GameSystems.Dialogue
         [SerializeField] private bool ChoicesDialogue = false;
         [SerializeField] private bool connectionStart = false;
         [SerializeField] private bool QuestDialogue = false;
+
 
 
         private Animator animator;
@@ -160,11 +162,25 @@ namespace EcologyRPG.GameSystems.Dialogue
             quest1Text.text = quests.Quests[0].QuestText;
             quest2Text.text = quests.Quests[1].QuestText;
 
-            quest1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].InfoPath); });
-            //option1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].CompletionPath); });
+            string quest1Flag = quests.Quests[0].QuestFlag;
+            string quest2Flag = quests.Quests[1].QuestFlag;
+            int flag1val;
+            int flag2val;
+            int completionValue1 = quests.Quests[0].CompletionValue;
+            int completionValue2 = quests.Quests[1].CompletionValue;
+            
+            if (Game.Flags.TryGetFlag(quest1Flag, out flag1val))
+            {
+                if(flag1val == completionValue1) quest1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].CompletionPath); });
+                else quest1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].InfoPath); });
+            }
+            
 
-            quest2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].InfoPath); });
-            //option2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].CompletionPath); });
+            if (Game.Flags.TryGetFlag(quest2Flag, out flag2val))
+            {
+                if(flag2val == completionValue2) quest2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].CompletionPath); });
+                else quest2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].InfoPath); });
+            }
         }
         private void DisplayConnections(DialogueConnector connector)
         {

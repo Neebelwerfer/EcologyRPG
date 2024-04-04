@@ -15,7 +15,11 @@ MonoBehaviour:
   quests:
   - questText: Water
     infoPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
-    completionPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
+    completionPath: {fileID: 11400000, guid: 42835a0f77dcb764abc5cc0bcc728f18, type: 2}
+    questFlag: Test1
+    completionValue: 1
   - questText: Dirty Water
     infoPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
-    completionPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
+    completionPath: {fileID: 11400000, guid: 42835a0f77dcb764abc5cc0bcc728f18, type: 2}
+    questFlag: Test2
+    completionValue: 2
