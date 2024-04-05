@@ -9,7 +9,7 @@ namespace EcologyRPG.Core.Abilities
 
         public ProjectileBehaviour(GameObject prefab, Vector3 origin, Quaternion rotation)
         {
-            projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, origin, Quaternion.identity);
+            projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, origin, rotation);
             if(projectileObj.TryGetComponent<Projectile>(out var proj))
             {
                 projectile = proj;
