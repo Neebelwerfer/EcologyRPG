@@ -28,6 +28,14 @@ namespace EcologyRPG.Core.Abilities.AbilityData
 
         }
 
+        public override void CastCancelled(CastInfo caster)
+        {
+            base.CastCancelled(caster);
+            if (BlockMovementOnWindup) caster.owner.StartMovement();
+            if (BlockRotationOnWindup) caster.owner.StartRotation();
+            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
+        }
+
         public override void CastEnded(CastInfo caster)
         {
             base.CastEnded(caster);

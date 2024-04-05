@@ -16,11 +16,11 @@ namespace EcologyRPG.GameSystems.Abilities
             var dir = GetDir(caster);
 
             if (targetType == TargetType.Cone)
-                targets = TargetUtility.GetTargetsInCone(caster.castPos, dir, angle, Range, targetMask);
+                targets = TargetUtility.GetTargetsInCone(caster.castPos, dir, angle, Range, AbilityManager.TargetMask);
             else if (targetType == TargetType.Line)
-                targets = TargetUtility.GetTargetsInLine(caster.castPos, dir, new Vector3(width / 2, 2, Range / 2), targetMask);
+                targets = TargetUtility.GetTargetsInLine(caster.castPos, dir, new Vector3(width / 2, 2, Range / 2), AbilityManager.TargetMask);
             else if (targetType == TargetType.Circular)
-                targets = TargetUtility.GetTargetsInRadius(caster.castPos, Range, targetMask);
+                targets = TargetUtility.GetTargetsInRadius(caster.castPos, Range, AbilityManager.TargetMask);
 
             foreach (var target in targets)
             {

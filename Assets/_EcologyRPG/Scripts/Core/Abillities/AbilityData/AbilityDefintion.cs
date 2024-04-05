@@ -76,6 +76,18 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
+        public virtual void PutOnCooldown(float timer)
+        {
+            state = AbilityStates.cooldown;
+            remainingCooldown = timer;
+            AbilityManager.Instance.RegisterAbilityOnCooldown(this);
+        }
+
+        public virtual void PutOnCooldown()
+        {
+            PutOnCooldown(Cooldown);
+        }
+
         public virtual bool Activate(CastInfo castInfo)
         {
             if (!CanActivate(castInfo.owner)) return false;
@@ -88,13 +100,11 @@ namespace EcologyRPG.Core.Abilities
         {
             if (state == AbilityStates.cooldown)
             {
-                //Debug.Log("On cooldown");
                 return false;
             }
 
             if (state == AbilityStates.casting)
             {
-                //Debug.Log("Ability already casting");
                 return false;
             }
 
@@ -119,15 +129,7 @@ namespace EcologyRPG.Core.Abilities
 
             caster.owner.state = CharacterStates.active;
             
-            if(Cooldown > 0)
-            {
-                state = AbilityStates.cooldown;
-                remainingCooldown = Cooldown;
-                AbilityManager.Instance.RegisterAbilityOnCooldown(this);
-            } else
-            {
-                state = AbilityStates.ready;
-            }
+            PutOnCooldown();
         }
 
         /// <summary>
@@ -142,6 +144,11 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
+        public virtual void CastCancelled(CastInfo caster)
+        {
+
+        }
+
 
         /// <summary>
         /// Called when the cast has ended
@@ -151,7 +158,7 @@ namespace EcologyRPG.Core.Abilities
         {
         }
 
-
+#if UNITY_EDITOR
         [ContextMenu("Delete")]
         protected virtual void Delete()
         {
@@ -159,6 +166,6 @@ namespace EcologyRPG.Core.Abilities
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-
+#endif
     }
 }

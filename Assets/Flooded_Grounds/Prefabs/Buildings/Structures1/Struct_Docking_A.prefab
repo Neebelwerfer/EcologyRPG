@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 409386}
   - component: {fileID: 3366338}
   - component: {fileID: 2381576}
-  - component: {fileID: 6498956}
+  - component: {fileID: 9185590341747302414}
   m_Layer: 0
   m_Name: Struct_Docking_A_LOD2
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6498956
-MeshCollider:
+--- !u!65 &9185590341747302414
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,10 +102,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 143a664b353b0ac439702a294cfe4f2f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 10.143539, y: 9.19, z: 2.9012234}
+  m_Center: {x: -4.9638476, y: -4.4657044, z: -0.0021973252}
 --- !u!1 &114484
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +116,7 @@ GameObject:
   - component: {fileID: 469966}
   - component: {fileID: 3350240}
   - component: {fileID: 2364506}
-  - component: {fileID: 6495544}
+  - component: {fileID: 1357530290339252432}
   m_Layer: 0
   m_Name: Struct_Docking_A_LOD0
   m_TagString: Untagged
@@ -190,8 +189,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6495544
-MeshCollider:
+--- !u!65 &1357530290339252432
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -208,10 +207,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 143a664b353b0ac439702a294cfe4f2f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 10.143539, y: 9.19, z: 2.9012234}
+  m_Center: {x: -4.9638476, y: -4.4657044, z: 0.008385897}
 --- !u!1 &117740
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +221,7 @@ GameObject:
   - component: {fileID: 495768}
   - component: {fileID: 3357952}
   - component: {fileID: 2310378}
-  - component: {fileID: 6493788}
+  - component: {fileID: 6523376042539820543}
   m_Layer: 0
   m_Name: Struct_Docking_A_LOD1
   m_TagString: Untagged
@@ -296,8 +294,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6493788
-MeshCollider:
+--- !u!65 &6523376042539820543
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -314,10 +312,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 143a664b353b0ac439702a294cfe4f2f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 10.143539, y: 9.19, z: 2.9012234}
+  m_Center: {x: -4.9638476, y: -4.4657044, z: 0.008385897}
 --- !u!1 &137216
 GameObject:
   m_ObjectHideFlags: 0

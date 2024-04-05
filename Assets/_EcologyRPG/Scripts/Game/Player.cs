@@ -118,6 +118,7 @@ namespace EcologyRPG.GameSystems
             isPlayerSpawned = false;
             playerCharacter.RemoveBinding();
             Object.Destroy(PlayerObject);
+            PlayerAbilities.PlayerDeath();
             EventManager.Defer("PlayerDeath", new DefaultEventData() { data = playerCharacter, source = this });
         }
 

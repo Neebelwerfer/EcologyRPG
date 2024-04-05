@@ -83,7 +83,7 @@ namespace EcologyRPG.GameSystems.UI
         protected override void OnDisable()
         {
             base.OnDisable();
-            Tooltip.HideTooltip(gameObject);
+            Tooltip.HideTooltip(this);
         }
 
         public IEnumerator ResetClick()

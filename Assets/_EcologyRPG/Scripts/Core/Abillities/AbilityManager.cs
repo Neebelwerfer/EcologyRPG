@@ -10,12 +10,17 @@ namespace EcologyRPG.Core.Abilities
     {
         public static AbilityManager Instance;
 
-        List<AbilityDefintion> CooldownAbilities;
+        public static LayerMask TargetMask { get; private set; }
+        public static LayerMask GroundMask { get; private set; }
+
+        readonly List<AbilityDefintion> CooldownAbilities;
 
         public bool Enabled => CooldownAbilities.Count > 0;
 
-        public static void Init()
+        public static void Init(LayerMask targetMask, LayerMask targetGroundMask)
         {
+            AbilityManager.TargetMask = targetMask;
+            AbilityManager.GroundMask = targetGroundMask;
             Instance = new();
         }
 

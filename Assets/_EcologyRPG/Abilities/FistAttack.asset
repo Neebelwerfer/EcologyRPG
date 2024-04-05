@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 3
   OnCastEffects: []
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
   useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:

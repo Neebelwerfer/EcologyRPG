@@ -1,4 +1,5 @@
 using EcologyRPG.Core.UI;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,8 +18,21 @@ namespace EcologyRPG.Core.Items
         {
             base.Start();
             PlayerObject = GameObject.FindGameObjectWithTag("Player");
+            EventManager.AddListener("PlayerDeath", OnPlayerDeath);
+            EventManager.AddListener("PlayerSpawn", OnPlayerSpawn);
             onClick.AddListener(OnClicked);
         }
+
+        private void OnPlayerSpawn(EventData arg0)
+        {
+            PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        private void OnPlayerDeath(EventData arg0)
+        {
+            PlayerObject = null;
+        }
+
         public override void OnPointerClick(PointerEventData eventData)
         {
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
@@ -42,6 +56,8 @@ namespace EcologyRPG.Core.Items
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
+            if (PlayerObject == null)
+                return;
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
             {
                 base.OnPointerEnter(eventData);
@@ -51,6 +67,8 @@ namespace EcologyRPG.Core.Items
 
         public override void OnPointerExit(PointerEventData eventData)
         {
+            if (PlayerObject == null)
+                return;
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
             {
                 base.OnPointerExit(eventData);

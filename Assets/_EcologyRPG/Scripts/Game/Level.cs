@@ -48,7 +48,7 @@ namespace EcologyRPG.GameSystems
             respawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
 
             EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
-            AbilityManager.Init();
+            AbilityManager.Init(Game.Settings.EntityMask, Game.Settings.GroundMask);
             ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
             Player.Instance.SpawnPlayer();

@@ -30,6 +30,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         public PlayerAbilities(PlayerCharacter player, Inventory inventory, PlayerSettings settings)
         {
             _Player = player;
+            this.settings = settings;
 
             abilitySlots[4] = Init(settings.FistAttackAbility);
             abilitySlots[5] = Init(settings.DodgeAbility);
@@ -92,6 +93,17 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                 OnAbilityChange[(int)slot] = new UnityEvent<AbilityDefintion>();
             }
             OnAbilityChange[(int)slot].AddListener(action);
+        }
+
+        public void PlayerDeath()
+        {
+            foreach (var ability in abilitySlots)
+            {
+                if (ability != null && ability.state == AbilityStates.casting)
+                {
+                    ability.CastCancelled(new CastInfo() { owner = _Player });
+                }
+            }
         }
     }
 }

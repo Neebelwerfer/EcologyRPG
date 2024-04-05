@@ -37,6 +37,7 @@ MonoBehaviour:
   CastWindUp: []
   BlockMovementOnWindup: 1
   RotatePlayerTowardsMouse: 1
+  ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   Ability: {fileID: 3082562889586705759}
   ResourceName: water
@@ -58,9 +59,6 @@ MonoBehaviour:
   Range: 0
   OnCastEffects:
   - {fileID: -4830978739927171413}
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
   Radius: 8
   OnHitEffects:
   - {fileID: 7810403523279891257}
@@ -109,6 +107,5 @@ MonoBehaviour:
   displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
-  Owner: {fileID: 0}
   KnockBackDistance: 4
   knockType: 0

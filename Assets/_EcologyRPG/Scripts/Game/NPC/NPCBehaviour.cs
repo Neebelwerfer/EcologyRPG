@@ -5,9 +5,7 @@ namespace EcologyRPG.GameSystems.NPC
 {
     public abstract class NPCBehaviour : ScriptableObject
     {
-        public float UpdatePerSecond;
-
-        State currState;
+        protected State currState;
 
         public void ChangeState(EnemyNPC character, State newState)
         {
