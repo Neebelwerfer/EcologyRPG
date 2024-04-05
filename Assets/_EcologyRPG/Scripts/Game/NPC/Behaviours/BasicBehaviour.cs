@@ -1,6 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.NPC.Behaviours
@@ -8,7 +9,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
     [CreateAssetMenu(fileName = "Basic Behaviour", menuName = "NPC/Behaviours/BasicBehaviour")]
     public class BasicBehaviour : NPCBehaviour
     {
-        public NPCAbility attackAbilityReference;
+        public List<NPCAbility> abilities = new();
 
         public float targetSearchCooldown = 0.5f;
         public float AggroRange;
@@ -18,11 +19,17 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         BaseCharacter target;
         NPCAbility attackAbility;
         float targetSearchTimer = 0f;
+        NPCAbility[] initialisedAbilities;
 
         public override void Init(EnemyNPC character)
         {
-            attackAbility = Instantiate(attackAbilityReference);
-            attackAbility.Initialise();
+            initialisedAbilities = new NPCAbility[abilities.Count];
+            for (int i = 0; i < abilities.Count; i++)
+            {
+                initialisedAbilities[i] = Instantiate(abilities[i]);
+                initialisedAbilities[i].Initialise();
+            }
+
             var aggroState = new State("Aggro");
             var passiveState = new State("Passive");
 
@@ -50,12 +57,14 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             {
                 npc.Agent.ResetPath();
                 if (attackAbility.state != AbilityStates.ready) return;
+                if (npc.state == CharacterStates.casting) return;
                 npc.Transform.LookAt(target.Transform.Position);
-                npc.CastAbility(attackAbility, target.Transform.Position);
+                CastAbility(npc, attackAbility, target.Transform.Position);
             });
 
             var inAttackRange = new DecisionNode((npc) =>
             {
+                GetAbility();
                 var dist = Vector3.Distance(npc.Transform.Position, target.Transform.Position);
                 return dist < attackAbility.Ability.Range;
 
@@ -127,6 +136,28 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             #endregion
 
             currState = passiveState;
+        }
+
+        void GetAbility()
+        {
+            foreach (var a in initialisedAbilities)
+            {
+                if (a.state == AbilityStates.ready)
+                {
+                    attackAbility = a;
+                    return;
+                }
+            }
+        }
+
+        void CastAbility(EnemyNPC npc, NPCAbility ability, Vector3 target)
+        {
+            npc.CastAbility(ability, target);
+            foreach (var a in initialisedAbilities)
+            {
+                if (a == ability || a.state != AbilityStates.ready) continue;
+                a.PutOnCooldown(1f);
+            }
         }
     }
 }

@@ -43,18 +43,3 @@ MonoBehaviour:
     - ItemTemplate: {fileID: 11400000, guid: a96054f9b1817e44bbc686017c852e9e, type: 2}
       weight: 200
       allowedTags: []
-  - category: Equipable Items
-    weight: 10
-    items:
-    - ItemTemplate: {fileID: 11400000, guid: b2080562fa806634cafa3a1909a328f3, type: 2}
-      weight: 200
-      allowedTags: []
-    - ItemTemplate: {fileID: 11400000, guid: b88db98f8f3ba2e4ab4d2ca270b182c6, type: 2}
-      weight: 200
-      allowedTags: []
-    - ItemTemplate: {fileID: 11400000, guid: 08bd0c63d4a68bc4385316cb4fd5ba95, type: 2}
-      weight: 200
-      allowedTags: []
-    - ItemTemplate: {fileID: 11400000, guid: a96054f9b1817e44bbc686017c852e9e, type: 2}
-      weight: 200
-      allowedTags: []
