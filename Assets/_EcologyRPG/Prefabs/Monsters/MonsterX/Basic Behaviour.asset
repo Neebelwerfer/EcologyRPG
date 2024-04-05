@@ -16,6 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9836ddb7ba9fb8408348fec34c52edb, type: 2}
   - {fileID: 11400000, guid: 1d72219ea2437ab4787e58debbda30f3, type: 2}
   targetSearchCooldown: 0.5
-  AggroRange: 20
-  WanderRadius: 10
-  MaxLeashRange: 20
+  AggroRange: 10
+  WanderRadius: 30
+  MaxLeashRange: 50

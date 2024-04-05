@@ -30,7 +30,7 @@ MonoBehaviour:
     AttributeName: 
     type: 1
     modType: 200
-    minValue: -5
-    maxValue: -2
+    minValue: -0.05
+    maxValue: -0.02
     GrowthPerLevel: 0
     growthType: 0
