@@ -1580,7 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0927e1eda6d9143956252d4c6c0c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CastingPoint: {fileID: 400048}
+  CastingPoint: {fileID: 400062}
   CharacterUpdated:
     m_PersistentCalls:
       m_Calls: []
