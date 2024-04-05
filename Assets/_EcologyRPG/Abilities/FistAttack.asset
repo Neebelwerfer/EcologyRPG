@@ -52,7 +52,7 @@ MonoBehaviour:
   DisplayName: Fist Attack
   Cooldown: 0.2
   CastWindupTime: 1
-  Icon: {fileID: 21300000, guid: ce1cf3cebfb29f74f89c99ac4d14b1be, type: 3}
+  Icon: {fileID: 21300000, guid: 936bf0cad00e08848a0d58b0843898a5, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
@@ -63,6 +63,6 @@ MonoBehaviour:
   BlockRotationOnWindup: 1
   Ability: {fileID: -6701787922667511886}
   ResourceName: stamina
-  ResourceCost: 5
+  ResourceCost: 10
   Description: 
   AnimationTrigger: Is_MeleeAttacking

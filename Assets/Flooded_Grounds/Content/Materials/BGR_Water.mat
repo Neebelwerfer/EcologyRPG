@@ -175,7 +175,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Opacity: 0.75
-    - _Parallax: 0.0313
+    - _Parallax: 0.0465
     - _Power: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
