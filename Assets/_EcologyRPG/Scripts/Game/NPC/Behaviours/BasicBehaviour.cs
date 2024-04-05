@@ -57,8 +57,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             {
                 npc.Agent.ResetPath();
                 if (attackAbility.state != AbilityStates.ready) return;
-                if (npc.state == CharacterStates.casting) return;
-                npc.Transform.LookAt(target.Transform.Position);
+                npc.Agent.velocity = Vector3.zero;
                 CastAbility(npc, attackAbility, target.Transform.Position);
             });
 

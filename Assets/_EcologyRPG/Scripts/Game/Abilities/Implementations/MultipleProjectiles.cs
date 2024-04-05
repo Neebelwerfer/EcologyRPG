@@ -78,7 +78,7 @@ namespace EcologyRPG.GameSystems.Abilities
 
         void OnHit(CastInfo caster, BaseCharacter target, Vector3 direction)
         {
-            var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.Transform.Position, dir = direction, mousePoint = caster.mousePoint };
+            var newCastInfo = new CastInfo { owner = caster.owner, castPos = target.Transform.Position, dir = direction, targetPoint = caster.targetPoint };
             DefaultOnHitAction()(newCastInfo, target);
         }
     }

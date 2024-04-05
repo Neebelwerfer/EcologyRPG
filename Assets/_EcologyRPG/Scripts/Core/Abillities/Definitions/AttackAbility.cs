@@ -48,7 +48,7 @@ namespace EcologyRPG.Core.Abilities
 
             if (useMouseDirection)
             {
-                var mp = castInfo.mousePoint;
+                var mp = castInfo.targetPoint;
                 mp.y = castInfo.owner.CastPos.y;
                 return (mp - castInfo.owner.CastPos).normalized;
             }

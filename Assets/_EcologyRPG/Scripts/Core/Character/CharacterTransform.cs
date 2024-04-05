@@ -37,6 +37,7 @@ namespace EcologyRPG.Core.Character
             { 
                 if(binding != null)
                 {
+                    position = binding.transform.position;
                     return binding.transform.position;
                 }
                 return position;
@@ -55,6 +56,7 @@ namespace EcologyRPG.Core.Character
             {
                 if(binding != null)
                 {
+                    rotation = binding.transform.rotation;
                     return binding.transform.rotation;
                 }
                 return rotation;

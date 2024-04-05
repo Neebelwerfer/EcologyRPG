@@ -24,6 +24,7 @@ namespace EcologyRPG.GameSystems.NPC
                 caster.owner.Animator.SetTrigger(triggerHash);
             }
             base.CastStarted(caster);
+            caster.owner.Transform.LookAt(caster.targetPoint);
         }
 
         public override void CastEnded(CastInfo caster)

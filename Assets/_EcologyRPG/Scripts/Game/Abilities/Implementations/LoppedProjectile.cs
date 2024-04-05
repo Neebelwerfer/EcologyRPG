@@ -17,10 +17,10 @@ namespace EcologyRPG.GameSystems.Abilities
 
         public override void Cast(CastInfo caster)
         {
-            Debug.DrawRay(caster.mousePoint, Vector3.up * 1, Color.red, 5);
-            ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.castPos, caster.mousePoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
+            Debug.DrawRay(caster.targetPoint, Vector3.up * 1, Color.red, 5);
+            ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.castPos, caster.targetPoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
             {
-                var newInfo = new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, mousePoint = caster.mousePoint };
+                var newInfo = new CastInfo { owner = caster.owner, castPos = projectileObject.transform.position, targetPoint = caster.targetPoint };
                 Debug.DrawRay(projectileObject.transform.position, Vector3.up * 1, Color.green, 5);
                 foreach (var effect in OnHitEffects)
                 {

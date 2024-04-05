@@ -65,7 +65,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         public void CastAbility(AbilityDefintion ability, Vector3 target)
         {
-            ability.Activate(new CastInfo { activationInput = null, castPos = CastPos, owner = this, dir = Transform.Forward, mousePoint = target});
+            ability.Activate(new CastInfo { activationInput = null, castPos = CastPos, owner = this, dir = target - transform.Position, targetPoint = target});
         }
 
         public override void Die()
@@ -87,7 +87,7 @@ namespace EcologyRPG.GameSystems.NPC
             base.Update();
             if (IsPaused) return;
 
-            if (behaviour != null && canMove && (state != CharacterStates.disabled && state != CharacterStates.dead))
+            if (behaviour != null && canMove && (state == CharacterStates.active))
             {
                 Agent.isStopped = false;
                 Agent.speed = Stats.GetStat("movementSpeed").Value;

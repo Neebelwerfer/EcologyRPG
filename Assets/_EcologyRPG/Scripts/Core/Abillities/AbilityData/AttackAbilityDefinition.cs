@@ -12,7 +12,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public BaseAbility Ability;
 
         Vector3 MousePoint;
-        static StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
+        static readonly StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
 
         public override void CastStarted(CastInfo caster)
         {
@@ -39,7 +39,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public override void CastEnded(CastInfo caster)
         {
             base.CastEnded(caster);
-            caster.mousePoint = MousePoint;
+            caster.targetPoint = MousePoint;
             if (caster.castPos == Vector3.zero) caster.castPos = caster.owner.CastPos;
             Ability.Cast(caster);
             if (BlockMovementOnWindup) caster.owner.StartMovement();

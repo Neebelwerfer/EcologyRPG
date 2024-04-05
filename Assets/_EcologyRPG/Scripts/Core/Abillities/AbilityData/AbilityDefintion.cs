@@ -28,7 +28,7 @@ namespace EcologyRPG.Core.Abilities
         public BaseCharacter owner;
         public Vector3 castPos;
         public Vector3 dir;
-        public Vector3 mousePoint;
+        public Vector3 targetPoint;
         public InputAction activationInput;
     }
 
@@ -78,6 +78,12 @@ namespace EcologyRPG.Core.Abilities
 
         public virtual void PutOnCooldown(float timer)
         {
+            if(timer <= 0)
+            {
+                state = AbilityStates.ready;
+                return;
+            }
+
             state = AbilityStates.cooldown;
             remainingCooldown = timer;
             AbilityManager.Instance.RegisterAbilityOnCooldown(this);
