@@ -5,46 +5,40 @@ namespace EcologyRPG.Core.Abilities.AbilityData
 {
     public class AttackAbilityDefinition : AbilityDefintion
     {
-        public bool BlockMovementOnWindup = false;
-        public bool RotatePlayerTowardsMouse = true;
-        public bool ReducedSpeedOnWindup = true;
-        public bool BlockRotationOnWindup = true;
         public BaseAbility Ability;
+        public bool RotatePlayerTowardsMouse = false;
 
         Vector3 MousePoint;
-        static readonly StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
 
         public override void CastStarted(CastInfo caster)
         {
             base.CastStarted(caster);
-            if (BlockRotationOnWindup) caster.owner.StopRotation();
-            if (BlockMovementOnWindup) caster.owner.StopMovement();
-            if (ReducedSpeedOnWindup) caster.owner.Stats.AddStatModifier(HalfSpeed);
+
             var res = TargetUtility.GetMousePoint(Camera.main);
             MousePoint = res;
-            if (!RotatePlayerTowardsMouse) return;
-            res.y = caster.owner.Transform.Position.y;
-            caster.owner.Transform.LookAt(res);
-
+            if(RotatePlayerTowardsMouse)
+            {
+                res.y = caster.owner.Transform.Position.y;
+                caster.owner.Transform.LookAt(res);
+            }
+            else if (caster.dir != Vector3.zero)
+            {
+                caster.owner.Transform.LookAt(caster.dir);
+            }
         }
 
         public override void CastCancelled(CastInfo caster)
         {
             base.CastCancelled(caster);
-            if (BlockMovementOnWindup) caster.owner.StartMovement();
-            if (BlockRotationOnWindup) caster.owner.StartRotation();
-            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
+
         }
 
-        public override void CastEnded(CastInfo caster)
+        public override void CastFinished(CastInfo caster)
         {
-            base.CastEnded(caster);
+            base.CastFinished(caster);
             caster.targetPoint = MousePoint;
             if (caster.castPos == Vector3.zero) caster.castPos = caster.owner.CastPos;
             Ability.Cast(caster);
-            if (BlockMovementOnWindup) caster.owner.StartMovement();
-            if (BlockRotationOnWindup) caster.owner.StartRotation();
-            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
         }
 
         [ContextMenu("Delete")]

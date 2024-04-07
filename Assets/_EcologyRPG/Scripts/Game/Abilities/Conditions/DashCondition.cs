@@ -99,7 +99,6 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
                     OnHit(hitChar.Character);
                 }
             }
-
         }
 
         public override void OnRemoved(BaseCharacter target)

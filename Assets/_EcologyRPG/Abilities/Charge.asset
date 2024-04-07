@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 10
   OnCastEffects: []
-  useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 1344285647382033925}
@@ -22,6 +21,7 @@ MonoBehaviour:
   - {fileID: 7850948500378500201}
   displayFirstHitEffects: 1
   dash: {fileID: -3317710680887479378}
+  useMouseDirection: 1
 --- !u!114 &-4685705558122471581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,15 +84,16 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: -6419718447561464767}
+  RotatePlayerTowardsMouse: 1
   ResourceName: stamina
   ResourceCost: 20
   Description: 
   AnimationTrigger: 
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 0
 --- !u!114 &1344285647382033925
 MonoBehaviour:
   m_ObjectHideFlags: 0

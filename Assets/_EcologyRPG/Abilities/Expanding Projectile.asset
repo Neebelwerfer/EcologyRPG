@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 10
   OnCastEffects: []
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
   - {fileID: -1589667610680843334}
@@ -76,14 +72,16 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: -5784286480726840949}
+  RotatePlayerTowardsMouse: 1
   ResourceName: water
   ResourceCost: 25
   Description: 
   AnimationTrigger: Water_SingleShot
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 1
 --- !u!114 &794207685698056427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +98,6 @@ MonoBehaviour:
   displayName: SlowCondition
   duration: 2
   remainingDuration: 0
-  Owner: {fileID: 0}
   slowType: 0
   SlowAmount: 0.5
   SlowCurve:

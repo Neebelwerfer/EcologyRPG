@@ -10,7 +10,7 @@ namespace EcologyRPG.Core.Abilities
     {
         [Header("Attack Ability")]
         [Tooltip("Use the mouse direction as the direction of the ability instead of the cast position. This is useful for abilities that are casted in the direction of the mouse instead of the position of the caster.")]
-        public bool useMouseDirection = true;
+        public bool useMouseDirection = false;
         [Tooltip("Effects that will be applied to the first target when the ability hits")]
         public List<AbilityComponent> OnFirstHit = new();
         [Tooltip("Effects that will be applied to the target when the ability hits")]
