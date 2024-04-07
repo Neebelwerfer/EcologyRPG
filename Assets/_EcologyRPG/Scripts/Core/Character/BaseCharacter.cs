@@ -327,8 +327,6 @@ namespace EcologyRPG.Core.Character
 
         public static bool IsLegalMove(BaseCharacter character, Vector3 dir, float speed)
         {
-            bool groundTest = false;
-            bool wallTest = true;
             var origin = character.Transform.Position;
             var checkPos = origin + dir * (speed * 2);
             checkPos.y += 1f;
@@ -336,12 +334,9 @@ namespace EcologyRPG.Core.Character
             if (Physics.Raycast(checkPos, Vector3.down, out var hit, 30, AbilityManager.GroundMask))
             {
                 if (hit.distance < 2f)
-                    groundTest = true;
+                    return true;
             }
-
-            return groundTest && wallTest;
+            return false;
         }
-
     }
-
 }
