@@ -16,6 +16,7 @@ namespace EcologyRPG.GameSystems.UI
     {
         [Header("Ability")]
         public AbilitySlots abilitySlot;
+        [SerializeField] private bool blockedByUI = true;
         [SerializeField] private InputActionReference abilityAction;
         [SerializeField] private Image abilityImage;
         [SerializeField] private Image backgroundImage;
@@ -105,7 +106,7 @@ namespace EcologyRPG.GameSystems.UI
         {
             if (ability == null) return;
             if (Game.Instance.CurrentState == Game_State.Playing
-                && !EventSystem.current.IsPointerOverGameObject())
+                && (!blockedByUI || !EventSystem.current.IsPointerOverGameObject()))
                 InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
         }
 
