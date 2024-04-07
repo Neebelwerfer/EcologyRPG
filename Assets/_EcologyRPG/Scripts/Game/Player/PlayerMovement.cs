@@ -51,7 +51,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             {
                 animator.SetBool(isStill, false);
                 animator.SetBool(isWalking, true);
-                var speed = MovementSpeed.Value * TimeManager.IngameDeltaTime;
+                var speed = MovementSpeed.Value * Characters.BaseMoveSpeed * TimeManager.IngameDeltaTime;
                 var dir = (movement.y * forward + movement.x * right).normalized;
                 Physics.Raycast(transform.Position, Vector3.down, out RaycastHit hit, 100, LayerMask.GetMask("Ground"));
                 dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;

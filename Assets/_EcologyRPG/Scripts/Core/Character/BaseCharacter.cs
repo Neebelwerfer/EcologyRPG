@@ -73,7 +73,7 @@ namespace EcologyRPG.Core.Character
 
         public BaseCharacter()
         {
-            CharacterManager.Instance.AddCharacter(this);
+            Characters.Instance.AddCharacter(this);
             transform = new CharacterTransform();
             Stats = new Stats();
             Health = Stats.GetResource("health");

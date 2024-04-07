@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 343912986980616989}
   - component: {fileID: 7782368388336832342}
   - component: {fileID: 3124028898939904628}
+  - component: {fileID: 1719449397067112570}
   m_Layer: 5
   m_Name: DamageNumber
   m_TagString: Untagged
@@ -163,3 +164,15 @@ MonoBehaviour:
   Duration: 1
   Speed: 1
   RemainingDuration: 0
+--- !u!225 &1719449397067112570
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231269641730207172}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

@@ -1,4 +1,5 @@
 using EcologyRPG.Core;
+using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Systems;
 using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
@@ -40,6 +41,7 @@ namespace EcologyRPG.GameSystems
         void Init()
         {
             Settings = Resources.Load<GameSettings>("Config/GameSettings");
+            Characters.BaseMoveSpeed = Settings.BaseMoveSpeed;
             TaskManager.Init();
             SystemManager.Init();
             Player.Init(Settings.playerSettings);

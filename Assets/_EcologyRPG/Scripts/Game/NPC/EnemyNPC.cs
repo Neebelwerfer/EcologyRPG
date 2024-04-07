@@ -43,7 +43,7 @@ namespace EcologyRPG.GameSystems.NPC
             base.SetBinding(binding);
             var npcBinding = binding as NPCBinding;
             Agent = npcBinding.Agent;
-            Agent.speed = Stats.GetStat("movementSpeed").Value;
+            Agent.speed = Stats.GetStat("movementSpeed").Value * Characters.BaseMoveSpeed;
 
             if (behaviourReference != null)
             {
@@ -90,7 +90,7 @@ namespace EcologyRPG.GameSystems.NPC
             if (behaviour != null && canMove && (state == CharacterStates.active))
             {
                 Agent.isStopped = false;
-                Agent.speed = Stats.GetStat("movementSpeed").Value;
+                Agent.speed = Stats.GetStat("movementSpeed").Value * Characters.BaseMoveSpeed;
                 behaviour.UpdateBehaviour(this);
                 Animator.SetBool(movingHash, Agent.hasPath);
 
