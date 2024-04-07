@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class StatDown : DebuffCondition
+    public class StatDown : DebuffCondition, IUpdateCondition
     {
         [StatAttribute(StatType.Stat)]
         public string StatName;

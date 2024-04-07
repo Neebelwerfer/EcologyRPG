@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class Stun : DebuffCondition
+    public class Stun : DebuffCondition, IUpdateCondition
     {
         public override void OnApply(CastInfo Caster, BaseCharacter target)
         {

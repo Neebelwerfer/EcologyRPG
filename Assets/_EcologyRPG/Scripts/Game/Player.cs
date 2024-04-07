@@ -130,6 +130,7 @@ namespace EcologyRPG.GameSystems
 
         public void OnFixedUpdate()
         {
+            playerCharacter.FixedUpdate();
             playerMovement.FixedUpdate();
         }
     }

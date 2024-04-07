@@ -41,6 +41,14 @@ namespace EcologyRPG.Core.Character
         }
     }
 
+    public interface IUpdateCondition
+    {
+    }
+
+    public interface IFixedUpdateCondition
+    {
+    }
+
 #if UNITY_EDITOR
     [CustomEditor(typeof(Condition), true)]
     public class ConditionEditor : Editor

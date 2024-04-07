@@ -3,10 +3,11 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
+using EcologyRPG.GameSystems.PlayerSystems;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class DashCondition : BuffCondition
+    public class DashCondition : BuffCondition, IFixedUpdateCondition
     {
         public DirectionMode directionMode = DirectionMode.Mouse;
         public float dashRange = 10f;
@@ -38,9 +39,11 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
 
         void OnHit(BaseCharacter target)
         {
-            CastInfo info = new();
-            info.owner = Owner;
-            info.castPos = Owner.Transform.Position;
+            CastInfo info = new()
+            {
+                owner = Owner,
+                castPos = Owner.Transform.Position
+            };
             if (StopOnHit) remainingDuration = 0;
             if (firstHit)
             {
@@ -69,9 +72,9 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
                 return;
             }
             target.state = CharacterStates.dodging;
-            //target.Rigidbody.isKinematic = false;
-            //target.Rigidbody.velocity = dodgeSpeed * direction.normalized;
-            target.Transform.Position += deltaTime * dodgeSpeed * direction.normalized;
+            var move = deltaTime * dodgeSpeed * direction.normalized;
+            if (PlayerMovement.IsLegalMove(target, direction.normalized, dodgeSpeed * deltaTime, true))
+                target.Transform.Position += move;
         }
 
         public override void OnRemoved(BaseCharacter target)

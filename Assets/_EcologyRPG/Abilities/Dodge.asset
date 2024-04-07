@@ -18,7 +18,7 @@ MonoBehaviour:
   remainingDuration: 0
   directionMode: 0
   dashRange: 5
-  StopOnHit: 1
+  StopOnHit: 0
   OnFirstHitEffects: []
   OnHitEffects: []
 --- !u!114 &11400000

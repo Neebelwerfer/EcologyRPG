@@ -6,7 +6,7 @@ using UnityEngine;
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
 
-    public class KnockCondition : DebuffCondition
+    public class KnockCondition : DebuffCondition, IUpdateCondition
     {
         public enum KnockType
         {

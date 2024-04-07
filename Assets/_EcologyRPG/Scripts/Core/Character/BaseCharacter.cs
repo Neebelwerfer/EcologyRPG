@@ -40,6 +40,7 @@ namespace EcologyRPG.Core.Character
                 else return null;
             } 
         }
+        public virtual Transform CastTransform { get { return CharacterBinding.CastingPoint; } }
         public virtual Vector3 CastPos { get { return CharacterBinding.CastingPoint.position; } }
         public virtual CharacterTransform Transform { get { return transform; } }
         public int Level { get { return level; } }
@@ -61,6 +62,7 @@ namespace EcologyRPG.Core.Character
 
         public UnityEvent<BaseCharacter> OnCharacterCollision = new();
         readonly List<Condition> effects = new();
+        readonly List<Condition> fixedUpdateEffects = new();
 
         protected int level;
         protected AttributeModification[] levelMods;
@@ -169,22 +171,44 @@ namespace EcologyRPG.Core.Character
             }
             effect.Owner = caster.owner;
 
-            for(int i = 0; i < effects.Count; i++)
+            if(effect is IUpdateCondition)
             {
-                if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
+                for (int i = 0; i < effects.Count; i++)
                 {
-                    effects[i].OnReapply(this);
-                    return;
+                    if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
+                    {
+                        effects[i].OnReapply(this);
+                        return;
+                    }
                 }
+                effects.Add(effect);
+            }
+            else if(effect is IFixedUpdateCondition)
+            {
+                for (int i = 0; i < fixedUpdateEffects.Count; i++)
+                {
+                    if (fixedUpdateEffects[i].Owner == caster.owner && fixedUpdateEffects[i].ID.Equals(effect.ID))
+                    {
+                        fixedUpdateEffects[i].OnReapply(this);
+                        return;
+                    }
+                }
+                fixedUpdateEffects.Add(effect);
             }
             effect.remainingDuration = effect.duration;
-            effects.Add(effect);
             effect.OnApply(caster, this);
         }
 
         public virtual void RemoveCondition(Condition effect)
         {
-            effects.Remove(effect);
+            if(effect is IUpdateCondition)
+            {
+                effects.Remove(effect);
+            }
+            else if (effect is IFixedUpdateCondition)
+            {
+                fixedUpdateEffects.Remove(effect);
+            }
             effect.OnRemoved(this);
         }
 
@@ -243,6 +267,21 @@ namespace EcologyRPG.Core.Character
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
                 Condition effect = effects[i];
+                effect.OnUpdate(this, Time.deltaTime);
+                effect.remainingDuration -= Time.deltaTime;
+                if (effect.remainingDuration <= 0)
+                {
+                    RemoveCondition(effect);
+                }
+            }
+        }
+
+        public virtual void FixedUpdate()
+        {
+            if (IsPaused) return;
+            for (int i = fixedUpdateEffects.Count - 1; i >= 0; i--)
+            {
+                Condition effect = fixedUpdateEffects[i];
                 effect.OnUpdate(this, Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)

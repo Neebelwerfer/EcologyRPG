@@ -44,6 +44,8 @@ MonoBehaviour:
     growthType: 0
   minDamage: 15
   maxDamage: 20
+  WeaponModel: {fileID: 7962952300318042174, guid: 5c110492bf69fb54daec3f3aee979913,
+    type: 3}
   GrowthPerLevel: 0
   growthType: 0
   WeaponAttackAbility: {fileID: 4961517004719421708}
@@ -68,10 +70,14 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   BlockMovementOnWindup: 0
+  RotatePlayerTowardsMouse: 1
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
   Ability: {fileID: 9071571606418511176}
   ResourceName: stamina
   ResourceCost: 10
   Description: 
+  AnimationTrigger: 
 --- !u!114 &9071571606418511176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,9 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 3
   OnCastEffects: []
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
   useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:

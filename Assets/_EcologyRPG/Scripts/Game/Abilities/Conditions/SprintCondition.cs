@@ -3,7 +3,7 @@ using EcologyRPG.Core.Character;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class SprintCondition : BuffCondition
+    public class SprintCondition : BuffCondition, IUpdateCondition
     {
         public float Value;
         Stat stat;

@@ -16,6 +16,9 @@ namespace EcologyRPG.GameSystems.Items
         [Header("Weapon Properties")]
         public float minDamage;
         public float maxDamage;
+        public GameObject WeaponModel;
+        public Vector3 WeaponRotation;
+        public Vector3 WeaponLocalOffset;
         [Header("Growth")]
         public float GrowthPerLevel;
         public GrowthType growthType;
@@ -35,6 +38,9 @@ namespace EcologyRPG.GameSystems.Items
             item.Description = Description;
             item.Icon = Icon;
             item.Weight = Weight;
+            item.WeaponModel = WeaponModel;
+            item.WeaponRotation = WeaponRotation;
+            item.WeaponLocalOffset = WeaponLocalOffset;
 
             var ability = Instantiate(WeaponAttackAbility);
             var range = new Ranges { minValue = minDamage, maxValue = maxDamage, GrowthPerLevel = GrowthPerLevel, growthType = growthType, modType = StatModType.Flat, StatName = "rawWeaponDamage", type = ModType.Stat };

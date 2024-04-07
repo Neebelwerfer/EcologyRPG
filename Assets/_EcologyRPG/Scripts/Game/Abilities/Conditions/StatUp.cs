@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class StatUp : BuffCondition
+    public class StatUp : BuffCondition, IUpdateCondition
     {
         [StatAttribute(StatType.Stat)]
         public string StatName;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class SlowCondition : DebuffCondition
+    public class SlowCondition : DebuffCondition, IUpdateCondition
     {
         public enum SlowType
         {
@@ -13,8 +13,8 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             Decaying
         }
 
-        static UniqueStatModificationHandler movementSpeedHandler = new UniqueStatModificationHandler("movementSpeed", StatModType.PercentMult, false);
-        [SerializeField] public SlowType slowType;
+        static readonly UniqueStatModificationHandler movementSpeedHandler = new UniqueStatModificationHandler("movementSpeed", StatModType.PercentMult, false);
+        public SlowType slowType;
 
         [Header("Flat Slow Setting")]
         public float SlowAmount = 0.5f;

@@ -137,7 +137,11 @@ namespace EcologyRPG.Core.Items
     public class Weapon : EquipableItem
     {
         public PlayerAbilityDefinition WeaponAbility;
+        public GameObject WeaponModel;
+        public Vector3 WeaponRotation;
+        public Vector3 WeaponLocalOffset;
 
+        GameObject weaponInstance;
         public Weapon()
         {
             equipmentType = EquipmentType.Weapon;
@@ -158,6 +162,25 @@ namespace EcologyRPG.Core.Items
             {
                 return DisplayString;
             }
+        }
+
+        public override void Equip(BaseCharacter character)
+        {
+            base.Equip(character);
+            if(WeaponModel != null)
+            {
+                Debug.Log("Equipping weapon model");
+                weaponInstance = Instantiate(WeaponModel, character.CastPos, Quaternion.identity, character.CastTransform);
+                weaponInstance.transform.localPosition = WeaponLocalOffset;
+                weaponInstance.transform.localEulerAngles = WeaponRotation;
+            }
+        }
+
+        public override void Unequip(BaseCharacter character)
+        {
+            base.Unequip(character);
+            if(weaponInstance != null)
+                Destroy(weaponInstance);
         }
     }
 

@@ -75,7 +75,8 @@ public class SeeThroughSync : MonoBehaviour
                 }
                 else
                 {
-                    _MaterialsByName[hit.collider].counter += 1;
+                    if(_MaterialsByName.ContainsKey(hit.collider))
+                        _MaterialsByName[hit.collider].counter += 1;
                 }
             }
         }

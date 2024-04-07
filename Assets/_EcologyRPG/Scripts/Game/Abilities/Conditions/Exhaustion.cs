@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class Exhaustion : DebuffCondition
+    public class Exhaustion : DebuffCondition, IUpdateCondition
     {
 
         InputAction sprintInput;
