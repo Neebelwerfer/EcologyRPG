@@ -1,6 +1,7 @@
 
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace EcologyRPG.GameSystems.PlayerSystems
 {
@@ -19,6 +20,11 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             EventManager.AddListener("XP", OnXpGain);
             xpRequiredPerLevel = playerSettings.XpRequiredPerLevel;
             currentXp = 0;
+
+        }
+
+        public override void Move(Vector3 direction, float speed)
+        {
 
         }
 

@@ -45,6 +45,7 @@ namespace EcologyRPG.Core.Character
         public virtual CharacterTransform Transform { get { return transform; } }
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return CharacterBinding.Rigidbody; } }
+        public CapsuleCollider Collider { get { return CharacterBinding.Collider; } }
         public Animator Animator { get { return CharacterBinding.Animator; } }
         public Stats Stats { get; private set; }
 
@@ -261,6 +262,8 @@ namespace EcologyRPG.Core.Character
             canMove = true;
         }
 
+        public abstract void Move(Vector3 direction, float speed);
+
         public virtual void Update()
         {
             if (IsPaused) return;
@@ -322,6 +325,22 @@ namespace EcologyRPG.Core.Character
             return CharacterBinding.TryGetComponent(out component);
         }
 
+        public static bool IsLegalMove(BaseCharacter character, Vector3 dir, float speed)
+        {
+            bool groundTest = false;
+            bool wallTest = true;
+            var origin = character.Transform.Position;
+            var checkPos = origin + dir * (speed * 2);
+            checkPos.y += 1f;
+            Debug.DrawRay(checkPos, Vector3.down * 1, Color.red);
+            if (Physics.Raycast(checkPos, Vector3.down, out var hit, 30, AbilityManager.GroundMask))
+            {
+                if (hit.distance < 2f)
+                    groundTest = true;
+            }
+
+            return groundTest && wallTest;
+        }
 
     }
 

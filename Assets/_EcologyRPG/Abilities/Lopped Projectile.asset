@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7817133415296140817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition
+  m_EditorClassIdentifier: 
+  ID: 4694cd88-6ca0-4267-8ba3-725f9f302e7f
+  displayName: KnockCondition
+  duration: 0.5
+  remainingDuration: 0
+  KnockBackDistance: 3
+  knockType: 0
+--- !u!114 &-7542360187130039918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: -7817133415296140817}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +159,7 @@ MonoBehaviour:
   Radius: 5
   OnHitEffects:
   - {fileID: 2789348620523841032}
+  - {fileID: -7542360187130039918}
 --- !u!114 &7999030092196173805
 MonoBehaviour:
   m_ObjectHideFlags: 0

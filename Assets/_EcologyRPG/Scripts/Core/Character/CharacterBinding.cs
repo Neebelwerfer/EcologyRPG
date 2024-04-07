@@ -6,6 +6,7 @@ namespace EcologyRPG.Core.Character
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class CharacterBinding : MonoBehaviour
     {
         public Transform CastingPoint;
@@ -15,6 +16,14 @@ namespace EcologyRPG.Core.Character
                 return rb;
             }
         }
+
+        public CapsuleCollider Collider { get
+            {
+                col ??= GetComponent<CapsuleCollider>();
+                return col;
+            }
+        }
+
         public Animator Animator { get
             {
                 anim ??= GetComponent<Animator>();
@@ -33,6 +42,7 @@ namespace EcologyRPG.Core.Character
         BaseCharacter character;
         Rigidbody rb;
         Animator anim;
+        CapsuleCollider col;
 
         public void SetCharacter(BaseCharacter character)
         {

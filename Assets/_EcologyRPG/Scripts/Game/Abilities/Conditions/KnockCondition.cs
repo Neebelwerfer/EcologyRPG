@@ -14,27 +14,22 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             Towards
         }
 
-        public float KnockBackDistance = 2;
+        public float KnockBackDistance = 4;
         public KnockType knockType;
 
-        Vector3 startPos;
-        Vector3 targetPos;
-
-        float timer;
-
+        Vector3 dir;
+        float KnockbackSpeed;
 
         public override void OnApply(CastInfo caster, BaseCharacter target)
         {
-            startPos = target.Transform.Position;
-            Vector3 dir;
             if (knockType == KnockType.Away)
                 dir = (target.Transform.Position - caster.castPos).normalized;
             else
                 dir = (caster.castPos - target.Transform.Position).normalized;
 
-            targetPos = KnockCondition.CalculateTargetPos(target, dir, KnockBackDistance);
-            timer = 0;
             target.state = CharacterStates.disabled;
+            target.Rigidbody.isKinematic = false;
+            KnockbackSpeed = KnockBackDistance / duration;
         }
         public override void OnReapply(BaseCharacter target)
         {
@@ -44,19 +39,16 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
         public override void OnRemoved(BaseCharacter target)
         {
             target.state = CharacterStates.active;
+            target.Rigidbody.velocity = Vector3.zero;
         }
 
         public override void OnUpdate(BaseCharacter target, float deltaTime)
         {
-            target.Transform.Position = Vector3.Lerp(startPos, targetPos, timer / duration);
-            timer += deltaTime;
-        }
-
-        public static Vector3 CalculateTargetPos(BaseCharacter target, Vector3 direction, float distance)
-        {
-            var targetPos = target.Transform.Position + (direction * distance);
-            targetPos.y = target.Transform.Position.y;
-            return targetPos;
+            if (BaseCharacter.IsLegalMove(target, dir, KnockbackSpeed * deltaTime))
+            {
+                target.Rigidbody.velocity = dir * KnockbackSpeed;
+            } 
+            else target.Rigidbody.velocity = Vector3.zero;
         }
     }
 
