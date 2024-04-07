@@ -10,6 +10,12 @@ namespace EcologyRPG.Core.Abilities.AbilityData
 
         Vector3 MousePoint;
 
+        public override bool CanActivate(BaseCharacter caster)
+        {
+            if(!base.CanActivate(caster)) return false;
+            return Ability.CanCast(caster);
+        }
+
         public override void CastStarted(CastInfo caster)
         {
             base.CastStarted(caster);
