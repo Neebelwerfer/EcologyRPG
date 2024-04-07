@@ -104,7 +104,8 @@ namespace EcologyRPG.GameSystems.UI
         private void ActivateAbility(InputAction.CallbackContext context)
         {
             if (ability == null) return;
-            if (Game.Instance.CurrentState == Game_State.Playing)
+            if (Game.Instance.CurrentState == Game_State.Playing
+                && !EventSystem.current.IsPointerOverGameObject())
                 InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
         }
 
