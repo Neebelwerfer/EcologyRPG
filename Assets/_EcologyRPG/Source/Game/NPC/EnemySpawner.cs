@@ -1,3 +1,4 @@
+using EcologyRPG.Core;
 using EcologyRPG.Core.Character;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         EnemyNPC[] Enemies;
         int currentEnemies;
+        bool canSpawn = true;
 
         Collider col;
         void Start()
@@ -74,6 +76,10 @@ namespace EcologyRPG.GameSystems.NPC
                     break;
                 }
             }
+            if(canSpawn == false)
+            {
+                TaskManager.Add(this, () => canSpawn = true, 5*60);
+            }
             EnemyManager.Instance.RemoveCharacter(enemy);
         }
 
@@ -81,7 +87,7 @@ namespace EcologyRPG.GameSystems.NPC
         {
             if (other.CompareTag("Player"))
             {
-                if (currentEnemies != numberOfEnemies)
+                if (canSpawn)
                 {
                     var counter = 0;
                     var enemies = SpawnEnemies(numberOfEnemies - currentEnemies);
@@ -93,6 +99,7 @@ namespace EcologyRPG.GameSystems.NPC
                             counter++;
                         }
                     }
+                    canSpawn = false;
                 }
             }
         }

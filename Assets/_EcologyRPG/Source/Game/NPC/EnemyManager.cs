@@ -1,3 +1,4 @@
+using EcologyRPG.Core;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Systems;
 using EcologyRPG.GameSystems.PlayerSystems;
@@ -33,6 +34,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         public bool Enabled => true;
 
+        readonly int AnimDieHash = Animator.StringToHash("Die");
         float timer = 0;
         readonly List<NPCData> activeEnemies = new List<NPCData>();
 
@@ -57,8 +59,9 @@ namespace EcologyRPG.GameSystems.NPC
             {
                 if(data.data is EnemyNPC enemy)
                 {
-                    NPCPool.ReturnGameObject(enemy.GameObject);
+                    enemy.Animator.SetTrigger(AnimDieHash);
                     RemoveCharacter(enemy);
+                    TaskManager.Add(this, () => NPCPool.ReturnGameObject(enemy.GameObject), 5);
                 }
             }
         }
