@@ -33,12 +33,6 @@ public class AttackAbilityDefinitionEditor : AbilityDefinitionEditor
         {
             showCooldownValue = false;
         }
-        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.BlockMovementOnWindup)));
-        if(!ability.BlockMovementOnWindup)
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.ReducedSpeedOnWindup)));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.BlockRotationOnWindup)));
-        EditorGUILayout.Space();
-        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.RotatePlayerTowardsMouse)));
 
         if (ability.Ability == null)
         {

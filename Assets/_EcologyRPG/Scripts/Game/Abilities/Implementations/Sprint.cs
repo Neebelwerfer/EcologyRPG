@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
 using EcologyRPG.GameSystems.Abilities.Conditions;
 using UnityEditor;
 
@@ -11,6 +12,12 @@ namespace EcologyRPG.GameSystems.Abilities
 
         static SprintCondition sprintCondition;
 
+        public override bool CanCast(BaseCharacter caster)
+        {
+            if(!base.CanCast(caster)) return false;
+
+            return caster.Rigidbody.velocity.magnitude > 0.1f;
+        }
 
         public override void Cast(CastInfo castInfo)
         {

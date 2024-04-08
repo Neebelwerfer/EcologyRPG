@@ -20,10 +20,8 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: -1452769123730355576}
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &-3507227463433355515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,9 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 3
   OnCastEffects: []
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
   useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
@@ -87,14 +82,16 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: 6692371911492626149}
+  RotatePlayerTowardsMouse: 1
   ResourceName: water
   ResourceCost: 10
   Description: 
   AnimationTrigger: Water_SingleShot
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 1
 --- !u!114 &6158336926422640208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,9 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 10
   OnCastEffects: []
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
   useMouseDirection: 1
   OnFirstHit:
   - {fileID: -3507227463433355515}

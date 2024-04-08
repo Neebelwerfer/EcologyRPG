@@ -34,7 +34,6 @@ namespace EcologyRPG.GameSystems.NPC
                 if (Physics.BoxCast(point, Vector3.one * 0.5f, Vector3.down, out var hit, Quaternion.identity, 10000, GroundMask))
                 {
                     spawnPoint = hit.point;
-                    spawnPoint.y += 0.5f;
                 }
                 else
                 {
@@ -57,6 +56,7 @@ namespace EcologyRPG.GameSystems.NPC
                 enemy.SetBinding(enemyObj.GetComponent<CharacterBinding>());
                 enemies[i] = enemy;
                 enemies[i].SetSpawner(this);
+                enemy.Agent.enabled = true;
             }
             currentEnemies += amount;
             EnemyManager.Instance.AddCharacters(enemies, enemyPrefab);

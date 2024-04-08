@@ -131,7 +131,7 @@ namespace EcologyRPG.Core.Abilities
 
             yield return new WaitForSeconds(CastWindupTime);
 
-            CastEnded(caster);
+            CastFinished(caster);
 
             caster.owner.state = CharacterStates.active;
             
@@ -160,7 +160,7 @@ namespace EcologyRPG.Core.Abilities
         /// Called when the cast has ended
         /// </summary>
         /// <param name="caster"></param>
-        public virtual void CastEnded(CastInfo caster)
+        public virtual void CastFinished(CastInfo caster)
         {
         }
 

@@ -12,7 +12,7 @@ namespace EcologyRPG.GameSystems.NPC
         public GameObject prefab;
     }
 
-    public class EnemyManager : SystemBehavior, IUpdateSystem, ILateUpdateSystem
+    public class EnemyManager : SystemBehavior, IUpdateSystem, IFixedUpdateSystem, ILateUpdateSystem
     {
         public static EnemyManager Instance;
 
@@ -111,6 +111,14 @@ namespace EcologyRPG.GameSystems.NPC
             foreach (var character in activeEnemies)
             {
                 character.enemy.Update();
+            }
+        }
+
+        public void OnFixedUpdate()
+        {
+            foreach (var character in activeEnemies)
+            {
+                character.enemy.FixedUpdate();
             }
         }
 

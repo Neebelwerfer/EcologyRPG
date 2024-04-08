@@ -27,9 +27,9 @@ namespace EcologyRPG.GameSystems.NPC
             caster.owner.Transform.LookAt(caster.targetPoint);
         }
 
-        public override void CastEnded(CastInfo caster)
+        public override void CastFinished(CastInfo caster)
         {
-            base.CastEnded(caster);
+            base.CastFinished(caster);
             caster.castPos = caster.owner.CastPos;
             caster.dir = caster.owner.Transform.Forward;
             Ability.Cast(caster);

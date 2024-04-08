@@ -90,16 +90,27 @@ namespace EcologyRPG.GameSystems.NPC
             if (behaviour != null && canMove && (state == CharacterStates.active))
             {
                 Agent.isStopped = false;
+                Rigidbody.isKinematic = true;
                 Agent.speed = Stats.GetStat("movementSpeed").Value * Characters.BaseMoveSpeed;
                 behaviour.UpdateBehaviour(this);
                 Animator.SetBool(movingHash, Agent.hasPath);
-
+            } else
+            {
+                Agent.isStopped = true;
+                Agent.velocity = Vector3.zero;
+                Rigidbody.isKinematic = false;
+                Animator.SetBool(movingHash, false);
             }
         }
 
         public void MoveTo(Vector3 position)
         {
             Agent.SetDestination(position);
+        }
+
+        public override void Move(Vector3 direction, float speed)
+        {
+
         }
 
         public EnemySpawner GetSpawner()

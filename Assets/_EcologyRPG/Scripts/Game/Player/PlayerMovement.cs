@@ -52,17 +52,18 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             {
                 animator.SetBool(isStill, false);
                 animator.SetBool(isWalking, true);
-                var speed = MovementSpeed.Value * Characters.BaseMoveSpeed * TimeManager.IngameDeltaTime;
+                var speed = MovementSpeed.Value * Characters.BaseMoveSpeed;
                 var dir = (movement.y * forward + movement.x * right).normalized;
                 if(Physics.Raycast(transform.Position, Vector3.down, out RaycastHit hit, 100, Game.Settings.GroundMask))
                 {
                     dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
                 }
 
-                if(IsLegalMove(player, dir, speed))
+                if(BaseCharacter.IsLegalMove(player, dir, speed * TimeManager.IngameDeltaTime))
                 {
-                    transform.Move(dir, speed);
+                    Move(dir, speed);
                 }
+                else rb.velocity = Vector3.zero;
                 if (player.CanRotate) transform.Rotation = Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
             }
             else
@@ -73,34 +74,13 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                 {
                     UpdateRotationBasedOnMouse();
                 }
+                rb.velocity = Vector3.zero;
             }
         }
 
-        public static bool IsLegalMove(BaseCharacter character, Vector3 dir, float speed, bool doWallTest = false)
+        void Move(Vector3 dir, float speed)
         {
-            bool groundTest = false;
-            bool wallTest = true;
-            var origin = character.Transform.Position;
-            var checkPos = origin + dir * (speed * 2);
-            checkPos.y += 1f;
-            Debug.DrawRay(checkPos, Vector3.down * 1, Color.red);
-            if (Physics.Raycast(checkPos, Vector3.down, out var hit, 30, Game.Settings.GroundMask))
-            {
-                if (hit.distance < 2f)
-                    groundTest = true;
-            }
-
-            if (doWallTest)
-            {
-                checkPos.y -= 0.5f;
-                Debug.DrawRay(checkPos, character.Transform.Forward * 0.5f, Color.blue);
-                if (Physics.SphereCast(checkPos, 0.5f, character.Transform.Forward, out var hit1, 0.5f, ~Game.Settings.EntityMask, QueryTriggerInteraction.Ignore))
-                {
-                    wallTest = false;
-                }
-            }
-           
-            return groundTest && wallTest;
+            player.Rigidbody.velocity = dir * speed;
         }
 
         public void UpdateRotationBasedOnMouse()

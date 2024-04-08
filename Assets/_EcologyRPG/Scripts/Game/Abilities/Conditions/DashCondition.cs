@@ -3,7 +3,6 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
-using EcologyRPG.GameSystems.PlayerSystems;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
@@ -20,6 +19,8 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
 
         float dodgeSpeed;
         bool firstHit = true;
+        Collider[] hits;
+        List<BaseCharacter> haveHit;
 
         public override void OnApply(CastInfo caster, BaseCharacter target)
         {
@@ -35,6 +36,10 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             }
             dodgeSpeed = dashRange / duration;
             target.OnCharacterCollision.AddListener(OnHit);
+            target.Rigidbody.excludeLayers = Game.Settings.EntityMask;
+            target.Rigidbody.isKinematic = false;
+            hits = new Collider[6];
+            haveHit = new List<BaseCharacter>();
         }
 
         void OnHit(BaseCharacter target)
@@ -72,13 +77,34 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
                 return;
             }
             target.state = CharacterStates.dodging;
-            var move = deltaTime * dodgeSpeed * direction.normalized;
-            if (PlayerMovement.IsLegalMove(target, direction.normalized, dodgeSpeed * deltaTime, true))
-                target.Transform.Position += move;
+            if (BaseCharacter.IsLegalMove(target, direction.normalized, dodgeSpeed * deltaTime))
+            {
+                target.Rigidbody.velocity = dodgeSpeed * direction.normalized;
+            }
+
+            var numHits = Physics.OverlapSphereNonAlloc(target.Transform.Position, target.Collider.radius + 1, hits, Game.Settings.EntityMask);
+
+            if(numHits > 0)
+            {
+                for (int i = 0; i < numHits; i++)
+                {
+                    var hit = hits[i];
+                    if (hit == null) continue;
+                    if (hit.gameObject == target.GameObject) continue;
+
+                    if (!hit.TryGetComponent<CharacterBinding>(out var hitChar)) continue;
+                    if (hitChar.Character == target) continue;
+                    if(haveHit.Contains(hitChar.Character)) continue;
+                    haveHit.Add(hitChar.Character);
+                    OnHit(hitChar.Character);
+                }
+            }
         }
 
         public override void OnRemoved(BaseCharacter target)
         {
+            target.Rigidbody.excludeLayers = 0;
+            target.Rigidbody.velocity = Vector3.zero;
             target.state = CharacterStates.active;
             target.OnCharacterCollision.RemoveListener(OnHit);
         }

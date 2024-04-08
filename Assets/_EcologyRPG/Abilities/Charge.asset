@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 10
   OnCastEffects: []
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 1344285647382033925}
@@ -25,6 +21,7 @@ MonoBehaviour:
   - {fileID: 7850948500378500201}
   displayFirstHitEffects: 1
   dash: {fileID: -3317710680887479378}
+  useMouseDirection: 1
 --- !u!114 &-4685705558122471581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,7 +38,7 @@ MonoBehaviour:
   displayName: KnockCondition
   duration: 0.6
   remainingDuration: 0
-  KnockBackDistance: 2
+  KnockBackDistance: 3
   knockType: 0
 --- !u!114 &-3317710680887479378
 MonoBehaviour:
@@ -61,7 +58,7 @@ MonoBehaviour:
   remainingDuration: 0
   directionMode: 0
   dashRange: 10
-  StopOnHit: 1
+  StopOnHit: 0
   OnFirstHitEffects: []
   OnHitEffects:
   - {fileID: 1344285647382033925}
@@ -87,15 +84,16 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: -6419718447561464767}
+  RotatePlayerTowardsMouse: 1
   ResourceName: stamina
   ResourceCost: 20
   Description: 
   AnimationTrigger: 
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 0
 --- !u!114 &1344285647382033925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2969b107-7fb2-4e92-afaa-e2e1a4041c4c
   displayName: Stun
-  duration: 0.1
+  duration: 0.75
   remainingDuration: 0
 --- !u!114 &7850948500378500201
 MonoBehaviour:

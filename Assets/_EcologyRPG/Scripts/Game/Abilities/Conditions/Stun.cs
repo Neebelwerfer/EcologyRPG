@@ -28,7 +28,7 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
 
         public override void OnUpdate(BaseCharacter target, float deltaTime)
         {
-
+            target.state = CharacterStates.disabled;
         }
     }
 

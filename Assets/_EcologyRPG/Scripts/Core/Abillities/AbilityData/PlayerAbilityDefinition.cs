@@ -17,6 +17,12 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         [Tooltip("The trigger to set in the animator when the ability is casted")]
         public string AnimationTrigger;
 
+        public bool BlockMovementOnWindup = false;
+        public bool ReducedSpeedOnWindup = true;
+        public bool BlockRotationOnWindup = true;
+        public bool UseMouseDirection = false;
+        static readonly StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
+
         int triggerHash;
         Resource resource;
 
@@ -49,19 +55,34 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             return base.HandleCast(caster);
         }
 
-        public override void CastCancelled(CastInfo caster)
-        {
-            base.CastCancelled(caster);
-            resource += ResourceCost;
-        }
-
         public override void CastStarted(CastInfo caster)
         {
             if (triggerHash != 0)
             {
                 caster.owner.Animator.SetTrigger(triggerHash);
             }
+            if (BlockRotationOnWindup) caster.owner.StopRotation();
+            if (BlockMovementOnWindup) caster.owner.StopMovement();
+            if (ReducedSpeedOnWindup) caster.owner.Stats.AddStatModifier(HalfSpeed);
             base.CastStarted(caster);
+        }
+
+        public override void CastCancelled(CastInfo caster)
+        {
+            base.CastCancelled(caster);
+            resource += ResourceCost;
+            if (BlockMovementOnWindup) caster.owner.StartMovement();
+            if (BlockRotationOnWindup) caster.owner.StartRotation();
+            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
+        }
+
+
+        public override void CastFinished(CastInfo caster)
+        {
+            base.CastFinished(caster);
+            if (BlockMovementOnWindup) caster.owner.StartMovement();
+            if (BlockRotationOnWindup) caster.owner.StartRotation();
+            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
         }
 
         /// <summary>

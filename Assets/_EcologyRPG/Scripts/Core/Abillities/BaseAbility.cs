@@ -19,6 +19,11 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
+        public virtual bool CanCast(BaseCharacter caster)
+        {
+            return true;
+        }
+
         public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true, bool useWeaponDamage = false)
         {
             DamageInfo damageInfo = new()

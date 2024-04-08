@@ -6,6 +6,7 @@ namespace EcologyRPG.GameSystems.Abilities
     public class ChargeAttack : AttackAbility
     {
         public DashCondition dash;
+        public bool useMouseDirection = true;
 
         public override void Cast(CastInfo castInfo)
         {
