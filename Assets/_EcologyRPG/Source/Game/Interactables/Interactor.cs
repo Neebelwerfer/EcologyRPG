@@ -6,7 +6,7 @@ using EcologyRPG.GameSystems;
 
 namespace EcologyRGP.GameSystems.Interactables
 {
-    public class Interactor : MonoBehaviour, IInteractable
+    public class Interactor : MonoBehaviour
     {
         private InputActionReference Interacts;
         [SerializeField] private Interaction interaction;
@@ -39,11 +39,8 @@ namespace EcologyRGP.GameSystems.Interactables
         }
         public void Interact()
         {
-            if (interaction is QuestProgressor questProgressor)
-            {
-                Game.Flags.SetFlag(questProgressor.QuestFlag, questProgressor.ProgessStage);
-            }
-            else return;
+            if(interaction != null)
+                interaction.Interact();
         }
 
         public void FindDistance()

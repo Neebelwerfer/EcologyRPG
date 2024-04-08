@@ -2,12 +2,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using EcologyRPG.GameSystems.UI;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace EcologyRPG.GameSystems.Dialogue
 {
     public class DialogueWindow : MonoBehaviour
     {
+        public static DialogueWindow current;
 
         [SerializeField] private PlayerUIHandler playerUIHandler;
         [SerializeField] private DialoguePathLine currentPath;
@@ -64,6 +64,14 @@ namespace EcologyRPG.GameSystems.Dialogue
 
         private void Awake()
         {
+            if(current == null)
+            {
+                current = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
             animator = GetComponent<Animator>();
         }
         private void Start()

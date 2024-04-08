@@ -12,5 +12,8 @@ namespace EcologyRPG.GameSystems.Dialogue
 
         public IReadOnlyList<DialogueQuestInfo> Quests => quests;
 
+        public override void Interact()
+        {
+        }
     }
 }
