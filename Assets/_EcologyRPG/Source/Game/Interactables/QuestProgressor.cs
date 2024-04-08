@@ -1,7 +1,5 @@
 using EcologyRPG.GameSystems;
-using EcologyRPG.Utility.Interactions;
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRPG.GameSystems.Interactables;
 using UnityEngine;
 
 namespace EcologyRGP.GameSystems.Interactables

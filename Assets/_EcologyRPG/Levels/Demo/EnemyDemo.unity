@@ -1910,11 +1910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9fc3f79d7ebef40b3408aa792293e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 11400000, guid: 4197f626c0e7b1a4bb1a4d1c77deea65, type: 2}
-  dialogueWindow: {fileID: 0}
-  distance: 0
+  interaction: {fileID: 11400000, guid: 0b27043d92fcfa94782be563211a1d32, type: 2}
   animator: {fileID: 1362539815}
-  isNPC: 1
 --- !u!95 &1362539815
 Animator:
   serializedVersion: 5

@@ -1,4 +1,5 @@
-using EcologyRPG.Utility.Interactions;
+using EcologyRGP.GameSystems.Interactables;
+using EcologyRPG.GameSystems.Interactables;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace EcologyRPG.GameSystems.Dialogue
 
         public IReadOnlyList<DialogueChoice> Options => options;
 
-        public override void Interact()
+        public override void Interact() 
         {
             DialogueWindow.current.Open(this);
         }
