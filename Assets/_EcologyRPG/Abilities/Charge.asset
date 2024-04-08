@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 10
   OnCastEffects: []
+  useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 1344285647382033925}
@@ -93,7 +94,7 @@ MonoBehaviour:
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
-  UseMouseDirection: 0
+  UseMouseDirection: 1
 --- !u!114 &1344285647382033925
 MonoBehaviour:
   m_ObjectHideFlags: 0
