@@ -17,6 +17,7 @@ namespace EcologyRPG.GameSystems.Interactables
 
         protected override void Start()
         {
+            base.Start();
             animator.SetBool(idleParameter, true);
         }
 
