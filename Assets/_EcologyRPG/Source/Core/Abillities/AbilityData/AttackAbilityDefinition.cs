@@ -25,6 +25,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             if(RotatePlayerTowardsMouse)
             {
                 res.y = caster.owner.Transform.Position.y;
+                Debug.DrawRay(caster.owner.Transform.Position, res - caster.owner.Transform.Position, Color.red, 1f);
                 caster.owner.Transform.LookAt(res);
             }
             else if (caster.dir != Vector3.zero)

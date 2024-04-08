@@ -57,12 +57,13 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: -6701787922667511886}
+  RotatePlayerTowardsMouse: 1
   ResourceName: stamina
   ResourceCost: 10
   Description: 
   AnimationTrigger: Is_MeleeAttacking
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 1
