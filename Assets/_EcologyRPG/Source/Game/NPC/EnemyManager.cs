@@ -68,27 +68,18 @@ namespace EcologyRPG.GameSystems.NPC
                     var enemy = enemyData.enemy;
 
                     enemy.Animator.SetTrigger(AnimDieHash);
-                    enemy.Rigidbody.velocity = Vector3.zero;
                     enemy.Agent.velocity = Vector3.zero;
                     enemy.Agent.enabled = false;
                     RemoveCharacter(enemy);
 
                     enemy.Rigidbody.excludeLayers = Game.Settings.EntityMask;
-                    var task = new RemoveEnemy() { GUID = GUID };
-                    TaskManager.Add(this, task, 5);
+                    TaskManager.Add(this, () =>
+                    {
+                        enemy.Rigidbody.excludeLayers = 0;
+                        Instance.NPCPool.ReturnGameObject(enemy.GameObject);
+                    }, 
+                    Game.Settings.NPCDeadBodyDespawnTime);
                 }
-            }
-        }
-
-        struct RemoveEnemy : ITaskAction
-        {
-            public string GUID;
-            public readonly void Execute()
-            {
-                if (Characters.Instance.GetCharacter(GUID) is not EnemyNPC enemy)
-                    return;
-                enemy.Rigidbody.excludeLayers = 0;
-                Instance.NPCPool.ReturnGameObject(enemy.GameObject);
             }
         }
 
@@ -102,7 +93,7 @@ namespace EcologyRPG.GameSystems.NPC
             foreach (var characterData in characterList)
             {
                 var character = characterData.enemy;
-                if (character.state != CharacterStates.dead && Vector3.Distance(PlayerCharacter.Transform.Position, character.Transform.Position) < maxDistance)
+                if (Vector3.Distance(PlayerCharacter.Transform.Position, character.Transform.Position) < maxDistance)
                 {
                     if (!activeEnemies.Contains(characterData))
                     {

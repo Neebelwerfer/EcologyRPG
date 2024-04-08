@@ -14,5 +14,8 @@ namespace EcologyRPG.GameSystems
 
         [Header("Character settings")]
         public float BaseMoveSpeed = 5f;
+
+        [Header("NPC settings")] 
+        public float NPCDeadBodyDespawnTime = 3f;
     }
 }

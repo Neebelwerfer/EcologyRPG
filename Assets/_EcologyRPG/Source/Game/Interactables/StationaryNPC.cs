@@ -8,7 +8,6 @@ namespace EcologyRPG.GameSystems.Interactables
     [RequireComponent(typeof(Animator))]
     public class StationaryNPC : Interactor
     {
-        private bool initialized = false;
         private string idleParameter = "Idle";
 
         private float rotationSpeed = 2.5f;

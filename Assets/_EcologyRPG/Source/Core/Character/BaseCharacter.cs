@@ -157,7 +157,6 @@ namespace EcologyRPG.Core.Character
 
         public virtual void Die()
         {
-            Debug.Log("Character Died");
             effects.Clear();
             fixedUpdateEffects.Clear();
             state = CharacterStates.dead;

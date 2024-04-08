@@ -12,12 +12,12 @@ namespace EcologyRPG.Core
     class Task : IComparable<Task>
     {
         public readonly object owner;
-        public readonly ITaskAction action;
+        public readonly Action action;
         public readonly float delay;
         public readonly bool repeat;
         public float timer;
 
-        public Task(object owner, ITaskAction action, float delay, bool repeat)
+        public Task(object owner, Action action, float delay, bool repeat)
         {
             this.owner = owner;
             this.action = action;
@@ -51,13 +51,13 @@ namespace EcologyRPG.Core
             Instance = new TaskManager();
         }
 
-        void AddTask(object owner, ITaskAction action, float delay, bool repeat = false)
+        void AddTask(object owner, Action action, float delay, bool repeat = false)
         {
             tasks.Add(new Task(owner, action, delay, repeat));
             tasks.Sort();
         }
 
-        void RemoveTask(ITaskAction action)
+        void RemoveTask(Action action)
         {
             for (int i = tasks.Count - 1; i >= 0; i--)
             {
@@ -104,7 +104,7 @@ namespace EcologyRPG.Core
 
                 if (task.timer <= 0)
                 {
-                    task.action.Execute();
+                    task.action();
                     if(task.repeat)
                     {
                         task.timer = task.delay;
@@ -118,12 +118,12 @@ namespace EcologyRPG.Core
 
         }
 
-        public static void Add(object owner, ITaskAction action, float delay, bool repeat = false)
+        public static void Add(object owner, Action action, float delay, bool repeat = false)
         {
             Instance.AddTask(owner, action, delay, repeat);
         }
 
-        public static void Remove(ITaskAction action)
+        public static void Remove(Action action)
         {
             Instance.RemoveTask(action);
         }

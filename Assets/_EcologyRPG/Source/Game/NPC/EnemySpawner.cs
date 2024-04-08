@@ -80,7 +80,14 @@ namespace EcologyRPG.GameSystems.NPC
 
             if(canSpawn == false && !taskRunning)
             {
-                TaskManager.Add(this, new SpawnData() { spawner = this }, 5*60);
+                TaskManager.Add(this,
+                    () =>
+                        {
+                            canSpawn = true;
+                            taskRunning = false;
+
+                        },
+                5 * 60);
                 taskRunning = true;
             }
         }
@@ -103,15 +110,6 @@ namespace EcologyRPG.GameSystems.NPC
                     }
                     canSpawn = false;
                 }
-            }
-        }
-
-        struct SpawnData : ITaskAction
-        {
-            public EnemySpawner spawner;
-            public readonly void Execute()
-            {
-                spawner.canSpawn = true;
             }
         }
 
