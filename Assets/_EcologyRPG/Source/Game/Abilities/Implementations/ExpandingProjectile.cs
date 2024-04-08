@@ -1,0 +1,34 @@
+using EcologyRPG.Core.Abilities;
+using UnityEngine;
+
+namespace EcologyRPG.GameSystems.Abilities
+{
+    public class ExpandingProjectile : ProjectileAbility
+    {
+        [Tooltip("The travel speed of the projectile")]
+        public float Speed;
+
+        public Vector3 GrowthRate = new Vector3(0.2f, 0.2f, 0.2f);
+
+        [Header("Projectile Settings")]
+        [Tooltip("The prefab of the projectile")]
+        public GameObject ProjectilePrefab;
+
+        public override void Cast(CastInfo castInfo)
+        {
+            base.Cast(castInfo);
+            var dir = GetDir(castInfo);
+            firstHit = true;
+            ProjectileUtility.CreateBasicProjectile(ProjectilePrefab, castInfo.castPos, dir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, castInfo.owner, (target) =>
+            {
+                var newCastInfo = new CastInfo { owner = castInfo.owner, castPos = target.Transform.Position, dir = dir, targetPoint = Vector3.zero };
+                DefaultOnHitAction()(newCastInfo, target);
+            }, (projectile) =>
+            {
+                var scale = projectile.transform.localScale;
+                var growth = GrowthRate * Time.deltaTime;
+                projectile.transform.localScale = new Vector3(scale.x * (1 + growth.x), scale.y * (1 + growth.y), scale.z * (1 + growth.z));
+            });
+        }
+    }
+}
