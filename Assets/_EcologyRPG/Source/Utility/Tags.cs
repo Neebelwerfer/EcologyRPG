@@ -25,7 +25,7 @@ namespace EcologyRPG.Utility
         {
             if (tags == null)
             {
-                tags = AssetDatabase.LoadAssetAtPath<Tags>("Assets/Resources/Config/CharacterTags.asset");
+                tags = AssetDatabase.LoadAssetAtPath<Tags>("Assets/_EcologyRPG/Resources/Config/CharacterTags.asset");
             }
 
             var tagArray = tags.tags.ToArray();

@@ -1,4 +1,3 @@
-using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
@@ -116,83 +115,5 @@ namespace EcologyRPG.Core.Items
                 return ((int)(mod.Value * 100)).ToString() + "%";
             }
         }
-    }
-
-    [CreateAssetMenu(fileName = "New Armour", menuName = "Items/Armour")]
-    public class Armour : EquipableItem
-    {
-        public float armourValue;
-
-        StatModification armourMod;
-
-        public Armour()
-        {
-            equipmentType = EquipmentType.Armour;
-            armourMod = new StatModification("armor", armourValue, StatModType.Flat, this);
-            
-        }
-    }
-
-    [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Weapon")]
-    public class Weapon : EquipableItem
-    {
-        public PlayerAbilityDefinition WeaponAbility;
-        public GameObject WeaponModel;
-        public Vector3 WeaponRotation;
-        public Vector3 WeaponLocalOffset;
-
-        GameObject weaponInstance;
-        public Weapon()
-        {
-            equipmentType = EquipmentType.Weapon;
-        }
-
-        public override string GetDisplayString()
-        {
-            if (string.IsNullOrEmpty(DisplayString))
-            {
-                var desc = Description + "\n";
-                var weaponDamage = (int)statModifiers.Find(x => x.StatName == "rawWeaponDamage").Value;
-                desc += "Damage: " + weaponDamage + "\n";
-                var mods = GetModifiers();
-                DisplayString = desc + mods;
-                return DisplayString;
-            }
-            else
-            {
-                return DisplayString;
-            }
-        }
-
-        public override void Equip(BaseCharacter character)
-        {
-            base.Equip(character);
-            if(WeaponModel != null)
-            {
-                Debug.Log("Equipping weapon model");
-                weaponInstance = Instantiate(WeaponModel, character.CastPos, Quaternion.identity, character.CastTransform);
-                weaponInstance.transform.localPosition = WeaponLocalOffset;
-                weaponInstance.transform.localEulerAngles = WeaponRotation;
-            }
-        }
-
-        public override void Unequip(BaseCharacter character)
-        {
-            base.Unequip(character);
-            if(weaponInstance != null)
-                Destroy(weaponInstance);
-        }
-    }
-
-    [CreateAssetMenu(fileName = "New Mask", menuName = "Items/Mask")]
-    public class Mask :EquipableItem
-    {
-        
-    }
-
-    [CreateAssetMenu(fileName = "New Water Tank", menuName = "Items/Water Tank")]
-    public class WaterTank : EquipableItem
-    {
-
     }
 }

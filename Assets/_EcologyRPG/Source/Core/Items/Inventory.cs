@@ -1,10 +1,12 @@
 using EcologyRPG.Core.Character;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace EcologyRPG.Core.Items
 {
+    [Serializable]
     public class InventoryItem
     {
         public Item item;

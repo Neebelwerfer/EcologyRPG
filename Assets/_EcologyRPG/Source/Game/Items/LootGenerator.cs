@@ -17,8 +17,10 @@ namespace EcologyRPG.Core.Items
             }
         }
 
-        LootDatabase lootDatabase;
-        BaseCharacter Player;
+        public LootDatabase LootDatabase { get => lootDatabase; }
+
+        readonly LootDatabase lootDatabase;
+        readonly BaseCharacter Player;
 
         private LootGenerator()
         {

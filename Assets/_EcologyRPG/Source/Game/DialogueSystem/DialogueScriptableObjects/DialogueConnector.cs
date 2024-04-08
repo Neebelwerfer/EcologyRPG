@@ -1,6 +1,5 @@
-using EcologyRPG.Utility.Interactions;
-using System.Collections;
-using System.Collections.Generic;
+using EcologyRGP.GameSystems.Interactables;
+using EcologyRPG.GameSystems.Interactables;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.Dialogue

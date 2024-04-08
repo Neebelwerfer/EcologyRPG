@@ -1,9 +1,11 @@
+using EcologyRGP.GameSystems.Interactables;
 using UnityEngine;
 
-namespace EcologyRPG.Utility.Interactions
+namespace EcologyRPG.GameSystems.Interactables
 {
     public abstract class Interaction : ScriptableObject
     {
+        public bool OneTimeUse = false;
         abstract public void Interact();
     }
 }
