@@ -20,8 +20,15 @@ public class ChargeAttackEditor : AttackAbilityEditor
         }
 
         EditorGUILayout.LabelField("Dash Settings", EditorStyles.boldLabel);
-        ability.dash.StopOnHit = EditorGUILayout.Toggle("Stop On Hit", ability.dash.StopOnHit);
-        ability.dash.duration = EditorGUILayout.FloatField("Dash Time", ability.dash.duration);
+        var stop = EditorGUILayout.Toggle("Stop On Hit", ability.dash.StopOnHit);
+        var duration = EditorGUILayout.FloatField("Dash Time", ability.dash.duration);
+
+        if(stop != ability.dash.StopOnHit || duration != ability.dash.duration)
+        {
+            ability.dash.StopOnHit = stop;
+            ability.dash.duration = duration;
+            EditorUtility.SetDirty(ability.dash);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

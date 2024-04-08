@@ -6,7 +6,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
     public class AttackAbilityDefinition : AbilityDefintion
     {
         public BaseAbility Ability;
-        public bool RotatePlayerTowardsMouse = false;
+        [HideInInspector] public bool RotatePlayerTowardsMouse = false;
 
         Vector3 MousePoint;
 

@@ -80,6 +80,10 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             if (BaseCharacter.IsLegalMove(target, direction.normalized, dodgeSpeed * deltaTime))
             {
                 target.Rigidbody.velocity = dodgeSpeed * direction.normalized;
+            } 
+            else
+            {
+                target.Rigidbody.velocity = Vector3.zero;
             }
 
             var numHits = Physics.OverlapSphereNonAlloc(target.Transform.Position, target.Collider.radius + 1, hits, Game.Settings.EntityMask);
