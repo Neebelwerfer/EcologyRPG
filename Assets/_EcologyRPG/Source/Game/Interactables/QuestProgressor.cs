@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRGP.GameSystems
+namespace EcologyRGP.GameSystems.Interactables
 {
     [System.Serializable]
     public class QuestProgressor : Interaction

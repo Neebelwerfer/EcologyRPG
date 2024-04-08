@@ -34,7 +34,6 @@ namespace EcologyRPG.GameSystems
             {
                 Destroy(gameObject);
             }
-
             Init();
         }
 
