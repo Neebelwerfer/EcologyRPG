@@ -10,5 +10,10 @@ namespace EcologyRPG.GameSystems.Dialogue
     {
         [SerializeField] private DialogueConnection dialogueConnection;
         public DialogueConnection DialogueConnection => dialogueConnection;
+
+        public override void Interact()
+        {
+            DialogueWindow.current.Open(this);
+        }
     }
 }

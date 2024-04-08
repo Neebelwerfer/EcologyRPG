@@ -10,5 +10,9 @@ namespace EcologyRPG.GameSystems.Dialogue
         [SerializeField] private List<Dialogue> dialogues;
         public IReadOnlyList<Dialogue> Dialogues => dialogues;
 
+        public override void Interact()
+        {
+            DialogueWindow.current.Open(this);
+        }
     }
 }

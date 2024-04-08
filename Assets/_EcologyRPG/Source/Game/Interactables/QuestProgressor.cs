@@ -1,3 +1,4 @@
+using EcologyRPG.GameSystems;
 using EcologyRPG.Utility.Interactions;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,5 +14,9 @@ namespace EcologyRGP.GameSystems.Interactables
         public string QuestFlag => questFlag;
         public int ProgessStage => progressStage;
 
+        public override void Interact()
+        {
+            Game.Flags.SetFlag(QuestFlag, ProgessStage);
+        }
     }
 }

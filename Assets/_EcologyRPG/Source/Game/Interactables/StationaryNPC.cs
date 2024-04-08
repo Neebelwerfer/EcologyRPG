@@ -6,12 +6,11 @@ using EcologyRPG.GameSystems.PlayerSystems;
 
 namespace EcologyRPG.GameSystems.Interactables
 {
-    public class StationaryNPC : MonoBehaviour, IInteractable
+    public class StationaryNPC : MonoBehaviour
     {
         private InputActionReference Interacts;
 
         [SerializeField] private Interaction interaction;
-        [SerializeField] private DialogueWindow dialogueWindow;
         private PlayerCharacter player;
         private Vector3 playerPosition;
         private Vector3 position;
@@ -38,11 +37,6 @@ namespace EcologyRPG.GameSystems.Interactables
 
         private void Update()
         {
-            if (!initialized)
-            {
-                dialogueWindow = FindObjectOfType<DialogueWindow>();
-                if (dialogueWindow != null) { initialized = true; }
-            }
             FindDistance();
 
             if (distance < 7.5f)
@@ -73,22 +67,8 @@ namespace EcologyRPG.GameSystems.Interactables
         }
         public void Interact()
         {
-            //animator.SetTrigger(interactParameter);
-
-            if (interaction is DialoguePathLine path)
-            {
-                dialogueWindow.Open(path);
-            }
-            else if (interaction is DialogueChoices choices)
-            {
-                dialogueWindow.Open(choices);
-            }
-            else if (interaction is DialogueConnector connector)
-            {
-                dialogueWindow.Open(connector);
-            }
-
-            else return;
+            if(interaction != null)
+                interaction.Interact();
         }
     }
 }
