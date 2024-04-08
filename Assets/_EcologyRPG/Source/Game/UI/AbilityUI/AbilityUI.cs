@@ -29,6 +29,7 @@ namespace EcologyRPG.GameSystems.UI
         private Sprite abilitySprite;   
 
         bool coroutineStarted = false;
+        bool isPressed = false;
 
         void Start()
         {
@@ -52,6 +53,18 @@ namespace EcologyRPG.GameSystems.UI
         {
             CancelInvoke(nameof(UpdateState));
             abilityAction.action.Disable();
+        }
+
+        private void Update()
+        {
+            if (isPressed)
+            {
+                if (ability == null) return;
+                if (Game.Instance.CurrentState == Game_State.Playing
+                    && (!blockedByUI || !EventSystem.current.IsPointerOverGameObject()))
+                    InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
+                isPressed = false;
+            }
         }
 
         private void UpdateState()
@@ -105,9 +118,7 @@ namespace EcologyRPG.GameSystems.UI
         private void ActivateAbility(InputAction.CallbackContext context)
         {
             if (ability == null) return;
-            if (Game.Instance.CurrentState == Game_State.Playing
-                && (!blockedByUI || !EventSystem.current.IsPointerOverGameObject()))
-                InvokeRepeating(nameof(UpdateAction), 0f, 0.1f);
+            isPressed = true;
         }
 
         private void StoppedAction(InputAction.CallbackContext context)

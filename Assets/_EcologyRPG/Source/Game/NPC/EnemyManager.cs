@@ -36,7 +36,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         readonly int AnimDieHash = Animator.StringToHash("Die");
         float timer = 0;
-        readonly List<NPCData> activeEnemies = new List<NPCData>();
+        readonly List<NPCData> activeEnemies = new();
 
         EnemyManager(float maxDistance, float activeEnemyUpdateRate) : base()
         {
@@ -57,19 +57,38 @@ namespace EcologyRPG.GameSystems.NPC
         {
             if(arg0 is DefaultEventData data)
             {
-                if(data.data is EnemyNPC enemy)
+                if(data.data is string GUID)
                 {
+                    var enemyData = characterList.Find(x => x.enemy.GUID == GUID);
+                    if (enemyData == null)
+                    {
+                        Debug.LogWarning($"Enemy with GUID: {GUID} not found in EnemyManager");
+                        return;
+                    }
+                    var enemy = enemyData.enemy;
+
                     enemy.Animator.SetTrigger(AnimDieHash);
                     enemy.Rigidbody.velocity = Vector3.zero;
                     enemy.Agent.velocity = Vector3.zero;
+                    enemy.Agent.enabled = false;
                     RemoveCharacter(enemy);
+
                     enemy.Rigidbody.excludeLayers = Game.Settings.EntityMask;
-                    TaskManager.Add(this, () =>
-                    {
-                        enemy.Rigidbody.excludeLayers = 0;
-                        NPCPool.ReturnGameObject(enemy.GameObject);
-                    }, 5);
+                    var task = new RemoveEnemy() { GUID = GUID };
+                    TaskManager.Add(this, task, 5);
                 }
+            }
+        }
+
+        struct RemoveEnemy : ITaskAction
+        {
+            public string GUID;
+            public readonly void Execute()
+            {
+                if (Characters.Instance.GetCharacter(GUID) is not EnemyNPC enemy)
+                    return;
+                enemy.Rigidbody.excludeLayers = 0;
+                Instance.NPCPool.ReturnGameObject(enemy.GameObject);
             }
         }
 
@@ -83,7 +102,7 @@ namespace EcologyRPG.GameSystems.NPC
             foreach (var characterData in characterList)
             {
                 var character = characterData.enemy;
-                if (Vector3.Distance(PlayerCharacter.Transform.Position, character.Transform.Position) < maxDistance)
+                if (character.state != CharacterStates.dead && Vector3.Distance(PlayerCharacter.Transform.Position, character.Transform.Position) < maxDistance)
                 {
                     if (!activeEnemies.Contains(characterData))
                     {
@@ -94,7 +113,6 @@ namespace EcologyRPG.GameSystems.NPC
                             obj.transform.SetPositionAndRotation(character.Transform.Position, character.Transform.Rotation);
                             character.SetBinding(obj.GetComponent<CharacterBinding>());
                         }
-
                     }
                 }
                 else
@@ -107,6 +125,17 @@ namespace EcologyRPG.GameSystems.NPC
                     }
                 }
             }
+        }
+
+        public EnemyNPC GetNPC(string guid)
+        {
+            var character = characterList.Find(x => x.enemy.GUID == guid);
+            if (character == null)
+            {
+                Debug.LogWarning($"Character with GUID: {guid} not found");
+                return null;
+            }
+            return character.enemy;
         }
 
         public void OnUpdate()
@@ -149,7 +178,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         public void RemoveCharacter(EnemyNPC character)
         {
-            var data = characterList.Find(x => x.enemy == character);
+            var data = characterList.Find(x => x.enemy.GUID == character.GUID);
             characterList.Remove(data);
             if (activeEnemies.Contains(data))
             {

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c84f1db9fcffd4893652b00f2dd56a, type: 3}
   m_Name: NPCConfig
   m_EditorClassIdentifier: 
+  tags:
+  - Frogs
   NPCBehaviour: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}
   Level: 1
   xp: 10

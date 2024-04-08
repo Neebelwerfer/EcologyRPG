@@ -4,15 +4,20 @@ using UnityEngine;
 
 namespace EcologyRPG.Core
 {
+    public interface ITaskAction
+    {
+        public void Execute();
+    }
+
     class Task : IComparable<Task>
     {
         public readonly object owner;
-        public readonly Action action;
+        public readonly ITaskAction action;
         public readonly float delay;
         public readonly bool repeat;
         public float timer;
 
-        public Task(object owner, Action action, float delay, bool repeat)
+        public Task(object owner, ITaskAction action, float delay, bool repeat)
         {
             this.owner = owner;
             this.action = action;
@@ -23,8 +28,8 @@ namespace EcologyRPG.Core
 
         public int CompareTo(Task other)
         {
-            if (timer < other.timer) return 1;
-            if (timer > other.timer) return -1;
+            if (timer < other.timer) return -1;
+            if (timer > other.timer) return 1;
             return 0;
         }
     }
@@ -33,11 +38,12 @@ namespace EcologyRPG.Core
     {
         public static TaskManager Instance;
         readonly List<Task> tasks;
-
+        readonly List<Task> tasksToDelete;
 
         TaskManager() 
         { 
             tasks = new List<Task>();
+            tasksToDelete = new List<Task>();
         }
 
         public static void Init()
@@ -45,13 +51,13 @@ namespace EcologyRPG.Core
             Instance = new TaskManager();
         }
 
-        void AddTask(object owner, Action action, float delay, bool repeat = false)
+        void AddTask(object owner, ITaskAction action, float delay, bool repeat = false)
         {
             tasks.Add(new Task(owner, action, delay, repeat));
             tasks.Sort();
         }
 
-        void RemoveTask(Action action)
+        void RemoveTask(ITaskAction action)
         {
             for (int i = tasks.Count - 1; i >= 0; i--)
             {
@@ -75,39 +81,49 @@ namespace EcologyRPG.Core
 
         void OnUpdate()
         {
-            for (int i = tasks.Count - 1; i >= 0; i--)
+            if(tasksToDelete.Count > 0)
+            {
+                foreach (var task in tasksToDelete)
+                {
+                    tasks.Remove(task);
+                }
+                tasksToDelete.Clear();
+                tasks.Sort();
+            }
+
+            for (int i = 0; i < tasks.Count; i++)
             {
                 var task = tasks[i];
                 task.timer -= Time.deltaTime;
 
                 if(task.owner == null)
                 {
-                    tasks.RemoveAt(i);
+                    tasksToDelete.Add(task);
                     continue;
                 }
 
                 if (task.timer <= 0)
                 {
-                    task.action();
+                    task.action.Execute();
                     if(task.repeat)
                     {
                         task.timer = task.delay;
                     }
                     else
                     {
-                        tasks.RemoveAt(i);
+                        tasksToDelete.Add(task);
                     }
                 }
             }
 
         }
 
-        public static void Add(object owner, Action action, float delay, bool repeat = false)
+        public static void Add(object owner, ITaskAction action, float delay, bool repeat = false)
         {
             Instance.AddTask(owner, action, delay, repeat);
         }
 
-        public static void Remove(Action action)
+        public static void Remove(ITaskAction action)
         {
             Instance.RemoveTask(action);
         }

@@ -37,7 +37,7 @@ namespace EcologyRPG.Core.Items
                 var pos = origin + new Vector3(point.x, 0, point.y);
                 pos.y += 100;
                 Debug.DrawRay(pos, Vector3.down * 100, Color.red, 5);
-                if (Physics.Raycast(pos, Vector3.down, out var hit, 1000, Game.Settings.lootGroundLayer))
+                if (Physics.Raycast(pos, Vector3.down, out var hit, 1000, Game.Settings.WalkableGroundMask))
                 {
                     var hitPoint = hit.point;
                     hitPoint.y += 3;

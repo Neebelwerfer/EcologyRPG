@@ -60,7 +60,7 @@ namespace EcologyRPG.GameSystems.UI
 
         public void Show(AbilityUI abilityUI)
         {
-            if (abilityUI.abilitySlot == AbilitySlots.WeaponAttack || abilityUI.abilitySlot == AbilitySlots.Dodge)
+            if (abilityUI.abilitySlot == AbilitySlots.WeaponAttack || abilityUI.abilitySlot == AbilitySlots.Dodge || abilityUI.abilitySlot == AbilitySlots.Sprint)
             {
                 return;
             }

@@ -3,7 +3,6 @@ using EcologyRPG.Core.Items;
 using UnityEngine.AI;
 using UnityEngine;
 using EcologyRPG.Core.Abilities;
-using log4net;
 
 namespace EcologyRPG.GameSystems.NPC
 {
@@ -74,7 +73,7 @@ namespace EcologyRPG.GameSystems.NPC
             spawner.RemoveEnemy(this);
             LootGenerator.Instance.GenerateLootOnKill(this);
             EventManager.Defer("XP", new DefaultEventData { data = XpOnDeath, source = this });
-            EventManager.Defer("EnemyDeath", new DefaultEventData { data = this, source = this });
+            EventManager.Defer("EnemyDeath", new DefaultEventData { data = GUID, source = this });
         }
 
         public void SetSpawner(EnemySpawner spawner)

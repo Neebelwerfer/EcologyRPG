@@ -7,15 +7,15 @@ namespace EcologyRPG.GameSystems.NPC
     [RequireComponent(typeof(SphereCollider))]
     public class EnemySpawner : MonoBehaviour
     {
-        public GameObject enemyPrefab;
+        public GameObject[] enemyPrefabs;
         public NPCConfig config;
         public float spawnRadius = 5;
         public int numberOfEnemies = 5;
-        public LayerMask GroundMask;
 
         EnemyNPC[] Enemies;
         int currentEnemies;
         bool canSpawn = true;
+        bool taskRunning = false;
 
         Collider col;
         void Start()
@@ -28,18 +28,18 @@ namespace EcologyRPG.GameSystems.NPC
 
         Vector3 SpawnablePoint()
         {
-            var point = transform.position + UnityEngine.Random.insideUnitSphere * spawnRadius;
+            var point = transform.position + Random.insideUnitSphere * spawnRadius;
             point.y = 10000;
             Vector3 spawnPoint = Vector3.zero;
             while (spawnPoint == Vector3.zero)
             {
-                if (Physics.BoxCast(point, Vector3.one * 0.5f, Vector3.down, out var hit, Quaternion.identity, 10000, GroundMask))
+                if (Physics.BoxCast(point, Vector3.one * 0.5f, Vector3.down, out var hit, Quaternion.identity, 10000, Game.Settings.WalkableGroundMask))
                 {
                     spawnPoint = hit.point;
                 }
                 else
                 {
-                    point = transform.position + UnityEngine.Random.insideUnitSphere * spawnRadius;
+                    point = transform.position + Random.insideUnitSphere * spawnRadius;
                     point.y = 10000;
                 }
             }
@@ -51,17 +51,18 @@ namespace EcologyRPG.GameSystems.NPC
             EnemyNPC[] enemies = new EnemyNPC[amount];
             for (int i = 0; i < amount; i++)
             {
+                var prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
                 var spawnPoint = SpawnablePoint();
-                var enemyObj = EnemyManager.Instance.NPCPool.GetGameObject(enemyPrefab, spawnPoint, Quaternion.identity);
+                var enemyObj = EnemyManager.Instance.NPCPool.GetGameObject(prefab, spawnPoint, Quaternion.identity);
                 var enemy = new EnemyNPC(config);
                 enemy.Transform.Position = spawnPoint;
                 enemy.SetBinding(enemyObj.GetComponent<CharacterBinding>());
                 enemies[i] = enemy;
                 enemies[i].SetSpawner(this);
                 enemy.Agent.enabled = true;
+                EnemyManager.Instance.AddCharacter(enemy, prefab);
             }
             currentEnemies += amount;
-            EnemyManager.Instance.AddCharacters(enemies, enemyPrefab);
             return enemies;
         }
 
@@ -76,11 +77,12 @@ namespace EcologyRPG.GameSystems.NPC
                     break;
                 }
             }
-            if(canSpawn == false)
+
+            if(canSpawn == false && !taskRunning)
             {
-                TaskManager.Add(this, () => canSpawn = true, 5*60);
+                TaskManager.Add(this, new SpawnData() { spawner = this }, 5*60);
+                taskRunning = true;
             }
-            EnemyManager.Instance.RemoveCharacter(enemy);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -101,6 +103,15 @@ namespace EcologyRPG.GameSystems.NPC
                     }
                     canSpawn = false;
                 }
+            }
+        }
+
+        struct SpawnData : ITaskAction
+        {
+            public EnemySpawner spawner;
+            public readonly void Execute()
+            {
+                spawner.canSpawn = true;
             }
         }
 

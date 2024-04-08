@@ -9,8 +9,8 @@ namespace EcologyRPG.GameSystems
 
         [Header("Layer settings")]
         public LayerMask EntityMask;
-        public LayerMask GroundMask;
-        public LayerMask lootGroundLayer;
+        public LayerMask TargetGroundMask;
+        public LayerMask WalkableGroundMask;
 
         [Header("Character settings")]
         public float BaseMoveSpeed = 5f;

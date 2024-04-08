@@ -90,7 +90,7 @@ namespace EcologyRPG.Core
             if(!taskRunning)
             {
                 taskRunning = true;
-                TaskManager.Add(this, CleanUp, 60f, true);
+                TaskManager.Add(this, new CleanUpTask() { CleanUp = CleanUp }, 60f, true);
             }
         }
 
@@ -145,6 +145,15 @@ namespace EcologyRPG.Core
                 GameObject.Destroy(obj.obj);
             }
             pool.Clear();
+        }
+
+        struct CleanUpTask : ITaskAction
+        {
+            public Action CleanUp;
+            public readonly void Execute()
+            {
+                CleanUp();
+            }
         }
     }
 }

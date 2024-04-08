@@ -33,6 +33,7 @@ namespace EcologyRPG.Core.Character
 
         protected Faction faction = Faction.neutral;
 
+        public string GUID { get; private set; }
         public Faction Faction { get { return faction; } }
         public virtual GameObject GameObject { get 
             { 
@@ -76,12 +77,18 @@ namespace EcologyRPG.Core.Character
 
         public BaseCharacter()
         {
+            GUID = Guid.NewGuid().ToString();
             Characters.Instance.AddCharacter(this);
             transform = new CharacterTransform();
             Stats = new Stats();
             Health = Stats.GetResource("health");
             level = 1;
             InitLevel();
+        }
+
+        ~BaseCharacter()
+        {
+            Characters.Instance.RemoveCharacter(this);
         }
 
         public virtual void SetBinding(CharacterBinding binding)
@@ -150,6 +157,9 @@ namespace EcologyRPG.Core.Character
 
         public virtual void Die()
         {
+            Debug.Log("Character Died");
+            effects.Clear();
+            fixedUpdateEffects.Clear();
             state = CharacterStates.dead;
         }
 

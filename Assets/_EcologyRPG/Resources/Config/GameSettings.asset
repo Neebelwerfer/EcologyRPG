@@ -16,9 +16,10 @@ MonoBehaviour:
   EntityMask:
     serializedVersion: 2
     m_Bits: 8
-  GroundMask:
+  TargetGroundMask:
     serializedVersion: 2
     m_Bits: 144
-  lootGroundLayer:
+  WalkableGroundMask:
     serializedVersion: 2
     m_Bits: 128
+  BaseMoveSpeed: 5
