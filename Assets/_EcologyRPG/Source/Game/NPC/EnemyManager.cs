@@ -60,8 +60,15 @@ namespace EcologyRPG.GameSystems.NPC
                 if(data.data is EnemyNPC enemy)
                 {
                     enemy.Animator.SetTrigger(AnimDieHash);
+                    enemy.Rigidbody.velocity = Vector3.zero;
+                    enemy.Agent.velocity = Vector3.zero;
                     RemoveCharacter(enemy);
-                    TaskManager.Add(this, () => NPCPool.ReturnGameObject(enemy.GameObject), 5);
+                    enemy.Rigidbody.excludeLayers = Game.Settings.EntityMask;
+                    TaskManager.Add(this, () =>
+                    {
+                        enemy.Rigidbody.excludeLayers = 0;
+                        NPCPool.ReturnGameObject(enemy.GameObject);
+                    }, 5);
                 }
             }
         }
