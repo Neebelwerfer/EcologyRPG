@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074bcbb6c231fba44864a8ff5edf6dfa, type: 3}
+  m_Name: New Connection
+  m_EditorClassIdentifier: 
+  dialogueConnection:
+    letsTalk: Let's talk
+    questTalk: Quests?
+    choices: {fileID: 11400000, guid: 1f77df1b9c6408645a8d1e4c01b58e11, type: 2}
+    questDialogue: {fileID: 11400000, guid: 616383a1935b7734d8281610c30be815, type: 2}
