@@ -60,7 +60,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                     Move(dir, speed);
                 }
                 else rb.velocity = Vector3.zero;
-                if (player.CanRotate) transform.Rotation = Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
+                if (player.CanRotate) rb.MoveRotation(Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed));
             }
             else
             {
@@ -87,7 +87,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                 var dir = (hit.point - transform.Position).normalized;
                 dir = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
                 var rot = Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed);
-                transform.Rotation = rot;
+                player.Rigidbody.MoveRotation(rot);
             }
         }
     }

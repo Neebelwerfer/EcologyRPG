@@ -1,5 +1,7 @@
+using Codice.Client.Commands;
 using EcologyRPG.Core.Character;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities.AbilityData
@@ -21,10 +23,12 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public bool ReducedSpeedOnWindup = true;
         public bool BlockRotationOnWindup = true;
         public bool UseMouseDirection = false;
+        public bool RotatePlayerTowardsMouse = false;
         static readonly StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
 
         int triggerHash;
         Resource resource;
+        Vector3 MousePoint;
 
         public override void Initialize(BaseCharacter owner)
         {
@@ -55,16 +59,31 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             return base.HandleCast(caster);
         }
 
-        public override void CastStarted(CastInfo caster)
+        public override void CastStarted(CastInfo castInfo)
         {
             if (triggerHash != 0)
             {
-                caster.owner.Animator.SetTrigger(triggerHash);
+                castInfo.owner.Animator.SetTrigger(triggerHash);
             }
-            if (BlockRotationOnWindup) caster.owner.StopRotation();
-            if (BlockMovementOnWindup) caster.owner.StopMovement();
-            if (ReducedSpeedOnWindup) caster.owner.Stats.AddStatModifier(HalfSpeed);
-            base.CastStarted(caster);
+            if (BlockRotationOnWindup)
+            {
+                Debug.Log("Stop Rotation");
+                castInfo.owner.StopRotation();
+            }
+
+            if (BlockMovementOnWindup) castInfo.owner.StopMovement();
+            if (ReducedSpeedOnWindup) castInfo.owner.Stats.AddStatModifier(HalfSpeed);
+            base.CastStarted(castInfo);
+
+            var res = TargetUtility.GetMousePoint(Camera.main);
+            MousePoint = res;
+
+            if (RotatePlayerTowardsMouse)
+            {
+                res.y = castInfo.owner.Transform.Position.y;
+                Debug.DrawRay(castInfo.owner.Transform.Position, (res - castInfo.owner.Transform.Position).normalized, Color.red, 1f);
+                castInfo.owner.Rigidbody.MoveRotation(Quaternion.LookRotation(res - castInfo.owner.Transform.Position));
+            }
         }
 
         public override void CastCancelled(CastInfo caster)
@@ -77,12 +96,23 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         }
 
 
-        public override void CastFinished(CastInfo caster)
+        public override void CastFinished(CastInfo castInfo)
         {
-            base.CastFinished(caster);
-            if (BlockMovementOnWindup) caster.owner.StartMovement();
-            if (BlockRotationOnWindup) caster.owner.StartRotation();
-            if (ReducedSpeedOnWindup) caster.owner.Stats.RemoveStatModifier(HalfSpeed);
+            if (UseMouseDirection)
+            {
+                castInfo.dir = (MousePoint - castInfo.owner.Transform.Position).normalized;
+                Debug.DrawRay(castInfo.owner.Transform.Position, castInfo.dir, Color.blue, 1f);
+            }
+            castInfo.targetPoint = MousePoint;
+            base.CastFinished(castInfo);
+            if (BlockMovementOnWindup) castInfo.owner.StartMovement();
+            if (BlockRotationOnWindup)
+            {
+                Debug.Log("Start Rotation");
+                castInfo.owner.StartRotation();
+            }
+
+            if (ReducedSpeedOnWindup) castInfo.owner.Stats.RemoveStatModifier(HalfSpeed);
         }
 
         /// <summary>

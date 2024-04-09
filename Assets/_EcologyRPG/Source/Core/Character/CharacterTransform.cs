@@ -92,7 +92,7 @@ namespace EcologyRPG.Core.Character
 
         public void LookAt(Vector3 target)
         {
-            Rotation = Quaternion.LookRotation(target - Position);
+            Rotation = Quaternion.LookRotation((target - Position).normalized);
         }
 
         public void Move(Vector3 direction, float speed)
