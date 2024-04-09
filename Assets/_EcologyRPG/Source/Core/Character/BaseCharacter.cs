@@ -329,6 +329,21 @@ namespace EcologyRPG.Core.Character
             return CharacterBinding.StartCoroutine(routine);
         }
 
+        public void StopCoroutine(string methodName)
+        {
+            CharacterBinding.StopCoroutine(methodName);
+        }
+
+        public void StopCoroutine(IEnumerator routine)
+        {
+            CharacterBinding.StopCoroutine(routine);
+        }
+
+        public void StopAllCoroutines()
+        {
+            CharacterBinding.StopAllCoroutines();
+        }
+
         public bool TryGetComponent<T>(out T component)
         {
             return CharacterBinding.TryGetComponent(out component);

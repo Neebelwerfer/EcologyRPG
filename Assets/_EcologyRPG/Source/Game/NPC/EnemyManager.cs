@@ -70,6 +70,7 @@ namespace EcologyRPG.GameSystems.NPC
                     enemy.Animator.SetTrigger(AnimDieHash);
                     enemy.Agent.velocity = Vector3.zero;
                     enemy.Agent.enabled = false;
+                    enemy.StopAllCoroutines();
                     RemoveCharacter(enemy);
 
                     enemy.Rigidbody.excludeLayers = Game.Settings.EntityMask;
