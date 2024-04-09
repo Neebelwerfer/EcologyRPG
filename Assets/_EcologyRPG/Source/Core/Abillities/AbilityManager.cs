@@ -2,6 +2,7 @@ using EcologyRPG.Core.Systems;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace EcologyRPG.Core.Abilities
@@ -13,6 +14,9 @@ namespace EcologyRPG.Core.Abilities
         public static LayerMask TargetMask { get; private set; }
         public static LayerMask GroundMask { get; private set; }
         public static LayerMask WalkableGroundLayer { get; private set; }
+        public static bool UseToxic { get; set; } = false;
+        public static UnityEvent<bool> OnToxicModeChanged;
+        public static string ToxicResourceName { get; set; } = "Toxic Water";
 
         readonly List<AbilityDefintion> CooldownAbilities;
 
@@ -22,7 +26,10 @@ namespace EcologyRPG.Core.Abilities
         {
             AbilityManager.TargetMask = targetMask;
             AbilityManager.GroundMask = targetGroundMask;
+            AbilityManager.WalkableGroundLayer = WalkableGroundLayer;
+            OnToxicModeChanged ??= new UnityEvent<bool>();
             Instance = new();
+            
         }
 
         public AbilityManager()

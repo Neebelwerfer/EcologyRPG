@@ -24,7 +24,7 @@ MonoBehaviour:
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: 23d7b1d1678030f499cfb49d2b6ae21a, type: 2}
-  FistAttackAbility: {fileID: 11400000, guid: 5bd58d82414bb4f42bb5751211d4c9eb, type: 2}
+  FistAttackAbility: {fileID: 11400000, guid: fe600374d4a2447408f4f7f625012e4b, type: 2}
   StartingItems: []
   XpRequiredPerLevel:
   - 10

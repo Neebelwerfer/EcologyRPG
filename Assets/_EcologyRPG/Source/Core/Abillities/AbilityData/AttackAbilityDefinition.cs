@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Character;
+using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities.AbilityData
@@ -7,6 +8,12 @@ namespace EcologyRPG.Core.Abilities.AbilityData
     {
         public BaseAbility Ability;
 
+        public override AbilityDefintion GetCopy(Object owner)
+        {
+            var copy = base.GetCopy(owner) as AttackAbilityDefinition;
+            copy.Ability = Ability.GetCopy(owner);
+            return copy;
+        }
 
         public override bool CanActivate(BaseCharacter caster)
         {
@@ -32,11 +39,13 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             Ability.Cast(caster);
         }
 
-        [ContextMenu("Delete")]
-        protected override void Delete()
+#if UNITY_EDITOR
+
+        public override void Delete()
         {
+            Ability.Delete();
             base.Delete();
-            DestroyImmediate(Ability, true);
         }
+#endif
     }
 }

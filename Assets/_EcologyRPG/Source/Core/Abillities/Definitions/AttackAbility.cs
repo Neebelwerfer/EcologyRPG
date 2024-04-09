@@ -3,6 +3,7 @@ using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 namespace EcologyRPG.Core.Abilities
 {
@@ -19,6 +20,26 @@ namespace EcologyRPG.Core.Abilities
         public bool displayFirstHitEffects = true;
         protected bool firstHit = true;
 
+        public override void CopyComponentsTo(BaseAbility ability)
+        {
+            base.CopyComponentsTo(ability);
+            if (ability is AttackAbility attackAbility)
+            {
+                attackAbility.OnFirstHit = new List<AbilityComponent>();
+                for (int i = 0; i < OnFirstHit.Count; i++)
+                {
+                    var newEffect = OnFirstHit[i].GetCopy(ability);
+                    attackAbility.OnFirstHit.Add(newEffect);
+                }
+
+                attackAbility.OnHitEffects = new List<AbilityComponent>();
+                for (int i = 0; i < OnHitEffects.Count; i++)
+                {
+                    var newEffect = OnHitEffects[i].GetCopy(ability);
+                    attackAbility.OnHitEffects.Add(newEffect);
+                }
+            }
+        }
 
         protected virtual Action<CastInfo, BaseCharacter> DefaultOnHitAction()
         {
@@ -49,6 +70,19 @@ namespace EcologyRPG.Core.Abilities
             {
                 return castInfo.owner.Transform.Forward;
             }
+        }
+
+        public override void Delete()
+        {
+            foreach (var effect in OnFirstHit)
+            {
+                effect.Delete();
+            }
+            foreach (var effect in OnHitEffects)
+            {
+                effect.Delete();
+            }
+            base.Delete();
         }
     }
 }
