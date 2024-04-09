@@ -101,6 +101,18 @@ namespace EcologyRPG.Core.Items
             return null;
         }
 
+        public InventoryItem GetInventoryItem(string itemName)
+        {
+            foreach (InventoryItem inventoryItem in items)
+            {
+                if (inventoryItem.item.Name == itemName)
+                {
+                    return inventoryItem;
+                }
+            }
+            return null;
+        }
+
         public bool AddItems(Item item, int amount)
         {
             if (item.Weight * amount + currentWeight > CarryWeight.Value)
@@ -190,6 +202,28 @@ namespace EcologyRPG.Core.Items
                         InventoryChanged?.Invoke();
                         break;
                     }
+                }
+            }
+        }
+
+        public void RemoveItem(Item item, int amount)
+        {
+            for (int i = items.Count - 1; i >= 0; i--)
+            {
+                if (items[i].item.Equals(item))
+                {
+                    if (items[i].amount < amount)
+                    {
+                        amount = items[i].amount;
+                    }
+                    currentWeight -= item.Weight * amount;
+                    items[i].amount -= amount;
+                    if (items[i].amount <= 0)
+                    {
+                        items.RemoveAt(i);
+                        ItemRemoved?.Invoke(item);
+                    } else InventoryChanged?.Invoke();
+                    break;
                 }
             }
         }

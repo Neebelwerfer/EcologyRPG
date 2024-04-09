@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EcologyRGP.Scripts
+namespace EcologyRPG.Scripts
 {
     public class OutOfBounds : MonoBehaviour
     {
