@@ -35,6 +35,7 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
                 direction = caster.owner.Transform.Forward.normalized;
             }
             dodgeSpeed = dashRange / duration;
+            target.Velocity = Vector3.zero;
             target.OnCharacterCollision.AddListener(OnHit);
             target.Rigidbody.excludeLayers = Game.Settings.EntityMask;
             target.Rigidbody.isKinematic = false;
@@ -79,11 +80,11 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             target.state = CharacterStates.dodging;
             if (BaseCharacter.IsLegalMove(target, direction.normalized, dodgeSpeed * deltaTime))
             {
-                target.Rigidbody.velocity = dodgeSpeed * direction.normalized;
+                target.Velocity = dodgeSpeed * direction.normalized;
             } 
             else
             {
-                target.Rigidbody.velocity = Vector3.zero;
+                target.Velocity = Vector3.zero;
             }
 
             var numHits = Physics.OverlapSphereNonAlloc(target.Transform.Position, target.Collider.radius + 1, hits, Game.Settings.EntityMask);
@@ -108,7 +109,7 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
         public override void OnRemoved(BaseCharacter target)
         {
             target.Rigidbody.excludeLayers = 0;
-            target.Rigidbody.velocity = Vector3.zero;
+            target.Velocity = Vector3.zero;
             target.state = CharacterStates.active;
             target.OnCharacterCollision.RemoveListener(OnHit);
         }

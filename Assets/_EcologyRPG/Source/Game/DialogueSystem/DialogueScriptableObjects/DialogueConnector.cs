@@ -1,5 +1,4 @@
 using EcologyRPG.GameSystems.Interactables;
-using EcologyRPG.GameSystems.Interactables;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.Dialogue

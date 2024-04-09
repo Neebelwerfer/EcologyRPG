@@ -1,4 +1,5 @@
 ﻿using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.GameSystems.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,51 +33,55 @@ public class PlayerAbilityEditor : AttackAbilityDefinitionEditor
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         base.OnInspectorGUI();
 
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        if (ability.ToxicAbility != null)
+        if(ability.Ability is not Dodge && ability.Ability is not Sprint)
         {
-            showToxicAbility = EditorGUILayout.Foldout(showToxicAbility, "Toxic Ability");
-            if (showToxicAbility)
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            if (ability.ToxicAbility != null)
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.ToxicResoureCost)));
-                EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.ToxicSelfDamage)));
-                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-                var editor = CreateEditor(ability.ToxicAbility);
-                editor.OnInspectorGUI();
-                if(GUILayout.Button("Delete Toxic Ability"))
+                GUILayout.BeginHorizontal();
+                showToxicAbility = EditorGUILayout.Foldout(showToxicAbility, "Toxic Ability");
+                if (GUILayout.Button("X"))
                 {
                     ability.ToxicAbility.Delete();
-                    //DestroyImmediate(ability.ToxicAbility, true);
                     ability.ToxicAbility = null;
                     AssetDatabase.SaveAssets();
                     AssetDatabase.Refresh();
                 }
-            }
-        }
-        else if (ability.Ability != null)
-        {
-            if(GUILayout.Button("Copy current Ability"))
-            {
-                ability.ToxicAbility = ability.Ability.GetCopy(ability);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-            }
-            GUILayout.BeginHorizontal();
-            selectedToxicAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Toxic Ability", selectedToxicAbility);
-            if (GUILayout.Button("Create new ability"))
-            {
-                var newAbility = CreateAbility(selectedToxicAbility);
-                if(newAbility != null)
+                GUILayout.EndHorizontal();
+                if (showToxicAbility && ability.ToxicAbility != null)
                 {
-                    ability.ToxicAbility = newAbility;
-                    AssetDatabase.AddObjectToAsset(ability.ToxicAbility, ability);
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.ToxicResoureCost)));
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.ToxicSelfDamage)));
+                    EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                    var editor = CreateEditor(ability.ToxicAbility);
+                    editor.OnInspectorGUI();
+                }
+            }
+            else if (ability.Ability != null)
+            {
+                if (GUILayout.Button("Copy current Ability"))
+                {
+                    ability.ToxicAbility = ability.Ability.GetCopy(ability);
                     AssetDatabase.SaveAssets();
                     AssetDatabase.Refresh();
                 }
+                GUILayout.BeginHorizontal();
+                selectedToxicAbility = (SelectableAbilities)EditorGUILayout.EnumPopup("Toxic Ability", selectedToxicAbility);
+                if (GUILayout.Button("Create new ability"))
+                {
+                    var newAbility = CreateAbility(selectedToxicAbility);
+                    if (newAbility != null)
+                    {
+                        ability.ToxicAbility = newAbility;
+                        AssetDatabase.AddObjectToAsset(ability.ToxicAbility, ability);
+                        AssetDatabase.SaveAssets();
+                        AssetDatabase.Refresh();
+                    }
+                }
+                GUILayout.EndHorizontal();
             }
-            GUILayout.EndHorizontal();
+            serializedObject.ApplyModifiedProperties();
         }
-        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

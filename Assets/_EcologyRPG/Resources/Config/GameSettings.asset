@@ -25,5 +25,5 @@ MonoBehaviour:
   BaseMoveSpeed: 5
   NPCDeadBodyDespawnTime: 3
   ToxicResourceName: toxic water
-  ToxicAbilityReady: {r: 0.9245283, g: 0.5276789, b: 0.82402235, a: 1}
+  ToxicAbilityReady: {r: 0.34715566, g: 0.11480955, b: 0.5660378, a: 1}
   ToxicAbilityNotReady: {r: 0.5, g: 0.5, b: 0.5, a: 1}

@@ -21,7 +21,6 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   Ability: {fileID: -1452769123730355576}
-  RotatePlayerTowardsMouse: 1
 --- !u!114 &-3507227463433355515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,15 +82,18 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   Ability: {fileID: 6692371911492626149}
-  RotatePlayerTowardsMouse: 1
   ResourceName: water
   ResourceCost: 10
   Description: 
   AnimationTrigger: Water_SingleShot
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: 0}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   UseMouseDirection: 1
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &6158336926422640208
 MonoBehaviour:
   m_ObjectHideFlags: 0

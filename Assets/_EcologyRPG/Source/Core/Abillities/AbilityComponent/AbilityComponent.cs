@@ -19,7 +19,7 @@ namespace EcologyRPG.Core.Abilities.AbilityComponents
         }
 
         [ContextMenu("Delete")]
-        public void Delete()
+        public virtual void Delete()
         {
             DestroyImmediate(this, true);
         }

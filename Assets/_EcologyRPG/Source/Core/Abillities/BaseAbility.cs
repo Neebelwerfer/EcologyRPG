@@ -66,13 +66,17 @@ namespace EcologyRPG.Core.Abilities
             return damageInfo;
         }
 
-        [ContextMenu("Delete")]
-        public virtual void Delete()
+        private void OnDestroy()
         {
             foreach (var effect in OnCastEffects)
             {
-                effect.Delete();
+                DestroyImmediate(effect, true);
             }
+        }
+
+        [ContextMenu("Delete")]
+        public virtual void Delete()
+        {
             DestroyImmediate(this, true);
         }
     }

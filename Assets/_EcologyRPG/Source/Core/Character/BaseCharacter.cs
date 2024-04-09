@@ -46,6 +46,7 @@ namespace EcologyRPG.Core.Character
         public virtual CharacterTransform Transform { get { return transform; } }
         public int Level { get { return level; } }
         public Rigidbody Rigidbody { get { return CharacterBinding.Rigidbody; } }
+        public virtual Vector3 Velocity { get { return Rigidbody.velocity; }  set { Rigidbody.velocity = value; } }
         public CapsuleCollider Collider { get { return CharacterBinding.Collider; } }
         public Animator Animator { get { return CharacterBinding.Animator; } }
         public Stats Stats { get; private set; }
@@ -316,36 +317,48 @@ namespace EcologyRPG.Core.Character
 
         public Coroutine StartCoroutine(string methodName)
         {
+            if (CharacterBinding == null) return null;
             return CharacterBinding.StartCoroutine(methodName);
         }
 
         public Coroutine StartCoroutine(string methodName, object value)
         {
+            if (CharacterBinding == null) return null;
             return CharacterBinding.StartCoroutine(methodName, value);
         }
 
         public Coroutine StartCoroutine(IEnumerator routine)
         {
+            if(CharacterBinding == null) return null;
             return CharacterBinding.StartCoroutine(routine);
         }
 
         public void StopCoroutine(string methodName)
         {
-            CharacterBinding.StopCoroutine(methodName);
+            if (CharacterBinding != null)
+                CharacterBinding.StopCoroutine(methodName);
         }
 
         public void StopCoroutine(IEnumerator routine)
         {
-            CharacterBinding.StopCoroutine(routine);
+            if (CharacterBinding != null)
+                CharacterBinding.StopCoroutine(routine);
         }
 
         public void StopAllCoroutines()
         {
-            CharacterBinding.StopAllCoroutines();
+            if (CharacterBinding != null)
+                CharacterBinding.StopAllCoroutines();
         }
 
-        public bool TryGetComponent<T>(out T component)
+        public bool TryGetComponent<T>(out T component) where T : Component
         {
+            if (CharacterBinding == null)
+            {
+                component = default;
+                return false;
+            }
+
             return CharacterBinding.TryGetComponent(out component);
         }
 

@@ -138,6 +138,12 @@ namespace EcologyRPG.GameSystems.UI
                 abilitySprite = ability.Icon;
             abilityImage.sprite = abilitySprite;
             backgroundImage.sprite = abilitySprite;
+
+            if(ability.ToxicAbility != null && AbilityManager.UseToxic)
+            {
+                abilityImage.color = Game.Settings.ToxicAbilityReady;
+                backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
+            }
         }
 
         private void ActivateAbility(InputAction.CallbackContext context)

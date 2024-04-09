@@ -55,5 +55,14 @@ namespace EcologyRPG.GameSystems.Abilities
                 }
             }
         }
+
+        public override void Delete()
+        {
+            foreach (var effect in OnHitEffects)
+            {
+                effect.Delete();
+            }
+            base.Delete();
+        }
     }
 }

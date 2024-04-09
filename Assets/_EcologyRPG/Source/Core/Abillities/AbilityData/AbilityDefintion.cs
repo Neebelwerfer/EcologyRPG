@@ -180,12 +180,15 @@ namespace EcologyRPG.Core.Abilities
         }
 
 #if UNITY_EDITOR
+
         [ContextMenu("Delete")]
-        protected virtual void Delete()
+        public virtual void Delete()
         {
+            foreach (var effect in CastWindUp)
+            {
+                effect.Delete();
+            }
             DestroyImmediate(this, true);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
         }
 #endif
     }

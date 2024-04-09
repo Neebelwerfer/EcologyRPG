@@ -23,5 +23,13 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             }
             Destroy(effect, duration);
         }
+
+        public override AbilityComponent GetCopy(Object owner)
+        {
+            var copy = CreateInstance<VFXAbilityComponent>();
+            copy.vfxPrefab = vfxPrefab;
+            copy.duration = duration;
+            return copy;
+        }
     }
 }

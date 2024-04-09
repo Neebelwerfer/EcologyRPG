@@ -15,9 +15,21 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             target.ApplyCondition(cast, Instantiate(DebuffCondition));
         }
 
+        private void OnDestroy()
+        {
+            DestroyImmediate(DebuffCondition, true);
+        }
+
+        public override void Delete()
+        {
+            DestroyImmediate(DebuffCondition, true);
+            base.Delete();
+        }
+
         override public AbilityComponent GetCopy(Object owner)
         {
             var copy = CreateInstance<ConditionAbilityComponent>();
+            copy.name = name;
             AssetDatabase.AddObjectToAsset(copy, owner);
             var debuffConditionCopy = Instantiate(DebuffCondition);
             copy.DebuffCondition = debuffConditionCopy;

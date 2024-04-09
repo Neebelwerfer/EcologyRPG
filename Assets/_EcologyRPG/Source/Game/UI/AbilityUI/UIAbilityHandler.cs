@@ -29,5 +29,11 @@ namespace EcologyRPG.GameSystems.UI
         {
             abilitySlot.SetAbility(ability);
         }
+
+        private void OnDestroy()
+        {
+            ToxicSwitchAction.action.Disable();
+            ToxicSwitchAction.action.canceled -= ToggleToxic;
+        }
     }
 }

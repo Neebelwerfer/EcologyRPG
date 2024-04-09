@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Character;
+using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities.AbilityData
@@ -38,12 +39,13 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             Ability.Cast(caster);
         }
 
-        [ContextMenu("Delete")]
-        protected override void Delete()
+#if UNITY_EDITOR
+
+        public override void Delete()
         {
             Ability.Delete();
-            Ability = null;
             base.Delete();
         }
+#endif
     }
 }

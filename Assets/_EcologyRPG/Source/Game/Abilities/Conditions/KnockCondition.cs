@@ -29,6 +29,7 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
 
             target.state = CharacterStates.disabled;
             target.Rigidbody.isKinematic = false;
+            target.Velocity = Vector3.zero;
             KnockbackSpeed = KnockBackDistance / duration;
         }
         public override void OnReapply(BaseCharacter target)
@@ -39,16 +40,16 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
         public override void OnRemoved(BaseCharacter target)
         {
             target.state = CharacterStates.active;
-            target.Rigidbody.velocity = Vector3.zero;
+            target.Velocity = Vector3.zero;
         }
 
         public override void OnUpdate(BaseCharacter target, float deltaTime)
         {
             if (BaseCharacter.IsLegalMove(target, dir, KnockbackSpeed * deltaTime))
             {
-                target.Rigidbody.velocity = dir * KnockbackSpeed;
+                target.Velocity = dir * KnockbackSpeed;
             } 
-            else target.Rigidbody.velocity = Vector3.zero;
+            else target.Velocity = Vector3.zero;
         }
     }
 
