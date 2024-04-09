@@ -21,6 +21,15 @@ namespace EcologyRPG.GameSystems.Abilities.Components
         {
             DestroyImmediate(_ability, true);
         }
+
+        public override AbilityComponent GetCopy(Object owner)
+        {
+            var copy = CreateInstance<CastAbilityComponent>();
+            AssetDatabase.AddObjectToAsset(copy, owner);
+            copy._ability = _ability.GetCopy(owner) as AttackAbilityDefinition;
+            AssetDatabase.AddObjectToAsset(copy._ability, copy);
+            return copy;
+        }
     }
 }
 

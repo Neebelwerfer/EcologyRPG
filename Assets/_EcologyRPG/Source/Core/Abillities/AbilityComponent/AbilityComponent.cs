@@ -1,5 +1,6 @@
 
 using EcologyRPG.Core.Character;
+using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities.AbilityComponents
@@ -10,8 +11,15 @@ namespace EcologyRPG.Core.Abilities.AbilityComponents
 
         public abstract void ApplyEffect(CastInfo cast, BaseCharacter target);
 
+        public virtual AbilityComponent GetCopy(Object owner)
+        {
+            var newEffect = Instantiate(this);
+            AssetDatabase.AddObjectToAsset(newEffect, owner);
+            return newEffect;
+        }
+
         [ContextMenu("Delete")]
-        protected void Delete()
+        public void Delete()
         {
             DestroyImmediate(this, true);
         }

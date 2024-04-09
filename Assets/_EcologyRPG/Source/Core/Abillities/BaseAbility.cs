@@ -1,6 +1,7 @@
 using EcologyRPG.Core.Abilities.AbilityComponents;
 using EcologyRPG.Core.Character;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities
@@ -17,6 +18,24 @@ namespace EcologyRPG.Core.Abilities
             {
                 effect.ApplyEffect(castInfo, null);
             }
+        }
+
+        public virtual void CopyComponentsTo(BaseAbility ability)
+        {
+            ability.OnCastEffects = new List<AbilityComponent>();
+            for (int i = 0; i < OnCastEffects.Count; i++)
+            {
+                var newEffect = OnCastEffects[i].GetCopy(ability);
+                ability.OnCastEffects.Add(newEffect);
+            }
+        }
+
+        public virtual BaseAbility GetCopy(Object owner)
+        {
+            var newAbility = Instantiate(this);
+            AssetDatabase.AddObjectToAsset(newAbility, owner);
+            CopyComponentsTo(newAbility);
+            return newAbility;
         }
 
         public virtual bool CanCast(BaseCharacter caster)
@@ -48,8 +67,12 @@ namespace EcologyRPG.Core.Abilities
         }
 
         [ContextMenu("Delete")]
-        protected virtual void Delete()
+        public virtual void Delete()
         {
+            foreach (var effect in OnCastEffects)
+            {
+                effect.Delete();
+            }
             DestroyImmediate(this, true);
         }
     }

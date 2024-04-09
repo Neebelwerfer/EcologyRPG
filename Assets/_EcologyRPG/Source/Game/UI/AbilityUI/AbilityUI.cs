@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 using System;
 using TMPro;
 using System.Collections;
+using EcologyRPG.GameSystems.Abilities;
 
 namespace EcologyRPG.GameSystems.UI
 {
@@ -31,15 +32,39 @@ namespace EcologyRPG.GameSystems.UI
         bool coroutineStarted = false;
         bool isPressed = false;
 
+        Color baseColor;
+        Color baseGrayColor;
+
         void Start()
         {
+            baseColor = abilityImage.color;
+            baseGrayColor = backgroundImage.color;
             abilityImage.fillAmount = 1;
             player = Player.PlayerCharacter;
             Player.PlayerAbilities.AddListener(abilitySlot, SetAbility);
             ability = (PlayerAbilityDefinition)Player.PlayerAbilities.GetAbility(abilitySlot);
             abilityAction.action.started += ActivateAbility;
             abilityAction.action.canceled += StoppedAction;
+            AbilityManager.OnToxicModeChanged.AddListener(OnToxicModeChanged);
             SetUpAbilityUI();
+        }
+
+        private void OnToxicModeChanged(bool arg0)
+        {
+            if (ability == null) return;
+            if (ability.ToxicAbility != null)
+            {
+                if (arg0)
+                {
+                    abilityImage.color = Game.Settings.ToxicAbilityReady;
+                    backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
+                }
+                else
+                {
+                    abilityImage.color = baseColor; 
+                    backgroundImage.color = baseGrayColor;
+                }
+            }
         }
 
         private void OnEnable()
@@ -159,7 +184,11 @@ namespace EcologyRPG.GameSystems.UI
 
         public TooltipData GetTooltipData()
         {
-            return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = ability.Description };
+            if(ability is PlayerAbilityDefinition p)
+            {
+                return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = p.Description };
+            }
+            return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = "" };
         }
 
         public void OnDestroy()

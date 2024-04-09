@@ -23,3 +23,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   BaseMoveSpeed: 5
+  NPCDeadBodyDespawnTime: 3
+  ToxicResourceName: toxic water
+  ToxicAbilityReady: {r: 0.9245283, g: 0.5276789, b: 0.82402235, a: 1}
+  ToxicAbilityNotReady: {r: 0.5, g: 0.5, b: 0.5, a: 1}

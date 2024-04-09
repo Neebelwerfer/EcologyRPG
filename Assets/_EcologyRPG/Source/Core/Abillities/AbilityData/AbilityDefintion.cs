@@ -61,6 +61,21 @@ namespace EcologyRPG.Core.Abilities
             this.owner = owner;
         }
 
+        public virtual void CopyComponentsTo(AbilityDefintion ability)
+        {
+            ability.CastWindUp = new List<AbilityComponent>();
+            for (int i = 0; i < CastWindUp.Count; i++)
+            {
+                var newEffect = CastWindUp[i].GetCopy(ability);
+                ability.CastWindUp.Add(newEffect);
+            }
+        }
+
+        public virtual AbilityDefintion GetCopy(Object owner)
+        {
+            return Instantiate(this);
+        }
+
         public virtual void UpdateCooldown(float deltaTime)
         {
             if (state == AbilityStates.ready) return;

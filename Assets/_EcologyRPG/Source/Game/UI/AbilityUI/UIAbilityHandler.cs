@@ -1,33 +1,28 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace EcologyRPG.GameSystems.UI
 {
     public class UIAbilityHandler : MonoBehaviour
     {
         private PlayerCharacter player;
-        private AbilityDefintion weaponAttack;
-        private AbilityDefintion dodgeAbility;
-        private AbilityDefintion ability1;
-        private AbilityDefintion ability2;
-        private AbilityDefintion ability3;
-        private AbilityDefintion ability4;
-
-        [SerializeField] private AbilityUI weaponAttackUI;
-        [SerializeField] private AbilityUI dodgeAbilityUI;
-        [SerializeField] private AbilityUI ability1UI;
-        [SerializeField] private AbilityUI ability2UI;
-        [SerializeField] private AbilityUI ability3UI;
-        [SerializeField] private AbilityUI ability4UI;
         [SerializeField] private GameObject abilitySelectionUI;
+        [SerializeField] private InputActionReference ToxicSwitchAction;
 
         private void Start()
         {
-
+            ToxicSwitchAction.action.Enable();
+            ToxicSwitchAction.action.canceled += ToggleToxic;
             player = Player.PlayerCharacter;
             AbilitySelectionUI.Instance.Setup(abilitySelectionUI);
-            
+        }
+
+        void ToggleToxic(InputAction.CallbackContext context)
+        {
+            AbilityManager.UseToxic = !AbilityManager.UseToxic;
+            AbilityManager.OnToxicModeChanged.Invoke(AbilityManager.UseToxic);
         }
 
         public void SetAbilitySlot(AbilityUI abilitySlot, AbilityDefintion ability)

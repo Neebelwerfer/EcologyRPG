@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
 
@@ -17,5 +18,11 @@ namespace EcologyRPG.GameSystems
 
         [Header("NPC settings")] 
         public float NPCDeadBodyDespawnTime = 3f;
+
+        [Header("Ability settings")]
+        [StatAttribute(StatType.Resource)]
+        public string ToxicResourceName;
+        public Color ToxicAbilityReady = Color.white;
+        public Color ToxicAbilityNotReady = Color.gray;
     }
 }

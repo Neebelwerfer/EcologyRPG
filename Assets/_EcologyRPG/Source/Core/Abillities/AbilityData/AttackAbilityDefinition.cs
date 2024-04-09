@@ -7,6 +7,12 @@ namespace EcologyRPG.Core.Abilities.AbilityData
     {
         public BaseAbility Ability;
 
+        public override AbilityDefintion GetCopy(Object owner)
+        {
+            var copy = base.GetCopy(owner) as AttackAbilityDefinition;
+            copy.Ability = Ability.GetCopy(owner);
+            return copy;
+        }
 
         public override bool CanActivate(BaseCharacter caster)
         {
@@ -35,8 +41,9 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         [ContextMenu("Delete")]
         protected override void Delete()
         {
+            Ability.Delete();
+            Ability = null;
             base.Delete();
-            DestroyImmediate(Ability, true);
         }
     }
 }
