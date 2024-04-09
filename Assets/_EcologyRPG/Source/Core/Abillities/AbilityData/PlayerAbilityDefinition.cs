@@ -65,12 +65,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             {
                 castInfo.owner.Animator.SetTrigger(triggerHash);
             }
-            if (BlockRotationOnWindup)
-            {
-                Debug.Log("Stop Rotation");
-                castInfo.owner.StopRotation();
-            }
-
+            if (BlockRotationOnWindup) castInfo.owner.StopRotation();
             if (BlockMovementOnWindup) castInfo.owner.StopMovement();
             if (ReducedSpeedOnWindup) castInfo.owner.Stats.AddStatModifier(HalfSpeed);
             base.CastStarted(castInfo);
@@ -106,11 +101,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             castInfo.targetPoint = MousePoint;
             base.CastFinished(castInfo);
             if (BlockMovementOnWindup) castInfo.owner.StartMovement();
-            if (BlockRotationOnWindup)
-            {
-                Debug.Log("Start Rotation");
-                castInfo.owner.StartRotation();
-            }
+            if (BlockRotationOnWindup) castInfo.owner.StartRotation();
 
             if (ReducedSpeedOnWindup) castInfo.owner.Stats.RemoveStatModifier(HalfSpeed);
         }

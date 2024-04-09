@@ -1,4 +1,4 @@
-using EcologyRGP.GameSystems.Interactables;
+using EcologyRPG.GameSystems.Interactables;
 using EcologyRPG.Core.Items;
 using EcologyRPG.GameSystems.Interactables;
 using EcologyRPG.Utility;
