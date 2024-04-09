@@ -11,6 +11,7 @@ public class RecipeDatabaseEditor : EditorWindow
     Recipe newRecipe;
     string search = "";
     Vector2 scrollPosition;
+    SerializedObject serializedObject;
 
     [MenuItem("Game/Recipe Database")]
     public static void ShowWindow()
@@ -27,20 +28,22 @@ public class RecipeDatabaseEditor : EditorWindow
             AssetDatabase.CreateAsset(database, RecipeDatabase.DatabasePath);
             AssetDatabase.SaveAssets();
         }
+        serializedObject = new SerializedObject(database);
         foldouts = new bool[database.Recipes.Length];
     }
 
     private void OnGUI()
     {
-        GUILayout.Label("Recipe Database", EditorStyles.boldLabel);
         GUILayout.Space(10);
         GUILayout.BeginHorizontal();
+        var recipes = serializedObject.FindProperty("Recipes");
+
         newRecipe = EditorGUILayout.ObjectField(newRecipe, typeof(Recipe), false) as Recipe;
         if (GUILayout.Button("Add Recipe") && newRecipe != null)
         {
-            database.Add(newRecipe);
+            recipes.InsertArrayElementAtIndex(recipes.arraySize);
+            recipes.GetArrayElementAtIndex(recipes.arraySize - 1).objectReferenceValue = newRecipe;
             newRecipe = null;
-            AssetDatabase.SaveAssets();
         }
         GUILayout.EndHorizontal();
 
@@ -48,35 +51,46 @@ public class RecipeDatabaseEditor : EditorWindow
         search = EditorGUILayout.TextField("Search", search);
         GUILayout.Space(10);
 
-        var recipes = database.Recipes;
-        if (foldouts.Length != database.Recipes.Length)
+        var recipeCount = recipes.arraySize;
+        if (foldouts.Length != recipeCount)
         {
-            foldouts = new bool[database.Recipes.Length];
+            foldouts = new bool[recipeCount];
         }
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-        var recipeCount = recipes.Length;
         for (int i = 0; i < recipeCount; i++)
         {
-            var recipe = recipes[i];
+            var recipe = recipes.GetArrayElementAtIndex(i).objectReferenceValue as Recipe;
+
             if (!string.IsNullOrEmpty(search) && !recipe.Name.ToLower().Contains(search.ToLower()))
             {
                 continue;
             }
 
             GUILayout.BeginHorizontal();
-            foldouts[i] = EditorGUILayout.Foldout(foldouts[i], recipe.name);
+            foldouts[i] = EditorGUILayout.Foldout(foldouts[i], recipe.Name);
             if (GUILayout.Button("X"))
             {
-                database.Remove(recipe);
+                recipes.DeleteArrayElementAtIndex(i);
                 AssetDatabase.SaveAssets();
             }
             GUILayout.EndHorizontal();
+
             if (foldouts[i])
             {
-                var e = Editor.CreateEditor(recipe);
-                e.OnInspectorGUI();
+                var editor = Editor.CreateEditor(recipe);
+                editor.OnInspectorGUI();
             }
         }
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Save"))
+        {
+            serializedObject.ApplyModifiedProperties();
+        }
+        if (GUILayout.Button("Cancel"))
+        {
+            serializedObject.Update();
+        }
+        GUILayout.EndHorizontal();
         GUILayout.EndScrollView();
     }
 }
