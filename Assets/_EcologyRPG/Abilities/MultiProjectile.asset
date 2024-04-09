@@ -1,40 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4037135379477274119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
-  m_Name: New Ability
-  m_EditorClassIdentifier: 
-  DisplayName: MultipleProjectiles
-  Cooldown: 0.5
-  CastWindupTime: 0
-  Icon: {fileID: 0}
-  BuffsOnCast: []
-  remainingCooldown: 0
-  state: 0
-  CastWindUp: []
-  Ability: {fileID: -1452769123730355576}
-  RotatePlayerTowardsMouse: 1
---- !u!114 &-3507227463433355515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
-  m_Name: CastAbilityEffect
-  m_EditorClassIdentifier: 
-  _ability: {fileID: -4037135379477274119}
 --- !u!114 &-1452769123730355576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: MultiProjectile
   m_EditorClassIdentifier: 
-  DisplayName: Basic Projectile
+  DisplayName: Spliting Bolt
   Cooldown: 1.2
   CastWindupTime: 0.7
   Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}
@@ -83,15 +48,15 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   Ability: {fileID: 6692371911492626149}
-  RotatePlayerTowardsMouse: 1
   ResourceName: water
   ResourceCost: 10
-  Description: 
+  Description: A bolt of water which splits into more smaller bolts when it hits.
   AnimationTrigger: Water_SingleShot
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   UseMouseDirection: 1
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &6158336926422640208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +88,6 @@ MonoBehaviour:
   OnCastEffects: []
   useMouseDirection: 1
   OnFirstHit:
-  - {fileID: -3507227463433355515}
   - {fileID: 6158336926422640208}
   OnHitEffects: []
   displayFirstHitEffects: 1

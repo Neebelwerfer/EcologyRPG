@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Player Explosion
   m_EditorClassIdentifier: 
-  DisplayName: Centered Explosion
+  DisplayName: Forceful Wave
   Cooldown: 2
   CastWindupTime: 1
   Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
@@ -35,15 +35,17 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 1
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: 3082562889586705759}
   ResourceName: water
   ResourceCost: 10
-  Description: 
+  Description: Create a wave of water, originating at your feet, away from you, pushing
+    enemies away from you.
   AnimationTrigger: Is_PlayerExplode
+  BlockMovementOnWindup: 1
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 0
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &3082562889586705759
 MonoBehaviour:
   m_ObjectHideFlags: 0

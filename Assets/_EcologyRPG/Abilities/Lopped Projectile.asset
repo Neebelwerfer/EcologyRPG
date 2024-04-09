@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Lopped Projectile
   m_EditorClassIdentifier: 
-  DisplayName: Lopped Projectile
+  DisplayName: Lop Explosive
   Cooldown: 6
   CastWindupTime: 0.75
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
@@ -51,15 +51,17 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: 676731462999206808}
   ResourceName: water
   ResourceCost: 10
-  Description: 
+  Description: launch an explosive with water in a direction, exploding with great
+    force when it lands
   AnimationTrigger: Water_LopBomb
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 0
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &676731462999206808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,10 +139,6 @@ MonoBehaviour:
   state: 0
   CastWindUp:
   - {fileID: 3801731306647452522}
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: 6634139780745373765}
 --- !u!114 &6634139780745373765
 MonoBehaviour:
