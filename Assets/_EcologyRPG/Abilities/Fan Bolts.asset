@@ -15,6 +15,48 @@ MonoBehaviour:
   BaseDamage: 14
   DamageType: 1
   AllowVariance: 1
+--- !u!114 &-5680359291469422149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f16083a2e4e8c4e876058d9ee109a5, type: 3}
+  m_Name: MultipleProjectiles(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Range: 12.5
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: -2106257811069373054}
+  displayFirstHitEffects: 1
+  destroyOnHit: 1
+  type: 1
+  numberOfProjectiles: 9
+  ConeAngle: 63
+  LineWidth: 0
+  projectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+  Speed: 7
+--- !u!114 &-2106257811069373054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent(Clone)
+  m_EditorClassIdentifier: 
+  BaseDamage: 14
+  DamageType: 2
+  AllowVariance: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,6 +82,9 @@ MonoBehaviour:
   ResourceCost: 10
   Description: shoot a fan of water bolts
   AnimationTrigger: Water_SingleShot
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: -5680359291469422149}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1

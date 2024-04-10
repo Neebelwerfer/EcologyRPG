@@ -118,8 +118,8 @@ MonoBehaviour:
   ResourceCost: 20
   Description: Shoot a growing water projectile that deals massive damage.
   AnimationTrigger: Water_SingleShot
-  ToxicResoureCost: 5
-  ToxicSelfDamage: 10
+  ToxicResoureCost: 20
+  ToxicSelfDamage: 15
   ToxicAbility: {fileID: -4853105674147231066}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
