@@ -20,6 +20,18 @@ MonoBehaviour:
   - ability: {fileID: 11400000, guid: 8651e5f082142e74fb19ab0136a10a57, type: 2}
     LevelRequirement: 1
   - ability: {fileID: 11400000, guid: ce6480a11a212a24eaf41b1fa144969b, type: 2}
-    LevelRequirement: 2
+    LevelRequirement: 1
   - ability: {fileID: 11400000, guid: 58d5579e44f56b44b897510b7258b96e, type: 2}
-    LevelRequirement: 3
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: 0d9865068b4af2f409cc508ed5a8ce1e, type: 2}
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: bc3f034a5a1cb3748905543170146cc1, type: 2}
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: 3ed6efdb1b6966c4aad21488ba0d1443, type: 2}
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: 7b8e4554ac1beeb499d79f87cb27a71f, type: 2}
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: 6f70fb47d7564564db991358b7ecb77e, type: 2}
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: d7eec6c63a507a54f8fb23640715805f, type: 2}
+    LevelRequirement: 1

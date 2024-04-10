@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
-  KnockBackDistance: 4
+  KnockBackDistance: 8
   knockType: 0
 --- !u!114 &-4830978739927171413
 MonoBehaviour:
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: Player Explosion
   m_EditorClassIdentifier: 
   DisplayName: Centered Explosion
-  Cooldown: 2
+  Cooldown: 6
   CastWindupTime: 1
   Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
   BuffsOnCast: []
@@ -157,7 +157,7 @@ MonoBehaviour:
   displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
-  KnockBackDistance: 4
+  KnockBackDistance: 8
   knockType: 0
 --- !u!114 &8598972515931628476
 MonoBehaviour:

@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: DashCondition
   duration: 0.3
   remainingDuration: 0
-  directionMode: 0
+  directionMode: 1
   dashRange: 5
   StopOnHit: 0
   OnFirstHitEffects: []
@@ -41,15 +41,16 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
-  BlockMovementOnWindup: 0
-  RotatePlayerTowardsMouse: 1
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
   Ability: {fileID: 7549747444647114460}
   ResourceName: stamina
   ResourceCost: 30
   Description: 
   AnimationTrigger: 
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 0
+  RotatePlayerTowardsMouse: 0
 --- !u!114 &7549747444647114460
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,8 +13,6 @@ namespace EcologyRPG.GameSystems.Dialogue
 
         [SerializeField] private string questFlag;
         [SerializeField] private int completionValue;
-        // TODO: something regarding connecting this to the flag system
-
         public string QuestText => questText;
         public string QuestFlag => questFlag;
         public int CompletionValue => completionValue;
