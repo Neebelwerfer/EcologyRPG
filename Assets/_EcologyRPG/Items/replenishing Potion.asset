@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcd1f8112183cd4bb3a6c13273e6b8f, type: 3}
   m_Name: replenishing Potion
   m_EditorClassIdentifier: 
-  Name: Healing Pot
+  Name: Healing Potion
   Description: 
   Icon: {fileID: 0}
   Weight: 0

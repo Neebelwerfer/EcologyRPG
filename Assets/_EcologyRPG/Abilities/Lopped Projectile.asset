@@ -1,68 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7817133415296140817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
-  m_Name: KnockCondition
-  m_EditorClassIdentifier: 
-  ID: 4694cd88-6ca0-4267-8ba3-725f9f302e7f
-  displayName: KnockCondition
-  duration: 0.5
-  remainingDuration: 0
-  KnockBackDistance: 3
-  knockType: 0
---- !u!114 &-7542360187130039918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
-  m_Name: ConditionAbilityComponent
-  m_EditorClassIdentifier: 
-  DebuffCondition: {fileID: -7817133415296140817}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
-  m_Name: Lopped Projectile
-  m_EditorClassIdentifier: 
-  DisplayName: Lop Explosive
-  Cooldown: 6
-  CastWindupTime: 0.8
-  Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
-  BuffsOnCast: []
-  remainingCooldown: 0
-  state: 0
-  CastWindUp: []
-  Ability: {fileID: 676731462999206808}
-  ResourceName: water
-  ResourceCost: 15
-  Description: launch an explosive with water in a direction, exploding with great
-    force when it lands
-  AnimationTrigger: Water_LopBomb
-  BlockMovementOnWindup: 0
-  ReducedSpeedOnWindup: 1
-  BlockRotationOnWindup: 1
-  UseMouseDirection: 0
-  RotatePlayerTowardsMouse: 1
---- !u!114 &676731462999206808
+--- !u!114 &-9221978500101974492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 100
   OnCastEffects: []
-  useMouseDirection: 1
+  useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
-  - {fileID: 7999030092196173805}
+  - {fileID: -2291687266812242251}
   displayFirstHitEffects: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 264
   Angle: 60
   TravelTime: 2
---- !u!114 &2789348620523841032
+--- !u!114 &-7977077985510931199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,13 +35,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
-  m_Name: DamageAbilityEffect
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition(Clone)
   m_EditorClassIdentifier: 
-  BaseDamage: 30
-  DamageType: 1
-  AllowVariance: 1
---- !u!114 &3801731306647452522
+  ID: c6310b92-ab1e-40cb-98f5-d3002a225370
+  displayName: KnockCondition
+  duration: 0.5
+  remainingDuration: 0
+  KnockBackDistance: 4
+  knockType: 0
+--- !u!114 &-5912069827332510943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,12 +54,165 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ae8664c13dca4f488530e0636f2b92c, type: 3}
-  m_Name: VFXAbilityEffect
+  m_Name: VFXAbilityComponent
   m_EditorClassIdentifier: 
   vfxPrefab: {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
     type: 3}
-  duration: 2
---- !u!114 &4238383697140409446
+  duration: 1
+--- !u!114 &-3656116417501275709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: 5059089583402466858}
+--- !u!114 &-3312835879975769015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
+  m_Name: New Ability(Clone)
+  m_EditorClassIdentifier: 
+  DisplayName: CenteredExplosion
+  Cooldown: 0.5
+  CastWindupTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  Ability: {fileID: 4112594441854278025}
+--- !u!114 &-2313907972166772713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
+  m_Name: CenteredExplosion(Clone)
+  m_EditorClassIdentifier: 
+  Range: 0
+  OnCastEffects:
+  - {fileID: -5912069827332510943}
+  Radius: 4
+  OnHitEffects:
+  - {fileID: 3924641026455156315}
+  - {fileID: -3656116417501275709}
+--- !u!114 &-2291687266812242251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
+  m_Name: CastAbilityComponent
+  m_EditorClassIdentifier: 
+  _ability: {fileID: 3659286815651129777}
+--- !u!114 &-2079258856105494990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c09a61619eebbf4d8933cabd642c4df, type: 3}
+  m_Name: LoppedProjectile(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Range: 100
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: 5362548422134860395}
+  displayFirstHitEffects: 0
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 264
+  Angle: 60
+  TravelTime: 2
+--- !u!114 &-1610602823116938674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent(Clone)
+  m_EditorClassIdentifier: 
+  BaseDamage: 20
+  DamageType: 0
+  AllowVariance: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: Lopped Projectile
+  m_EditorClassIdentifier: 
+  DisplayName: LoppedProjectile
+  Cooldown: 6
+  CastWindupTime: 0.75
+  Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  Ability: {fileID: -9221978500101974492}
+  ResourceName: water
+  ResourceCost: 10
+  Description: 
+  AnimationTrigger: Water_LopBomb
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: -2079258856105494990}
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 0
+  RotatePlayerTowardsMouse: 1
+--- !u!114 &1185378769913744511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: -7977077985510931199}
+--- !u!114 &3659286815651129777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,10 +231,24 @@ MonoBehaviour:
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp:
-  - {fileID: 3801731306647452522}
-  Ability: {fileID: 6634139780745373765}
---- !u!114 &6634139780745373765
+  CastWindUp: []
+  Ability: {fileID: -2313907972166772713}
+--- !u!114 &3924641026455156315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent
+  m_EditorClassIdentifier: 
+  BaseDamage: 20
+  DamageType: 0
+  AllowVariance: 1
+--- !u!114 &4112594441854278025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,15 +258,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
-  m_Name: CenteredExplosion(Clone)
+  m_Name: CenteredExplosion(Clone)(Clone)
   m_EditorClassIdentifier: 
   Range: 0
-  OnCastEffects: []
-  Radius: 5
+  OnCastEffects:
+  - {fileID: 8300871661839526486}
+  Radius: 4
   OnHitEffects:
-  - {fileID: 2789348620523841032}
-  - {fileID: -7542360187130039918}
---- !u!114 &7999030092196173805
+  - {fileID: -1610602823116938674}
+  - {fileID: 1185378769913744511}
+--- !u!114 &5059089583402466858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition
+  m_EditorClassIdentifier: 
+  ID: c6310b92-ab1e-40cb-98f5-d3002a225370
+  displayName: KnockCondition
+  duration: 0.5
+  remainingDuration: 0
+  KnockBackDistance: 4
+  knockType: 0
+--- !u!114 &5362548422134860395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,6 +295,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
-  m_Name: CastAbilityEffect
+  m_Name: CastAbilityComponent
   m_EditorClassIdentifier: 
-  _ability: {fileID: 4238383697140409446}
+  _ability: {fileID: -3312835879975769015}
+--- !u!114 &8300871661839526486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae8664c13dca4f488530e0636f2b92c, type: 3}
+  m_Name: VFXAbilityComponent
+  m_EditorClassIdentifier: 
+  vfxPrefab: {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca,
+    type: 3}
+  duration: 1

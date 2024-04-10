@@ -19,6 +19,10 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         [Tooltip("The trigger to set in the animator when the ability is casted")]
         public string AnimationTrigger;
 
+        public float ToxicResoureCost = 5;
+        public float ToxicSelfDamage = 10;
+        public BaseAbility ToxicAbility;
+
         public bool BlockMovementOnWindup = false;
         public bool ReducedSpeedOnWindup = true;
         public bool BlockRotationOnWindup = true;
@@ -28,6 +32,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
 
         int triggerHash;
         Resource resource;
+        Resource toxicResource;
         Vector3 MousePoint;
 
         public override void Initialize(BaseCharacter owner)
@@ -38,24 +43,36 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             {
                 resource = owner.Stats.GetResource(ResourceName);
             }
+            if(ToxicAbility != null)
+            {
+                toxicResource = owner.Stats.GetResource(AbilityManager.ToxicResourceName);
+            }
         }
 
         public override bool CanActivate(BaseCharacter caster)
         {
             if (!base.CanActivate(caster)) return false;
-            if (ResourceName != "" && caster.Stats.GetResource(ResourceName) < ResourceCost)
+            if (ToxicAbility == null || !AbilityManager.UseToxic)
             {
-                return false;
+                if (ResourceName != "" && resource < ResourceCost)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(toxicResource < ToxicResoureCost)
+                {
+                    return false;
+                }
             }
             return true;
         }
 
         public override IEnumerator HandleCast(CastInfo caster)
         {
-            if (ResourceCost > 0)
-            {
-                InitialCastCost(caster);
-            }
+
+            InitialCastCost(caster);
             return base.HandleCast(caster);
         }
 
@@ -65,12 +82,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             {
                 castInfo.owner.Animator.SetTrigger(triggerHash);
             }
-            if (BlockRotationOnWindup)
-            {
-                Debug.Log("Stop Rotation");
-                castInfo.owner.StopRotation();
-            }
-
+            if (BlockRotationOnWindup) castInfo.owner.StopRotation();
             if (BlockMovementOnWindup) castInfo.owner.StopMovement();
             if (ReducedSpeedOnWindup) castInfo.owner.Stats.AddStatModifier(HalfSpeed);
             base.CastStarted(castInfo);
@@ -104,13 +116,18 @@ namespace EcologyRPG.Core.Abilities.AbilityData
                 Debug.DrawRay(castInfo.owner.Transform.Position, castInfo.dir, Color.blue, 1f);
             }
             castInfo.targetPoint = MousePoint;
-            base.CastFinished(castInfo);
-            if (BlockMovementOnWindup) castInfo.owner.StartMovement();
-            if (BlockRotationOnWindup)
+
+            if (ToxicAbility != null && AbilityManager.UseToxic)
             {
-                Debug.Log("Start Rotation");
-                castInfo.owner.StartRotation();
+                ToxicAbility.Cast(castInfo);
             }
+            else
+            {
+                base.CastFinished(castInfo);
+            }
+
+            if (BlockMovementOnWindup) castInfo.owner.StartMovement();
+            if (BlockRotationOnWindup) castInfo.owner.StartRotation();
 
             if (ReducedSpeedOnWindup) castInfo.owner.Stats.RemoveStatModifier(HalfSpeed);
         }
@@ -121,7 +138,15 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         /// <param name="caster"></param>
         protected virtual void InitialCastCost(CastInfo caster)
         {
-            resource -= ResourceCost;
+            if(ToxicAbility != null && AbilityManager.UseToxic)
+            {
+                toxicResource -= ToxicResoureCost;
+                caster.owner.ApplyDamage(new DamageInfo() { damage = ToxicSelfDamage, source = caster.owner, type = DamageType.Toxic });
+            }
+            else if (ResourceName != "")
+            {
+                resource -= ResourceCost;
+            }
         }
     }
 }

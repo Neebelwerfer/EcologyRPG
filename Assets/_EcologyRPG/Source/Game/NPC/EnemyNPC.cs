@@ -12,6 +12,7 @@ namespace EcologyRPG.GameSystems.NPC
         [SerializeField] NPCBehaviour behaviourReference;
         [SerializeField] float XpOnDeath = 10;
 
+        public override Vector3 Velocity { get => Agent.velocity; set => Agent.velocity = value; }
         public NavMeshAgent Agent { get; private set; }
 
         EnemySpawner spawner;
@@ -72,6 +73,7 @@ namespace EcologyRPG.GameSystems.NPC
             base.Die();
             spawner.RemoveEnemy(this);
             LootGenerator.Instance.GenerateLootOnKill(this);
+            Agent.velocity = Vector3.zero;
             EventManager.Defer("XP", new DefaultEventData { data = XpOnDeath, source = this });
             EventManager.Defer("EnemyDeath", new DefaultEventData { data = GUID, source = this });
         }
@@ -95,8 +97,6 @@ namespace EcologyRPG.GameSystems.NPC
                 Animator.SetBool(movingHash, Agent.hasPath);
             } else
             {
-                Agent.isStopped = true;
-                Agent.velocity = Vector3.zero;
                 Rigidbody.isKinematic = false;
                 Animator.SetBool(movingHash, false);
             }

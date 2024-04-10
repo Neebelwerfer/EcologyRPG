@@ -49,6 +49,7 @@ namespace EcologyRPG.GameSystems
 
             EnemyManager.Init(maxDistance, activeEnemyUpdateRate);
             AbilityManager.Init(Game.Settings.EntityMask, Game.Settings.TargetGroundMask, Game.Settings.WalkableGroundMask);
+            AbilityManager.ToxicResourceName = Game.Settings.ToxicResourceName;
             ProjectileSystem.Init();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
             Player.Instance.SpawnPlayer();

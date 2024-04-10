@@ -2,7 +2,7 @@ using EcologyRPG.GameSystems;
 using EcologyRPG.GameSystems.Interactables;
 using UnityEngine;
 
-namespace EcologyRGP.GameSystems.Interactables
+namespace EcologyRPG.GameSystems.Interactables
 {
     [System.Serializable]
     public class QuestProgressor : Interaction

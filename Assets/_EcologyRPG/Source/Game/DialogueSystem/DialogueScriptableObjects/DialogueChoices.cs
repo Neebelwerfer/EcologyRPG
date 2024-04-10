@@ -1,4 +1,3 @@
-using EcologyRGP.GameSystems.Interactables;
 using EcologyRPG.GameSystems.Interactables;
 using System.Collections.Generic;
 using UnityEngine;

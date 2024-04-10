@@ -4,7 +4,7 @@ using EcologyRPG.GameSystems.PlayerSystems;
 using EcologyRPG.GameSystems;
 using EcologyRPG.GameSystems.Interactables;
 
-namespace EcologyRGP.GameSystems.Interactables
+namespace EcologyRPG.GameSystems.Interactables
 {
     public class Interactor : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using EcologyRPG.GameSystems.PlayerSystems;
-using EcologyRGP.GameSystems.Interactables;
+using EcologyRPG.GameSystems.Interactables;
 
 namespace EcologyRPG.GameSystems.Interactables
 {

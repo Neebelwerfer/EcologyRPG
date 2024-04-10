@@ -1,6 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Abilities.AbilityComponents;
 using EcologyRPG.Core.Character;
+using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.Abilities.Components
@@ -22,6 +23,16 @@ namespace EcologyRPG.GameSystems.Abilities.Components
                 effect = Instantiate(vfxPrefab, cast.castPos, Quaternion.identity);
             }
             Destroy(effect, duration);
+        }
+
+        public override AbilityComponent GetCopy(Object owner)
+        {
+            var copy = CreateInstance<VFXAbilityComponent>();
+            copy.name = name;
+            copy.vfxPrefab = vfxPrefab;
+            copy.duration = duration;
+            AssetDatabase.AddObjectToAsset(copy, owner);
+            return copy;
         }
     }
 }
