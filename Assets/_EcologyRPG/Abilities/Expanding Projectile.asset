@@ -66,8 +66,8 @@ MonoBehaviour:
   m_Name: Expanding Projectile
   m_EditorClassIdentifier: 
   DisplayName: Great Water Ball
-  Cooldown: 8
-  CastWindupTime: 0.7
+  Cooldown: 10
+  CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 4e1bf72f28f587a4ea42f55e9cd7eaf4, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0

@@ -38,7 +38,7 @@ MonoBehaviour:
   displayName: KnockCondition
   duration: 0.8
   remainingDuration: 0
-  KnockBackDistance: 4
+  KnockBackDistance: 6
   knockType: 0
 --- !u!114 &-3317710680887479378
 MonoBehaviour:
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: Charge
   m_EditorClassIdentifier: 
   DisplayName: ChargeAttack
-  Cooldown: 2
+  Cooldown: 3
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
   BuffsOnCast: []

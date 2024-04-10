@@ -31,3 +31,7 @@ MonoBehaviour:
     LevelRequirement: 1
   - ability: {fileID: 11400000, guid: 7b8e4554ac1beeb499d79f87cb27a71f, type: 2}
     LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: 6f70fb47d7564564db991358b7ecb77e, type: 2}
+    LevelRequirement: 1
+  - ability: {fileID: 11400000, guid: d7eec6c63a507a54f8fb23640715805f, type: 2}
+    LevelRequirement: 1

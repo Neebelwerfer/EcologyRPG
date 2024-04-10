@@ -100,7 +100,7 @@ namespace EcologyRPG.GameSystems.UI
 
         public TooltipData GetTooltipData()
         {
-            return new TooltipData { Title = resourceName, Description = $"{(int)resourceValue}/{(int)maxValue}" };
+            return new TooltipData { Title = resourceName, Icon = statIcon, Description = $"{(int)resourceValue}/{(int)maxValue}" };
         }
     }
 }

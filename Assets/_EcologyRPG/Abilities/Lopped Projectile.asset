@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Lop Explosive
   Cooldown: 6
-  CastWindupTime: 0.75
+  CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   CastWindUp: []
   Ability: {fileID: 676731462999206808}
   ResourceName: water
-  ResourceCost: 10
+  ResourceCost: 15
   Description: launch an explosive with water in a direction, exploding with great
     force when it lands
   AnimationTrigger: Water_LopBomb

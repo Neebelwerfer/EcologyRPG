@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Spliting Bolt
   Cooldown: 1.2
-  CastWindupTime: 0.7
+  CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
-  Range: 10
+  Range: 15
   OnCastEffects: []
   useMouseDirection: 1
   OnFirstHit:

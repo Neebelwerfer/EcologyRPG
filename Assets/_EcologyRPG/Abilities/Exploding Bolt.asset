@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8569105515692528616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition
+  m_EditorClassIdentifier: 
+  ID: 12f4e01c-f43a-4faa-96a8-de48d4f2b195
+  displayName: KnockCondition
+  duration: 1
+  remainingDuration: 0
+  KnockBackDistance: 5
+  knockType: 0
+--- !u!114 &-2057631771875263104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: -8569105515692528616}
 --- !u!114 &-1223565900871052742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,7 +57,7 @@ MonoBehaviour:
   m_Name: Exploding Bolt
   m_EditorClassIdentifier: 
   DisplayName: Pressured Bolt
-  Cooldown: 9
+  Cooldown: 8
   CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 3fe2083427ec7f44aa0bb802a109a868, type: 3}
   BuffsOnCast: []
@@ -35,7 +66,7 @@ MonoBehaviour:
   CastWindUp: []
   Ability: {fileID: 700960781163589716}
   ResourceName: water
-  ResourceCost: 20
+  ResourceCost: 10
   Description: Shoot a Pressurized bolt that expands quickly upon making contact
     with enemies
   AnimationTrigger: Water_SingleShot
@@ -71,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: AbilityDamageComponent
   m_EditorClassIdentifier: 
-  BaseDamage: 30
+  BaseDamage: 25
   DamageType: 1
   AllowVariance: 1
 --- !u!114 &700960781163589716
@@ -137,6 +168,7 @@ MonoBehaviour:
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 616030474125972172}
+  - {fileID: -2057631771875263104}
   displayFirstHitEffects: 1
   destroyOnHit: 0
   Speed: 0.015
