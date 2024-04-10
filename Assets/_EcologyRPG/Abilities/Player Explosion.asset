@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8497389278893427103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition(Clone)
+  m_EditorClassIdentifier: 
+  ID: 2ac9690f-8108-4886-a1d8-67a51e86ce91
+  displayName: KnockCondition
+  duration: 0.4
+  remainingDuration: 0
+  KnockBackDistance: 4
+  knockType: 0
 --- !u!114 &-4830978739927171413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,12 +60,25 @@ MonoBehaviour:
   AnimationTrigger: Is_PlayerExplode
   ToxicResoureCost: 5
   ToxicSelfDamage: 10
-  ToxicAbility: {fileID: 0}
+  ToxicAbility: {fileID: 9175769416612864938}
   BlockMovementOnWindup: 1
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   UseMouseDirection: 0
   RotatePlayerTowardsMouse: 1
+--- !u!114 &2611255189767314307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: -8497389278893427103}
 --- !u!114 &3082562889586705759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +98,21 @@ MonoBehaviour:
   OnHitEffects:
   - {fileID: 7810403523279891257}
   - {fileID: 7033203395989889724}
+--- !u!114 &4493062480290225100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent(Clone)
+  m_EditorClassIdentifier: 
+  BaseDamage: 24
+  DamageType: 1
+  AllowVariance: 1
 --- !u!114 &7033203395989889724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,3 +159,37 @@ MonoBehaviour:
   remainingDuration: 0
   KnockBackDistance: 4
   knockType: 0
+--- !u!114 &8598972515931628476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae8664c13dca4f488530e0636f2b92c, type: 3}
+  m_Name: VFXAbilityComponent
+  m_EditorClassIdentifier: 
+  vfxPrefab: {fileID: 8179646377062506047, guid: 814d86a2da242414d88e56ff86afe516,
+    type: 3}
+  duration: 2
+--- !u!114 &9175769416612864938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fe34d89a278e54e8e01dc1d7514f48, type: 3}
+  m_Name: CenteredExplosion(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Range: 0
+  OnCastEffects:
+  - {fileID: 8598972515931628476}
+  Radius: 8
+  OnHitEffects:
+  - {fileID: 4493062480290225100}
+  - {fileID: 2611255189767314307}

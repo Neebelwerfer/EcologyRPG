@@ -20,6 +20,6 @@ MonoBehaviour:
   - ability: {fileID: 11400000, guid: 8651e5f082142e74fb19ab0136a10a57, type: 2}
     LevelRequirement: 1
   - ability: {fileID: 11400000, guid: ce6480a11a212a24eaf41b1fa144969b, type: 2}
-    LevelRequirement: 3
+    LevelRequirement: 2
   - ability: {fileID: 11400000, guid: 58d5579e44f56b44b897510b7258b96e, type: 2}
-    LevelRequirement: 4
+    LevelRequirement: 3
