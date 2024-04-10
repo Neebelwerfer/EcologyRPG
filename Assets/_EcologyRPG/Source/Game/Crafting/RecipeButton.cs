@@ -47,6 +47,11 @@ namespace EcologyRPG.GameSystems.Crafting
         void Craft()
         {
             recipe.Craft();
+            if(recipe.OneTimeCraft)
+            {
+                Destroy(gameObject);
+                CraftingUI.Instance.blockedCrafts.Add(recipe.Name);
+            }
             if(!recipe.CanCraft())
             {
                 interactable = false;

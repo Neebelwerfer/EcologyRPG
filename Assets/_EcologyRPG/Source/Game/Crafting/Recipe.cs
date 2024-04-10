@@ -9,6 +9,7 @@ namespace EcologyRPG.GameSystems.Crafting
     {
         public string Name;
         public string Description;
+        public bool OneTimeCraft;
         public RequiredItem[] RequiredItems = new RequiredItem[0];
 
         public bool CanCraft()
