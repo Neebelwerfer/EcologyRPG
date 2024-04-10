@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Name: DamageAbilityEffect(Clone)
   m_EditorClassIdentifier: 
   BaseDamage: 15
-  DamageType: 1
+  DamageType: 2
   AllowVariance: 1
 --- !u!114 &-4037135379477274119
 MonoBehaviour:
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: DamageAbilityEffect(Clone)
   m_EditorClassIdentifier: 
   BaseDamage: 8
-  DamageType: 1
+  DamageType: 2
   AllowVariance: 1
 --- !u!114 &9103281277816228108
 MonoBehaviour:

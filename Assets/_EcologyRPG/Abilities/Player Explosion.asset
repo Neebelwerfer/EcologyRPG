@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: AbilityDamageComponent(Clone)
   m_EditorClassIdentifier: 
   BaseDamage: 24
-  DamageType: 1
+  DamageType: 2
   AllowVariance: 1
 --- !u!114 &7033203395989889724
 MonoBehaviour:
