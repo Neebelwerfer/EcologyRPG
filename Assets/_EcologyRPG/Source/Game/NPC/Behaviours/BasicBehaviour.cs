@@ -58,14 +58,14 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 npc.Agent.ResetPath();
                 if (attackAbility.state != AbilityStates.ready) return;
                 npc.Agent.velocity = Vector3.zero;
-                CastAbility(npc, attackAbility, target.Transform.Position);
+                CastAbility(npc, attackAbility, target.Transform.Position + target.Velocity);
             });
 
             var inAttackRange = new DecisionNode((npc) =>
             {
-                GetAbility();
                 var dist = Vector3.Distance(npc.Transform.Position, target.Transform.Position);
-                return dist < attackAbility.Ability.Range;
+                GetAbility(dist);
+                return dist < attackAbility.Ability.Range * 0.75;
 
             }, Attack, Chase);
 
@@ -137,15 +137,19 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             currState = passiveState;
         }
 
-        void GetAbility()
+        void GetAbility(float dist)
         {
             foreach (var a in initialisedAbilities)
             {
-                if (a.state == AbilityStates.ready)
+                if (a.state == AbilityStates.ready && a.InMinRange(dist))
                 {
                     attackAbility = a;
                     return;
                 }
+            }
+            if (attackAbility == null)
+            {
+                attackAbility = initialisedAbilities[0];
             }
         }
 

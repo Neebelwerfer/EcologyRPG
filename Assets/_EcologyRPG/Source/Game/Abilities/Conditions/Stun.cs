@@ -1,6 +1,5 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
-using UnityEditor;
 using UnityEngine.AI;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
@@ -31,12 +30,4 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             target.state = CharacterStates.disabled;
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(Stun))]
-    public class StunEditor : ConditionEditor
-    {
-
-    }
-#endif
 }

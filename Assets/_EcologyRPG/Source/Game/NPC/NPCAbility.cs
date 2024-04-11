@@ -6,11 +6,22 @@ namespace EcologyRPG.GameSystems.NPC
     [CreateAssetMenu(menuName = "Ability/NPC Ability Data", fileName = "New NPC Ability Data")]
     public class NPCAbility : AbilityDefintion
     {
+        [SerializeField] float minRange;
         [Tooltip("The trigger to set in the animator when the ability is casted")]
         public string AnimationTrigger;
         public BaseAbility Ability;
 
         int triggerHash;
+
+        private void OnValidate()
+        {
+            if (minRange > Ability.Range)
+            {
+                minRange = Ability.Range;
+            }
+        }
+
+        public bool InMinRange(float distance) => distance >= minRange;
 
         public void Initialise()
         {

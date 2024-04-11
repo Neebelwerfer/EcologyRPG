@@ -1,10 +1,9 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 
-
 namespace EcologyRPG.GameSystems.Abilities.Conditions
 {
-    public class DamageOverTime : DebuffCondition
+    public class DamageOverTime : DebuffCondition, IUpdateCondition
     {
         public float damagePerTick = 10;
         public DamageType DamageType;

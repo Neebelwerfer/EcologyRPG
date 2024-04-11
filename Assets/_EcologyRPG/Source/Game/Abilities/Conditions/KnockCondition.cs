@@ -1,6 +1,5 @@
 ﻿using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
-using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.Abilities.Conditions
@@ -52,19 +51,4 @@ namespace EcologyRPG.GameSystems.Abilities.Conditions
             else target.Velocity = Vector3.zero;
         }
     }
-
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(KnockCondition))]
-    public class KnockConditionEditor : ConditionEditor
-    {
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("KnockBackDistance"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("knockType"));
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
-#endif
 }
