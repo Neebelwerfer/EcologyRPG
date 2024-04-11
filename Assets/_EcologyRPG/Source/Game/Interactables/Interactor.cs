@@ -12,6 +12,9 @@ namespace EcologyRPG.GameSystems.Interactables
         [SerializeField] protected Interaction interaction;
         [SerializeField] protected Animator animator;
         [SerializeField] protected string animationTrigger;
+        [SerializeField] private float oWidth = 0.35f;
+        private ObjectOutline outline;
+        
         public Interaction Interaction => interaction;
 
         protected PlayerCharacter player;
@@ -22,6 +25,13 @@ namespace EcologyRPG.GameSystems.Interactables
 
         bool _isInteracting = false;
 
+        private void Awake()
+        {
+            outline = gameObject.AddComponent<ObjectOutline>();
+            outline.OutlineWidth = 0;
+            outline.OutlineMode = ObjectOutline.Mode.OutlineAll;
+            outline.OutlineColor = new Color(255, 215, 0);
+        }
         protected virtual void Start()
         {
             player = Player.PlayerCharacter;
@@ -42,11 +52,15 @@ namespace EcologyRPG.GameSystems.Interactables
 
             if (distance <= 2.5f)
             {
+                outline.OutlineWidth = oWidth;
+
                 if (IsInteracting())
                 {
                     Interact();
                 }
             }
+            else outline.OutlineWidth = 0;
+
         }
 
         protected bool IsInteracting()
