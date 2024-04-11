@@ -12,17 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
-  Range: 10
+  Range: 15
   OnCastEffects: []
   useMouseDirection: 0
   OnFirstHit:
   - {fileID: -5741911886191026748}
+  - {fileID: -7741392564128674262}
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
-  Speed: 5
+  Speed: 9
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+--- !u!114 &-7741392564128674262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: 859075522152794517}
 --- !u!114 &-5741911886191026748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,5 +72,48 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  minRange: 4
   AnimationTrigger: Shout
   Ability: {fileID: -8898575638431154396}
+--- !u!114 &859075522152794517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b526af8fbdcbbe418bafc2c7eaf524e, type: 3}
+  m_Name: SlowCondition
+  m_EditorClassIdentifier: 
+  ID: af952178-b3f1-4839-af28-03369db90a44
+  displayName: SlowCondition
+  duration: 1
+  remainingDuration: 0
+  slowType: 0
+  SlowAmount: 0.5
+  SlowCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

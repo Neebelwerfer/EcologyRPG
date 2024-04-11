@@ -20,7 +20,7 @@ public class NPCAbilityEditor : AbilityDefinitionEditor
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.CastWindupTime)));
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(ability.AnimationTrigger)));
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("minRange"));
         AbilityComponentEditor.Display("Cast windup components", ability.CastWindUp, ability, DisplayComponentType.Visual);
 
         if (ability.Ability == null)
