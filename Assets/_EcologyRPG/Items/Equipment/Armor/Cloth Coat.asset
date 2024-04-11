@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Cloth Coat
   Description: A simple cloth coat, it is light, but provides only minor protection
   Icon: {fileID: 21300000, guid: d18aa1abe4c0e4a4a9f868a4152061f0, type: 3}
-  Weight: 10
+  Weight: 5
   equipmentType: 0
   Modifiers:
   - StatName: healthRegen

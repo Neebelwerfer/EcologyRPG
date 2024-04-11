@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: A coat made of hardy leather, quite protective, but also restrictive
     and cumbersome
   Icon: {fileID: 21300000, guid: 8275e76eb57d38747a3fe2873427ec13, type: 3}
-  Weight: 30
+  Weight: 10
   equipmentType: 0
   Modifiers:
   - StatName: armor
