@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: a leather coat reinforced with scrap metal, very protective, but also
     heavy and hard to move in
   Icon: {fileID: 21300000, guid: 765034848e05eef4ba311bae885ff735, type: 3}
-  Weight: 60
+  Weight: 15
   equipmentType: 0
   Modifiers:
   - StatName: armor

@@ -15,10 +15,11 @@ MonoBehaviour:
   Name: Advanced Gas Mask
   Description: A high tech gas mask, made specifically for these toxic areas by outsiders
   Icon: {fileID: 21300000, guid: c3bd9bbe1020d38419869c332fa2a2bd, type: 3}
-  Weight: 20
+  Weight: 5
   equipmentType: 2
   Modifiers:
-  - name: toxicProtection
+  - StatName: armor
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 10

@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: A very old gas mask from a war long forgotten, more effective than
     the makeshift ones, and armored
   Icon: {fileID: 21300000, guid: 45f21385254752644bde549a7417f049, type: 3}
-  Weight: 25
+  Weight: 10
   equipmentType: 2
   Modifiers:
   - StatName: armor

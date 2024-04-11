@@ -44,7 +44,7 @@
                     "statName": "carryWeight",
                     "modType": 100,
                     "startValue": 0.0,
-                    "changePerPoint": 5.0
+                    "changePerPoint": 10.0
                 },
                 {
                     "statName": "weaponDamage",
@@ -157,7 +157,7 @@
             "displayName": "Carry Weight",
             "DisplayOptions": 0,
             "ShowOptions": 1,
-            "baseValue": 50.0,
+            "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 10.0,
             "description": "Governs a characters carry weight"
