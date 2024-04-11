@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 40
+  BaseDamage: 50
   DamageType: 1
   AllowVariance: 1
 --- !u!114 &11400000
@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: Expanding Projectile
   m_EditorClassIdentifier: 
-  DisplayName: Expanding Projectile
-  Cooldown: 8
-  CastWindupTime: 0.7
+  DisplayName: Great Water Ball
+  Cooldown: 10
+  CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 4e1bf72f28f587a4ea42f55e9cd7eaf4, type: 3}
   BuffsOnCast: []
   remainingCooldown: 0
@@ -115,11 +115,11 @@ MonoBehaviour:
   CastWindUp: []
   Ability: {fileID: -5784286480726840949}
   ResourceName: water
-  ResourceCost: 25
-  Description: 
+  ResourceCost: 20
+  Description: Shoot a growing water projectile that deals massive damage.
   AnimationTrigger: Water_SingleShot
-  ToxicResoureCost: 5
-  ToxicSelfDamage: 10
+  ToxicResoureCost: 20
+  ToxicSelfDamage: 15
   ToxicAbility: {fileID: -4853105674147231066}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1

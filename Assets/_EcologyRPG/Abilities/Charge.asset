@@ -22,7 +22,6 @@ MonoBehaviour:
   - {fileID: 7850948500378500201}
   displayFirstHitEffects: 1
   dash: {fileID: -3317710680887479378}
-  useMouseDirection: 1
 --- !u!114 &-4685705558122471581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,9 +36,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: aa48c43d-78d5-4195-9282-e4a43d838fc3
   displayName: KnockCondition
-  duration: 0.6
+  duration: 0.8
   remainingDuration: 0
-  KnockBackDistance: 3
+  KnockBackDistance: 6
   knockType: 0
 --- !u!114 &-3317710680887479378
 MonoBehaviour:
@@ -78,7 +77,7 @@ MonoBehaviour:
   m_Name: Charge
   m_EditorClassIdentifier: 
   DisplayName: ChargeAttack
-  Cooldown: 2
+  Cooldown: 3
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
   BuffsOnCast: []
@@ -86,7 +85,6 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   Ability: {fileID: -6419718447561464767}
-  RotatePlayerTowardsMouse: 1
   ResourceName: stamina
   ResourceCost: 20
   Description: 
@@ -95,6 +93,7 @@ MonoBehaviour:
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   UseMouseDirection: 1
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &1344285647382033925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: AbilityDamageComponent
   m_EditorClassIdentifier: 
-  BaseDamage: 15
+  BaseDamage: 25
   DamageType: 0
   AllowVariance: 1
 --- !u!114 &2765209726981876797
@@ -137,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2969b107-7fb2-4e92-afaa-e2e1a4041c4c
   displayName: Stun
-  duration: 0.75
+  duration: 1
   remainingDuration: 0
 --- !u!114 &7850948500378500201
 MonoBehaviour:

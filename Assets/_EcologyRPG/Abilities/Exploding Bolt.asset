@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8569105515692528616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition
+  m_EditorClassIdentifier: 
+  ID: 12f4e01c-f43a-4faa-96a8-de48d4f2b195
+  displayName: KnockCondition
+  duration: 1
+  remainingDuration: 0
+  KnockBackDistance: 5
+  knockType: 0
+--- !u!114 &-2057631771875263104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: -8569105515692528616}
+--- !u!114 &-1223565900871052742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
+  m_Name: CastAbilityComponent
+  m_EditorClassIdentifier: 
+  _ability: {fileID: 7915159216236265921}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: Exploding Bolt
+  m_EditorClassIdentifier: 
+  DisplayName: Pressured Bolt
+  Cooldown: 8
+  CastWindupTime: 0.8
+  Icon: {fileID: 21300000, guid: 3fe2083427ec7f44aa0bb802a109a868, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  Ability: {fileID: 700960781163589716}
+  ResourceName: water
+  ResourceCost: 10
+  Description: Shoot a Pressurized bolt that expands quickly upon making contact
+    with enemies
+  AnimationTrigger: Water_SingleShot
+  BlockMovementOnWindup: 0
+  ReducedSpeedOnWindup: 1
+  BlockRotationOnWindup: 1
+  UseMouseDirection: 1
+  RotatePlayerTowardsMouse: 1
+--- !u!114 &578131841104737425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent
+  m_EditorClassIdentifier: 
+  BaseDamage: 5
+  DamageType: 1
+  AllowVariance: 1
+--- !u!114 &616030474125972172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent
+  m_EditorClassIdentifier: 
+  BaseDamage: 25
+  DamageType: 1
+  AllowVariance: 1
+--- !u!114 &700960781163589716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
+  m_Name: BasicProjectile(Clone)
+  m_EditorClassIdentifier: 
+  Range: 15
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit:
+  - {fileID: 578131841104737425}
+  - {fileID: -1223565900871052742}
+  OnHitEffects: []
+  displayFirstHitEffects: 1
+  destroyOnHit: 1
+  Speed: 8
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+--- !u!114 &7915159216236265921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
+  m_Name: New Ability
+  m_EditorClassIdentifier: 
+  DisplayName: ExpandingProjectile
+  Cooldown: 0.5
+  CastWindupTime: 0
+  Icon: {fileID: 0}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  Ability: {fileID: 9177974547239822766}
+--- !u!114 &9177974547239822766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055c0c93801b573419251bfadefde6f8, type: 3}
+  m_Name: ExpandingProjectile(Clone)
+  m_EditorClassIdentifier: 
+  Range: 0.01
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: 616030474125972172}
+  - {fileID: -2057631771875263104}
+  displayFirstHitEffects: 1
+  destroyOnHit: 0
+  Speed: 0.015
+  GrowthRate: {x: 3, y: 3, z: 3}
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}

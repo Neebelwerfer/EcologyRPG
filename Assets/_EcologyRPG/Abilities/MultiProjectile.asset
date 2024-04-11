@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
-  Range: 10
+  Range: 15
   OnCastEffects: []
   useMouseDirection: 1
   OnFirstHit:
@@ -230,7 +230,7 @@ MonoBehaviour:
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
-  Speed: 8
+  Speed: 9
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
 --- !u!114 &8494733662436896113
