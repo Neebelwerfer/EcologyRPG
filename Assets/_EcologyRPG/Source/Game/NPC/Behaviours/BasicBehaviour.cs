@@ -27,7 +27,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             for (int i = 0; i < abilities.Count; i++)
             {
                 initialisedAbilities[i] = Instantiate(abilities[i]);
-                initialisedAbilities[i].Initialise();
+                initialisedAbilities[i].Initialize(character);
             }
 
             var aggroState = new State("Aggro");
@@ -58,7 +58,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 npc.Agent.ResetPath();
                 if (attackAbility.state != AbilityStates.ready) return;
                 npc.Agent.velocity = Vector3.zero;
-                CastAbility(npc, attackAbility, target.Transform.Position + target.Velocity);
+                CastAbility(npc, attackAbility, target.Transform.Position + (target.Velocity * attackAbility.CastWindupTime));
             });
 
             var inAttackRange = new DecisionNode((npc) =>

@@ -3,6 +3,7 @@ using EcologyRPG.Core.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace EcologyRPG.GameSystems.UI
 {
@@ -13,6 +14,12 @@ namespace EcologyRPG.GameSystems.UI
         public void Setup(PlayerAbilityDefinition ability)
         {
             this.ability = ability;
+            ability.AbilityChanged.AddListener(OnAbilityChanged);
+            image.sprite = ability.Icon;
+        }
+
+        private void OnAbilityChanged()
+        {
             image.sprite = ability.Icon;
         }
 
@@ -27,6 +34,12 @@ namespace EcologyRPG.GameSystems.UI
             Tooltip.ShowTooltip(this);
         }
 
+        protected override void OnEnable()
+        {
+            if (ability == null) return;
+            image.sprite = ability.Icon;
+        }
+
         protected override void OnDisable()
         {
             base.OnDisable();
@@ -36,6 +49,12 @@ namespace EcologyRPG.GameSystems.UI
         public TooltipData GetTooltipData()
         {
             return new TooltipData() { Title = ability.DisplayName, Icon = ability.Icon, Description = ability.Description };
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            ability.AbilityChanged.RemoveListener(OnAbilityChanged);
         }
     }
 }

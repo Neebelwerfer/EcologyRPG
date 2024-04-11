@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace EcologyRPG.Core.Abilities
@@ -48,6 +49,7 @@ namespace EcologyRPG.Core.Abilities
         public float CastWindupTime = 0;
         public Sprite Icon;
 
+        public UnityEvent AbilityChanged = new UnityEvent();
         public List<BuffCondition> BuffsOnCast;
 
         [HideInInspector] public float remainingCooldown = 0;
@@ -87,8 +89,14 @@ namespace EcologyRPG.Core.Abilities
                 {
                     remainingCooldown = 0;
                     state = AbilityStates.ready;
+                    OnReady();
                 }
             }
+        }
+
+        protected virtual void OnReady()
+        {
+
         }
 
         public virtual void PutOnCooldown(float timer)

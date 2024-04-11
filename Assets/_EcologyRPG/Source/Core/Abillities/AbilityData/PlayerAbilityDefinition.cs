@@ -30,7 +30,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public bool RotatePlayerTowardsMouse = false;
         static readonly StatModification HalfSpeed = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, null);
 
-        int triggerHash;
+        public int TriggerHash { get; protected set; }
         Resource resource;
         Resource toxicResource;
         Vector3 MousePoint;
@@ -38,7 +38,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public override void Initialize(BaseCharacter owner)
         {
             base.Initialize(owner);
-            triggerHash = Animator.StringToHash(AnimationTrigger);
+            TriggerHash = Animator.StringToHash(AnimationTrigger);
             if (ResourceName != "")
             {
                 resource = owner.Stats.GetResource(ResourceName);
@@ -78,9 +78,9 @@ namespace EcologyRPG.Core.Abilities.AbilityData
 
         public override void CastStarted(CastInfo castInfo)
         {
-            if (triggerHash != 0)
+            if (TriggerHash != 0)
             {
-                castInfo.owner.Animator.SetTrigger(triggerHash);
+                castInfo.owner.Animator.SetTrigger(TriggerHash);
             }
             if (BlockRotationOnWindup) castInfo.owner.StopRotation();
             if (BlockMovementOnWindup) castInfo.owner.StopMovement();
@@ -136,7 +136,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         /// Called when the cast is started to deduct the resource cost
         /// </summary>
         /// <param name="caster"></param>
-        protected virtual void InitialCastCost(CastInfo caster)
+        public virtual void InitialCastCost(CastInfo caster)
         {
             if(ToxicAbility != null && AbilityManager.UseToxic)
             {

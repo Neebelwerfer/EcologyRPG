@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Behaviour
   m_EditorClassIdentifier: 
   abilities:
-  - {fileID: 11400000, guid: dc8f03fbee46e244ab3454face3835ba, type: 2}
+  - {fileID: 11400000, guid: e70d16fb4afdc5e4a89ff3dde2b231f4, type: 2}
   targetSearchCooldown: 0.5
   AggroRange: 20
   WanderRadius: 40

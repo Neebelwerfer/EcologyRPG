@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
   m_Name: MeleeAttack(Clone)
   m_EditorClassIdentifier: 
-  Range: 4
+  Range: 8
   OnCastEffects: []
   useMouseDirection: 0
   OnFirstHit: []
@@ -33,12 +33,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed4169a8fdda19d4f8dd0ca9fe695f11, type: 3}
-  m_Name: MonsterMelee
+  m_Name: Attack1
   m_EditorClassIdentifier: 
   DisplayName: 
   Cooldown: 2
   CastWindupTime: 0.4
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
