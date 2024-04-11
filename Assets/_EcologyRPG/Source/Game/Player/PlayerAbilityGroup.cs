@@ -75,6 +75,12 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             SetupData(abilities[currentIndex]);
         }
 
+        public override bool CanActivate(BaseCharacter caster)
+        {
+            if(state != AbilityStates.ready) return false;
+            return abilities[currentIndex].CanActivate(caster);
+        }
+
 
         public override void PutOnCooldown()
         {
