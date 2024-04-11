@@ -45,5 +45,10 @@ public class TagEditor : EditorWindow
         {
             tags.tags.RemoveAt(tagToRemove);
         }
+
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(tags);
+        }
     }
 }
