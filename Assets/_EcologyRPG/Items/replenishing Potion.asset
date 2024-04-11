@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: Healing Potion
   Description: 
   Icon: {fileID: 0}
-  Weight: 0
+  Weight: 2
   ResourceName: health
   AmountToReplenish: 0.2

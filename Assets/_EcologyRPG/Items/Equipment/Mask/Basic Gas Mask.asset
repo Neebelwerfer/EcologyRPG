@@ -15,10 +15,11 @@ MonoBehaviour:
   Name: Basic Gas Mask
   Description: a makeshift gas mask, it will keep some nasty things out
   Icon: {fileID: 21300000, guid: 3837be675138c9448878f369c129dd69, type: 3}
-  Weight: 10
+  Weight: 5
   equipmentType: 2
   Modifiers:
-  - name: toxicProtection
+  - StatName: armor
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 10

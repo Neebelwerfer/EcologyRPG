@@ -15,17 +15,19 @@ MonoBehaviour:
   Name: Small Tank
   Description: A small metal water tank, it is almost completely sealed
   Icon: {fileID: 21300000, guid: 9336d076073e93344afcdc14d0508357, type: 3}
-  Weight: 15
+  Weight: 5
   equipmentType: 3
   Modifiers:
-  - name: maxWater
+  - StatName: 
+    AttributeName: 
     type: 1
     modType: 100
     minValue: 8
     maxValue: 14
     GrowthPerLevel: 1
     growthType: 0
-  - name: waterDrain
+  - StatName: 
+    AttributeName: 
     type: 1
     modType: 100
     minValue: -8

@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: Water Bottle
   Description: a Bottle of clean water
   Icon: {fileID: 21300000, guid: 26993f1279baef143ac3dbc695e8770a, type: 3}
-  Weight: 5
+  Weight: 3
   ResourceName: water
   AmountToReplenish: 0.1
