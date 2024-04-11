@@ -6,6 +6,8 @@ namespace EcologyRPG.GameSystems
 {
     public class GameSettings : ScriptableObject
     {
+        public const string GroundHazardName = "GroundHazard";
+
         public PlayerSettings playerSettings;
 
         [Header("Layer settings")]
