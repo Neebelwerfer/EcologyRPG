@@ -26,6 +26,8 @@ namespace EcologyRPG.Scripts
         Collider _collider;
         List<Target> _characters;
 
+        bool isActive = false;
+
         private void Awake()
         {
             _collider = GetComponent<Collider>();
@@ -34,9 +36,9 @@ namespace EcologyRPG.Scripts
             gameObject.layer = LayerMask.NameToLayer(GameSettings.GroundHazardName);
         }
 
-        private void Update()
+        void UpdateDamage()
         {
-            if(_characters.Count > 0)
+            if (_characters.Count > 0)
             {
                 foreach (var target in _characters)
                 {
@@ -50,7 +52,7 @@ namespace EcologyRPG.Scripts
                             type = damageType,
                             source = gameObject
                         });
-                        target.timer = damageInterval;                                    
+                        target.timer = damageInterval;
                     }
                 }
             }
@@ -80,6 +82,32 @@ namespace EcologyRPG.Scripts
             return true;
         }
 
+        void AddCharacter(BaseCharacter character)
+        {
+            character.ApplyDamage(new DamageInfo()
+            {
+                damage = damagePerTick,
+                type = damageType,
+                source = gameObject
+            });
+            _characters.Add(new Target { GUID = character.GUID, timer = damageInterval });
+            if (!isActive)
+            {
+                isActive = true;
+                InvokeRepeating(nameof(UpdateDamage), 0, 0.1f);
+            }
+        }
+
+        void RemoveCharacter(string guid)
+        {
+            _characters.RemoveAll(x => x.GUID == guid);
+            if (_characters.Count == 0)
+            {
+                isActive = false;
+                CancelInvoke(nameof(UpdateDamage));
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if(other.TryGetComponent(out CharacterBinding character))
@@ -88,14 +116,7 @@ namespace EcologyRPG.Scripts
                 {
                     if(!ContainsCharacter(character.Character.GUID))
                     {
-                        character.Character.ApplyDamage(new DamageInfo()
-                        {
-                            damage = damagePerTick,
-                            type = damageType,
-                            source = gameObject
-                        });
-
-                        _characters.Add(new Target { GUID = character.Character.GUID, timer = damageInterval });
+                        AddCharacter(character.Character);
                     }
                 }
             }
@@ -107,7 +128,7 @@ namespace EcologyRPG.Scripts
             {
                 if(ContainsCharacter(character.Character.GUID))
                 {
-                    _characters.RemoveAll(x => x.GUID == character.Character.GUID);
+                    RemoveCharacter(character.Character.GUID);
                 }
             }
         }
