@@ -36,7 +36,7 @@ namespace EcologyRPG.Core.Abilities
     {
         public DamageType type;
         public float damage;
-        public BaseCharacter source;
+        public object source;
     }
 
     public abstract class AbilityDefintion : ScriptableObject
