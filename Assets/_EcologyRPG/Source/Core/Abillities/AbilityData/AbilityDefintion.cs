@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace EcologyRPG.Core.Abilities
@@ -41,6 +42,7 @@ namespace EcologyRPG.Core.Abilities
 
     public abstract class AbilityDefintion : ScriptableObject
     {
+        public string GUID { get; set; }
         public string DisplayName;
         [Tooltip("The cooldown of this ability")]
         public float Cooldown = 0.5f;
@@ -48,6 +50,7 @@ namespace EcologyRPG.Core.Abilities
         public float CastWindupTime = 0;
         public Sprite Icon;
 
+        public UnityEvent AbilityChanged = new UnityEvent();
         public List<BuffCondition> BuffsOnCast;
 
         [HideInInspector] public float remainingCooldown = 0;
@@ -55,6 +58,14 @@ namespace EcologyRPG.Core.Abilities
         BaseCharacter owner;
 
         public List<AbilityComponent> CastWindUp = new List<AbilityComponent>();
+
+        protected virtual void OnValidate()
+        {
+            if(GUID == null || GUID == "")
+            {
+                GUID = System.Guid.NewGuid().ToString();
+            }
+        }
 
         public virtual void Initialize(BaseCharacter owner)
         {
@@ -87,8 +98,14 @@ namespace EcologyRPG.Core.Abilities
                 {
                     remainingCooldown = 0;
                     state = AbilityStates.ready;
+                    OnReady();
                 }
             }
+        }
+
+        protected virtual void OnReady()
+        {
+
         }
 
         public virtual void PutOnCooldown(float timer)

@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.NPC
@@ -6,15 +7,16 @@ namespace EcologyRPG.GameSystems.NPC
     [CreateAssetMenu(menuName = "Ability/NPC Ability Data", fileName = "New NPC Ability Data")]
     public class NPCAbility : AbilityDefintion
     {
-        [SerializeField] float minRange;
+        [SerializeField] float minRange = 0;
         [Tooltip("The trigger to set in the animator when the ability is casted")]
         public string AnimationTrigger;
         public BaseAbility Ability;
 
-        int triggerHash;
+        public int TriggerHash { get; protected set; }
 
         private void OnValidate()
         {
+            if (Ability == null) return;
             if (minRange > Ability.Range)
             {
                 minRange = Ability.Range;
@@ -23,16 +25,17 @@ namespace EcologyRPG.GameSystems.NPC
 
         public bool InMinRange(float distance) => distance >= minRange;
 
-        public void Initialise()
+        public override void Initialize(BaseCharacter owner)
         {
-            triggerHash = Animator.StringToHash(AnimationTrigger);
+            TriggerHash = Animator.StringToHash(AnimationTrigger);
+            base.Initialize(owner);
         }
 
         public override void CastStarted(CastInfo caster)
         {
-            if (triggerHash != 0)
+            if (TriggerHash != 0)
             {
-                caster.owner.Animator.SetTrigger(triggerHash);
+                caster.owner.Animator.SetTrigger(TriggerHash);
             }
             base.CastStarted(caster);
             caster.owner.Transform.LookAt(caster.targetPoint);

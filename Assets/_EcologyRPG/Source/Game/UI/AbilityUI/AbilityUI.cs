@@ -122,6 +122,23 @@ namespace EcologyRPG.GameSystems.UI
             abilityImage.fillAmount = 1;
         }
 
+        void UpdateAbilityInfo()
+        {
+            if (ability == null) return;
+            abilityName = ability.DisplayName;
+            cooldown = ability.Cooldown;
+            if (ability.Icon != null)
+                abilitySprite = ability.Icon;
+            abilityImage.sprite = abilitySprite;
+            backgroundImage.sprite = abilitySprite;
+
+            if (ability.ToxicAbility != null && AbilityManager.UseToxic)
+            {
+                abilityImage.color = Game.Settings.ToxicAbilityReady;
+                backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
+            }
+        }
+
         public void SetUpAbilityUI()
         {
             if (ability == null)
@@ -168,7 +185,9 @@ namespace EcologyRPG.GameSystems.UI
 
         public void SetAbility(AbilityDefintion newAbility)
         {
+            if(ability != null) ability.AbilityChanged.RemoveListener(UpdateAbilityInfo);
             ability = (PlayerAbilityDefinition)newAbility;
+            if(ability != null) ability.AbilityChanged.AddListener(UpdateAbilityInfo);
             SetUpAbilityUI();
         }
 

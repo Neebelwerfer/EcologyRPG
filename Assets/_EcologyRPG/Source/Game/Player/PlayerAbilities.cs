@@ -3,7 +3,7 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Items;
 using System;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
+using UnityEngine;
 
 namespace EcologyRPG.GameSystems.PlayerSystems
 {
@@ -42,6 +42,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         PlayerAbilityDefinition Init(PlayerAbilityDefinition ability)
         {
             var newAbility = UnityEngine.Object.Instantiate(ability);
+            newAbility.GUID = ability.GUID;
             newAbility.Initialize(_Player);
             return newAbility;
         }
@@ -66,7 +67,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             for (int i = 0; i < abilitySlots.Length; i++)
             {
                 if (abilitySlots[i] == null) continue;
-                if (abilitySlots[i].DisplayName == ability.DisplayName)
+                if (abilitySlots[i].GUID == ability.GUID)
                 {
                     slot = (AbilitySlots)i;
                     return true;

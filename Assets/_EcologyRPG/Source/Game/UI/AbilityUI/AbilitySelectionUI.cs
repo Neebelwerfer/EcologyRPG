@@ -1,4 +1,5 @@
 using EcologyRPG.Core;
+using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections.Generic;
@@ -36,6 +37,10 @@ namespace EcologyRPG.GameSystems.UI
                     if (slot.Value == selectedAbilityUI.abilitySlot)
                     {
                         Hide();
+                        return;
+                    }
+                    if(abilityHandler.GetAbility(slot.Value).state != AbilityStates.ready)
+                    {
                         return;
                     }
                     abilityHandler.SetAbility(slot.Value, null);

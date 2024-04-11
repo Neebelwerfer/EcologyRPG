@@ -9,6 +9,8 @@ public class AbilityDefinitionEditor : Editor
     public override void OnInspectorGUI()
     {
         AbilityDefintion abilityEffect = (AbilityDefintion)target;
+        if (abilityEffect.GUID != null)
+            EditorGUILayout.LabelField("GUID: ", abilityEffect.GUID, EditorStyles.boldLabel);
         if (EditorGUILayout.PropertyField(serializedObject.FindProperty("DisplayName")))
         {
             abilityEffect.name = abilityEffect.DisplayName;
