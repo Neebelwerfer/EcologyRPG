@@ -15,8 +15,9 @@ namespace EcologyRPG.GameSystems.PlayerSystems
 
         short currentIndex = 0;
 
-        private void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
             if (abilities.Length != 0)
             {
                 Setup(abilities[0]);
@@ -89,6 +90,8 @@ public class PlayerAbilityGroupEditor : Editor
 {
     public override void OnInspectorGUI()
     {
+        var obj = (PlayerAbilityGroup)target;
+        EditorGUILayout.LabelField("GUID: ", obj.GUID, EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("abilities"), true);
         serializedObject.ApplyModifiedProperties();
     }

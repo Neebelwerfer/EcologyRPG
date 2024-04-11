@@ -42,6 +42,7 @@ namespace EcologyRPG.Core.Abilities
 
     public abstract class AbilityDefintion : ScriptableObject
     {
+        public string GUID { get; set; }
         public string DisplayName;
         [Tooltip("The cooldown of this ability")]
         public float Cooldown = 0.5f;
@@ -57,6 +58,14 @@ namespace EcologyRPG.Core.Abilities
         BaseCharacter owner;
 
         public List<AbilityComponent> CastWindUp = new List<AbilityComponent>();
+
+        protected virtual void OnValidate()
+        {
+            if(GUID == null || GUID == "")
+            {
+                GUID = System.Guid.NewGuid().ToString();
+            }
+        }
 
         public virtual void Initialize(BaseCharacter owner)
         {
