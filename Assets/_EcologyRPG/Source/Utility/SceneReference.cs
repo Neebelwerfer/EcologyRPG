@@ -7,37 +7,36 @@ namespace EcologyRPG.Utility
     [CreateAssetMenu(fileName = "SceneReference", menuName = "SceneReference")]
     public class SceneReference : ScriptableObject
     {
-        public int BuildIndex { get { return buildIndex; } }
+        public int BuildIndex { get { return SceneUtility.GetBuildIndexByScenePath(AssetDatabase.GetAssetPath(sceneAsset)); } }
 
 #if UNITY_EDITOR
         public SceneAsset sceneAsset;
- #endif
-        public int buildIndex = -1;
+#endif
 
         public AsyncOperation LoadSceneAsync(LoadSceneMode mode = LoadSceneMode.Single)
         {
-            Debug.Log("Loading scene: " + buildIndex);
-            if (buildIndex >= 0)
+            Debug.Log("Loading scene: " + BuildIndex);
+            if (BuildIndex >= 0)
             {
-                return SceneManager.LoadSceneAsync(buildIndex, mode);
+                return SceneManager.LoadSceneAsync(BuildIndex, mode);
             }
             return null;
         }
 
         public void LoadScene(LoadSceneMode mode = LoadSceneMode.Single)
         {
-            Debug.Log("Loading scene: " + buildIndex);
-            if (buildIndex >= 0)
+            Debug.Log("Loading scene: " + BuildIndex);
+            if (BuildIndex >= 0)
             {
-                SceneManager.LoadScene(buildIndex, mode);
+                SceneManager.LoadScene(BuildIndex, mode);
             }
         }
 
         public void UnloadScene()
         {
-            if (buildIndex >= 0)
+            if (BuildIndex >= 0)
             {
-                SceneManager.UnloadSceneAsync(buildIndex);
+                SceneManager.UnloadSceneAsync(BuildIndex);
             }
         }
     }

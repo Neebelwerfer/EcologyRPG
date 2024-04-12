@@ -22,7 +22,7 @@ namespace EcologyRPG.Utility
             {
                 var SceneLoader = FindObjectOfType<SceneLoader>();
                 SceneLoader.Setup(target, activeScene.name);
-                SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(TransitionSceneReference.buildIndex));
+                SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(TransitionSceneReference.BuildIndex));
             };
         }
     }

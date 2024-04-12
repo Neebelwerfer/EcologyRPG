@@ -24,6 +24,7 @@ namespace EcologyRPG.GameSystems
         public static Flags Flags;
 
         public Game_State CurrentState = Game_State.Menu;
+        bool initialized = false;
 
         void Awake()
         {
@@ -53,14 +54,13 @@ namespace EcologyRPG.GameSystems
 
         void Init()
         {
-            if(Player.Instance != null)
-            {
-                return;
-            }
+            if(initialized) return;
             TaskManager.Init();
             SystemManager.Init();
             Player.Init(Settings.playerSettings);
             Flags = new Flags();
+            Debug.Log("Game Initialized");
+            initialized = true;
         }
 
         public static void StartGame()

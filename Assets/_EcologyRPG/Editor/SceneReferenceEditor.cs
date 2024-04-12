@@ -15,11 +15,10 @@ public class SceneReferenceEditor : Editor
         }
         EditorGUILayout.LabelField("Path: ", AssetDatabase.GetAssetPath(serializedObject.FindProperty("sceneAsset").objectReferenceValue));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneAsset"));
+        var buildIndex = sceneReference.BuildIndex;
+        EditorGUILayout.LabelField("Build Index: ",buildIndex.ToString());
 
-        sceneReference.buildIndex = SceneUtility.GetBuildIndexByScenePath(AssetDatabase.GetAssetPath(sceneReference.sceneAsset));
-        EditorGUILayout.LabelField("Build Index: ", sceneReference.buildIndex.ToString());
-
-        if(sceneReference.buildIndex < 0)
+        if(buildIndex < 0)
         {
             if (GUILayout.Button("Add to Build Settings"))
             {
