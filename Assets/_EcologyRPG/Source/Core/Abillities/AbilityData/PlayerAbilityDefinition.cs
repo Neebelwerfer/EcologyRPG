@@ -1,7 +1,5 @@
-using Codice.Client.Commands;
 using EcologyRPG.Core.Character;
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities.AbilityData

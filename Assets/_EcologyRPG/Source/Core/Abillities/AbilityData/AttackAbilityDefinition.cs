@@ -8,13 +8,6 @@ namespace EcologyRPG.Core.Abilities.AbilityData
     {
         public BaseAbility Ability;
 
-        public override AbilityDefintion GetCopy(Object owner)
-        {
-            var copy = base.GetCopy(owner) as AttackAbilityDefinition;
-            copy.Ability = Ability.GetCopy(owner);
-            return copy;
-        }
-
         public override bool CanActivate(BaseCharacter caster)
         {
             if(!base.CanActivate(caster)) return false;
@@ -40,6 +33,13 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         }
 
 #if UNITY_EDITOR
+
+        public override AbilityDefintion GetCopy(Object owner)
+        {
+            var copy = base.GetCopy(owner) as AttackAbilityDefinition;
+            copy.Ability = Ability.GetCopy(owner);
+            return copy;
+        }
 
         public override void Delete()
         {

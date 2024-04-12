@@ -67,7 +67,8 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             for (int i = 0; i < abilitySlots.Length; i++)
             {
                 if (abilitySlots[i] == null) continue;
-                if (abilitySlots[i].GUID == ability.GUID)
+                Debug.LogWarning(abilitySlots[i].name + " " + ability.name);
+                if (abilitySlots[i].name == ability.name)
                 {
                     slot = (AbilitySlots)i;
                     return true;

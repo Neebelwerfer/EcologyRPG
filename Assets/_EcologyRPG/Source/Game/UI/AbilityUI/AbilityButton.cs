@@ -54,7 +54,7 @@ namespace EcologyRPG.GameSystems.UI
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            ability.AbilityChanged.RemoveListener(OnAbilityChanged);
+            if (ability != null) ability.AbilityChanged.RemoveListener(OnAbilityChanged);
         }
     }
 }

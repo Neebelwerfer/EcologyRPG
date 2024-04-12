@@ -53,11 +53,7 @@ namespace EcologyRPG.GameSystems.UI
 
         public void ExitGame()
         {
-#if !UNITY_EDITOR
-            Application.Quit();
-#else
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
+            Game.ExitGame();
         }
 
         private void ToggleCharacterUI()

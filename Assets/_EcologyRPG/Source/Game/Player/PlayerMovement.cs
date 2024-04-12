@@ -1,6 +1,5 @@
 using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
-using log4net.Util;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

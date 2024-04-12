@@ -1,9 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Core.Character;
-using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.PlayerSystems
@@ -88,17 +86,5 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             currentIndex = (short)((currentIndex + 1) % abilities.Length);
             Setup(abilities[currentIndex]);
         }
-    }
-}
-
-[CustomEditor(typeof(PlayerAbilityGroup))]
-public class PlayerAbilityGroupEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        var obj = (PlayerAbilityGroup)target;
-        EditorGUILayout.LabelField("GUID: ", obj.GUID, EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("abilities"), true);
-        serializedObject.ApplyModifiedProperties();
     }
 }

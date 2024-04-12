@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_EcologyRPG/Levels/UIScene.unity
     guid: dfa227117625f5045bb0ae8ffd735d9f
+  - enabled: 1
+    path: Assets/_EcologyRPG/Levels/TransitionScene.unity
+    guid: b6e54296270916049aaf25cfe75b85e3
+  - enabled: 1
+    path: Assets/_EcologyRPG/Levels/TestLevel.unity
+    guid: f04e2bc014cf3ca408b4868ba56674f7
+  - enabled: 1
+    path: Assets/_EcologyRPG/Levels/MainMenu.unity
+    guid: d66a76ca3031781489e3332b999bc2b1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9ec521ba337b89641ae2073fb9ee99de,
       type: 2}

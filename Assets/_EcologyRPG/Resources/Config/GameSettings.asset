@@ -27,3 +27,7 @@ MonoBehaviour:
   ToxicResourceName: toxic water
   ToxicAbilityReady: {r: 0.34715566, g: 0.11480955, b: 0.5660378, a: 1}
   ToxicAbilityNotReady: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  TransitionScene: {fileID: 11400000, guid: a6a03a773af40324b972a2578636c277, type: 2}
+  MainMenuScene: {fileID: 11400000, guid: a89931c1dc8470748bd16a65d47e8125, type: 2}
+  MainLevel: {fileID: 11400000, guid: 21f86eaba1ee2e2418a604d5bf0e3930, type: 2}
+  PlayerUIScene: {fileID: 11400000, guid: f24e47e21f2ac2c4788ef55146312cf9, type: 2}

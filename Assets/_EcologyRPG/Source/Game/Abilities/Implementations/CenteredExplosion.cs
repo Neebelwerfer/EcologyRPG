@@ -17,20 +17,6 @@ namespace EcologyRPG.GameSystems.Abilities
 
         BaseCharacter[] targets;
 
-        public override void CopyComponentsTo(BaseAbility ability)
-        {
-            base.CopyComponentsTo(ability);
-            if (ability is CenteredExplosion explosionAbility)
-            {
-                explosionAbility.OnHitEffects = new List<AbilityComponent>();
-                for (int i = 0; i < OnHitEffects.Count; i++)
-                {
-                    var newEffect = OnHitEffects[i].GetCopy(ability);
-                    explosionAbility.OnHitEffects.Add(newEffect);
-                }
-            }
-        }
-
         public override void Cast(CastInfo caster)
         {
             foreach (var effect in OnCastEffects)
@@ -56,6 +42,21 @@ namespace EcologyRPG.GameSystems.Abilities
             }
         }
 
+#if UNITY_EDITOR
+        public override void CopyComponentsTo(BaseAbility ability)
+        {
+            base.CopyComponentsTo(ability);
+            if (ability is CenteredExplosion explosionAbility)
+            {
+                explosionAbility.OnHitEffects = new List<AbilityComponent>();
+                for (int i = 0; i < OnHitEffects.Count; i++)
+                {
+                    var newEffect = OnHitEffects[i].GetCopy(ability);
+                    explosionAbility.OnHitEffects.Add(newEffect);
+                }
+            }
+        }
+
         public override void Delete()
         {
             foreach (var effect in OnHitEffects)
@@ -64,5 +65,6 @@ namespace EcologyRPG.GameSystems.Abilities
             }
             base.Delete();
         }
+#endif
     }
 }

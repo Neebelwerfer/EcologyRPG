@@ -9,6 +9,7 @@ namespace EcologyRPG.Core
     public class Flags
     {
         public const string path = "Assets/_EcologyRPG/Resources/Flags.txt";
+        const string resourcePath = "Flags";
 
         readonly Dictionary<string, int> flags;
 
@@ -16,8 +17,7 @@ namespace EcologyRPG.Core
 
         public Flags()
         {
-            var reader = new StreamReader(path);
-            var json = reader.ReadToEnd();
+            var json = Resources.Load<TextAsset>(resourcePath).text;
             var newList = JsonUtility.FromJson<SerializableDictionary<string, int>>(json);
             flags = newList.ToDictionary();
         }

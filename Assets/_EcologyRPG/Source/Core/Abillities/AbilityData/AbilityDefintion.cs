@@ -72,6 +72,7 @@ namespace EcologyRPG.Core.Abilities
             this.owner = owner;
         }
 
+#if UNITY_EDITOR
         public virtual void CopyComponentsTo(AbilityDefintion ability)
         {
             ability.CastWindUp = new List<AbilityComponent>();
@@ -86,6 +87,7 @@ namespace EcologyRPG.Core.Abilities
         {
             return Instantiate(this);
         }
+#endif
 
         public virtual void UpdateCooldown(float deltaTime)
         {

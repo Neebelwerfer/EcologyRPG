@@ -26,6 +26,7 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             base.Delete();
         }
 
+#if UNITY_EDITOR
         override public AbilityComponent GetCopy(Object owner)
         {
             var copy = CreateInstance<ConditionAbilityComponent>();
@@ -36,5 +37,7 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             AssetDatabase.AddObjectToAsset(debuffConditionCopy, copy);
             return copy;
         }
+#endif
+
     }
 }

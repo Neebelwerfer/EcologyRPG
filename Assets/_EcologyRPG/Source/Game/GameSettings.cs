@@ -1,5 +1,6 @@
 using EcologyRPG.Core.Character;
 using EcologyRPG.GameSystems.PlayerSystems;
+using EcologyRPG.Utility;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems
@@ -26,5 +27,11 @@ namespace EcologyRPG.GameSystems
         public string ToxicResourceName;
         public Color ToxicAbilityReady = Color.white;
         public Color ToxicAbilityNotReady = Color.gray;
+
+        [Header("Scene References")]
+        public SceneReference TransitionScene;
+        public SceneReference MainMenuScene;
+        public SceneReference MainLevel;
+        public SceneReference PlayerUIScene;
     }
 }

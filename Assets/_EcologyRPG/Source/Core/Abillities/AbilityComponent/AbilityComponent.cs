@@ -11,12 +11,14 @@ namespace EcologyRPG.Core.Abilities.AbilityComponents
 
         public abstract void ApplyEffect(CastInfo cast, BaseCharacter target);
 
+#if UNITY_EDITOR
         public virtual AbilityComponent GetCopy(Object owner)
         {
             var newEffect = Instantiate(this);
             AssetDatabase.AddObjectToAsset(newEffect, owner);
             return newEffect;
         }
+#endif
 
         [ContextMenu("Delete")]
         public virtual void Delete()

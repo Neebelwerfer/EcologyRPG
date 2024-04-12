@@ -1,8 +1,9 @@
 using EcologyRPG.Core;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Systems;
-using EcologyRPG.GameSystems.PlayerSystems;
+using EcologyRPG.Utility;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace EcologyRPG.GameSystems
 {
@@ -29,22 +30,43 @@ namespace EcologyRPG.GameSystems
             if (Instance == null)
             {
                 Instance = this;
+                Debug.Log("Game Instance Created");
             }
             else
             {
                 Destroy(gameObject);
             }
+            Settings = Resources.Load<GameSettings>("Config/GameSettings");
+            MoveToScene.TransitionSceneReference = Settings.TransitionScene;
+            Characters.BaseMoveSpeed = Settings.BaseMoveSpeed;
+
+#if UNITY_EDITOR
             Init();
+#else
+            var op = Settings.MainMenuScene.LoadSceneAsync(UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            op.completed += (p) =>
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(Settings.MainMenuScene.BuildIndex));
+            };
+#endif
         }
 
         void Init()
         {
-            Settings = Resources.Load<GameSettings>("Config/GameSettings");
-            Characters.BaseMoveSpeed = Settings.BaseMoveSpeed;
+            if(Player.Instance != null)
+            {
+                return;
+            }
             TaskManager.Init();
             SystemManager.Init();
             Player.Init(Settings.playerSettings);
             Flags = new Flags();
+        }
+
+        public static void StartGame()
+        {
+            Instance.Init();
+            MoveToScene.Load(Settings.MainLevel);
         }
 
         public void Pause()
@@ -57,6 +79,15 @@ namespace EcologyRPG.GameSystems
         {
             CurrentState = Game_State.Playing;
             Time.timeScale = 1;
+        }
+
+        public static void ExitGame()
+        {
+#if !UNITY_EDITOR
+            Application.Quit();
+#else
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
 
         public void Update()

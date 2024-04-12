@@ -17,17 +17,18 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             cast.owner.StartCoroutine(_ability.HandleCast(cast));
         }
 
-        public override void Delete()
-        {
-            _ability.Delete();
-            base.Delete();
-        }
+
 
         private void OnDestroy()
         {
+#if UNITY_EDITOR
             _ability.Delete();
-        }
+#else
+            Destroy(_ability);
+#endif
 
+        }
+#if UNITY_EDITOR
         public override AbilityComponent GetCopy(Object owner)
         {
             var copy = CreateInstance<CastAbilityComponent>();
@@ -37,6 +38,13 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             AssetDatabase.AddObjectToAsset(copy._ability, copy);
             return copy;
         }
+
+        public override void Delete()
+        {
+            _ability.Delete();
+            base.Delete();
+        }
+#endif
     }
 }
 

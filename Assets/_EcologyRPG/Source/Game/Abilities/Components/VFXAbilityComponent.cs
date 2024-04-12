@@ -25,6 +25,7 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             Destroy(effect, duration);
         }
 
+#if UNITY_EDITOR
         public override AbilityComponent GetCopy(Object owner)
         {
             var copy = CreateInstance<VFXAbilityComponent>();
@@ -34,5 +35,6 @@ namespace EcologyRPG.GameSystems.Abilities.Components
             AssetDatabase.AddObjectToAsset(copy, owner);
             return copy;
         }
+#endif
     }
 }

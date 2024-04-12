@@ -20,6 +20,7 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
+#if UNITY_EDITOR
         public virtual void CopyComponentsTo(BaseAbility ability)
         {
             ability.OnCastEffects = new List<AbilityComponent>();
@@ -29,7 +30,6 @@ namespace EcologyRPG.Core.Abilities
                 ability.OnCastEffects.Add(newEffect);
             }
         }
-
         public virtual BaseAbility GetCopy(Object owner)
         {
             var newAbility = Instantiate(this);
@@ -37,6 +37,14 @@ namespace EcologyRPG.Core.Abilities
             CopyComponentsTo(newAbility);
             return newAbility;
         }
+
+        [ContextMenu("Delete")]
+        public virtual void Delete()
+        {
+            DestroyImmediate(this, true);
+        }
+#endif
+
 
         public virtual bool CanCast(BaseCharacter caster)
         {
@@ -72,12 +80,6 @@ namespace EcologyRPG.Core.Abilities
             {
                 DestroyImmediate(effect, true);
             }
-        }
-
-        [ContextMenu("Delete")]
-        public virtual void Delete()
-        {
-            DestroyImmediate(this, true);
         }
     }
 }

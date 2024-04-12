@@ -51,8 +51,9 @@ namespace EcologyRPG.GameSystems
             AbilityManager.Init(Game.Settings.EntityMask, Game.Settings.TargetGroundMask, Game.Settings.WalkableGroundMask);
             AbilityManager.ToxicResourceName = Game.Settings.ToxicResourceName;
             ProjectileSystem.Init();
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            Game.Settings.PlayerUIScene.LoadScene(LoadSceneMode.Additive);
             Player.Instance.SpawnPlayer();
+            Debug.Assert(Game.Instance != null, "Game Instance not found");
             Game.Instance.CurrentState = Game_State.Playing;
             if (day != null && night != null) dayNightCycle = new DayNightCycle(day, night, cycleDuration);
         }
@@ -68,7 +69,7 @@ namespace EcologyRPG.GameSystems
                 dayNightCycle.Dispose();
                 dayNightCycle = null;
             }
-            SceneManager.UnloadSceneAsync(1);
+            Game.Settings.PlayerUIScene.UnloadScene();
         }
     }
 }
