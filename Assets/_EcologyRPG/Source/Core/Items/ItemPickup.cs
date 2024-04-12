@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using EcologyRPG.Core.UI;
 using System;
 using TMPro;
@@ -12,29 +13,18 @@ namespace EcologyRPG.Core.Items
         public float pickupRadius = 5;
 
         InventoryItem InventoryItem;
-        GameObject PlayerObject;
 
         protected override void Start()
         {
             base.Start();
-            PlayerObject = GameObject.FindGameObjectWithTag("Player");
-            EventManager.AddListener("PlayerDeath", OnPlayerDeath);
-            EventManager.AddListener("PlayerSpawn", OnPlayerSpawn);
+
             onClick.AddListener(OnClicked);
-        }
-
-        private void OnPlayerSpawn(EventData arg0)
-        {
-            PlayerObject = GameObject.FindGameObjectWithTag("Player");
-        }
-
-        private void OnPlayerDeath(EventData arg0)
-        {
-            PlayerObject = null;
         }
 
         public override void OnPointerClick(PointerEventData eventData)
         {
+            var player = Characters.Instance.GetCharactersByTag("Player")[0];
+            var PlayerObject = player.GameObject;
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
             {
                 base.OnPointerClick(eventData);
@@ -56,6 +46,8 @@ namespace EcologyRPG.Core.Items
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
+            var player = Characters.Instance.GetCharactersByTag("Player")[0];
+            var PlayerObject = player.GameObject;
             if (PlayerObject == null)
                 return;
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
@@ -67,6 +59,8 @@ namespace EcologyRPG.Core.Items
 
         public override void OnPointerExit(PointerEventData eventData)
         {
+            var player = Characters.Instance.GetCharactersByTag("Player")[0];
+            var PlayerObject = player.GameObject;
             if (PlayerObject == null)
                 return;
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
