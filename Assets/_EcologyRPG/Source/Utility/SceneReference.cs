@@ -16,12 +16,12 @@ namespace EcologyRPG.Utility
 
 #if UNITY_EDITOR
         public SceneAsset sceneAsset;
-#endif
 
         private void OnValidate()
         {
             buildIndex = BuildIndex;
         }
+#endif
 
         public AsyncOperation LoadSceneAsync(LoadSceneMode mode = LoadSceneMode.Single)
         {

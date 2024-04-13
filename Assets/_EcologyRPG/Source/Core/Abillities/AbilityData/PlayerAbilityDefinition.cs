@@ -33,9 +33,9 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         Resource toxicResource;
         Vector3 MousePoint;
 
-        public override void Initialize(BaseCharacter owner)
+        public override void Initialize(BaseCharacter owner, AbilityDefintion prefabAbility)
         {
-            base.Initialize(owner);
+            base.Initialize(owner, prefabAbility);
             TriggerHash = Animator.StringToHash(AnimationTrigger);
             if (ResourceName != "")
             {

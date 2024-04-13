@@ -42,8 +42,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         PlayerAbilityDefinition Init(PlayerAbilityDefinition ability)
         {
             var newAbility = UnityEngine.Object.Instantiate(ability);
-            newAbility.GUID = ability.GUID;
-            newAbility.Initialize(_Player);
+            newAbility.Initialize(_Player, ability);
             return newAbility;
         }
 
@@ -67,7 +66,6 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             for (int i = 0; i < abilitySlots.Length; i++)
             {
                 if (abilitySlots[i] == null) continue;
-                Debug.LogWarning(abilitySlots[i].GUID + " " + ability.GUID);
                 if (abilitySlots[i].GUID == ability.GUID)
                 {
                     slot = (AbilitySlots)i;

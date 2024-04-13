@@ -18,24 +18,11 @@ MonoBehaviour:
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 2165584115140826151}
-  - {fileID: -4662469757275057360}
+  - {fileID: 8894933809299342320}
   displayFirstHitEffects: 1
   targetType: 0
   width: 3
   angle: 45
---- !u!114 &-4662469757275057360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
-  m_Name: ConditionAbilityComponent
-  m_EditorClassIdentifier: 
-  DebuffCondition: {fileID: 7485982058008701274}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,11 +33,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed4169a8fdda19d4f8dd0ca9fe695f11, type: 3}
-  m_Name: Headbutt
+  m_Name: Attack
   m_EditorClassIdentifier: 
   DisplayName: 
-  Cooldown: 8
-  CastWindupTime: 1
+  Cooldown: 2
+  CastWindupTime: 0.4
   Icon: {fileID: 0}
   AbilityChanged:
     m_PersistentCalls:
@@ -60,7 +47,7 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   minRange: 0
-  AnimationTrigger: Headbutt
+  AnimationTrigger: Attack
   Ability: {fileID: -6761183876930618398}
 --- !u!114 &2165584115140826151
 MonoBehaviour:
@@ -74,10 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 50
+  BaseDamage: 20
   DamageType: 0
   AllowVariance: 1
---- !u!114 &7485982058008701274
+--- !u!114 &7326846497000506298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,11 +73,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
-  m_Name: KnockCondition
+  m_Script: {fileID: 11500000, guid: 416f79125abf78240bd51874f1b0365a, type: 3}
+  m_Name: DotCondition
   m_EditorClassIdentifier: 
-  ID: b4d34b0d-b01b-4234-88ec-b56e35597c82
-  duration: 0.2
+  ID: a9695809-252d-473c-9898-1a42fefb2661
+  duration: 5
   remainingDuration: 0
-  KnockBackDistance: 7
-  knockType: 0
+  damagePerTick: 1
+  DamageType: 2
+  tickRate: 0.5
+--- !u!114 &8894933809299342320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: 7326846497000506298}

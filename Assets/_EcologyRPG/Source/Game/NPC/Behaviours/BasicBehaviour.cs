@@ -27,7 +27,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             for (int i = 0; i < abilities.Count; i++)
             {
                 initialisedAbilities[i] = Instantiate(abilities[i]);
-                initialisedAbilities[i].Initialize(character);
+                initialisedAbilities[i].Initialize(character, abilities[i]);
             }
 
             var aggroState = new State("Aggro");
