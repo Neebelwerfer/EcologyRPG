@@ -1,0 +1,17 @@
+using EcologyRPG.GameSystems.Interactables;
+using UnityEngine;
+
+namespace EcologyRPG.GameSystems.Dialogue
+{
+    [CreateAssetMenu(fileName = "New Connection", menuName = "Dialogue/New Dialogue Connection")]
+    public class DialogueConnector : Interaction
+    {
+        [SerializeField] private DialogueConnection dialogueConnection;
+        public DialogueConnection DialogueConnection => dialogueConnection;
+
+        public override void Interact()
+        {
+            DialogueWindow.current.Open(this);
+        }
+    }
+}

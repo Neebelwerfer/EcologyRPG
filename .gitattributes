@@ -11,6 +11,7 @@
 *.physicsMaterial2D merge=unityyamlmerge eol=lf
 *.physicMaterial merge=unityyamlmerge eol=lf
 *.asset merge=unityyamlmerge eol=lf
+*.terrain.asset binary
 *.meta merge=unityyamlmerge eol=lf
 *.controller merge=unityyamlmerge eol=lf
 

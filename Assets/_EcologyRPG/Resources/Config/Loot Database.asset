@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1c0dfb8e7d484489636dcf29e06da8, type: 3}
+  m_Name: Loot Database
+  m_EditorClassIdentifier: 
+  lootChance: 25
+  minLootAmount: 1
+  maxLootAmount: 2
+  CategoryOdds:
+  - category: Basic Items
+    weight: 100
+    items:
+    - ItemTemplate: {fileID: 11400000, guid: 8183f63073cc6c543937c028de156df3, type: 2}
+      weight: 100
+      allowedTags: []
+  - category: Consumable Items
+    weight: 10
+    items:
+    - ItemTemplate: {fileID: 11400000, guid: dd453eddecc67554a9a4ad6de04aa3e5, type: 2}
+      weight: 100
+      allowedTags: []
+  - category: Equipable Items
+    weight: 10
+    items:
+    - ItemTemplate: {fileID: 11400000, guid: b2080562fa806634cafa3a1909a328f3, type: 2}
+      weight: 200
+      allowedTags: []
+    - ItemTemplate: {fileID: 11400000, guid: b88db98f8f3ba2e4ab4d2ca270b182c6, type: 2}
+      weight: 200
+      allowedTags: []
+    - ItemTemplate: {fileID: 11400000, guid: 08bd0c63d4a68bc4385316cb4fd5ba95, type: 2}
+      weight: 200
+      allowedTags: []
+    - ItemTemplate: {fileID: 11400000, guid: a96054f9b1817e44bbc686017c852e9e, type: 2}
+      weight: 200
+      allowedTags: []

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67dbb16d4d8449a48929b5d9a8bdd31d, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
+  EntityMask:
+    serializedVersion: 2
+    m_Bits: 8
+  TargetGroundMask:
+    serializedVersion: 2
+    m_Bits: 144
+  WalkableGroundMask:
+    serializedVersion: 2
+    m_Bits: 128
+  BaseMoveSpeed: 5
+  NPCDeadBodyDespawnTime: 3
+  ToxicResourceName: toxic water
+  ToxicAbilityReady: {r: 0.34715566, g: 0.11480955, b: 0.5660378, a: 1}
+  ToxicAbilityNotReady: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  TransitionScene: {fileID: 11400000, guid: a6a03a773af40324b972a2578636c277, type: 2}
+  MainMenuScene: {fileID: 11400000, guid: a89931c1dc8470748bd16a65d47e8125, type: 2}
+  MainLevel: {fileID: 11400000, guid: 21f86eaba1ee2e2418a604d5bf0e3930, type: 2}
+  PlayerUIScene: {fileID: 11400000, guid: f24e47e21f2ac2c4788ef55146312cf9, type: 2}

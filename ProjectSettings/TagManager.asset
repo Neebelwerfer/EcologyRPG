@@ -3,18 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NPC
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Entity
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Projectile
+  - Ground
+  - Spawner
+  - GroundHazard
   - 
   - 
   - 
@@ -40,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: IngameUI
+    uniqueID: 2440595423
+    locked: 0
+  - name: Projectiles
+    uniqueID: 2402482847
     locked: 0

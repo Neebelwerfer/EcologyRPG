@@ -1,0 +1,18 @@
+{
+    "name": "Scripts",
+    "rootNamespace": "EcologyRGP.Scripts",
+    "references": [
+        "GUID:88b3be567192a424ca6baadd02eb21da",
+        "GUID:dfeb2c8bedb0c2a4b8632c6a765493c2",
+        "GUID:4aafcecd01a78eb4b9237855ed825fe6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
