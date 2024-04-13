@@ -80,6 +80,7 @@ namespace EcologyRPG.GameSystems.UI
             {
                 foreach (var ability in abilityLookup.GetPlayerAbilities((uint)player.Level))
                 {
+                    Debug.Log($"Ability: {ability.GUID}");
                     var button = ButtonPool.GetObject(abilitySelectionUI.transform);
                     var buttonComponent = button.GetComponent<AbilityButton>();
                     buttonComponent.Setup(ability);

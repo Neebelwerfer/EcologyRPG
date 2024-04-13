@@ -12,7 +12,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         [SerializeField] PlayerAbilityDefinition[] abilities;
 
         short currentIndex = 0;
-
+#if UNITY_EDITOR
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -21,6 +21,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                 Setup(abilities[0]);
             }
         }
+#endif
 
         public override void Initialize(BaseCharacter owner)
         {
