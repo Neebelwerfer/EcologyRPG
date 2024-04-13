@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6222713a43ebc44299e6a08f27b7360, type: 3}
-  m_Name: Test
+  m_Name: MeleeAttacks
   m_EditorClassIdentifier: 
   DisplayName: 
   Cooldown: 0.5
@@ -29,4 +29,6 @@ MonoBehaviour:
   changeMode: 0
   abilities:
   - {fileID: 11400000, guid: dc8f03fbee46e244ab3454face3835ba, type: 2}
-  - {fileID: 11400000, guid: 3ff128cc23d991c42ba579d8c42c060a, type: 2}
+  - {fileID: 11400000, guid: 8901e33f1587abe46b482f99b00dc0b1, type: 2}
+  - {fileID: 11400000, guid: f8c59436ddf32a946b6bf529b6fcee4d, type: 2}
+  - {fileID: 11400000, guid: a188250cd85acee40b1c1e1486122e95, type: 2}

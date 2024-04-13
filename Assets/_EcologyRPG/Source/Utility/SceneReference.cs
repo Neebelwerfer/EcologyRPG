@@ -7,10 +7,20 @@ namespace EcologyRPG.Utility
     [CreateAssetMenu(fileName = "SceneReference", menuName = "SceneReference")]
     public class SceneReference : ScriptableObject
     {
+#if UNITY_EDITOR
         public int BuildIndex { get { return SceneUtility.GetBuildIndexByScenePath(AssetDatabase.GetAssetPath(sceneAsset)); } }
+#else
+        public int BuildIndex { get { return buildIndex; } }
+#endif
+        [SerializeField] int buildIndex = -1;
 
 #if UNITY_EDITOR
         public SceneAsset sceneAsset;
+
+        private void OnValidate()
+        {
+            buildIndex = BuildIndex;
+        }
 #endif
 
         public AsyncOperation LoadSceneAsync(LoadSceneMode mode = LoadSceneMode.Single)

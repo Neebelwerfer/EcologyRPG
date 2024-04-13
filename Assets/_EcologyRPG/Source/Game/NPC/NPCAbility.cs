@@ -25,10 +25,10 @@ namespace EcologyRPG.GameSystems.NPC
 
         public bool InMinRange(float distance) => distance >= minRange;
 
-        public override void Initialize(BaseCharacter owner)
+        public override void Initialize(BaseCharacter owner, AbilityDefintion prefabAbility)
         {
             TriggerHash = Animator.StringToHash(AnimationTrigger);
-            base.Initialize(owner);
+            base.Initialize(owner, prefabAbility);
         }
 
         public override void CastStarted(CastInfo caster)

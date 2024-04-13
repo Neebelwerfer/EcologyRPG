@@ -61,7 +61,7 @@ namespace EcologyRPG.Core.Character
         public bool CanMove { get { return canMove; } }
         public bool CanRotate { get { return canRotate; } }
 
-        protected bool IsPaused { get { return CharacterBinding == null; } }
+        protected bool IsPaused { get { return CharacterBinding == null || state == CharacterStates.dead; } }
 
         public UnityEvent<BaseCharacter> OnCharacterCollision = new();
         readonly List<Condition> effects = new();
@@ -95,6 +95,7 @@ namespace EcologyRPG.Core.Character
         public virtual void SetBinding(CharacterBinding binding)
         {
             CharacterBinding = binding;
+            state = CharacterStates.active;
             binding.OnCollisionEnterEvent.AddListener(OnCollisionEnter);
             CharacterBinding.SetCharacter(this);
             transform.SetBinding(binding);

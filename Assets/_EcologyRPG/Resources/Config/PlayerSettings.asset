@@ -31,4 +31,5 @@ MonoBehaviour:
   - 100
   - 5000
   - 10000
-  Tags: []
+  Tags:
+  - Player

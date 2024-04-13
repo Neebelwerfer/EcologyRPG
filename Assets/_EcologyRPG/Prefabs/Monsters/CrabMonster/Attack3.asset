@@ -18,12 +18,12 @@ MonoBehaviour:
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 2165584115140826151}
-  - {fileID: -4662469757275057360}
+  - {fileID: -4957430119073879325}
   displayFirstHitEffects: 1
   targetType: 0
   width: 3
   angle: 45
---- !u!114 &-4662469757275057360
+--- !u!114 &-4957430119073879325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35,7 +35,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
   m_Name: ConditionAbilityComponent
   m_EditorClassIdentifier: 
-  DebuffCondition: {fileID: 7485982058008701274}
+  DebuffCondition: {fileID: 2154256690063263654}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed4169a8fdda19d4f8dd0ca9fe695f11, type: 3}
-  m_Name: Headbutt
+  m_Name: Attack3
   m_EditorClassIdentifier: 
   DisplayName: 
-  Cooldown: 8
+  Cooldown: 2
   CastWindupTime: 1
   Icon: {fileID: 0}
   AbilityChanged:
@@ -60,8 +60,23 @@ MonoBehaviour:
   state: 0
   CastWindUp: []
   minRange: 0
-  AnimationTrigger: Headbutt
+  AnimationTrigger: Attack4
   Ability: {fileID: -6761183876930618398}
+--- !u!114 &2154256690063263654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb26fe960241c6e4c9ab047f17df747c, type: 3}
+  m_Name: StunCondition
+  m_EditorClassIdentifier: 
+  ID: 15f455a6-92d7-4006-b7e9-7aef4a08c3e7
+  duration: 1
+  remainingDuration: 0
 --- !u!114 &2165584115140826151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,23 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: DamageAbilityEffect
   m_EditorClassIdentifier: 
-  BaseDamage: 50
+  BaseDamage: 30
   DamageType: 0
   AllowVariance: 1
---- !u!114 &7485982058008701274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
-  m_Name: KnockCondition
-  m_EditorClassIdentifier: 
-  ID: b4d34b0d-b01b-4234-88ec-b56e35597c82
-  duration: 0.2
-  remainingDuration: 0
-  KnockBackDistance: 7
-  knockType: 0

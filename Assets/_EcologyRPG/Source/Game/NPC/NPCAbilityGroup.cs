@@ -21,16 +21,16 @@ namespace EcologyRPG.GameSystems.NPC
 
         short currentIndex = 0;
 
-        public override void Initialize(BaseCharacter owner)
+        public override void Initialize(BaseCharacter owner, AbilityDefintion prefabAbility)
         {
             currentIndex = 0;
             for (int i = 0; i < abilities.Length; i++)
             {
                 abilities[i] = Instantiate(abilities[i]);
-                abilities[i].Initialize(owner);
+                abilities[i].Initialize(owner, abilities[i]);
             }
 
-            base.Initialize(owner);
+            base.Initialize(owner, prefabAbility);
             Setup(abilities[currentIndex]);
         }
 
