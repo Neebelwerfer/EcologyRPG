@@ -215,11 +215,25 @@ namespace EcologyRPG.Core.Character
         {
             if(effect is IUpdateCondition)
             {
-                effects.Remove(effect);
+                for (int i = 0; i < effects.Count; i++)
+                {
+                    if (effects[i].ID.Equals(effect.ID) && effects[i].Owner == effect.Owner)
+                    {
+                        effects.RemoveAt(i);
+                        break;
+                    }
+                }
             }
             else if (effect is IFixedUpdateCondition)
             {
-                fixedUpdateEffects.Remove(effect);
+                for(int i = 0; i < fixedUpdateEffects.Count; i++)
+                {
+                    if (fixedUpdateEffects[i].ID.Equals(effect.ID) && fixedUpdateEffects[i].Owner == effect.Owner)
+                    {
+                        fixedUpdateEffects.RemoveAt(i);
+                        break;
+                    }
+                }
             }
             effect.OnRemoved(this);
         }
@@ -277,7 +291,7 @@ namespace EcologyRPG.Core.Character
 
         public virtual void Update()
         {
-            if (IsPaused) return;
+            if (IsPaused || effects.Count == 0) return;
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
                 Condition effect = effects[i];
@@ -292,7 +306,7 @@ namespace EcologyRPG.Core.Character
 
         public virtual void FixedUpdate()
         {
-            if (IsPaused) return;
+            if (IsPaused || fixedUpdateEffects.Count == 0) return;
             for (int i = fixedUpdateEffects.Count - 1; i >= 0; i--)
             {
                 Condition effect = fixedUpdateEffects[i];

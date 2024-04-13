@@ -26,8 +26,6 @@ namespace EcologyRPG.Scripts
         Collider _collider;
         List<Target> _characters;
 
-        bool isActive = false;
-
         private void Awake()
         {
             _collider = GetComponent<Collider>();

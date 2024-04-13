@@ -58,7 +58,7 @@ namespace EcologyRPG.Core.Abilities
         BaseCharacter owner;
 
         public List<AbilityComponent> CastWindUp = new List<AbilityComponent>();
-        private string guid;
+        [SerializeField] private string guid;
 
         public virtual void Initialize(BaseCharacter owner, AbilityDefintion prefabAbility)
         {

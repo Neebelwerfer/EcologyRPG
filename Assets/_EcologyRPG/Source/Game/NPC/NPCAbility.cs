@@ -14,7 +14,8 @@ namespace EcologyRPG.GameSystems.NPC
 
         public int TriggerHash { get; protected set; }
 
-        private void OnValidate()
+#if UNITY_EDITOR
+        protected override void OnValidate()
         {
             if (Ability == null) return;
             if (minRange > Ability.Range)
@@ -22,6 +23,7 @@ namespace EcologyRPG.GameSystems.NPC
                 minRange = Ability.Range;
             }
         }
+#endif
 
         public bool InMinRange(float distance) => distance >= minRange;
 
