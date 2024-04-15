@@ -60,6 +60,16 @@ namespace EcologyRPG.Core.Character
         public CharacterStates state = CharacterStates.active;
         public bool CanMove { get { return canMove; } }
         public bool CanRotate { get { return canRotate; } }
+        public bool Invunerable { 
+            get 
+            { 
+                return invunerable; 
+            }
+            set
+            {
+                invunerable = value;
+            }
+        }
 
         protected bool IsPaused { get { return CharacterBinding == null || state == CharacterStates.dead; } }
 
@@ -71,6 +81,7 @@ namespace EcologyRPG.Core.Character
         protected AttributeModification[] levelMods;
         protected bool canMove = true;
         protected bool canRotate = true;
+        protected bool invunerable = false;
         protected CharacterTransform transform;
         protected Resource Health;
         protected CharacterBinding CharacterBinding { get; private set; }
@@ -110,7 +121,7 @@ namespace EcologyRPG.Core.Character
 
         public virtual void ApplyDamage(DamageInfo damageInfo)
         {
-            if(state == CharacterStates.dead || state == CharacterStates.dodging)
+            if(invunerable || state == CharacterStates.dead || state == CharacterStates.dodging)
             {
                 return;
             }

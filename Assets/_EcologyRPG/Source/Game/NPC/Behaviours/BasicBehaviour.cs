@@ -16,13 +16,21 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         public float WanderRadius;
         public float MaxLeashRange;
 
+        public float wanderSpeedModifer = -0.5f;
+        public float chaseSpeedModifier = 0.5f;
+        public float ResetSpeedModifier = 1f;
+
         BaseCharacter target;
         NPCAbility attackAbility;
         float targetSearchTimer = 0f;
         NPCAbility[] initialisedAbilities;
 
+        StatModification speedMod;
+
         public override void Init(EnemyNPC character)
         {
+            speedMod = new StatModification("movementSpeed", wanderSpeedModifer, StatModType.PercentMult, this);
+            character.Stats.AddStatModifier(speedMod);
             initialisedAbilities = new NPCAbility[abilities.Count];
             for (int i = 0; i < abilities.Count; i++)
             {
@@ -32,6 +40,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
 
             var aggroState = new State("Aggro");
             var passiveState = new State("Passive");
+            var resetState = new State("Reset");
 
             #region Aggro State
             var aggrotree = new DecisionTree();
@@ -39,6 +48,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
 
             aggroState.SetOnEnterAction((npc) =>
             {
+                speedMod.Value = chaseSpeedModifier;
             });
 
             var Chase = new ActionNode((npc) =>
@@ -47,7 +57,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 if (target == null) return;
                 if (Vector3.Distance(npc.Transform.Position, target.Transform.Position) > MaxLeashRange)
                 {
-                    npc.behaviour.ChangeState(npc, passiveState);
+                    npc.behaviour.ChangeState(npc, resetState);
                     return;
                 }
                 character.MoveTo(target.Transform.Position);
@@ -72,7 +82,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             var stopChase = new ActionNode((npc) =>
             {
                 npc.Agent.ResetPath();
-                npc.behaviour.ChangeState(npc, passiveState);
+                npc.behaviour.ChangeState(npc, resetState);
             });
 
             var LeashRange = new DecisionNode((npc) =>
@@ -93,6 +103,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             {
                 target = null;
                 npc.Agent.ResetPath();
+                speedMod.Value = wanderSpeedModifer;
             });
 
             var Wander = new ActionNode((npc) =>
@@ -132,6 +143,38 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 return false;
             }, setAggro, Wander);
             passiveTree.SetRootNode(NearbyTarget);
+            #endregion
+
+            #region Reset State
+            var resetTree = new DecisionTree();
+            resetState.SetDecisionTree(resetTree);
+
+            resetState.SetOnEnterAction((npc) =>
+            {
+                target = null;
+                npc.Agent.ResetPath();
+                speedMod.Value = ResetSpeedModifier;
+                var health = npc.Stats.GetResource("health");
+                health.CurrentValue = health.MaxValue;
+                npc.Invunerable = true;
+                Debug.Log("Resetting");
+            });
+
+            var resetAction = new ActionNode((npc) =>
+            {
+                if (Vector3.Distance(npc.Transform.Position, npc.GetSpawner().transform.position) < 2f)
+                {
+                    npc.Invunerable = false;
+                    npc.behaviour.ChangeState(npc, passiveState);
+                }
+                else if (!npc.Agent.hasPath)
+                {
+                    npc.MoveTo(npc.GetSpawner().transform.position);
+                }
+            });
+
+            resetTree.SetRootNode(resetAction);
+
             #endregion
 
             currState = passiveState;

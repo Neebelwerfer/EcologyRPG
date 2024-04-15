@@ -17,5 +17,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9836ddb7ba9fb8408348fec34c52edb, type: 2}
   targetSearchCooldown: 0.5
   AggroRange: 10
-  WanderRadius: 30
-  MaxLeashRange: 50
+  WanderRadius: 25
+  MaxLeashRange: 40
+  wanderSpeedModifer: -0.5
+  chaseSpeedModifier: 0.5
+  ResetSpeedModifier: 1
