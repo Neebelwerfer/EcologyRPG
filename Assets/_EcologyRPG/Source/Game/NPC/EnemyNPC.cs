@@ -22,6 +22,7 @@ namespace EcologyRPG.GameSystems.NPC
         public EnemyNPC(NPCConfig config) : base()
         {
             behaviourReference = config.NPCBehaviour;
+            config.ApplyModifications(this);
             level = (int)config.Level;
             XpOnDeath = config.xp;
             faction = Faction.enemy;

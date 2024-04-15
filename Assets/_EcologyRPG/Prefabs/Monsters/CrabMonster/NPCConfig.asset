@@ -17,3 +17,22 @@ MonoBehaviour:
   NPCBehaviour: {fileID: 11400000, guid: 20f7c1a2c54755a40ba96adab3f6024f, type: 2}
   Level: 4
   xp: 100
+  statModifications:
+  - StatName: movementSpeed
+    Value: 0
+    ModType: 100
+  - StatName: maxHP
+    Value: 1
+    ModType: 300
+  - StatName: abilityDamage
+    Value: 0
+    ModType: 100
+  - StatName: armor
+    Value: 0
+    ModType: 100
+  - StatName: waterArmor
+    Value: 0
+    ModType: 100
+  - StatName: toxicProtection
+    Value: 0
+    ModType: 100

@@ -58,7 +58,7 @@ namespace EcologyRPG.Core.Character
         [HideInInspector]
         public UnityEvent OnStatModChanged = new();
 
-        float _value;
+        [SerializeField] float _value;
 
         public StatModification(string name, float value, StatModType modType, int order, object source)
         {
