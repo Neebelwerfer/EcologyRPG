@@ -1,5 +1,6 @@
 using EcologyRPG.Core;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Items;
 using EcologyRPG.Core.Systems;
 using EcologyRPG.Utility;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace EcologyRPG.GameSystems
     public class Game : MonoBehaviour
     {
         public static Game Instance;
+        public static ItemDatabase Items;
+        public static LootDatabase LootDatabase;
         public static GameSettings Settings;
         public static Flags Flags;
 
@@ -39,6 +42,10 @@ namespace EcologyRPG.GameSystems
             }
             Settings = Resources.Load<GameSettings>("Config/GameSettings");
             MoveToScene.TransitionSceneReference = Settings.TransitionScene;
+            Items = ItemDatabase.Load();
+            LootDatabase = LootDatabase.Load();
+            LootDatabase.Init(Items);
+            Characters.Instance.Clear();
             Characters.BaseMoveSpeed = Settings.BaseMoveSpeed;
 
 #if UNITY_EDITOR

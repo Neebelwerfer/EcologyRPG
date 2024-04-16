@@ -51,6 +51,7 @@ namespace EcologyRPG.GameSystems.Crafting
     [Serializable]  
     public class RequiredItem
     {
+        [ItemSelection(true)]
         public string ItemName;
         public int Amount;
     }

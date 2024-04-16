@@ -78,7 +78,7 @@ namespace EcologyRPG.Core.Items
 
         public TooltipData GetTooltipData()
         {
-            return new TooltipData() { Title = InventoryItem.item.Name, Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() };
+            return new TooltipData() { Title = InventoryItem.item.Name, Subtitle = InventoryItem.item.Category.ToString(), Icon = InventoryItem.item.Icon, Description = InventoryItem.item.GetDisplayString() };
         }
     }
 }
