@@ -7,15 +7,13 @@ namespace EcologyRPG.GameSystems.Crafting
     [Serializable, CreateAssetMenu(fileName = "Item Recipe", menuName = "Recipe/Item Recipe")]
     public class ItemRecipe : Recipe
     {
-        [ItemSelection()]
-        public string craftedItemGUID;
+        public ItemReference craftedItem;
 
         public override void Craft()
         {
 
             base.Craft();
-            var CraftedItem = Game.Items.GetItemByGUID(craftedItemGUID);
-            Player.PlayerInventory.AddItem(CraftedItem);
+            Player.PlayerInventory.AddItem(craftedItem.Get());
         }
     }
 }

@@ -1,20 +1,36 @@
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Items
 {
-    public class ItemSelection : PropertyAttribute
+    [System.Serializable]
+    public struct ItemReference
     {
-        public bool useName = false;
-        public ItemSelection(bool useName = false)
+        public string GUID;
+        [SerializeField] string name;
+
+        public ItemReference(string GUID, string name)
         {
-            this.useName = useName;
+            this.GUID = GUID;
+            this.name = name;
+        }
+
+        public readonly Item Get()
+        {
+            return ItemDatabase.Instance.GetItemByGUID(GUID);
+        }
+
+        public readonly string GetName()
+        {
+            return name;
         }
     }
 
     public class ItemDatabase : ScriptableObject
     {
+        public static ItemDatabase Instance { get; private set; }
         public const string ItemDatabasePath = "Assets/_EcologyRPG/Resources/Config/ItemDatabase.asset";
         public const string ItemDatabaseResourcePath = "Config/ItemDatabase";
         [SerializeField] Item[] items = new Item[0];
@@ -71,69 +87,106 @@ namespace EcologyRPG.Core.Items
         {
             var itemDatabase = Resources.Load<ItemDatabase>(ItemDatabaseResourcePath);
             itemDatabase.Init();
+            Instance = itemDatabase;
             return itemDatabase;
         }
     }
 
 #if UNITY_EDITOR
 
-    [CustomPropertyDrawer(typeof(ItemSelection))]
-    public class ItemAttributeDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(ItemReference))]
+    public class ItemReferenceDrawer : PropertyDrawer
     {
-        static ItemDatabase itemDatabase;
-        override public void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (itemDatabase == null)
+            var guid = property.FindPropertyRelative("GUID");
+            var name = property.FindPropertyRelative("name");
+            if(guid.stringValue == "")
             {
-                itemDatabase = AssetDatabase.LoadAssetAtPath<ItemDatabase>(ItemDatabase.ItemDatabasePath);
-            }
-            var attr = attribute as ItemSelection;
-            var items = itemDatabase.GetItems();
-            var currGUID = property.stringValue;
-            var index = 0;
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (attr.useName)
+                GUI.Label(new Rect(position.x, position.y, position.width * 0.5f, 20), label, EditorStyles.boldLabel);
+                if (GUI.Button(new Rect(position.x + position.width * 0.5f, position.y, position.width * 0.5f, 20), "Select Item"))
                 {
-                    if (items[i].Name == currGUID)
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-                else
-                {
-                    if (items[i].GUID == currGUID)
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-               
-            }
-            var options = new string[items.Length];
-            for (int i = 0; i < items.Length; i++)
-            {
-                options[i] = items[i].Name;
-            }
-            index = EditorGUI.Popup(position, label.text, index, options);
-            if (index >= 0)
-            {
-                if (attr.useName)
-                {
-                    property.stringValue = items[index].Name;
-                }
-                else
-                {
-                    property.stringValue = items[index].GUID;
+                    var selector = ItemSelectorEditor.OpenWindow();
+                    selector.SetProperty(property);
                 }
             }
             else
             {
-                property.stringValue = "";
+                GUI.Label(new Rect(position.x, position.y, position.width * 0.5f, 20), name.stringValue, EditorStyles.boldLabel);
+                if (GUI.Button(new Rect(position.x + position.width * 0.5f, position.y, position.width * 0.5f, 20), "Change Item"))
+                {
+                    var selector = ItemSelectorEditor.OpenWindow();
+                    selector.SetProperty(property);
+                }
             }
-            property.serializedObject.ApplyModifiedProperties();
+
         }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return 20;
+        }
+    }
+
+
+    public class ItemSelectorEditor : EditorWindow
+    {
+        public static ItemSelectorEditor OpenWindow()
+        {
+            return GetWindow<ItemSelectorEditor>();
+        }
+
+        Item.ItemTypes itemSearchType = Item.ItemTypes.Item;
+        bool EnableSearchFilter = false;
+        string nameSearch = "";
+
+        SerializedProperty serializedField;
+        ItemDatabase itemDatabase;
+        Item[] items;
+
+        public void SetProperty(SerializedProperty field)
+        {
+            serializedField = field;
+        }
+
+        private void OnEnable()
+        {
+            itemDatabase = AssetDatabase.LoadAssetAtPath<ItemDatabase>(ItemDatabase.ItemDatabasePath);
+            items = itemDatabase.GetItems();
+        }
+
+
+        private void OnGUI()
+        {
+            GUILayout.BeginHorizontal();
+            itemSearchType = (Item.ItemTypes)EditorGUILayout.EnumPopup("Item Type", itemSearchType);
+            EnableSearchFilter = GUILayout.Toggle(EnableSearchFilter, "Enable search Filter");
+            GUILayout.EndHorizontal();
+            nameSearch = EditorGUILayout.TextField("Search", nameSearch);
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(nameSearch) && !items[i].Name.ToLower().Contains(nameSearch.ToLower()))
+                {
+                    continue;
+                }
+
+                if (EnableSearchFilter && items[i].ItemType != itemSearchType)
+                {
+                    continue;
+                }
+
+                if (GUILayout.Button(items[i].Name))
+                {
+                    serializedField.FindPropertyRelative("GUID").stringValue = items[i].GUID;
+                    serializedField.FindPropertyRelative("name").stringValue = items[i].Name;
+                    serializedField.serializedObject.ApplyModifiedProperties();
+                    Close();
+                }
+            }
+        }
+
+
     }
 
     public class ItemDatabaseEditor : EditorWindow

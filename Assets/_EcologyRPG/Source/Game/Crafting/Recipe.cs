@@ -17,7 +17,7 @@ namespace EcologyRPG.GameSystems.Crafting
             var inventory = Player.PlayerInventory;
             foreach (var requiredItem in RequiredItems)
             {
-                var item = inventory.GetInventoryItem(requiredItem.ItemName);
+                var item = inventory.GetInventoryItem(requiredItem.ItemRef.Get());
                 if (item == null || item.amount < requiredItem.Amount)
                 {
                     return false;
@@ -31,7 +31,7 @@ namespace EcologyRPG.GameSystems.Crafting
             string result = "Need:\n";
             foreach (var requiredItem in RequiredItems)
             {
-                result += $"{requiredItem.Amount}x {requiredItem.ItemName}\n";
+                result += $"{requiredItem.Amount}x {requiredItem.ItemRef.Get().Name}\n";
             }
             return result;
         }
@@ -42,17 +42,16 @@ namespace EcologyRPG.GameSystems.Crafting
             var inventory = Player.PlayerInventory;
             foreach (var requiredItem in RequiredItems)
             {
-                var inventoryItem = inventory.GetInventoryItem(requiredItem.ItemName);
+                var inventoryItem = inventory.GetInventoryItem(requiredItem.ItemRef.Get().Name);
                 inventory.RemoveItem(inventoryItem.item, requiredItem.Amount);
             }
         }
     }
 
     [Serializable]  
-    public class RequiredItem
+    public struct RequiredItem
     {
-        [ItemSelection(true)]
-        public string ItemName;
+        public ItemReference ItemRef;
         public int Amount;
     }
 }

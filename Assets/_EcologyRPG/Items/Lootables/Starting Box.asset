@@ -15,11 +15,17 @@ MonoBehaviour:
   OneTimeUse: 1
   lootType: 0
   loot:
-  - item: {fileID: 11400000, guid: 7ddceaa17059fa4469a9693a4a0c4080, type: 2}
+  - itemRef:
+      GUID: c94ed645-9399-4b59-b1e2-bf5cab8b445e
+      name: Jerky
     amount: 3
-  - item: {fileID: 11400000, guid: d9102ec607f4cad4291f57b1156c228e, type: 2}
+  - itemRef:
+      GUID: 1e15995c-3f21-4c1e-9752-85608beeea6e
+      name: Water Bottle
     amount: 2
-  - item: {fileID: 11400000, guid: 809a5594b2f17394cbd5af4bb115cd14, type: 2}
+  - itemRef:
+      GUID: da5fb6ac-ea3b-4b38-bf63-e79b1a6b5f4b
+      name: Bandages
     amount: 2
   minLoot: 0
   maxLoot: 0

@@ -12,10 +12,9 @@ namespace EcologyRPG.GameSystems.Interactables
     }
 
     [System.Serializable]
-    class ItemReference
+    class ItemGroup
     {
-        [ItemSelection]
-        public string itemGUID;
+        public ItemReference itemRef;
         public int amount;
     }
 
@@ -23,7 +22,7 @@ namespace EcologyRPG.GameSystems.Interactables
     public class LootSpawner : Interaction
     {
         [SerializeField] LootType lootType;
-        [SerializeField] ItemReference[] loot = new ItemReference[0];
+        [SerializeField] ItemGroup[] loot = new ItemGroup[0];
 
         [SerializeField, Min(0)] int minLoot;
         [SerializeField, Min(1)] int maxLoot;
@@ -35,7 +34,7 @@ namespace EcologyRPG.GameSystems.Interactables
             {
                 for (int i = 0; i < loot.Length; i++)
                 {
-                    var item = Game.Items.GetItemByGUID(loot[i].itemGUID);
+                    var item = Game.Items.GetItemByGUID(loot[i].itemRef.GUID);
                     ItemDisplayHandler.Instance.SpawnItem(item, loot[i].amount, LootGenerator.Instance.FindLegalSpawnPoint(Player.PlayerCharacter.Transform.Position, 2));
                 }
             }

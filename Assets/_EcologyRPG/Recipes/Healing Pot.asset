@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef62f1d0fa50a4f4d8ca3cc583c5d225, type: 3}
   m_Name: Healing Pot
   m_EditorClassIdentifier: 
-  Name: Healing Pot
+  Name: Bandages
   Description: 
   OneTimeCraft: 1
   RequiredItems:
-  - ItemName: Wood
+  - ItemRef:
+      GUID: a1661f80-2b5e-4654-9b7f-8e31f0d60da8
+      name: Wood
     Amount: 2
-  craftedItemGUID: 3420db22-cb8a-4350-8ccf-195501d1f070
+  craftedItem:
+    GUID: da5fb6ac-ea3b-4b38-bf63-e79b1a6b5f4b
+    name: Bandages
