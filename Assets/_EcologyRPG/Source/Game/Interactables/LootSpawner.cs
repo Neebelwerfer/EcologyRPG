@@ -11,11 +11,19 @@ namespace EcologyRPG.GameSystems.Interactables
         GeneratedLoot
     }
 
+    [System.Serializable]
+    class ItemReference
+    {
+        [ItemSelection]
+        public string itemGUID;
+        public int amount;
+    }
+
     [CreateAssetMenu(menuName = "Interactables/Loot Spawner")]
     public class LootSpawner : Interaction
     {
         [SerializeField] LootType lootType;
-        [SerializeField] InventoryItem[] loot = new InventoryItem[0];
+        [SerializeField] ItemReference[] loot = new ItemReference[0];
 
         [SerializeField, Min(0)] int minLoot;
         [SerializeField, Min(1)] int maxLoot;
@@ -27,7 +35,7 @@ namespace EcologyRPG.GameSystems.Interactables
             {
                 for (int i = 0; i < loot.Length; i++)
                 {
-                    var item = Instantiate(loot[i].item);
+                    var item = Game.Items.GetItemByGUID(loot[i].itemGUID);
                     ItemDisplayHandler.Instance.SpawnItem(item, loot[i].amount, LootGenerator.Instance.FindLegalSpawnPoint(Player.PlayerCharacter.Transform.Position, 2));
                 }
             }
@@ -36,7 +44,7 @@ namespace EcologyRPG.GameSystems.Interactables
                 var items = LootGenerator.Instance.LootDatabase.GetItemTemplates(Player.PlayerCharacter.Random, tags, Random.Range(minLoot, maxLoot));
                 foreach (var item in items)
                 {
-                    var generatedItem = item.GenerateItem(Player.PlayerCharacter.Random.NextInt(Player.PlayerCharacter.Level - 1, Player.PlayerCharacter.Level + 1));
+                    var generatedItem = item.Generate(Player.PlayerCharacter.Random.NextInt(Player.PlayerCharacter.Level - 1, Player.PlayerCharacter.Level + 1));
                     ItemDisplayHandler.Instance.SpawnItem(generatedItem.item, generatedItem.amount, LootGenerator.Instance.FindLegalSpawnPoint(Player.PlayerCharacter.Transform.Position, 2));
                 }
             }

@@ -47,6 +47,28 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             }
         }
 
+        string GetResourceDisplayName()
+        {
+            if(AbilityManager.UseToxic && ToxicAbility != null)
+            {
+                var toxicResourceName = Stats.StatsData.Resources.Find(x => x.name == AbilityManager.ToxicResourceName).DisplayName;
+                return $"{toxicResourceName}: {ToxicResoureCost}";
+            }
+            else if (ResourceName != "")
+            {
+                var res = Stats.StatsData.Resources.Find(x => x.name == ResourceName).DisplayName;
+                return $"{res}: {ResourceCost}";
+            }
+            return "";
+        }
+
+        public virtual string GetDescription()
+        {
+            return $"Cooldown: {Cooldown}" +
+                $"\n{GetResourceDisplayName()}" +
+                $"\n{Description}";
+        }
+
         public override bool CanActivate(BaseCharacter caster)
         {
             if (!base.CanActivate(caster)) return false;

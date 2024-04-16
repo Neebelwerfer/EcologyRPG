@@ -24,9 +24,9 @@ namespace EcologyRPG.Core.Items
         [Tooltip("The name of the attribute"), StatAttribute(StatType.Attribute)]
         public string AttributeName;
         [Tooltip("The type of the modifier")]
-        public ModType type;
+        public ModType type = ModType.Stat;
         [Tooltip("The type of stat modifier")]
-        public StatModType modType;
+        public StatModType modType = StatModType.Flat;
         [Header("Value Ranges")]
         [Tooltip("The minimum value of the modifier")]
         public float minValue;
@@ -66,7 +66,13 @@ namespace EcologyRPG.Core.Items
                 max = maxValue + value;
             }
             var mod = new StatModification(StatName, Random.Range(min, max), modType, item);
-            item.statModifiers.Add(mod);
+            if(item.statModifiers.Find(x => x.StatName == mod.StatName) == null)
+                item.statModifiers.Add(mod);
+            else
+            {
+                var stat = item.statModifiers.Find(x => x.StatName == mod.StatName);
+                stat.Value = mod.Value;
+            }
         }
 
         void GenerateAttributeMod(int level, EquipableItem item)
@@ -85,23 +91,14 @@ namespace EcologyRPG.Core.Items
                 max = maxValue + value;
             }
             var attribute = new AttributeModification(AttributeName, Random.Range((int)min, (int)max), item);
-            item.attributeModifiers.Add(attribute);
+            if(item.attributeModifiers.Find(x => x.AttributeName == attribute.AttributeName) == null)
+                item.attributeModifiers.Add(attribute);
+            else
+            {
+                var attr = item.attributeModifiers.Find(x => x.AttributeName == attribute.AttributeName);
+                attr.Value = attribute.Value;
+            }
         }
-    }
-
-    public abstract class ItemTemplate : ScriptableObject
-    {
-        [Header("Item Properties")]
-        [Tooltip("The name of the item")]
-        public string Name;
-        [Tooltip("The description of the item")]
-        public string Description;
-        [Tooltip("The icon of the item")]
-        public Sprite Icon;
-        [Tooltip("The carry weight of the item")]
-        public float Weight;
-
-        public abstract InventoryItem GenerateItem(int level);
     }
 
 #if UNITY_EDITOR
@@ -119,6 +116,9 @@ namespace EcologyRPG.Core.Items
             var modtype = property.FindPropertyRelative("modType");
             var growthPerLevel = property.FindPropertyRelative("GrowthPerLevel");
             var growthType = property.FindPropertyRelative("growthType");
+
+            if(modtype.enumValueIndex == -1)
+                modtype.enumValueIndex = 0;
 
             type.enumValueIndex = EditorGUI.Popup(new Rect(position.x, position.y, position.width, 20), "Type", type.enumValueIndex, type.enumDisplayNames);
 

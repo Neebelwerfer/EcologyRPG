@@ -88,7 +88,7 @@ namespace EcologyRPG.GameSystems.UI
 
         public TooltipData GetTooltipData()
         {
-            return new TooltipData() { Title = item.item.Name, Icon = item.item.Icon, Description = item.item.GetDisplayString() };
+            return new TooltipData() { Title = item.item.Name, Subtitle = item.item.Category.ToString(), Icon = item.item.Icon, Description = item.item.GetDisplayString() };
         }
     }
 }

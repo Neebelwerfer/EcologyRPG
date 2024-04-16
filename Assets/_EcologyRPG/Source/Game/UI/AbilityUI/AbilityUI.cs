@@ -211,7 +211,12 @@ namespace EcologyRPG.GameSystems.UI
         {
             if(ability is PlayerAbilityDefinition p)
             {
-                return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = p.Description };
+                if (AbilityManager.UseToxic && ability.ToxicAbility != null)
+                {
+                    return new TooltipData() { Title = ability.DisplayName, Subtitle = "Toxic Ability", Icon = ability.Icon, Description = ability.GetDescription() };
+
+                }
+                return new TooltipData() { Title = abilityName, Subtitle = "Normal Ability", Icon = abilitySprite, Description = p.GetDescription() };
             }
             return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = "" };
         }

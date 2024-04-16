@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2926347481079366429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f6d5c6bb0248944aa923cc828add98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DropCategory: Consumable Items
+  DropChanceWeight: 10
+  allowedTags: []
+  minDropAmount: 1
+  maxDropAmount: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b7385aea87b0f4a85b3fef414c0768, type: 3}
+  m_Name: ReplenishingItem 2
+  m_EditorClassIdentifier: 
+  GUID: 1e15995c-3f21-4c1e-9752-85608beeea6e
+  Name: Water Bottle
+  Category: 2
+  Description: A Bottle of clean water
+  Icon: {fileID: 21300000, guid: 26993f1279baef143ac3dbc695e8770a, type: 3}
+  Weight: 3
+  ItemType: 1
+  generationRules: {fileID: -2926347481079366429}
+  ResourceName: water
+  AmountToReplenish: 0.1

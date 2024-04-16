@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363ea0931da645747961a6a5427b5a73, type: 3}
+  m_Name: Mask 1
+  m_EditorClassIdentifier: 
+  GUID: cc489ad9-e0d0-4aea-8ff7-5a37cdb9f7c1
+  Name: Basic Gas Mask
+  Category: 1
+  Description: a makeshift gas mask, it will keep some nasty things out
+  Icon: {fileID: 21300000, guid: 45f21385254752644bde549a7417f049, type: 3}
+  Weight: 5
+  ItemType: 4
+  generationRules: {fileID: 4045114656319751807}
+  equipmentType: 2
+  modifications:
+  - StatName: armor
+    AttributeName: 
+    type: 1
+    modType: 100
+    Value: 10
+  statModifiers:
+  - StatName: armor
+    Order: 100
+    ModType: 100
+    OnStatModChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    _value: 10
+--- !u!114 &4045114656319751807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17da6dd29ee776447a593e40af5bbcee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DropCategory: Equipable Items
+  DropChanceWeight: 10
+  allowedTags: []
+  Modifiers:
+  - StatName: armor
+    AttributeName: 
+    type: 1
+    modType: 100
+    minValue: 10
+    maxValue: 12
+    GrowthPerLevel: 2
+    growthType: 0

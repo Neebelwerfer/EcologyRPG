@@ -14,6 +14,7 @@ namespace EcologyRPG.Core.UI
         public Vector2 Offset;
         public GameObject TooltipObject;
         public TextMeshProUGUI Title;
+        public TextMeshProUGUI Subtitle;
         public Image Icon;
         public TextMeshProUGUI Description;
 
@@ -33,6 +34,7 @@ namespace EcologyRPG.Core.UI
         {
             var data = tooltipData.GetTooltipData();
             Title.text = data.Title;
+            Subtitle.text = data.Subtitle;
             Icon.sprite = data.Icon;
             Description.text = data.Description;
         }
@@ -75,6 +77,7 @@ namespace EcologyRPG.Core.UI
     public class TooltipData
     {
         public string Title;
+        public string Subtitle;
         public Sprite Icon;
         public string Description;
     }

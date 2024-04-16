@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b7385aea87b0f4a85b3fef414c0768, type: 3}
+  m_Name: ReplenishingItem 1
+  m_EditorClassIdentifier: 
+  GUID: 51a1e8f8-e804-4043-92fe-dfa09e3d53b5
+  Name: Toxic Water Bottle
+  Category: 2
+  Description: Bottle of toxic water
+  Icon: {fileID: 0}
+  Weight: 5
+  ItemType: 1
+  generationRules: {fileID: 1966071381191036204}
+  ResourceName: toxic water
+  AmountToReplenish: 0.15
+--- !u!114 &1966071381191036204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f6d5c6bb0248944aa923cc828add98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DropCategory: Consumable Items
+  DropChanceWeight: 10
+  allowedTags: []
+  minDropAmount: 1
+  maxDropAmount: 4

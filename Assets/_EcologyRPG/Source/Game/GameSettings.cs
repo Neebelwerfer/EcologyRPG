@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Items;
 using EcologyRPG.GameSystems.PlayerSystems;
 using EcologyRPG.Utility;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace EcologyRPG.GameSystems
         public const string GroundHazardName = "GroundHazard";
 
         public PlayerSettings playerSettings;
+        public ItemDatabase ItemDatabase;
 
         [Header("Layer settings")]
         public LayerMask EntityMask;
