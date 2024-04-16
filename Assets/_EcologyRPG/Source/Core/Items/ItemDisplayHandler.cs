@@ -40,7 +40,6 @@ namespace EcologyRPG.Core.Items
         public void RemoveItemPickup(ItemPickup itemPickup)
         {
             itemPickups.Remove(itemPickup);
-            itemPickup.transform.SetParent(null);
             itemDisplayPool.ReturnObject(itemPickup.gameObject);
         }
 

@@ -5,13 +5,21 @@ using UnityEngine;
 
 namespace EcologyRPG.Core.Items
 {
+    [System.Serializable]
+    public class Loot
+    {
+        public ItemTemplate ItemTemplate;
+        public int weight = 0;
+        [CharacterTag]
+        public List<string> allowedTags = new List<string>();
+    }
 
     [System.Serializable]
     public class CategoryOdds
     {
         public string category;
         public int weight;
-        [HideInInspector] public List<Item> items;
+        public List<Loot> items;
 
         public CategoryOdds(string category, int weight)
         {
@@ -21,53 +29,23 @@ namespace EcologyRPG.Core.Items
         }
     }
 
-    public class LootCategory : PropertyAttribute
-    {
-
-    }
-
     [CreateAssetMenu(fileName = "New Loot Database", menuName = "Items/Loot Database")]
     public class LootDatabase : ScriptableObject
     {
-        public const string Path = "Assets/_EcologyRPG/Resources/Config/Loot Database.asset";
-        public const string ResourcesPath = "Config/Loot Database";
-
         [Header("Loot Rules")]
         public float lootChance = 0.5f;
         public int minLootAmount = 1;
         public int maxLootAmount = 6;
 
-        public static LootDatabase Load()
-        {
-            var database = Resources.Load<LootDatabase>(ResourcesPath);
-            if (database == null)
-            {
-                Debug.LogError("No Loot Database found!");
-            }
-            return database;
-        }
-
-        public void Init(ItemDatabase itemDatabase)
-        {
-            var items = itemDatabase.GetItemsWithGenerationRules();
-            int counter = 0;
-            foreach (var category in CategoryOdds)
-            {
-                category.items = items.Where((x) => x.generationRules.DropCategory == category.category).ToList();
-                counter += category.items.Count;
-            }
-            Debug.Log($"Loot Database Initialized: {counter} items found");
-        }
-
         public List<CategoryOdds> CategoryOdds = new List<CategoryOdds>();
 
-        public List<Item> GetItemTemplates(Unity.Mathematics.Random random, List<string> tags, int amount)
+        public List<ItemTemplate> GetItemTemplates(Unity.Mathematics.Random random, List<string> tags, int amount)
         {
             List<CategoryOdds> AllowedLists = new List<CategoryOdds>();
 
             for (int i = 0; i < CategoryOdds.Count; i++)
             {
-                if (CategoryOdds[i].items.Count > 0 && CategoryOdds[i].items.Any((x) => x.generationRules.allowedTags.Length == 0 || x.generationRules.allowedTags.Any((y) => tags.Contains(y))))
+                if (CategoryOdds[i].items.Count > 0 && CategoryOdds[i].items.Any((x) => x.allowedTags.Count == 0 || x.allowedTags.Any((y) => tags.Contains(y))))
                 {
                     AllowedLists.Add(CategoryOdds[i]);
                 }
@@ -79,7 +57,7 @@ namespace EcologyRPG.Core.Items
                 totalOdds += odds.weight;
             }
 
-            List<Item> loot = new();
+            List<ItemTemplate> loot = new();
 
             for (int i = 0; i < amount; i++)
             {
@@ -89,7 +67,7 @@ namespace EcologyRPG.Core.Items
                 {
                     if (roll < AllowedLists[j].weight + CulmulativeOdds)
                     {
-                        var list = AllowedLists[j].items.Where(item => item.generationRules.allowedTags.Length == 0 || item.generationRules.allowedTags.Any((tag) => tags.Contains(tag))).ToArray();
+                        var list = AllowedLists[j].items.Where(loot => loot.allowedTags.Count == 0 || loot.allowedTags.Any((tag) => tags.Contains(tag))).ToArray();
                         loot.Add(GetItemTemplate(list));
                     }
                     CulmulativeOdds += AllowedLists[j].weight;
@@ -98,23 +76,23 @@ namespace EcologyRPG.Core.Items
             return loot;
         }
 
-        public Item GetItemTemplate(Item[] lootArray)
+        public ItemTemplate GetItemTemplate(Loot[] lootArray)
         {
             int maximumWeight = 0;
             foreach (var loot in lootArray)
             {
-                maximumWeight += loot.generationRules.DropChanceWeight;
+                maximumWeight += loot.weight;
             }
 
             int roll = Random.Range(0, maximumWeight);
             int culmulativeWeight = 0;
             for (int i = 0; i < lootArray.Length; i++)
             {
-                if (roll < lootArray[i].generationRules.DropChanceWeight + culmulativeWeight)
+                if (roll < lootArray[i].weight + culmulativeWeight)
                 {
-                    return lootArray[i];
+                    return lootArray[i].ItemTemplate;
                 }
-                culmulativeWeight += lootArray[i].generationRules.DropChanceWeight;
+                culmulativeWeight += lootArray[i].weight;
             }
             return null;
         }

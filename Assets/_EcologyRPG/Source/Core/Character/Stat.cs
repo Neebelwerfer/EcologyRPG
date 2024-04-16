@@ -7,7 +7,6 @@ using UnityEngine.Events;
 
 namespace EcologyRPG.Core.Character
 {
-    [Serializable]
     public enum StatModType
     {
         Flat = 100,
@@ -51,15 +50,11 @@ namespace EcologyRPG.Core.Character
     [Serializable]
     public class StatModification
     {
-        [StatAttribute(StatType.Stat)]
         public string StatName;
-        [NonSerialized]
         public object Source;
         public int Order;
-
         public float Value { get => _value; set { _value = value; OnStatModChanged?.Invoke(); } }
         public StatModType ModType;
-
         [HideInInspector]
         public UnityEvent OnStatModChanged = new();
 
@@ -72,7 +67,6 @@ namespace EcologyRPG.Core.Character
             ModType = modType;
             this.Order = order;
             Source = source;
-            OnStatModChanged = new UnityEvent();
         }
 
         public StatModification(string name, float value, StatModType modType, object source) : this(name, value, modType, (int)modType, source) { }

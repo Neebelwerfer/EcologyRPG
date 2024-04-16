@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6293729703813406803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
+  m_Name: Weapon Attack Ability
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 0.5
+  CastTime: 0
+  Icon: {fileID: 21300000, guid: 26993f1279baef143ac3dbc695e8770a, type: 3}
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  Ability: {fileID: -3046040588704201075}
+  ResourceName: 
+  ResourceCost: 0
+--- !u!114 &-3046040588704201075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
+  m_Name: Melee Attack
+  m_EditorClassIdentifier: 
+  Range: 5
+  OnCastEffects: []
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  useMouseDirection: 1
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: 7313758015344964041}
+  displayFirstHitEffects: 1
+  targetType: 1
+  width: 0
+  angle: 45
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4fa596d6cc9da4b89e7db2b42d76e9, type: 3}
+  m_Name: New Weapon template
+  m_EditorClassIdentifier: 
+  Name: WeaponTest
+  Description: 
+  Icon: {fileID: 0}
+  Weight: 0
+  equipmentType: 1
+  Modifiers: []
+  minDamage: 15
+  maxDamage: 30
+  GrowthPerLevel: 10
+  growthType: 0
+  WeaponAttackAbility: {fileID: -6293729703813406803}
+--- !u!114 &7313758015344964041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b386fb8f3e309684f8ec923c23563cea, type: 3}
+  m_Name: Weapon Damage Effect
+  m_EditorClassIdentifier: 
+  DamageType: 0
+  AllowVariance: 1

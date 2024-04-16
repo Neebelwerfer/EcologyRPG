@@ -17,5 +17,5 @@ MonoBehaviour:
   OneTimeCraft: 1
   RequiredItems:
   - ItemName: Wood
-    Amount: 2
-  craftedItemGUID: 3420db22-cb8a-4350-8ccf-195501d1f070
+    Amount: 3
+  CraftedItem: {fileID: 11400000, guid: 809a5594b2f17394cbd5af4bb115cd14, type: 2}

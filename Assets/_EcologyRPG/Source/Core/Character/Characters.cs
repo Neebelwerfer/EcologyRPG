@@ -18,11 +18,6 @@ namespace EcologyRPG.Core.Character
             }
         }
 
-        public void Clear()
-        {
-            CharacterList.Clear();
-        }
-
         public void AddCharacter(BaseCharacter character)
         {
             CharacterList.Add(character);

@@ -61,7 +61,7 @@ namespace EcologyRPG.Core.Items
 
             foreach (var item in loot)
             {
-                var generatedItem = item.Generate(Player.Random.NextInt(Player.Level - 1, Player.Level + 1));
+                var generatedItem = item.GenerateItem(Player.Random.NextInt(Player.Level - 1, Player.Level + 1));
 
                 var origin = deadNPC.Transform.Position;
                 ItemDisplayHandler.Instance.SpawnItem(generatedItem.item, generatedItem.amount, FindLegalSpawnPoint(origin, 2));
