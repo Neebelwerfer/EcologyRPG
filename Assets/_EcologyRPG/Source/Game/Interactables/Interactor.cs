@@ -11,7 +11,7 @@ namespace EcologyRPG.GameSystems.Interactables
         protected InputActionReference Interacts;
         [SerializeField] protected Interaction interaction;
         [SerializeField] protected Animator animator;
-        [SerializeField] protected string animationTrigger;
+        [SerializeField] protected string animationTrigger = "Interacted";
         [SerializeField] private float oWidth = 0.35f;
         private ObjectOutline outline;
         
@@ -88,6 +88,7 @@ namespace EcologyRPG.GameSystems.Interactables
                 if(interaction.OneTimeUse)
                 {
                     Destroy(this);
+                    Destroy(outline);
                 }
             }
         }
