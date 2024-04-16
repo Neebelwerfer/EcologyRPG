@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70972f0083344384ebbcfb83a76bbfa4, type: 3}
   m_Name: Starting Box
   m_EditorClassIdentifier: 
-  OneTimeUse: 0
+  OneTimeUse: 1
   lootType: 0
-  loot: []
+  loot:
+  - item: {fileID: 11400000, guid: 7ddceaa17059fa4469a9693a4a0c4080, type: 2}
+    amount: 3
+  - item: {fileID: 11400000, guid: d9102ec607f4cad4291f57b1156c228e, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: 809a5594b2f17394cbd5af4bb115cd14, type: 2}
+    amount: 2
   minLoot: 0
   maxLoot: 0
   tags: []

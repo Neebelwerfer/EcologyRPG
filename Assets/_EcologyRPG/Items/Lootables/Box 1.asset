@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OneTimeUse: 1
   lootType: 0
-  loot: []
+  loot:
+  - item: {fileID: 0}
+    amount: 0
   minLoot: 0
   maxLoot: 0
   tags: []

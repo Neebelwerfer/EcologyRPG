@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bandage
   Description: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 14a6ab238e5e30e469d217dadee92d12, type: 3}
   Weight: 2
   ResourceName: health
   AmountToReplenish: 0.2

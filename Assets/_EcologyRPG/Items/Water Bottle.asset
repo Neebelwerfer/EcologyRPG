@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Water bottle
   Description: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 26993f1279baef143ac3dbc695e8770a, type: 3}
   Weight: 3
   ResourceName: water
   AmountToReplenish: 0.1

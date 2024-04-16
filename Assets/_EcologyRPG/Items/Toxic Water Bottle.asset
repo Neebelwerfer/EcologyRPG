@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcd1f8112183cd4bb3a6c13273e6b8f, type: 3}
   m_Name: Toxic Water Bottle
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Toxic Water Bottle
   Description: 
-  Icon: {fileID: 0}
-  Weight: 0
-  ResourceName: 
-  AmountToReplenish: 0
+  Icon: {fileID: 21300000, guid: 28c03fcf79a303c4694b6e25719643ba, type: 3}
+  Weight: 3
+  ResourceName: toxic water
+  AmountToReplenish: 0.2
