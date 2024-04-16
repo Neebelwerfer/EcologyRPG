@@ -5,6 +5,8 @@ using UnityEngine;
 namespace EcologyRPG.GameSystems.Interactables
 {
     [System.Serializable]
+
+    [CreateAssetMenu(menuName = "Interactables/Quest Progessor")]
     public class QuestProgressor : Interaction
     {
         [SerializeField] private string questFlag;

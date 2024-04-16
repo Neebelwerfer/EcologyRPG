@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dcd1f8112183cd4bb3a6c13273e6b8f, type: 3}
-  m_Name: replenishing Potion 1
+  m_Script: {fileID: 11500000, guid: 70972f0083344384ebbcfb83a76bbfa4, type: 3}
+  m_Name: Box 1
   m_EditorClassIdentifier: 
-  Name: Water bottle
-  Description: 
-  Icon: {fileID: 0}
-  Weight: 3
-  ResourceName: water
-  AmountToReplenish: 0.1
+  OneTimeUse: 1
+  lootType: 0
+  loot:
+  - item: {fileID: 0}
+    amount: 0
+  minLoot: 0
+  maxLoot: 0
+  tags: []

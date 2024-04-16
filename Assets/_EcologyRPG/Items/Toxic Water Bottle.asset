@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dcd1f8112183cd4bb3a6c13273e6b8f, type: 3}
-  m_Name: replenishing Potion
+  m_Name: Toxic Water Bottle
   m_EditorClassIdentifier: 
-  Name: Healing Potion
+  Name: Toxic Water Bottle
   Description: 
-  Icon: {fileID: 0}
-  Weight: 2
-  ResourceName: health
+  Icon: {fileID: 21300000, guid: 28c03fcf79a303c4694b6e25719643ba, type: 3}
+  Weight: 3
+  ResourceName: toxic water
   AmountToReplenish: 0.2
