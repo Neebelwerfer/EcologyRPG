@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Items;
 using EcologyRPG.GameSystems.PlayerSystems;
@@ -29,6 +30,7 @@ namespace EcologyRPG.GameSystems
         public string ToxicResourceName;
         public Color ToxicAbilityReady = Color.white;
         public Color ToxicAbilityNotReady = Color.gray;
+        public IndicatorMesh IndicatorMesh;
 
         [Header("Scene References")]
         public SceneReference TransitionScene;

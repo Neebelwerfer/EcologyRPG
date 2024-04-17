@@ -16,10 +16,14 @@ MonoBehaviour:
   Cooldown: 0.2
   CastWindupTime: 1
   Icon: {fileID: 21300000, guid: 936bf0cad00e08848a0d58b0843898a5, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 545c9e2a-97ac-4b92-bce5-9680f9a64463
   Ability: {fileID: 6311985579467773990}
   ResourceName: stamina
   ResourceCost: 10
@@ -60,13 +64,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
   m_Name: MeleeAttack(Clone)
   m_EditorClassIdentifier: 
-  Range: 3
+  Range: 4
   OnCastEffects: []
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 237038943159510665}
   displayFirstHitEffects: 1
-  targetType: 0
-  width: 7
-  angle: 45
+  targetType: 1
+  showIndicator: 1
+  width: 2
+  angle: 110
