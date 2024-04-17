@@ -28,6 +28,30 @@ namespace EcologyRPG.Core.Abilities
             mesh.triangles = triangles.ToArray();
         }
 
+
+        public void TriangulateBox(Vector3 dir, float range, float width)
+        {
+            var right = Quaternion.AngleAxis(90, Vector3.up) * dir;
+            Vector3 v1 = -right * (width / 2) + AbilityManager.IndicatorOffset;
+            Vector3 v2 = right * (width / 2) + AbilityManager.IndicatorOffset;
+            Vector3 v3 = -right * (width / 2) + dir * range + AbilityManager.IndicatorOffset;
+            Vector3 v4 = right * (width / 2) + dir * range + AbilityManager.IndicatorOffset;
+            AddQuad(v1, v2, v3, v4);
+        }
+
+        public void TriangulateCone(Vector3 dir, float range, float angle)
+        {
+            var angledDir = Quaternion.AngleAxis(angle / 2, Vector3.up) * dir;
+            var oppositeAngledDir = Quaternion.AngleAxis(-angle / 2, Vector3.up) * dir;
+
+            Vector3 v1 = Vector3.zero + AbilityManager.IndicatorOffset;
+            Vector3 v2 = dir * range + AbilityManager.IndicatorOffset;
+            Vector3 v3 = angledDir * Mathf.Sqrt(range * 2) + AbilityManager.IndicatorOffset;
+            Vector3 v4 = oppositeAngledDir * Mathf.Sqrt(range * 2) + AbilityManager.IndicatorOffset;
+            AddTriangle(v1, v2, v3);
+            AddTriangle(v1, v4, v2);
+        }
+
         public void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
         {
             int vertexIndex = vertices.Count;
