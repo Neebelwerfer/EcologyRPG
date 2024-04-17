@@ -23,13 +23,13 @@ MonoBehaviour:
     Value: 0
     ModType: 100
   - StatName: maxHP
-    Value: 2
+    Value: 1
     ModType: 300
   - StatName: abilityDamage
     Value: 0
     ModType: 100
   - StatName: armor
-    Value: 1
+    Value: 0
     ModType: 100
   - StatName: waterArmor
     Value: 0

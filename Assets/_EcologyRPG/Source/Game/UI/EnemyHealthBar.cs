@@ -1,6 +1,5 @@
 using EcologyRPG.Core.Character;
 using EcologyRPG.GameSystems.NPC;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 

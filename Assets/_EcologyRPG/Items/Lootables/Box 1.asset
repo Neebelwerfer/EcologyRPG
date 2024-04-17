@@ -10,17 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70972f0083344384ebbcfb83a76bbfa4, type: 3}
-  m_Name: In the Open
+  m_Name: Box 1
   m_EditorClassIdentifier: 
   OneTimeUse: 1
   lootType: 0
   loot:
-  - itemRef:
-      GUID: 51a1e8f8-e804-4043-92fe-dfa09e3d53b5
-    amount: 3
-  - itemRef:
-      GUID: 1e15995c-3f21-4c1e-9752-85608beeea6e
-    amount: 2
+  - item: {fileID: 0}
+    amount: 0
   minLoot: 0
   maxLoot: 0
   tags: []

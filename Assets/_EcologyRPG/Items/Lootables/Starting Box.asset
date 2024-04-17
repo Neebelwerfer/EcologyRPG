@@ -17,16 +17,16 @@ MonoBehaviour:
   loot:
   - itemRef:
       GUID: c94ed645-9399-4b59-b1e2-bf5cab8b445e
+      name: Jerky
     amount: 3
   - itemRef:
       GUID: 1e15995c-3f21-4c1e-9752-85608beeea6e
+      name: Water Bottle
     amount: 2
   - itemRef:
       GUID: da5fb6ac-ea3b-4b38-bf63-e79b1a6b5f4b
+      name: Bandages
     amount: 2
-  - itemRef:
-      GUID: e7e76e02-2e57-4694-98e2-7e8363de2907
-    amount: 1
   minLoot: 0
   maxLoot: 0
   tags: []
