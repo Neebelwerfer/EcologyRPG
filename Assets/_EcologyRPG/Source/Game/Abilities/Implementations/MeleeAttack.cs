@@ -30,7 +30,7 @@ namespace EcologyRPG.GameSystems.Abilities
                     indicatorMesh.transform.position = hit.point;
                     indicatorMesh.Clear();
 
-                    indicatorMesh.TriangulateBox(dir, Range, width);
+                    indicatorMesh.TriangulateBox(dir.normalized, Range, width);
                     indicatorMesh.Apply();
                 }
             }
@@ -43,7 +43,7 @@ namespace EcologyRPG.GameSystems.Abilities
                     indicatorMesh.transform.position = hit.point;
                     indicatorMesh.Clear();
 
-                    indicatorMesh.TriangulateCone(dir, Range, angle);
+                    indicatorMesh.TriangulateCone(dir.normalized, Range, angle);
                     indicatorMesh.Apply();
                 }
             }
