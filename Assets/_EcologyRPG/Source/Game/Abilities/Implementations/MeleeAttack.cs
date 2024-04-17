@@ -29,6 +29,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 {
                     indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
                     indicatorMesh.transform.position = hit.point;
+                    indicatorMesh.SetOwner(castInfo.owner);
                     indicatorMesh.SetColor(castInfo.owner.Faction == Faction.player ? Color.black : Color.red);
                     indicatorMesh.Clear();
 

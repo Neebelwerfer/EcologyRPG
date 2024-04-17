@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +11,29 @@ namespace EcologyRPG.Core.Abilities
         readonly List<Vector3> vertices = new List<Vector3>();
         readonly List<int> triangles = new List<int>();
 
+        BaseCharacter owner;
         Material material;
 
         private void Awake()
         {
             mesh = GetComponent<MeshFilter>().mesh;
             material = GetComponent<MeshRenderer>().material;
+        }
+
+        private void Update()
+        {
+            if (owner != null)
+            {
+                if(Physics.Raycast(owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.WalkableGroundLayer))
+                {
+                    transform.position = hit.point;
+                }
+            }
+        }
+
+        public void SetOwner(BaseCharacter owner)
+        {
+            this.owner = owner;
         }
 
         public void Clear()
