@@ -9,22 +9,34 @@ namespace EcologyRPG.Core.Items
     public struct ItemReference
     {
         public string GUID;
-        [SerializeField] string name;
+        public string Name
+        {
+            get
+            {
+                Item item;
+#if UNITY_EDITOR
+                if(Application.isPlaying == false)
+                {
+                    item = ItemDatabaseEditor._ItemDatabase.GetItemByGUID(GUID);
+                }
+#endif
+                item = ItemDatabase.Instance.GetItemByGUID(GUID);
+                if(item.GUID != GUID)
+                {
+                    GUID = item.GUID;
+                }
+                return item.Name;
+            }
+        }
 
-        public ItemReference(string GUID, string name)
+        public ItemReference(string GUID)
         {
             this.GUID = GUID;
-            this.name = name;
         }
 
         public readonly Item Get()
         {
             return ItemDatabase.Instance.GetItemByGUID(GUID);
-        }
-
-        public readonly string GetName()
-        {
-            return name;
         }
     }
 
@@ -34,6 +46,7 @@ namespace EcologyRPG.Core.Items
         public const string ItemDatabasePath = "Assets/_EcologyRPG/Resources/Config/ItemDatabase.asset";
         public const string ItemDatabaseResourcePath = "Config/ItemDatabase";
         [SerializeField] Item[] items = new Item[0];
+        [SerializeField] Item dummyItem;
 
         public Item GetItemByGUID(string GUID)
         {
@@ -44,19 +57,9 @@ namespace EcologyRPG.Core.Items
                     return item;
                 }
             }
-            return null;
-        }
+            Debug.LogError($"Item with GUID {GUID} not found");
 
-        public Item GetItemByName(string name)
-        {
-            foreach (var item in items)
-            {
-                if (item.Name == name)
-                {
-                    return item;
-                }
-            }
-            return null;
+            return dummyItem;
         }
 
         public Item[] GetItems() => items;
@@ -68,6 +71,13 @@ namespace EcologyRPG.Core.Items
                 item.Initialize();
             }
             Debug.Log($"Item Database Initialized: {items.Length} items found");
+            if (dummyItem == null)
+            {
+                dummyItem = CreateInstance<Item>();
+                dummyItem.GUID = "Dummy";
+                dummyItem.Name = "Dummy";
+                dummyItem.Description = "Dummy Item";
+            }
         }
 
         public List<Item> GetItemsWithGenerationRules()
@@ -100,7 +110,6 @@ namespace EcologyRPG.Core.Items
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var guid = property.FindPropertyRelative("GUID");
-            var name = property.FindPropertyRelative("name");
             if(guid.stringValue == "")
             {
                 GUI.Label(new Rect(position.x, position.y, position.width * 0.5f, 20), label, EditorStyles.boldLabel);
@@ -112,7 +121,15 @@ namespace EcologyRPG.Core.Items
             }
             else
             {
-                GUI.Label(new Rect(position.x, position.y, position.width * 0.5f, 20), name.stringValue, EditorStyles.boldLabel);
+                var item = ItemDatabaseEditor._ItemDatabase.GetItemByGUID(guid.stringValue);
+                if (item == null)
+                {
+                    guid.stringValue = "";
+                    return;
+                }
+                var style = new GUIStyle(EditorStyles.boldLabel);
+                style.normal.textColor = item.Name == "Dummy" ? Color.red : Color.white;
+                GUI.Label(new Rect(position.x, position.y, position.width * 0.5f, 20), label + ": " + item.Name, style);
                 if (GUI.Button(new Rect(position.x + position.width * 0.5f, position.y, position.width * 0.5f, 20), "Change Item"))
                 {
                     var selector = ItemSelectorEditor.OpenWindow();
@@ -179,7 +196,6 @@ namespace EcologyRPG.Core.Items
                 if (GUILayout.Button(items[i].Name))
                 {
                     serializedField.FindPropertyRelative("GUID").stringValue = items[i].GUID;
-                    serializedField.FindPropertyRelative("name").stringValue = items[i].Name;
                     serializedField.serializedObject.ApplyModifiedProperties();
                     Close();
                 }
@@ -191,6 +207,19 @@ namespace EcologyRPG.Core.Items
 
     public class ItemDatabaseEditor : EditorWindow
     {
+        public static ItemDatabase _ItemDatabase
+        {
+            get
+            {
+                if (itemDatabase == null)
+                {
+                    itemDatabase = AssetDatabase.LoadAssetAtPath<ItemDatabase>(ItemDatabase.ItemDatabasePath);
+                }
+                return itemDatabase;
+            }
+        }
+        static ItemDatabase itemDatabase;
+        LootDatabase lootDatabase;
         bool[] showItem = new bool[0];
         Vector2 scrollPos;
         Item.ItemTypes newItemType;
@@ -198,7 +227,6 @@ namespace EcologyRPG.Core.Items
         bool searchTypeSet = false;
         string search = "";
         SerializedObject serializedObject;
-        LootDatabase lootDatabase;
         bool showLootDatabase = false;
 
         [MenuItem("Game/Item Database")]
