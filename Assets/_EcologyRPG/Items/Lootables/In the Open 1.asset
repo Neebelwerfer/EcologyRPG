@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70972f0083344384ebbcfb83a76bbfa4, type: 3}
+  m_Name: In the Open 1
+  m_EditorClassIdentifier: 
+  OneTimeUse: 1
+  lootType: 0
+  loot:
+  - itemRef:
+      GUID: 51a1e8f8-e804-4043-92fe-dfa09e3d53b5
+    amount: 3
+  - itemRef:
+      GUID: c94ed645-9399-4b59-b1e2-bf5cab8b445e
+    amount: 2
+  minLoot: 0
+  maxLoot: 0
+  tags: []
