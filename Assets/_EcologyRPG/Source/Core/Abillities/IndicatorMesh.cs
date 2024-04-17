@@ -67,18 +67,14 @@ namespace EcologyRPG.Core.Abilities
 
         public void TriangulateCone(Vector3 dir, float range, float angle)
         {
-            var angledDir = Quaternion.AngleAxis(angle / 2, Vector3.up) * dir;
-            var oppositeAngledDir = Quaternion.AngleAxis(-angle / 2, Vector3.up) * dir;
-
             Vector3 v1 = Vector3.zero + AbilityManager.IndicatorOffset;
-            Vector3 v2 = dir * range + AbilityManager.IndicatorOffset;
-            Vector3 v3 = angledDir * range + AbilityManager.IndicatorOffset;
-            Vector3 v4 = oppositeAngledDir * range + AbilityManager.IndicatorOffset;
-            //AddTriangle(v1, v2, v3);
-            AddTriangle(v1, v4, v3);
+            for (float i = -(angle/2); i < angle/2; i += 10)
+            {
+                Vector3 v2 = Quaternion.AngleAxis(i, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
+                Vector3 v3 = Quaternion.AngleAxis(i + 10, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
+                AddTriangle(v1, v2, v3);
+            }
         }
-
-        
 
         public void TriangulateCircle(Vector3 forward, float radius)
         {
