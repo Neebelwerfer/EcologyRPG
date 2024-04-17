@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: -4662469757275057360}
   displayFirstHitEffects: 1
   targetType: 0
-  width: 3
+  width: 2
   angle: 45
 --- !u!114 &-4662469757275057360
 MonoBehaviour:
@@ -59,6 +59,7 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 
   minRange: 0
   AnimationTrigger: Headbutt
   Ability: {fileID: -6761183876930618398}

@@ -16,6 +16,9 @@ public class MeleeAttackEditor : WeaponAttackEditor
         else if(ability.targetType == TargetType.Line)
             EditorGUILayout.PropertyField(serializedObject.FindProperty("width"));
 
+        if(serializedObject.FindProperty("angle").floatValue > 180)
+            serializedObject.FindProperty("angle").floatValue = 180;
+
         serializedObject.ApplyModifiedProperties();
     }
 }

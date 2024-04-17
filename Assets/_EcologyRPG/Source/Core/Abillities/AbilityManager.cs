@@ -11,6 +11,9 @@ namespace EcologyRPG.Core.Abilities
     {
         public static AbilityManager Instance;
 
+        public static Vector3 IndicatorOffset = new Vector3(0, 0.2f, 0);
+
+        public static IndicatorMesh IndicatorMesh { get; private set; }
         public static LayerMask TargetMask { get; private set; }
         public static LayerMask GroundMask { get; private set; }
         public static LayerMask WalkableGroundLayer { get; private set; }
@@ -22,14 +25,14 @@ namespace EcologyRPG.Core.Abilities
 
         public bool Enabled => CooldownAbilities.Count > 0;
 
-        public static void Init(LayerMask targetMask, LayerMask targetGroundMask, LayerMask WalkableGroundLayer)
+        public static void Init(LayerMask targetMask, LayerMask targetGroundMask, LayerMask WalkableGroundLayer, IndicatorMesh indicatorMesh)
         {
             AbilityManager.TargetMask = targetMask;
             AbilityManager.GroundMask = targetGroundMask;
             AbilityManager.WalkableGroundLayer = WalkableGroundLayer;
             OnToxicModeChanged ??= new UnityEvent<bool>();
             Instance = new();
-            
+            IndicatorMesh = indicatorMesh;
         }
 
         public AbilityManager()

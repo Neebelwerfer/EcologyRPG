@@ -12,6 +12,10 @@ namespace EcologyRPG.Core.Abilities
         public float Range;
         public List<AbilityComponent> OnCastEffects = new();
 
+        public virtual void Windup(CastInfo castInfo, float windUpTime)
+        {
+        }
+
         public virtual void Cast(CastInfo castInfo)
         {
             foreach (var effect in OnCastEffects)

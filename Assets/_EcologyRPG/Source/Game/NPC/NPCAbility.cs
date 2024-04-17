@@ -41,6 +41,7 @@ namespace EcologyRPG.GameSystems.NPC
             }
             base.CastStarted(caster);
             caster.owner.Transform.LookAt(caster.targetPoint);
+            Ability.Windup(caster, CastWindupTime);
         }
 
         public override void CastFinished(CastInfo caster)

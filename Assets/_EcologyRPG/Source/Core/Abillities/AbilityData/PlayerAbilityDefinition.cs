@@ -105,10 +105,17 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             if (BlockRotationOnWindup) castInfo.owner.StopRotation();
             if (BlockMovementOnWindup) castInfo.owner.StopMovement();
             if (ReducedSpeedOnWindup) castInfo.owner.Stats.AddStatModifier(HalfSpeed);
-            base.CastStarted(castInfo);
 
             var res = TargetUtility.GetMousePoint(Camera.main);
             MousePoint = res;
+            if (UseMouseDirection)
+            {
+                castInfo.dir = (MousePoint - castInfo.owner.Transform.Position).normalized;
+                Debug.DrawRay(castInfo.owner.Transform.Position, castInfo.dir, Color.blue, 1f);
+            }
+            base.CastStarted(castInfo);
+
+
 
             if (RotatePlayerTowardsMouse)
             {
