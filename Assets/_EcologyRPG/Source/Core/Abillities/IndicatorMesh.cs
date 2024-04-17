@@ -10,9 +10,12 @@ namespace EcologyRPG.Core.Abilities
         readonly List<Vector3> vertices = new List<Vector3>();
         readonly List<int> triangles = new List<int>();
 
+        Material material;
+
         private void Awake()
         {
             mesh = GetComponent<MeshFilter>().mesh;
+            material = GetComponent<MeshRenderer>().material;
         }
 
         public void Clear()
@@ -20,12 +23,17 @@ namespace EcologyRPG.Core.Abilities
             mesh.Clear();
             vertices.Clear();
             triangles.Clear();
-        }
+         }
 
         public void Apply()
         {
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles.ToArray();
+        }
+
+        public void SetColor(Color color)
+        {
+            material.color = color;
         }
 
 

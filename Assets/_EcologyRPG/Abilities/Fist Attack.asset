@@ -72,5 +72,6 @@ MonoBehaviour:
   - {fileID: 237038943159510665}
   displayFirstHitEffects: 1
   targetType: 1
+  showIndicator: 1
   width: 2
   angle: 110

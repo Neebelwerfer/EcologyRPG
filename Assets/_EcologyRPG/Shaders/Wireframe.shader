@@ -1,5 +1,9 @@
 Shader"Wireframe (Geometry Shader)"
 {
+    Properties
+    {
+        _Color("Color", Color) = (0,0,0,1)
+    }
     SubShader
     {
         Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
@@ -18,9 +22,12 @@ Shader"Wireframe (Geometry Shader)"
                 float4 vertex : SV_Position;
                 float2 barycentric : BARYCENTRIC;
             };
+
+            fixed4 _Color;
      
             void VSMain(inout float4 vertex : POSITION)
             {
+            
             }
      
             [maxvertexcount(3)]
@@ -40,7 +47,7 @@ Shader"Wireframe (Geometry Shader)"
             {
                 float3 coord = float3(PS.barycentric, 1.0 - PS.barycentric.x - PS.barycentric.y);
                 coord = smoothstep(fwidth(coord) * 0.3, fwidth(coord) * 0.1 + fwidth(coord), coord);
-                return float4(0..xxx, 1.4 - min(coord.x, min(coord.y, coord.z)));
+                return float4(_Color.rgb, 1.4 - min(coord.x, min(coord.y, coord.z)));
             }
             ENDCG
         }

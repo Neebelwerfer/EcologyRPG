@@ -8,6 +8,7 @@ namespace EcologyRPG.GameSystems.Abilities
 {
     public class MeleeAttack : WeaponAttack
     {
+        public bool showIndicator = false;
         public float width;
         [Min(10)]
         public float angle = 45;
@@ -21,33 +22,38 @@ namespace EcologyRPG.GameSystems.Abilities
             base.Windup(castInfo, windUpTime);
 
             var dir = GetDir(castInfo);
-            
-            if(targetType == TargetType.Line)
-            {
-                if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.GroundMask))
-                {
-                    indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
-                    indicatorMesh.transform.position = hit.point;
-                    indicatorMesh.Clear();
 
-                    indicatorMesh.TriangulateBox(dir.normalized, Range, width);
-                    indicatorMesh.Apply();
-                }
-            }
-            if(targetType == TargetType.Cone)
+            if (showIndicator)
             {
-                if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.GroundMask))
+                if (targetType == TargetType.Line)
                 {
-                    
-                    indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
-                    indicatorMesh.transform.position = hit.point;
-                    indicatorMesh.Clear();
+                    if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.GroundMask))
+                    {
+                        indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
+                        indicatorMesh.transform.position = hit.point;
+                        indicatorMesh.SetColor(castInfo.owner.Faction == Faction.player ? Color.black : Color.red);
+                        indicatorMesh.Clear();
 
-                    indicatorMesh.TriangulateCone(dir.normalized, Range, angle);
-                    indicatorMesh.Apply();
+                        indicatorMesh.TriangulateBox(dir.normalized, Range, width);
+                        indicatorMesh.Apply();
+                    }
                 }
+                if (targetType == TargetType.Cone)
+                {
+                    if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.GroundMask))
+                    {
+
+                        indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
+                        indicatorMesh.transform.position = hit.point;
+                        indicatorMesh.SetColor(castInfo.owner.Faction == Faction.player ? Color.black : Color.red);
+                        indicatorMesh.Clear();
+
+                        indicatorMesh.TriangulateCone(dir.normalized, Range, angle);
+                        indicatorMesh.Apply();
+                    }
+                }
+                Destroy(indicatorMesh.gameObject, windUpTime);
             }
-            Destroy(indicatorMesh.gameObject, windUpTime); ;
         }
 
         public override void Cast(CastInfo caster)
