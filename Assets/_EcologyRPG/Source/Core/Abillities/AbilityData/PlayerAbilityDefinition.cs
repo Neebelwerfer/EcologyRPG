@@ -110,7 +110,9 @@ namespace EcologyRPG.Core.Abilities.AbilityData
             MousePoint = res;
             if (UseMouseDirection)
             {
-                castInfo.dir = (MousePoint - castInfo.owner.Transform.Position).normalized;
+                var mouse = MousePoint;
+                mouse.y = castInfo.owner.Transform.Position.y;
+                castInfo.dir = (mouse - castInfo.owner.Transform.Position).normalized;
                 Debug.DrawRay(castInfo.owner.Transform.Position, castInfo.dir, Color.blue, 1f);
             }
             base.CastStarted(castInfo);
@@ -139,7 +141,9 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         {
             if (UseMouseDirection)
             {
-                castInfo.dir = (MousePoint - castInfo.owner.Transform.Position).normalized;
+                var mouse = MousePoint;
+                mouse.y = castInfo.owner.Transform.Position.y;
+                castInfo.dir = (mouse - castInfo.owner.Transform.Position).normalized;
                 Debug.DrawRay(castInfo.owner.Transform.Position, castInfo.dir, Color.blue, 1f);
             }
             castInfo.targetPoint = MousePoint;

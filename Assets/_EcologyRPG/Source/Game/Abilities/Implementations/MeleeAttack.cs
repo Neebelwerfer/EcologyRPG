@@ -25,32 +25,21 @@ namespace EcologyRPG.GameSystems.Abilities
 
             if (showIndicator)
             {
-                if (targetType == TargetType.Line)
+                if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.WalkableGroundLayer))
                 {
-                    if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.GroundMask))
-                    {
-                        indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
-                        indicatorMesh.transform.position = hit.point;
-                        indicatorMesh.SetColor(castInfo.owner.Faction == Faction.player ? Color.black : Color.red);
-                        indicatorMesh.Clear();
+                    indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
+                    indicatorMesh.transform.position = hit.point;
+                    indicatorMesh.SetColor(castInfo.owner.Faction == Faction.player ? Color.black : Color.red);
+                    indicatorMesh.Clear();
 
+                    if (targetType == TargetType.Line)
                         indicatorMesh.TriangulateBox(dir.normalized, Range, width);
-                        indicatorMesh.Apply();
-                    }
-                }
-                if (targetType == TargetType.Cone)
-                {
-                    if (Physics.Raycast(castInfo.owner.Transform.Position, Vector3.down, out RaycastHit hit, 1000, AbilityManager.GroundMask))
-                    {
-
-                        indicatorMesh = Instantiate(AbilityManager.IndicatorMesh);
-                        indicatorMesh.transform.position = hit.point;
-                        indicatorMesh.SetColor(castInfo.owner.Faction == Faction.player ? Color.black : Color.red);
-                        indicatorMesh.Clear();
-
+                    else if (targetType == TargetType.Cone)
                         indicatorMesh.TriangulateCone(dir.normalized, Range, angle);
-                        indicatorMesh.Apply();
-                    }
+                    else if (targetType == TargetType.Circular)
+                        indicatorMesh.TriangulateCircle(dir.normalized, Range);
+
+                    indicatorMesh.Apply();
                 }
                 Destroy(indicatorMesh.gameObject, windUpTime);
             }

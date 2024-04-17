@@ -54,10 +54,25 @@ namespace EcologyRPG.Core.Abilities
 
             Vector3 v1 = Vector3.zero + AbilityManager.IndicatorOffset;
             Vector3 v2 = dir * range + AbilityManager.IndicatorOffset;
-            Vector3 v3 = angledDir * Mathf.Sqrt(range * 2) + AbilityManager.IndicatorOffset;
-            Vector3 v4 = oppositeAngledDir * Mathf.Sqrt(range * 2) + AbilityManager.IndicatorOffset;
-            AddTriangle(v1, v2, v3);
-            AddTriangle(v1, v4, v2);
+            Vector3 v3 = angledDir * range + AbilityManager.IndicatorOffset;
+            Vector3 v4 = oppositeAngledDir * range + AbilityManager.IndicatorOffset;
+            //AddTriangle(v1, v2, v3);
+            AddTriangle(v1, v4, v3);
+        }
+
+        
+
+        public void TriangulateCircle(Vector3 forward, float radius)
+        {
+            Vector3 prev = Quaternion.AngleAxis(0, Vector3.up) * forward * radius + AbilityManager.IndicatorOffset;
+            Vector3 start = Vector3.zero;
+            
+            for (int i = 0; i < 370; i += 10)
+            {
+                Vector3 next = Quaternion.AngleAxis(i, Vector3.up) * forward * radius + AbilityManager.IndicatorOffset;
+                AddTriangle(start, prev, next);
+                prev = next;
+            }
         }
 
         public void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
