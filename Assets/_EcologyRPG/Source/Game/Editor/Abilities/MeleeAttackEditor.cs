@@ -11,10 +11,14 @@ public class MeleeAttackEditor : WeaponAttackEditor
     {
         base.OnInspectorGUI();
         MeleeAttack ability = (MeleeAttack)target;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("showIndicator"));
         if(ability.targetType == TargetType.Cone)
             EditorGUILayout.PropertyField(serializedObject.FindProperty("angle"));
         else if(ability.targetType == TargetType.Line)
             EditorGUILayout.PropertyField(serializedObject.FindProperty("width"));
+
+        if(serializedObject.FindProperty("angle").floatValue > 180)
+            serializedObject.FindProperty("angle").floatValue = 180;
 
         serializedObject.ApplyModifiedProperties();
     }

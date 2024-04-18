@@ -13,11 +13,12 @@ namespace EcologyRPG.Core.Items
         public float pickupRadius = 5;
 
         InventoryItem InventoryItem;
+        Canvas canvas;
 
         protected override void Start()
         {
             base.Start();
-
+            canvas = GetComponent<Canvas>();
             onClick.AddListener(OnClicked);
         }
 
@@ -48,6 +49,8 @@ namespace EcologyRPG.Core.Items
         {
             var player = Characters.Instance.GetCharactersByTag("Player")[0];
             var PlayerObject = player.GameObject;
+            canvas.sortingOrder = 1;
+
             if (PlayerObject == null)
                 return;
             if (Vector3.Distance(PlayerObject.transform.position, transform.position) < pickupRadius)
@@ -60,6 +63,8 @@ namespace EcologyRPG.Core.Items
         public override void OnPointerExit(PointerEventData eventData)
         {
             var player = Characters.Instance.GetCharactersByTag("Player")[0];
+            canvas.sortingOrder = 0;
+
             var PlayerObject = player.GameObject;
             if (PlayerObject == null)
                 return;
