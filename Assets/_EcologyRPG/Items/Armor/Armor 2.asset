@@ -67,7 +67,7 @@ MonoBehaviour:
     modType: 300
     minValue: -0.05
     maxValue: -0.02
-    GrowthPerLevel: 1
+    GrowthPerLevel: 0.02
     growthType: 0
   - StatName: armor
     AttributeName: strength
