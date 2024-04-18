@@ -1,5 +1,6 @@
 using EcologyRPG.Utility.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace EcologyRPG.Utility
@@ -8,7 +9,7 @@ namespace EcologyRPG.Utility
     public class CustomMesh : MonoBehaviour
     {
         public const float noiseScale = 0.003f;
-        public const float PerturbStrength = 8f;
+        public const float PerturbStrength = 4f;
         protected static Texture2D noiseSource;
 
         public bool useUV = false;
