@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70972f0083344384ebbcfb83a76bbfa4, type: 3}
+  m_Name: WaterBox 1
+  m_EditorClassIdentifier: 
+  OneTimeUse: 1
+  lootType: 0
+  loot:
+  - itemRef:
+      GUID: 1e15995c-3f21-4c1e-9752-85608beeea6e
+    amount: 4
+  minLoot: 0
+  maxLoot: 0
+  tags: []
