@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4169a8fdda19d4f8dd0ca9fe695f11, type: 3}
+  m_Name: Attack1
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  Cooldown: 2
+  CastWindupTime: 0.8
+  Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  guid: 
+  minRange: 0
+  AnimationTrigger: Attack1
+  Ability: {fileID: 5024363294668434562}
+--- !u!114 &4315462255966043598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent
+  m_EditorClassIdentifier: 
+  BaseDamage: 15
+  DamageType: 0
+  AllowVariance: 1
+--- !u!114 &5024363294668434562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
+  m_Name: MeleeAttack(Clone)
+  m_EditorClassIdentifier: 
+  Range: 4
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: 4315462255966043598}
+  displayFirstHitEffects: 1
+  targetType: 0
+  showIndicator: 1
+  width: 2
+  angle: 45

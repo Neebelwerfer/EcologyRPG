@@ -41,8 +41,8 @@ namespace EcologyRPG.GameSystems.Abilities
                         indicatorMesh.TriangulateCircle(dir.normalized, Range);
 
                     indicatorMesh.Apply();
+                    Destroy(indicatorMesh.gameObject, windUpTime);
                 }
-                Destroy(indicatorMesh.gameObject, windUpTime);
             }
         }
 
