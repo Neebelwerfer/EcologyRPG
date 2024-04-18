@@ -18,12 +18,13 @@ MonoBehaviour:
   OnFirstHit: []
   OnHitEffects:
   - {fileID: -2291687266812242251}
+  - {fileID: 1816107293234764699}
   displayFirstHitEffects: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 265
   Angle: 60
   TravelTime: 2
 --- !u!114 &-7977077985510931199
@@ -39,7 +40,6 @@ MonoBehaviour:
   m_Name: KnockCondition(Clone)
   m_EditorClassIdentifier: 
   ID: c6310b92-ab1e-40cb-98f5-d3002a225370
-  displayName: KnockCondition
   duration: 0.5
   remainingDuration: 0
   KnockBackDistance: 4
@@ -88,10 +88,14 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: ae938fce-648d-448f-8ef9-4981a70874c4
   Ability: {fileID: 4112594441854278025}
 --- !u!114 &-2313907972166772713
 MonoBehaviour:
@@ -182,10 +186,14 @@ MonoBehaviour:
   Cooldown: 6
   CastWindupTime: 0.75
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: d9228955-c3a4-4a50-8b22-6959388f67e2
   Ability: {fileID: -9221978500101974492}
   ResourceName: water
   ResourceCost: 10
@@ -212,6 +220,22 @@ MonoBehaviour:
   m_Name: ConditionAbilityComponent
   m_EditorClassIdentifier: 
   DebuffCondition: {fileID: -7977077985510931199}
+--- !u!114 &1816107293234764699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae661f546eb22244c8b2d3f0df436444, type: 3}
+  m_Name: DangerousTerrainComponent
+  m_EditorClassIdentifier: 
+  Radius: 2
+  Offset: 0.05
+  Duration: 5
+  OnTarget: 1
 --- !u!114 &3659286815651129777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,10 +252,14 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: a4adce1c-3134-40ff-adf6-00f23ae83d15
   Ability: {fileID: -2313907972166772713}
 --- !u!114 &3924641026455156315
 MonoBehaviour:
@@ -280,7 +308,6 @@ MonoBehaviour:
   m_Name: KnockCondition
   m_EditorClassIdentifier: 
   ID: c6310b92-ab1e-40cb-98f5-d3002a225370
-  displayName: KnockCondition
   duration: 0.5
   remainingDuration: 0
   KnockBackDistance: 4

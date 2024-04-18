@@ -30,6 +30,8 @@ MonoBehaviour:
   ToxicAbilityNotReady: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   IndicatorMesh: {fileID: -2165239667219382777, guid: 0a307a4ce25319944a3148b9aaeb6042,
     type: 3}
+  dangerousTerrainMesh: {fileID: 8039149900947578104, guid: e66119b6871f3524daeab582e56611ac,
+    type: 3}
   TransitionScene: {fileID: 11400000, guid: a6a03a773af40324b972a2578636c277, type: 2}
   MainMenuScene: {fileID: 11400000, guid: a89931c1dc8470748bd16a65d47e8125, type: 2}
   MainLevel: {fileID: 11400000, guid: 21f86eaba1ee2e2418a604d5bf0e3930, type: 2}
