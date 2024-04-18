@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Basic Behaviour
   m_EditorClassIdentifier: 
   abilities:
-  - {fileID: 11400000, guid: 3ff128cc23d991c42ba579d8c42c060a, type: 2}
-  - {fileID: 11400000, guid: e70d16fb4afdc5e4a89ff3dde2b231f4, type: 2}
+  - {fileID: 11400000, guid: 1c04ac7ec403f9d4b87fefe1b427cc3c, type: 2}
+  - {fileID: 11400000, guid: ace5ef96444919745a6a07f07e316ca2, type: 2}
   targetSearchCooldown: 0.5
   AggroRange: 20
   WanderRadius: 40
   MaxLeashRange: 60
+  wanderSpeedModifer: -0.5
+  chaseSpeedModifier: 0.5
+  ResetSpeedModifier: 1
