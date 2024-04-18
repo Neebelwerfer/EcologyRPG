@@ -17,6 +17,7 @@ namespace EcologyRPG.Core.Abilities.AbilityData
         public override void CastStarted(CastInfo castInfo)
         {
             base.CastStarted(castInfo);
+            Ability.Windup(castInfo, CastWindupTime);
         }
 
         public override void CastCancelled(CastInfo caster)

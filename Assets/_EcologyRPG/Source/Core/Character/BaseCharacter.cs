@@ -32,9 +32,9 @@ namespace EcologyRPG.Core.Character
         public List<string> Tags = new List<string>();
 
         protected Faction faction = Faction.neutral;
-
         public string GUID { get; private set; }
         public Faction Faction { get { return faction; } }
+        
         public virtual GameObject GameObject { get 
             { 
                 if(CharacterBinding != null) return CharacterBinding.gameObject;

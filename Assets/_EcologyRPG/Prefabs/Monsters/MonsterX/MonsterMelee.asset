@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 8894933809299342320}
   displayFirstHitEffects: 1
   targetType: 0
-  width: 5
+  width: 2
   angle: 45
 --- !u!114 &11400000
 MonoBehaviour:
@@ -39,10 +39,14 @@ MonoBehaviour:
   Cooldown: 2
   CastWindupTime: 0.4
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 
   minRange: 0
   AnimationTrigger: Attack
   Ability: {fileID: -6761183876930618398}
