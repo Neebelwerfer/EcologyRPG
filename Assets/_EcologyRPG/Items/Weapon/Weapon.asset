@@ -35,8 +35,8 @@ MonoBehaviour:
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
-  UseMouseDirection: 0
-  RotatePlayerTowardsMouse: 0
+  UseMouseDirection: 1
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &-3686531773604129360
 MonoBehaviour:
   m_ObjectHideFlags: 0

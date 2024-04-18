@@ -185,8 +185,8 @@ MonoBehaviour:
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
-  UseMouseDirection: 0
-  RotatePlayerTowardsMouse: 0
+  UseMouseDirection: 1
+  RotatePlayerTowardsMouse: 1
 --- !u!114 &5889696613088219116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   OnHitEffects:
   - {fileID: -7961990771237377821}
   displayFirstHitEffects: 1
-  targetType: 2
+  targetType: 1
   showIndicator: 1
   width: 5
   angle: 80
