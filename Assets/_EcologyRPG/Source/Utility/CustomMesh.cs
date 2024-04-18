@@ -34,7 +34,7 @@ namespace EcologyRPG.Utility
 
         public void Clear()
         {
-            mesh.Clear(false);
+            mesh.Clear();
             vertices = verticesPool.Get();
             triangles = trianglesPool.Get();
             if (useUV)
@@ -45,17 +45,15 @@ namespace EcologyRPG.Utility
 
         public void Apply()
         {
-            mesh.vertices = vertices.ToArray();
+            mesh.SetVertices(vertices.ToArray());
             verticesPool.Add(vertices);
-            mesh.triangles = triangles.ToArray();
+            mesh.SetTriangles(triangles.ToArray(), 0);
             trianglesPool.Add(triangles);
             if (useUV)
             {
-                mesh.uv = uvs.ToArray();
+                mesh.SetUVs(0, uvs);
                 uvPool.Add(uvs);
             }
-
-   
             mesh.RecalculateNormals();
         }
 
