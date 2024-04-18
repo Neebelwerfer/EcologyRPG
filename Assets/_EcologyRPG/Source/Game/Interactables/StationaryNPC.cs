@@ -30,11 +30,14 @@ namespace EcologyRPG.GameSystems.Interactables
             }
             if (distance <= 2.5f)
             {
+                outline.OutlineWidth = oWidth;
+
                 if (IsInteracting())
                 {
                     Interact();
                 }
             }
+            else outline.OutlineWidth = 0;
         }
         private void LookAtPlayer()
         {

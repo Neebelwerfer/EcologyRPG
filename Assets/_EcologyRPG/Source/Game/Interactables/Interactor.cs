@@ -12,8 +12,8 @@ namespace EcologyRPG.GameSystems.Interactables
         [SerializeField] protected Interaction interaction;
         [SerializeField] protected Animator animator;
         [SerializeField] protected string animationTrigger = "Interacted";
-        [SerializeField] private float oWidth = 0.35f;
-        private ObjectOutline outline;
+        public float oWidth = 0.35f;
+        public ObjectOutline outline;
         
         public Interaction Interaction => interaction;
 
