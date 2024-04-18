@@ -1,6 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Items;
+using EcologyRPG.GameSystems.Abilities;
 using EcologyRPG.GameSystems.PlayerSystems;
 using EcologyRPG.Utility;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace EcologyRPG.GameSystems
         public Color ToxicAbilityReady = Color.white;
         public Color ToxicAbilityNotReady = Color.gray;
         public IndicatorMesh IndicatorMesh;
+        public DangerousTerrainMesh dangerousTerrainMesh;
 
         [Header("Scene References")]
         public SceneReference TransitionScene;
