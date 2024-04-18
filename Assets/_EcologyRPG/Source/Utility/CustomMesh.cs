@@ -14,12 +14,10 @@ namespace EcologyRPG.Utility
 
         public bool useUV = false;
 
-
         protected Mesh mesh;
         protected static ListPool<Vector3> verticesPool = new();
         protected static ListPool<int> trianglesPool = new();
         protected static ListPool<Vector2> uvPool = new();
-        
 
         protected List<Vector3> vertices;
         protected List<int> triangles;
@@ -36,7 +34,7 @@ namespace EcologyRPG.Utility
 
         public void Clear()
         {
-            mesh.Clear();
+            mesh.Clear(false);
             vertices = verticesPool.Get();
             triangles = trianglesPool.Get();
             if (useUV)
@@ -89,6 +87,8 @@ namespace EcologyRPG.Utility
 
         public void AddTriangleUV(Vector2 uv1, Vector2 uv2, Vector2 uv3)
         {
+            if (!useUV) return;
+
             uvs.Add(uv1);
             uvs.Add(uv2);
             uvs.Add(uv3);
@@ -96,6 +96,8 @@ namespace EcologyRPG.Utility
 
         public void AddQuadUV(Vector2 uv1, Vector2 uv2, Vector2 uv3, Vector2 uv4)
         {
+            if (!useUV) return;
+
             uvs.Add(uv1);
             uvs.Add(uv2);
             uvs.Add(uv3);
