@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 584689712750011209}
   - component: {fileID: 8039149900947578104}
   - component: {fileID: 4541202535375743847}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Dangerous Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
