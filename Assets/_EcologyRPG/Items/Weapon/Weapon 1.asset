@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b386fb8f3e309684f8ec923c23563cea, type: 3}
   m_Name: Weapon Damage Effect
   m_EditorClassIdentifier: 
-  BaseDamage: 5
+  BaseDamage: 10
   WeaponDamagePercent: 1
   DamageType: 0
   AllowVariance: 1
@@ -206,7 +206,7 @@ MonoBehaviour:
   OnHitEffects:
   - {fileID: -7961990771237377821}
   displayFirstHitEffects: 1
-  targetType: 0
-  showIndicator: 0
+  targetType: 1
+  showIndicator: 1
   width: 5
-  angle: 45
+  angle: 80
