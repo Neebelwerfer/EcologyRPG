@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: AbilityDamageComponent
   m_EditorClassIdentifier: 
-  BaseDamage: 20
+  BaseDamage: 10
   DamageType: 0
   AllowVariance: 1
 --- !u!114 &6311985579467773990

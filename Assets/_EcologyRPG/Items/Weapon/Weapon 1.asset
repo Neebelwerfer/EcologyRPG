@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b386fb8f3e309684f8ec923c23563cea, type: 3}
   m_Name: Weapon Damage Effect
   m_EditorClassIdentifier: 
-  BaseDamage: 10
+  BaseDamage: 20
   WeaponDamagePercent: 1
   DamageType: 0
   AllowVariance: 1
@@ -199,14 +199,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
   m_Name: Melee Attack
   m_EditorClassIdentifier: 
-  Range: 5
+  Range: 4
   OnCastEffects: []
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
   - {fileID: -7961990771237377821}
   displayFirstHitEffects: 1
-  targetType: 1
+  targetType: 2
   showIndicator: 1
   width: 5
   angle: 80
