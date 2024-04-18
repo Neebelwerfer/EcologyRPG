@@ -14,8 +14,6 @@ namespace EcologyRPG.GameSystems.Interactables
         private Quaternion _lookRotation;
         private Vector3 _direction;
 
-      
-
         protected override void Start()
         {
             base.Start();
