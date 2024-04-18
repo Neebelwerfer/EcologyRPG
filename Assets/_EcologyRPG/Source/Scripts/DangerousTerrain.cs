@@ -23,14 +23,11 @@ namespace EcologyRPG.Scripts
         public float damageInterval = 1f;
         public DamageType damageType;
 
-        Collider _collider;
         List<Target> _characters;
 
         private void Awake()
         {
-            _collider = GetComponent<Collider>();
             _characters = new();
-            _collider.isTrigger = true;
             gameObject.layer = LayerMask.NameToLayer(GameSettings.GroundHazardName);
         }
 
@@ -96,29 +93,49 @@ namespace EcologyRPG.Scripts
             _characters.RemoveAll(x => x.GUID == guid);
         }
 
-        private void OnTriggerEnter(Collider other)
+        void CheckCollision(Collider other, bool onEnter)
         {
-            if(other.TryGetComponent(out CharacterBinding character))
+            if (other.TryGetComponent(out CharacterBinding character))
             {
-                if(excludedTags.Length == 0 || AllowedTag(character.Character))
+                if (excludedTags.Length == 0 || AllowedTag(character.Character))
                 {
-                    if(!ContainsCharacter(character.Character.GUID))
+                    if (onEnter)
                     {
-                        AddCharacter(character.Character);
+                        if (!ContainsCharacter(character.Character.GUID))
+                        {
+                            AddCharacter(character.Character);
+                        }
+                    }
+                    else
+                    {
+                        if (ContainsCharacter(character.Character.GUID))
+                        {
+                            RemoveCharacter(character.Character.GUID);
+                        }
                     }
                 }
             }
         }
 
+
+        private void OnCollisionEnter(Collision collision)
+        {
+           CheckCollision(collision.collider, true);
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            CheckCollision(collision.collider, false);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+           CheckCollision(other, true);
+        }
+
         private void OnTriggerExit(Collider other)
         {
-            if(other.TryGetComponent(out CharacterBinding character))
-            {
-                if(ContainsCharacter(character.Character.GUID))
-                {
-                    RemoveCharacter(character.Character.GUID);
-                }
-            }
+            CheckCollision(other, false);
         }
     }
 }
