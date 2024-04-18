@@ -14,6 +14,8 @@ namespace EcologyRPG.GameSystems.Interactables
         private Quaternion _lookRotation;
         private Vector3 _direction;
 
+      
+
         protected override void Start()
         {
             base.Start();
@@ -30,11 +32,14 @@ namespace EcologyRPG.GameSystems.Interactables
             }
             if (distance <= 2.5f)
             {
+                outline.OutlineWidth = oWidth;
+
                 if (IsInteracting())
                 {
                     Interact();
                 }
             }
+            else outline.OutlineWidth = 0;
         }
         private void LookAtPlayer()
         {

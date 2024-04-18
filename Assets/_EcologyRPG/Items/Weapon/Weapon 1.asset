@@ -178,7 +178,7 @@ MonoBehaviour:
   ResourceName: stamina
   ResourceCost: 10
   Description: 
-  AnimationTrigger: 
+  AnimationTrigger: Is_MeleeAttacking
   ToxicResoureCost: 5
   ToxicSelfDamage: 10
   ToxicAbility: {fileID: 0}
@@ -207,5 +207,6 @@ MonoBehaviour:
   - {fileID: -7961990771237377821}
   displayFirstHitEffects: 1
   targetType: 0
+  showIndicator: 0
   width: 5
   angle: 45
