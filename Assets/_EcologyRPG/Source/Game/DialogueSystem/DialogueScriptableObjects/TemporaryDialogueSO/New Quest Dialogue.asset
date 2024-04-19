@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216f67b70f581bb4fa29821f9c6df563, type: 3}
   m_Name: New Quest Dialogue
   m_EditorClassIdentifier: 
+  OneTimeUse: 0
   quests:
   - questText: Water
     infoPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
     completionPath: {fileID: 11400000, guid: 42835a0f77dcb764abc5cc0bcc728f18, type: 2}
     questFlag: Test1
     completionValue: 1
+    completer: {fileID: 11400000, guid: 1923a53bab81651419aa1ca4b8319ebc, type: 2}
   - questText: Dirty Water
     infoPath: {fileID: 11400000, guid: 1db1e6acae807934cb80b807229714fb, type: 2}
     completionPath: {fileID: 11400000, guid: 42835a0f77dcb764abc5cc0bcc728f18, type: 2}
     questFlag: Test2
     completionValue: 2
+    completer: {fileID: 11400000, guid: 1923a53bab81651419aa1ca4b8319ebc, type: 2}

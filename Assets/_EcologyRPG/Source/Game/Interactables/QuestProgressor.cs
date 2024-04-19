@@ -9,8 +9,8 @@ namespace EcologyRPG.GameSystems.Interactables
     [CreateAssetMenu(menuName = "Interactables/Quest Progessor")]
     public class QuestProgressor : Interaction
     {
-        [SerializeField] private string questFlag;
-        [SerializeField] private int progressStage;
+        [SerializeField] private string questFlag; //quest flag to be changed
+        [SerializeField] private int progressStage; // value to change too
         public string QuestFlag => questFlag;
         public int ProgessStage => progressStage;
 
