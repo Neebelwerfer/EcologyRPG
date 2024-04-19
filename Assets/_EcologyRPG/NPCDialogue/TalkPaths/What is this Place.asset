@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98de26cc79e56d34891f93f52c5d9209, type: 3}
+  m_Name: What is this Place
+  m_EditorClassIdentifier: 
+  OneTimeUse: 0
+  dialogues:
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: Those of us who still live here call it the Poisoned Tundra, a wild
+      place more the domain of monsters than humans now. Toxic rivers and streams
+      cover most of this place, making it difficult and dangerous to traverse. It
+      wasn't always like this you know.
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: Back in the day it was lush and calm, it was beautiful green fields
+      as far as the eye could see, and water so clean you could drink it right out
+      of the river...
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: The change didn't happen overnight, and it gets worse each day, the
+      water is now so dangerous it will burn your skin, even if you are sane enough
+      to wear your pants. Last week I saw a crab the size of a truck chasing mutated
+      frogs through the woods...
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: What has become of this place...

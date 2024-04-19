@@ -1,9 +1,13 @@
 {
     "keys": [
         "Test1",
-        "Test2"
+        "Test2",
+        "Clean Water Quest",
+        "Water Supply Quest"
     ],
     "values": [
+        0,
+        0,
         0,
         0
     ]

@@ -227,7 +227,7 @@
             "displayName": "Toxic Water",
             "DisplayOptions": 0,
             "ShowOptions": 0,
-            "baseValue": 1000.0,
+            "baseValue": 200.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
             "description": "Governs a characters toxic water"
