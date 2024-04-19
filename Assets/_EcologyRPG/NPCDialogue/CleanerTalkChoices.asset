@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c8bf25aa2de704384c06d556202d74, type: 3}
+  m_Name: CleanerTalkChoices
+  m_EditorClassIdentifier: 
+  OneTimeUse: 0
+  options:
+  - choiceText: What is this place?
+    choicePath: {fileID: 11400000, guid: bb946ddcc76abe946873fc07f959a742, type: 2}
+  - choiceText: What happened here?
+    choicePath: {fileID: 11400000, guid: c9f1029ad1788a74990d14a8d90c8a8c, type: 2}
+  - choiceText: What should I do?
+    choicePath: {fileID: 11400000, guid: d02ceb584845fdd42b03ca1ea4b71c66, type: 2}
+  - choiceText: Who are you?
+    choicePath: {fileID: 11400000, guid: f7ee04986b12a9140b1e7c3f08f7b2cb, type: 2}

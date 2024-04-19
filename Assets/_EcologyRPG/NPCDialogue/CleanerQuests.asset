@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216f67b70f581bb4fa29821f9c6df563, type: 3}
+  m_Name: CleanerQuests
+  m_EditorClassIdentifier: 
+  OneTimeUse: 0
+  quests:
+  - questText: Water Supply
+    infoPath: {fileID: 11400000, guid: df86791e002bef145be3f0341555e4ef, type: 2}
+    completionPath: {fileID: 11400000, guid: 026d9af1a61bdcb448a6bb1d83b55780, type: 2}
+    questFlag: Water Supply Quest
+    completionValue: 2
+    completer: {fileID: 11400000, guid: c2431d26bbbf5f149980ad91be7cf813, type: 2}
+  - questText: Clean Water
+    infoPath: {fileID: 11400000, guid: 2d00110da3bed6747beb882fc8d161c0, type: 2}
+    completionPath: {fileID: 11400000, guid: 026d9af1a61bdcb448a6bb1d83b55780, type: 2}
+    questFlag: Clean Water Quest
+    completionValue: 2
+    completer: {fileID: 11400000, guid: 77c0b34b406dfa645a2cf43c02da4f48, type: 2}

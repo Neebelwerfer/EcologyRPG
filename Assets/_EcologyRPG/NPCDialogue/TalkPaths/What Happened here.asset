@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98de26cc79e56d34891f93f52c5d9209, type: 3}
+  m_Name: What Happened here
+  m_EditorClassIdentifier: 
+  OneTimeUse: 0
+  dialogues:
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: Decades of pollution and the dumping of chemicals into the water supply
+      caused most of this
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: The water became undrinkable and had a profound effect on the wild life,
+      most of it died, but the animals that didn't are changed now, dangerous.
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: "Now this place is far too dangerous for most folks, they either left
+      looking for a better place or got eaten by the animals... Hard to say who I
+      pity more\t"
+  - sprite: {fileID: 21300000, guid: 2064356e3382a844497220b4ee859659, type: 3}
+    subjectName: The Cleaner
+    message: If there is a place more comfortable out thre than here I have never
+      heard of it. Maybe they found it, but my equipment is here and it's too heavy
+      to move, so I am staying here. Besides, I can actually clean the water so it's
+      not so bad.
