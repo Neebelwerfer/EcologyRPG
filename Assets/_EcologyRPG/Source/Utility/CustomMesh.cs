@@ -118,5 +118,21 @@ namespace EcologyRPG.Utility
             position.z += (sample.z * 2f - 1f) * PerturbStrength;
             return position;
         }
+
+        protected float ValueToUV(float value, float Range)
+        {
+            float uv;
+            var diff = Mathf.Abs(value) / (Range * 2);
+            if (value > 0)
+            {
+                uv = 0.5f + diff;
+            }
+            else
+            {
+                uv = 0.5f - diff;
+            }
+
+            return uv;
+        }
     }
 }

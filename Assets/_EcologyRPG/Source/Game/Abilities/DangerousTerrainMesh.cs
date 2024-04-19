@@ -48,7 +48,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 if(!Fit(ref v3)) continue;
 
                 AddTriangle(center, v2, v3);
-                AddTriangleUV(new Vector2(0.5f, 0.5f), new Vector2(ValueToUV(v2.x), ValueToUV(v2.z)), new Vector2((ValueToUV(v3.x)), ValueToUV(v3.z)));
+                AddTriangleUV(new Vector2(0.5f, 0.5f), new Vector2(ValueToUV(v2.x, Radius), ValueToUV(v2.z, Radius)), new Vector2((ValueToUV(v3.x, Radius)), ValueToUV(v3.z, Radius)));
             }
             Apply();
             meshCollider.sharedMesh = mesh;
@@ -78,23 +78,6 @@ namespace EcologyRPG.GameSystems.Abilities
                 }
             }
             return onGround;
-        }
-
-
-        float ValueToUV(float value)
-        {
-            float uv;
-            var diff = Mathf.Abs(value) / (Radius * 2);
-            if (value > 0)
-            {
-                uv = 0.5f + diff;
-            }
-            else
-            {
-                uv = 0.5f - diff;
-            }
-
-            return uv;
         }
     }
 }

@@ -48,17 +48,33 @@ namespace EcologyRPG.Core.Abilities
             Vector3 v3 = -right * (width / 2) + dir * range + AbilityManager.IndicatorOffset;
             Vector3 v4 = right * (width / 2) + dir * range + AbilityManager.IndicatorOffset;
             AddQuad(v1, v2, v3, v4);
+            AddQuadUV(new Vector2(0, 0), new Vector2(1, 0), new Vector2(0, 1), new Vector2(1, 1));
         }
 
         public void TriangulateCone(Vector3 dir, float range, float angle)
         {
             Vector3 v1 = Vector3.zero + AbilityManager.IndicatorOffset;
-            for (float i = -(angle/2); i < angle/2; i += 10)
+            Vector2 uvCenter = new Vector2(0.0f, 0.0f);
+            Vector3 begin = Quaternion.AngleAxis(-(angle / 2), Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
+            Vector3 end = Quaternion.AngleAxis(-(angle / 2) + 10, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
+            var AngleRange = (angle / 2f);
+            AddTriangle(v1, begin, end);
+            AddTriangleUV(new Vector2(1, 0), new Vector2(1f, 1), new Vector2(0.5f, 1));
+
+
+            for (float i = -(angle/2) + 10; i < angle/2 - 10; i += 10)
             {
                 Vector3 v2 = Quaternion.AngleAxis(i, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
                 Vector3 v3 = Quaternion.AngleAxis(i + 10, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
                 AddTriangle(v1, v2, v3);
+                AddTriangleUV(uvCenter, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f));
             }
+
+            Vector3 lastbegin = Quaternion.AngleAxis(angle / 2 - 10, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
+            Vector3 lastend = Quaternion.AngleAxis(angle / 2, Vector3.up) * dir * range + AbilityManager.IndicatorOffset;
+            AddTriangle(v1, lastbegin, lastend);
+            AddTriangleUV(new Vector2(1, 0), new Vector2(0.5f, 1f), new Vector2(1f, 1f));
+
         }
 
         public void TriangulateCircle(Vector3 forward, float radius)
@@ -70,6 +86,7 @@ namespace EcologyRPG.Core.Abilities
             {
                 Vector3 next = Quaternion.AngleAxis(i, Vector3.up) * forward * radius + AbilityManager.IndicatorOffset;
                 AddTriangle(start, prev, next);
+                AddTriangleUV(new Vector2(0.5f, 0.5f), new Vector2((i - 10)/370, 0.95f), new Vector2(i / 370, 0.95f));
                 prev = next;
             }
         }
