@@ -51,11 +51,11 @@ MonoBehaviour:
   DropChanceWeight: 10
   allowedTags: []
   Modifiers:
-  - StatName: armor
+  - StatName: toxicProtection
     AttributeName: 
     type: 1
     modType: 100
-    minValue: 10
-    maxValue: 12
+    minValue: 2
+    maxValue: 4
     GrowthPerLevel: 2
     growthType: 0

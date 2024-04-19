@@ -67,16 +67,16 @@ MonoBehaviour:
     AttributeName: 
     type: 1
     modType: 100
-    minValue: 7
-    maxValue: 10
-    GrowthPerLevel: 2
+    minValue: 3
+    maxValue: 6
+    GrowthPerLevel: 1
     growthType: 0
   - StatName: movementSpeed
     AttributeName: 
     type: 1
     modType: 200
-    minValue: -0.05
-    maxValue: -0.02
+    minValue: -0.02
+    maxValue: 0.01
     GrowthPerLevel: 0
     growthType: 0
 --- !u!114 &3474821674893956869

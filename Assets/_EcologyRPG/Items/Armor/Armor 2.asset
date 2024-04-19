@@ -57,8 +57,8 @@ MonoBehaviour:
     AttributeName: 
     type: 1
     modType: 100
-    minValue: 7
-    maxValue: 10
+    minValue: 11
+    maxValue: 15
     GrowthPerLevel: 1
     growthType: 0
   - StatName: movementSpeed
