@@ -76,7 +76,7 @@ MonoBehaviour:
     AttributeName: 
     type: 1
     modType: 100
-    minValue: -8
-    maxValue: -5
+    minValue: -0.08
+    maxValue: -0.05
     GrowthPerLevel: -2
     growthType: 1

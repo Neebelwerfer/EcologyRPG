@@ -20,17 +20,17 @@ MonoBehaviour:
     AttributeName: 
     type: 1
     modType: 100
-    minValue: 10
-    maxValue: 12
-    GrowthPerLevel: 2
+    minValue: 2
+    maxValue: 4
+    GrowthPerLevel: 1
     growthType: 0
   - StatName: toxicProtection
     AttributeName: 
     type: 1
     modType: 100
-    minValue: 1
-    maxValue: 3
-    GrowthPerLevel: 0
+    minValue: 4
+    maxValue: 6
+    GrowthPerLevel: 2
     growthType: 0
 --- !u!114 &11400000
 MonoBehaviour:
