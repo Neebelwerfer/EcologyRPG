@@ -179,14 +179,22 @@ namespace EcologyRPG.GameSystems.Dialogue
             
             if (Game.Flags.TryGetFlag(quest1Flag, out flag1val))
             {
-                if(flag1val == completionValue1) quest1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].CompletionPath); });
+                if (flag1val == completionValue1) 
+                {
+                    quest1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].CompletionPath); quests.Quests[0].Completer.Interact(); });
+                    
+                }
                 else quest1.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[0].InfoPath); });
             }
             
 
             if (Game.Flags.TryGetFlag(quest2Flag, out flag2val))
             {
-                if(flag2val == completionValue2) quest2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].CompletionPath); });
+                if (flag2val == completionValue2) 
+                {
+                    quest2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].CompletionPath); quests.Quests[1].Completer.Interact(); });
+                    
+                }
                 else quest2.onClick.AddListener(delegate { TransistionToDialoguePlay(quests.Quests[1].InfoPath); });
             }
         }
