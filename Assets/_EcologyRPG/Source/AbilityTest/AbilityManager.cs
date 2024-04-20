@@ -1,15 +1,23 @@
+using EcologyRPG.Core.Abilities;
+using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 using System;
+using UnityEngine;
 
 namespace EcologyRPG.AbilityTest
 {
     public class AbilityManager
     {
         public static AbilityManager Current;
-        Script scriptInstance;
+        readonly Script scriptContext;
         AbilityManager() 
         { 
-            scriptInstance = new Script();
+            scriptContext = new Script();
+            UserData.RegisterProxyType<ResourceContext, Resource>(r => new ResourceContext(r));
+            UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => new CharacterContext(c));
+            UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
+            UserData.RegisterType<Vector3Context>();
+            UserData.RegisterType<CastContext>();
             UserData.RegisterAssembly();
 
         }
@@ -22,16 +30,6 @@ namespace EcologyRPG.AbilityTest
         public static void Delete()
         {
             Current = null;
-        }
-
-        public static void AddClass(string name, object obj)
-        {
-            Current.scriptInstance.Globals[name] = obj;
-        }
-
-        public static void AddStaticClass(string name, Type obj)
-        {
-            Current.scriptInstance.Globals[name] = obj;
         }
     }
 }

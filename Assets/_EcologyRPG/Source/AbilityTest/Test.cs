@@ -28,15 +28,14 @@ public class Test : MonoBehaviour
     static string script = @"    
 		        -- defines a factorial function
 		        function fact (n)
-                    Log('Getting player')
-                    Delay(2)
-                   local player = GetPlayer()
-                    Log('Got player')
-                    Delay(3)
-                   local health = player:GetResource('Health')
-                   Log('Health: ' .. health:GetCurrent())
-                   local movementSpeed = player:GetStat('MovementSpeed')
-                     Log('Movement Speed: ' .. movementSpeed:GetValue())
+                    local player = GetPlayer()
+                    for i = 1, 20 do
+                        Log('Looping')
+                        Delay(1)
+                        Log('player position: ' .. player.GetPosition().ToString())
+                        player.SetVelocity(Vector3(1, 1, 1))
+                    end
+                   
 		        end
 
 		        return fact(5)";
@@ -44,15 +43,13 @@ public class Test : MonoBehaviour
     void Start()
     {
        
-
-        UserData.RegisterProxyType<ResourceContext, Resource>(r => new ResourceContext(r));
-        UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => new CharacterContext(c));
-        UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
+        AbilityManager.Create();
 
         instance = new Script();
         instance.Globals["GetPlayer"] = (System.Func<BaseCharacter>)GetPlayer;
         instance.Globals["Log"] = (System.Action<string>)Log;
         instance.Globals["Delay"] = (System.Func<float, DynValue>)Delay;
+        instance.Globals["Vector3"] = (System.Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
 
         StartCoroutine(TestCoroutine());
         
