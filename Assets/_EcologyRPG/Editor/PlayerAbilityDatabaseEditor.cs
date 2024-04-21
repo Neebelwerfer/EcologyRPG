@@ -1,8 +1,5 @@
-using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.GameSystems.PlayerSystems;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,7 +30,7 @@ public class PlayerAbilityDatabaseEditor : EditorWindow
             foreach (var ability in list)
             {
                 GUILayout.BeginHorizontal();
-                ability.ability = (PlayerAbilityDefinition)EditorGUILayout.ObjectField(ability.ability, typeof(PlayerAbilityDefinition), false);
+                ability.ability = (PlayerAbilityReference)EditorGUILayout.ObjectField(ability.ability, typeof(PlayerAbilityReference), false);
                 if (GUILayout.Button("Remove"))
                 {
                     list.Remove(ability);

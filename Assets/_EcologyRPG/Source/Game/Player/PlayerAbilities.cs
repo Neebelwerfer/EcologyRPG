@@ -1,10 +1,8 @@
-using EcologyRPG.Core.Abilities.AbilityData;
-using EcologyRPG.Core.Abilities;
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Items;
-using System;
-using UnityEngine.Events;
 using UnityEngine;
-
+using UnityEngine.Events;
+ 
 namespace EcologyRPG.GameSystems.PlayerSystems
 {
     public enum AbilitySlots
@@ -22,10 +20,10 @@ namespace EcologyRPG.GameSystems.PlayerSystems
     {
         readonly PlayerSettings settings;
         readonly PlayerCharacter _Player;
-        readonly PlayerAbilityDefinition[] abilitySlots = new PlayerAbilityDefinition[7];
+        readonly PlayerAbilityReference[] abilitySlots = new PlayerAbilityReference[7];
 
 
-        public UnityEvent<AbilityDefintion>[] OnAbilityChange = new UnityEvent<AbilityDefintion>[7];
+        public UnityEvent<PlayerAbilityReference>[] OnAbilityChange = new UnityEvent<PlayerAbilityReference>[7];
 
         public PlayerAbilities(PlayerCharacter player, Inventory inventory, PlayerSettings settings)
         {
@@ -33,16 +31,17 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             this.settings = settings;
 
             abilitySlots[4] = Init(settings.FistAttackAbility);
-            abilitySlots[5] = Init(settings.DodgeAbility);
-            abilitySlots[6] = Init(settings.SprintAbility);
+            //abilitySlots[5] = Init(settings.DodgeAbility);
+            //abilitySlots[6] = Init(settings.SprintAbility);
 
             inventory.equipment.EquipmentUpdated.AddListener(OnEquipmentChange);
         }
 
-        PlayerAbilityDefinition Init(PlayerAbilityDefinition ability)
+        private PlayerAbilityReference Init(PlayerAbilityReference ability)
         {
-            var newAbility = UnityEngine.Object.Instantiate(ability);
-            newAbility.Initialize(_Player, ability);
+            if (ability == null) return null;
+            var newAbility = Object.Instantiate(ability);
+            newAbility.Init(_Player);
             return newAbility;
         }
 
@@ -56,17 +55,17 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             }
         }
 
-        public AbilityDefintion GetAbility(AbilitySlots slot)
+        public PlayerAbilityReference GetAbility(AbilitySlots slot)
         {
             return abilitySlots[(int)slot];
         }
 
-        public bool GotAbility(PlayerAbilityDefinition ability, out AbilitySlots? slot)
+        public bool GotAbility(PlayerAbilityReference ability, out AbilitySlots? slot)
         {
             for (int i = 0; i < abilitySlots.Length; i++)
             {
                 if (abilitySlots[i] == null) continue;
-                if (abilitySlots[i].GUID == ability.GUID)
+                if (abilitySlots[i].AbilityID == ability.AbilityID)
                 {
                     slot = (AbilitySlots)i;
                     return true;
@@ -76,7 +75,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             return false;
         }
 
-        public void SetAbility(AbilitySlots slot, PlayerAbilityDefinition ability)
+        public void SetAbility(AbilitySlots slot, PlayerAbilityReference ability)
         {
             if (ability == null)
                 abilitySlots[(int)slot] = null;
@@ -86,11 +85,11 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             OnAbilityChange[(int)slot]?.Invoke(abilitySlots[(int)slot]);
         }
 
-        public void AddListener(AbilitySlots slot, UnityAction<AbilityDefintion> action)
+        public void AddListener(AbilitySlots slot, UnityAction<PlayerAbilityReference> action)
         {
             if (OnAbilityChange[(int)slot] == null)
             {
-                OnAbilityChange[(int)slot] = new UnityEvent<AbilityDefintion>();
+                OnAbilityChange[(int)slot] = new UnityEvent<PlayerAbilityReference>();
             }
             OnAbilityChange[(int)slot].AddListener(action);
         }
@@ -99,9 +98,9 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         {
             foreach (var ability in abilitySlots)
             {
-                if (ability != null && ability.state == AbilityStates.casting)
+                if (ability != null && ability.State == CastState.Casting)
                 {
-                    ability.CastCancelled(new CastInfo() { owner = _Player });
+                    ability.OnCastCancelled();
                 }
             }
         }

@@ -1,3 +1,4 @@
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Utility;
@@ -9,7 +10,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
     [CreateAssetMenu(fileName = "Basic Behaviour", menuName = "NPC/Behaviours/BasicBehaviour")]
     public class BasicBehaviour : NPCBehaviour
     {
-        public List<NPCAbility> abilities = new();
+        public List<NPCAbilityReference> abilities = new();
 
         public float targetSearchCooldown = 0.5f;
         public float AggroRange;
@@ -21,9 +22,9 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         public float ResetSpeedModifier = 1f;
 
         BaseCharacter target;
-        NPCAbility attackAbility;
+        NPCAbilityReference attackAbility;
         float targetSearchTimer = 0f;
-        NPCAbility[] initialisedAbilities;
+        NPCAbilityReference[] initialisedAbilities;
 
         StatModification speedMod;
 
@@ -31,11 +32,11 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         {
             speedMod = new StatModification("movementSpeed", wanderSpeedModifer, StatModType.PercentMult, this);
             character.Stats.AddStatModifier(speedMod);
-            initialisedAbilities = new NPCAbility[abilities.Count];
+            initialisedAbilities = new NPCAbilityReference[abilities.Count];
             for (int i = 0; i < abilities.Count; i++)
             {
                 initialisedAbilities[i] = Instantiate(abilities[i]);
-                initialisedAbilities[i].Initialize(character, abilities[i]);
+                initialisedAbilities[i].Init(character);
             }
 
             var aggroState = new State("Aggro");
@@ -66,16 +67,16 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             var Attack = new ActionNode((npc) =>
             {
                 npc.Agent.ResetPath();
-                if (attackAbility.state != AbilityStates.ready) return;
+                if (attackAbility.State != CastState.Ready) return;
                 npc.Agent.velocity = Vector3.zero;
-                CastAbility(npc, attackAbility, target.Transform.Position + (target.Velocity * attackAbility.CastWindupTime));
+                CastAbility(npc, attackAbility, target.Transform.Position + (target.Velocity));
             });
 
             var inAttackRange = new DecisionNode((npc) =>
             {
                 var dist = Vector3.Distance(npc.Transform.Position, target.Transform.Position);
                 GetAbility(dist);
-                var range = attackAbility.Ability.Range;
+                var range = attackAbility.Range;
                 return dist < (range < 10 ? range : range * 0.75f);
 
             }, Attack, Chase);
@@ -185,7 +186,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         {
             foreach (var a in initialisedAbilities)
             {
-                if (a.state == AbilityStates.ready && a.InMinRange(dist))
+                if (a.State == CastState.Ready && a.InMinRange(dist))
                 {
                     attackAbility = a;
                     return;
@@ -197,13 +198,13 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             }
         }
 
-        void CastAbility(EnemyNPC npc, NPCAbility ability, Vector3 target)
+        void CastAbility(EnemyNPC npc, NPCAbilityReference ability, Vector3 target)
         {
             npc.CastAbility(ability, target);
             foreach (var a in initialisedAbilities)
             {
-                if (a == ability || a.state != AbilityStates.ready) continue;
-                a.PutOnCooldown(1f);
+                if (a == ability || a.State != CastState.Ready) continue;
+                a.StartCooldown(1f);
             }
         }
     }

@@ -1,4 +1,4 @@
-using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Items;
 using EcologyRPG.Utility;
 using System.Collections.Generic;
@@ -24,9 +24,9 @@ namespace EcologyRPG.GameSystems.PlayerSystems
 
         [Header("Ability Settings")]
         public float GlobalCooldown = 0.5f;
-        public PlayerAbilityDefinition SprintAbility;
-        public PlayerAbilityDefinition DodgeAbility;
-        public PlayerAbilityDefinition FistAttackAbility;
+        public PlayerAbilityReference SprintAbility;
+        public PlayerAbilityReference DodgeAbility;
+        public PlayerAbilityReference FistAttackAbility;
 
         [Header("Inventory Settings")]
         public Item[] StartingItems = new Item[5];

@@ -17,10 +17,9 @@ namespace EcologyRPG.Core.Abilities
 
         float range;
         Vector3 localScale;
-        Quaternion rotation;
 
-        public BasicProjectileBehaviour(GameObject Prefab, float range, Vector3 origin, Vector3 dir, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner, Action<BaseCharacter> OnHit, Action<GameObject> OnUpdate)
-            : base(Prefab, origin, Quaternion.LookRotation(dir))
+        public BasicProjectileBehaviour(int PrefabID, float range, Vector3 origin, Vector3 dir, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner)
+            : base(PrefabID, origin, Quaternion.LookRotation(dir))
         {
             this.range = range;
             this.dir = dir;
@@ -28,8 +27,6 @@ namespace EcologyRPG.Core.Abilities
             this.DestroyOnCollision = DestroyOnHit;
             this.layerMask = layerMask;
             this.owner = owner;
-            this.OnHit = OnHit;
-            this.OnUpdating = OnUpdate;
 
             localScale = projectileObj.transform.localScale;
             rotation = projectileObj.transform.rotation;

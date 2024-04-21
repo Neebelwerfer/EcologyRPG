@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.UI;
 using EcologyRPG.GameSystems.PlayerSystems;
@@ -10,6 +9,7 @@ using System;
 using TMPro;
 using System.Collections;
 using EcologyRPG.GameSystems.Abilities;
+using EcologyRPG.AbilityScripting;
 
 namespace EcologyRPG.GameSystems.UI
 {
@@ -26,7 +26,7 @@ namespace EcologyRPG.GameSystems.UI
         private string abilityName;
         private PlayerCharacter player;
         private float cooldown;
-        private PlayerAbilityDefinition ability;
+        private PlayerAbilityReference ability;
         private Sprite abilitySprite;   
 
         bool coroutineStarted = false;
@@ -42,29 +42,29 @@ namespace EcologyRPG.GameSystems.UI
             abilityImage.fillAmount = 1;
             player = Player.PlayerCharacter;
             Player.PlayerAbilities.AddListener(abilitySlot, SetAbility);
-            ability = (PlayerAbilityDefinition)Player.PlayerAbilities.GetAbility(abilitySlot);
+            ability = Player.PlayerAbilities.GetAbility(abilitySlot);
             abilityAction.action.started += ActivateAbility;
             abilityAction.action.canceled += StoppedAction;
-            AbilityManager.OnToxicModeChanged.AddListener(OnToxicModeChanged);
+            //AbilityManager.OnToxicModeChanged.AddListener(OnToxicModeChanged);
             SetUpAbilityUI();
         }
 
         private void OnToxicModeChanged(bool arg0)
         {
             if (ability == null) return;
-            if (ability.ToxicAbility != null)
-            {
-                if (arg0)
-                {
-                    abilityImage.color = Game.Settings.ToxicAbilityReady;
-                    backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
-                }
-                else
-                {
-                    abilityImage.color = baseColor; 
-                    backgroundImage.color = baseGrayColor;
-                }
-            }
+            //if (ability.ToxicAbility != null)
+            //{
+            //    if (arg0)
+            //    {
+            //        abilityImage.color = Game.Settings.ToxicAbilityReady;
+            //        backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
+            //    }
+            //    else
+            //    {
+            //        abilityImage.color = baseColor; 
+            //        backgroundImage.color = baseGrayColor;
+            //    }
+            //}
         }
 
         private void OnEnable()
@@ -95,13 +95,13 @@ namespace EcologyRPG.GameSystems.UI
         private void UpdateState()
         {
             if (ability == null) return;
-            if (ability.state.Equals(AbilityStates.ready))
+            if (ability.State.Equals(CastState.Ready))
             {
-                if (ability.CanActivate(player))
+                if (ability.CanActivate())
                     abilityImage.fillAmount = 1;
                 else abilityImage.fillAmount = 0;
             }
-            else if (ability.state.Equals(AbilityStates.cooldown))
+            else if (ability.State.Equals(CastState.Cooldown))
             {
                 if(!coroutineStarted)
                 {
@@ -113,9 +113,9 @@ namespace EcologyRPG.GameSystems.UI
 
         IEnumerator UpdateCooldown()
         {
-            while (ability.state.Equals(AbilityStates.cooldown))
+            while (ability.State.Equals(CastState.Cooldown))
             {
-                abilityImage.fillAmount = 1 - (ability.remainingCooldown) / cooldown;
+                abilityImage.fillAmount = 1 - (ability.RemainingCooldown) / cooldown;
                 yield return null;
             }
             coroutineStarted = false;
@@ -125,18 +125,18 @@ namespace EcologyRPG.GameSystems.UI
         void UpdateAbilityInfo()
         {
             if (ability == null) return;
-            abilityName = ability.DisplayName;
-            cooldown = ability.Cooldown;
+            abilityName = ability.AbilityData.abilityName;
+            cooldown = ability.AbilityData.Cooldown;
             if (ability.Icon != null)
                 abilitySprite = ability.Icon;
             abilityImage.sprite = abilitySprite;
             backgroundImage.sprite = abilitySprite;
 
-            if (ability.ToxicAbility != null && AbilityManager.UseToxic)
-            {
-                abilityImage.color = Game.Settings.ToxicAbilityReady;
-                backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
-            }
+            //if (ability.ToxicAbility != null && AbilityManager.UseToxic)
+            //{
+            //    abilityImage.color = Game.Settings.ToxicAbilityReady;
+            //    backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
+            //}
         }
 
         public void SetUpAbilityUI()
@@ -149,18 +149,18 @@ namespace EcologyRPG.GameSystems.UI
                 return;
             };
 
-            abilityName = ability.DisplayName;
-            cooldown = ability.Cooldown;
+            abilityName = ability.Name;
+            cooldown = ability.AbilityData.Cooldown;
             if (ability.Icon != null)
                 abilitySprite = ability.Icon;
             abilityImage.sprite = abilitySprite;
             backgroundImage.sprite = abilitySprite;
 
-            if(ability.ToxicAbility != null && AbilityManager.UseToxic)
-            {
-                abilityImage.color = Game.Settings.ToxicAbilityReady;
-                backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
-            }
+            //if(ability.ToxicAbility != null && AbilityManager.UseToxic)
+            //{
+            //    abilityImage.color = Game.Settings.ToxicAbilityReady;
+            //    backgroundImage.color = Game.Settings.ToxicAbilityNotReady;
+            //}
         }
 
         private void ActivateAbility(InputAction.CallbackContext context)
@@ -178,16 +178,15 @@ namespace EcologyRPG.GameSystems.UI
         {
             if (abilityAction.action.IsPressed())
             {
-                var castInfo = new CastInfo { activationInput = abilityAction.action, castPos = player.CastPos, owner = player };
-                ability.Activate(castInfo);
+                ability.Cast();
             }
         }
 
-        public void SetAbility(AbilityDefintion newAbility)
+        public void SetAbility(PlayerAbilityReference newAbility)
         {
-            if(ability != null) ability.AbilityChanged.RemoveListener(UpdateAbilityInfo);
-            ability = (PlayerAbilityDefinition)newAbility;
-            if(ability != null) ability.AbilityChanged.AddListener(UpdateAbilityInfo);
+            //if(ability != null) ability.AbilityChanged.RemoveListener(UpdateAbilityInfo);
+            ability = newAbility;
+            //if(ability != null) ability.AbilityChanged.AddListener(UpdateAbilityInfo);
             SetUpAbilityUI();
         }
 
@@ -209,13 +208,13 @@ namespace EcologyRPG.GameSystems.UI
 
         public TooltipData GetTooltipData()
         {
-            if(ability is PlayerAbilityDefinition p)
+            if(ability is PlayerAbilityReference p)
             {
-                if (AbilityManager.UseToxic && ability.ToxicAbility != null)
-                {
-                    return new TooltipData() { Title = ability.DisplayName, Subtitle = "Toxic Ability", Icon = ability.Icon, Description = ability.GetDescription() };
+                //if (AbilityManager.UseToxic && ability.ToxicAbility != null)
+                //{
+                //    return new TooltipData() { Title = ability.DisplayName, Subtitle = "Toxic Ability", Icon = ability.Icon, Description = ability.GetDescription() };
 
-                }
+                //}
                 return new TooltipData() { Title = abilityName, Subtitle = "Normal Ability", Icon = abilitySprite, Description = p.GetDescription() };
             }
             return new TooltipData() { Title = abilityName, Icon = abilitySprite, Description = "" };

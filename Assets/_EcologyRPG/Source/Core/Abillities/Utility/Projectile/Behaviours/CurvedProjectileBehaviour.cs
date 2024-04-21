@@ -19,7 +19,7 @@ namespace EcologyRPG.Core.Abilities
         readonly float initialVelocity;
 
         float timeElapsed = 0;
-        public CurvedProjectileBehaviour(GameObject prefab, Vector3 origin, Vector3 target, float time, float angle, LayerMask ignoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit) : base(prefab, origin, Quaternion.LookRotation((target - origin).normalized))
+        public CurvedProjectileBehaviour(int prefabID, Vector3 origin, Vector3 target, float time, float angle, LayerMask ignoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit) : base(prefabID, origin, Quaternion.LookRotation((target - origin).normalized))
         {
             this.target = target;
             this.time = time;

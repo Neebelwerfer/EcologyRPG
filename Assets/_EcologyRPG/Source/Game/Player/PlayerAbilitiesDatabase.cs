@@ -1,4 +1,4 @@
-using EcologyRPG.Core.Abilities.AbilityData;
+using EcologyRPG.AbilityScripting;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
     [System.Serializable]
     public class PlayerAbilityData
     {
-        public PlayerAbilityDefinition ability;
+        public PlayerAbilityReference ability;
         public uint LevelRequirement = 1;
     }
 
@@ -18,17 +18,17 @@ namespace EcologyRPG.GameSystems.PlayerSystems
 
         public int Count => abilities.Count;
 
-        public List<PlayerAbilityDefinition> GetAllPlayerAbilities()
+        public List<PlayerAbilityReference> GetAllPlayerAbilities()
         {
             return abilities.ConvertAll(x => x.ability);
         }
 
-        public List<PlayerAbilityDefinition> GetPlayerAbilities(uint level)
+        public List<PlayerAbilityReference> GetPlayerAbilities(uint level)
         {
             return abilities.FindAll(x => x.LevelRequirement <= level).ConvertAll(x => x.ability);
         }
 
-        public void AddAbility(PlayerAbilityDefinition ability, uint level)
+        public void AddAbility(PlayerAbilityReference ability, uint level)
         {
             abilities.Add(new PlayerAbilityData() { ability = ability, LevelRequirement = level });
         }

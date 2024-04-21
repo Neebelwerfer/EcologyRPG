@@ -1,1 +1,1 @@
-{"data":[{"Name":"New Ability","IconPath":"","Category":1,"ID":1,"Description":"New Ability Description","Cooldown":2.0,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua"}]}
+{"IDCounter":3,"data":[{"abilityName":"Fist","Category":1,"ID":1,"Cooldown":2.0,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua"}]}

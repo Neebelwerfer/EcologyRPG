@@ -59,14 +59,14 @@ namespace EcologyRPG.GameSystems.NPC
             base.RemoveBinding();
         }
 
-        public void CastAbility(AbilityDefintion ability)
+        public void CastAbility(NPCAbilityReference ability)
         {
             CastAbility(ability, Vector3.zero);
         }
 
-        public void CastAbility(AbilityDefintion ability, Vector3 target)
+        public void CastAbility(NPCAbilityReference ability, Vector3 target)
         {
-            ability.Activate(new CastInfo { activationInput = null, castPos = CastPos, owner = this, dir = target - transform.Position, targetPoint = target});
+            ability.Cast(target);
         }
 
         public override void Die()

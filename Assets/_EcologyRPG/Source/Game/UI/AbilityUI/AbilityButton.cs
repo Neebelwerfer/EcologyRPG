@@ -1,21 +1,21 @@
-using EcologyRPG.Core.Abilities.AbilityData;
 using EcologyRPG.Core.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using EcologyRPG.Core.Abilities;
+using EcologyRPG.AbilityScripting;
 
 namespace EcologyRPG.GameSystems.UI
 {
     public class AbilityButton : Button, ITooltip
     {
-        PlayerAbilityDefinition ability;
+        PlayerAbilityReference ability;
 
-        public void Setup(PlayerAbilityDefinition ability)
+        public void Setup(PlayerAbilityReference ability)
         {
             this.ability = ability;
-            ability.AbilityChanged.AddListener(OnAbilityChanged);
+            //ability.AbilityChanged.AddListener(OnAbilityChanged);
             image.sprite = ability.Icon;
         }
 
@@ -49,18 +49,18 @@ namespace EcologyRPG.GameSystems.UI
 
         public TooltipData GetTooltipData()
         {
-            if(AbilityManager.UseToxic && ability.ToxicAbility != null)
-            {
-                return new TooltipData() { Title = ability.DisplayName, Subtitle = "Toxic Ability", Icon = ability.Icon, Description = ability.GetDescription() };
+            //if(AbilityManager.UseToxic && ability.ToxicAbility != null)
+            //{
+            //    return new TooltipData() { Title = ability.DisplayName, Subtitle = "Toxic Ability", Icon = ability.Icon, Description = ability.GetDescription() };
 
-            }
-            return new TooltipData() { Title = ability.DisplayName, Subtitle = "Normal Ability", Icon = ability.Icon, Description = ability.GetDescription() };
+            //}
+            return new TooltipData() { Title = ability.AbilityData.abilityName, Subtitle = "Normal Ability", Icon = ability.Icon, Description = ability.GetDescription() };
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            if (ability != null) ability.AbilityChanged.RemoveListener(OnAbilityChanged);
+            //if (ability != null) ability.AbilityChanged.RemoveListener(OnAbilityChanged);
         }
     }
 }

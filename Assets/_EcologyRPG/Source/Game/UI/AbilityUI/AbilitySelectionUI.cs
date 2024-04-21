@@ -1,6 +1,6 @@
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core;
-using EcologyRPG.Core.Abilities;
-using EcologyRPG.Core.Abilities.AbilityData;
+
 using EcologyRPG.GameSystems.PlayerSystems;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +27,7 @@ namespace EcologyRPG.GameSystems.UI
         GameObjectPool ButtonPool;
         PlayerCharacter player;
 
-        private void AssignAbility(PlayerAbilityDefinition ability)
+        private void AssignAbility(PlayerAbilityReference ability)
         {
             var abilityHandler = Player.PlayerAbilities;
             if (abilityHandler.GotAbility(ability, out var slot))
@@ -39,7 +39,7 @@ namespace EcologyRPG.GameSystems.UI
                         Hide();
                         return;
                     }
-                    if(abilityHandler.GetAbility(slot.Value).state != AbilityStates.ready)
+                    if(abilityHandler.GetAbility(slot.Value).State != CastState.Ready)
                     {
                         return;
                     }

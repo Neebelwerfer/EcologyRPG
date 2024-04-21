@@ -1,4 +1,4 @@
-﻿using EcologyRPG.Core.Abilities.AbilityData;
+﻿using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Character;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace EcologyRPG.Core.Items
     public class Weapon : EquipableItem
     {
 
-        public PlayerAbilityDefinition WeaponAbility;
+        public PlayerAbilityReference WeaponAbility;
         public GameObject WeaponModel;
         public Vector3 WeaponRotation;
         public Vector3 WeaponLocalOffset;

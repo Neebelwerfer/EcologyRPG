@@ -1,4 +1,5 @@
 using EcologyRPG.Core;
+using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Items;
 using EcologyRPG.Core.Systems;
@@ -64,6 +65,9 @@ namespace EcologyRPG.GameSystems
             if(initialized) return;
             TaskManager.Init();
             SystemManager.Init();
+            AbilityManager.Create();
+            AbilityManager.SetSettings(Settings.EntityMask, Settings.TargetGroundMask, Settings.WalkableGroundMask, Settings.IndicatorMesh);
+            AbilityManager.ToxicResourceName = Settings.ToxicResourceName;
             Player.Init(Settings.playerSettings);
             Flags = new Flags();
             Debug.Log("Game Initialized");
@@ -131,7 +135,8 @@ namespace EcologyRPG.GameSystems
                 SystemManager.Instance.Dispose();
                 Player.Instance.Dispose();
                 TaskManager.Instance.Dispose();
-            }            
+                AbilityManager.Current.Dispose();
+            }
         }
     }
 }

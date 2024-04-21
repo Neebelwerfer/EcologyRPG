@@ -1,3 +1,4 @@
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Events;
 using EcologyRPG.Utility;
@@ -188,19 +189,19 @@ namespace EcologyRPG.Core.Character
             }
         }
 
-        public virtual void ApplyCondition(CastInfo caster, Condition effect)
+        public virtual void ApplyCondition(CastContext caster, Condition effect)
         {
             if(state == CharacterStates.dead)
             {
                 return;
             }
-            effect.Owner = caster.owner;
+            effect.Owner = caster.GetOwner();
 
             if(effect is IUpdateCondition)
             {
                 for (int i = 0; i < effects.Count; i++)
                 {
-                    if (effects[i].Owner == caster.owner && effects[i].ID.Equals(effect.ID))
+                    if (effects[i].Owner == caster.GetOwner() && effects[i].ID.Equals(effect.ID))
                     {
                         effects[i].OnReapply(this);
                         return;
@@ -212,7 +213,7 @@ namespace EcologyRPG.Core.Character
             {
                 for (int i = 0; i < fixedUpdateEffects.Count; i++)
                 {
-                    if (fixedUpdateEffects[i].Owner == caster.owner && fixedUpdateEffects[i].ID.Equals(effect.ID))
+                    if (fixedUpdateEffects[i].Owner == caster.GetOwner() && fixedUpdateEffects[i].ID.Equals(effect.ID))
                     {
                         fixedUpdateEffects[i].OnReapply(this);
                         return;

@@ -18,6 +18,7 @@ namespace EcologyRPG.Core.Abilities
             Collider.isTrigger = true;
             Rigidbody.isKinematic = true;
             gameObject.layer = LayerMask.NameToLayer("Projectile");
+            gameObject.SetActive(true);
         }
 
         protected void Update()

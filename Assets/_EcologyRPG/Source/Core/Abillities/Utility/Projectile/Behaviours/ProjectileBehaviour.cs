@@ -1,4 +1,6 @@
+using EcologyRPG.AbilityScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 namespace EcologyRPG.Core.Abilities
 {
@@ -7,18 +9,22 @@ namespace EcologyRPG.Core.Abilities
         protected GameObject projectileObj;
         protected Projectile projectile;
 
-        public ProjectileBehaviour(GameObject prefab, Vector3 origin, Quaternion rotation)
-        {
-            projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, origin, rotation);
-            if(projectileObj.TryGetComponent<Projectile>(out var proj))
-            {
-                projectile = proj;
-            }
-            else
-            {
-                projectile = projectileObj.AddComponent<Projectile>();
+        protected int prefabID;
+        protected Vector3 origin;
+        protected Quaternion rotation;
 
-            }
+        public ProjectileBehaviour(int prefabID, Vector3 origin, Quaternion rotation)
+        {
+            this.prefabID = prefabID;
+            this.origin = origin;
+            this.rotation = rotation;
+        }
+
+        public void Fire()
+        {
+            projectile = ProjectileDatabase.Instance.GetProjectile(prefabID);
+            projectileObj = projectile.gameObject;
+            projectile.gameObject.transform.SetPositionAndRotation(origin, rotation);
             projectile.Init(this);
             ProjectileSystem.Instance.AddBehaviour(this);
         }
@@ -39,7 +45,7 @@ namespace EcologyRPG.Core.Abilities
         protected virtual void Stop()
         {
             projectile.Stop();
-            ProjectilePoolHandler.Instance.ReturnProjectile(projectileObj);
+            ProjectileDatabase.Instance.ReturnProjectile(prefabID, projectile);
             ProjectileSystem.Instance.RemoveBehaviour(this);
         }
     }

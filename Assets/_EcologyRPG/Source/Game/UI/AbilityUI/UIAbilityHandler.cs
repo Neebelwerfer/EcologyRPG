@@ -1,3 +1,4 @@
+using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.GameSystems.PlayerSystems;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace EcologyRPG.GameSystems.UI
             AbilityManager.OnToxicModeChanged.Invoke(AbilityManager.UseToxic);
         }
 
-        public void SetAbilitySlot(AbilityUI abilitySlot, AbilityDefintion ability)
+        public void SetAbilitySlot(AbilityUI abilitySlot, PlayerAbilityReference ability)
         {
             abilitySlot.SetAbility(ability);
         }

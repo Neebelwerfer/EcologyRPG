@@ -1,16 +1,17 @@
-﻿using EcologyRPG.Core.Abilities;
+﻿using EcologyRPG.AbilityScripting;
+using EcologyRPG.Core.Abilities;
 
 namespace EcologyRPG.Core.Events
 {
     public class AbilityCastEvent : EventData
     {
-        public CastInfo Caster;
-        public AbilityDefintion Ability;
+        public CastContext Caster;
+        public int AbilityID;
 
-        public AbilityCastEvent(CastInfo caster, AbilityDefintion ability)
+        public AbilityCastEvent(CastContext caster, int abilityID)
         {
             Caster = caster;
-            Ability = ability;
+            abilityID = AbilityID;
         }
     }
 }
