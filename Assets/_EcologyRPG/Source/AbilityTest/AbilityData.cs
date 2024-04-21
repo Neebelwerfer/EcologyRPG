@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace EcologyRPG.AbilityTest
 {
     [System.Serializable]
@@ -16,6 +18,28 @@ namespace EcologyRPG.AbilityTest
             this.ID = ID;
             Description = description;
             Cooldown = cooldown;
+        }
+    }
+
+    [System.Serializable]
+    public class SerializedDataArray
+    {
+        public AbilityData[] data;
+
+        public AbilityData this[int index]
+        {
+            get => data[index];
+            set => data[index] = value;
+        }
+
+        public SerializedDataArray()
+        {
+            data = new AbilityData[0];
+        }
+
+        public static SerializedDataArray Load()
+        {
+            return JsonUtility.FromJson<SerializedDataArray>(System.IO.File.ReadAllText(AbilityManager.AbilityDataPath));
         }
     }
 }

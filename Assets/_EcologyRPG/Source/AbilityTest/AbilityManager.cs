@@ -2,6 +2,8 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 using System;
+using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace EcologyRPG.AbilityTest
@@ -27,6 +29,16 @@ namespace EcologyRPG.AbilityTest
 
         }
 
+        internal static DynValue Delay(float seconds)
+        {
+            return DynValue.NewYieldReq(new DynValue[] { DynValue.NewNumber(seconds) });
+        }
+
+        internal static void Log(string message)
+        {
+            Debug.Log(message);
+        }
+
         public static void Create()
         {
             Current ??= new AbilityManager();
@@ -36,5 +48,35 @@ namespace EcologyRPG.AbilityTest
         {
             Current = null;
         }
+
+        public void CastAbility(AbilityData Ability, CastContext context)
+        {
+            scriptContext.Globals["Context"] = context;
+            scriptContext.Globals["Delay"] = (Func<float, DynValue>)Delay;
+            scriptContext.Globals["Log"] = (Action<string>)Log;
+            scriptContext.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
+
+            var script = System.IO.File.ReadAllText(Ability.ScriptPath);
+            var loaded = scriptContext.DoString(script);
+            var canCast = scriptContext.Call(scriptContext.Globals["CanActivate"]);
+            if(canCast.Boolean)
+            {
+                var OnCast = scriptContext.Globals.Get("OnCast");
+                var res = scriptContext.CreateCoroutine(OnCast);
+                context.GetOwner().StartCoroutine(Cast(res, Ability));   
+            }
+        }
+
+        IEnumerator Cast(DynValue abilityContext, AbilityData data)
+        {
+            foreach (var res in abilityContext.Coroutine.AsTypedEnumerable())
+            {
+                if (res.Type == DataType.Number)
+                {
+                    yield return new WaitForSeconds((float)res.Number);
+                }
+            }
+        }
+
     }
 }

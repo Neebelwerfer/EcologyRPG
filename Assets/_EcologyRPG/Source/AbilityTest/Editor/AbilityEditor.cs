@@ -6,23 +6,6 @@ using UnityEngine;
 
 namespace EcologyRPG.AbilityTest.Editor
 {
-    [System.Serializable]
-    class SerializedDataArray
-    {
-        public AbilityData[] data;
-
-        public AbilityData this[int index]
-        {
-            get => data[index];
-            set => data[index] = value;
-        }
-
-        public SerializedDataArray()
-        {
-            data = new AbilityData[0];
-        }
-    }
-
     public class AbilityEditor : EditorWindow
     {
         [MenuItem("Game/Ability Editor")]
