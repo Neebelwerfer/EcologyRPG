@@ -4,7 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityTest.Editor
+namespace EcologyRPG.AbilityScripting.Editor
 {
     public class AbilityEditor : EditorWindow
     {
@@ -18,6 +18,7 @@ namespace EcologyRPG.AbilityTest.Editor
         uint idCounter = 0;
         bool[] foldouts;
         Vector2 scrollPos;
+        AbilityCategory selectedCategory;
 
         private void OnEnable()
         {
@@ -70,7 +71,7 @@ namespace EcologyRPG.AbilityTest.Editor
         void CreateScript(int i)
         {
             var path = AbilityManager.AbilityFullpath + "Ability_" + abilityData[i].ID + AbilityManager.AbilityScriptExtension;
-            File.WriteAllText(path, GenerateScript());
+            File.WriteAllText(path, GenerateScript(abilityData[i].Category));
             abilityData[i].ScriptPath = path;
             Save();
         }
@@ -79,10 +80,12 @@ namespace EcologyRPG.AbilityTest.Editor
         {
             GUILayout.Label("Ability Editor", EditorStyles.boldLabel);
 
+            GUILayout.BeginHorizontal();
+            selectedCategory = (AbilityCategory)EditorGUILayout.EnumPopup("Category", selectedCategory);
             if (GUILayout.Button("Create Ability"))
             {
                 idCounter += 1;
-                var newAbility = new AbilityData("New Ability", idCounter, "New Ability Description", 0);
+                var newAbility = new AbilityData("New Ability", selectedCategory, idCounter, "New Ability Description", 0);
                 var newAbilityData = new AbilityData[abilityData.data.Length + 1];
                 for (int i = 0; i < abilityData.data.Length; i++)
                 {
@@ -93,6 +96,8 @@ namespace EcologyRPG.AbilityTest.Editor
                 abilityData.data = newAbilityData;
                 Save();
             }
+            GUILayout.EndHorizontal();
+
             GUILayout.Space(10);
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
             for (int i = 0; i < abilityData.data.Length; i++)
@@ -144,6 +149,11 @@ namespace EcologyRPG.AbilityTest.Editor
                     abilityData[i].Cooldown = EditorGUILayout.FloatField(abilityData[i].Cooldown);
                     GUILayout.EndHorizontal();
 
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label("Category");
+                    abilityData[i].Category = (AbilityCategory)EditorGUILayout.EnumPopup(abilityData[i].Category);
+                    GUILayout.EndHorizontal();
+
                     if (GUILayout.Button("Delete"))
                     {
                         var newAbilityData = new AbilityData[abilityData.data.Length - 1];
@@ -156,6 +166,12 @@ namespace EcologyRPG.AbilityTest.Editor
                             newAbilityData[j - 1] = abilityData[j];
                         }
                         abilityData.data = newAbilityData;
+                        File.Delete(abilityData[i].ScriptPath);
+                        Save();
+                    }
+
+                    if(GUILayout.Button("Save"))
+                    {
                         Save();
                     }
                 }
@@ -163,19 +179,31 @@ namespace EcologyRPG.AbilityTest.Editor
             GUILayout.EndScrollView();
         }
 
-        string GenerateScript()
+        string PlayerCost()
+        {
+            return @"
+function PayCost()
+    local resource = Context.GetOwner().GetResource(""stamina"")
+    resource:consume(10)
+end
+";
+        }
+
+        string GenerateScript(AbilityCategory abilityCategory)
         {
             return @"
 function CanActivate(CastInfo)
-    return true
-end
-            
+    local resource = Context.GetOwner().GetResource(""stamina"")
+    return resource:has(10)
+end" + (abilityCategory == AbilityCategory.Player ? PlayerCost() : "") +
+
+            @"          
 function OnCast(CastInfo)
     Log(""Casting Ability"")
     Delay(1)
     Log(""Ability Casted"")
 end
-            ";
+";
         }
     }
 }

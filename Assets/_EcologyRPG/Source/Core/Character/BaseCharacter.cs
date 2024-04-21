@@ -85,12 +85,14 @@ namespace EcologyRPG.Core.Character
         protected CharacterTransform transform;
         protected Resource Health;
         protected CharacterBinding CharacterBinding { get; private set; }
+        StatModification CastingSlow;
 
 
         public BaseCharacter()
         {
             GUID = Guid.NewGuid().ToString();
             Characters.Instance.AddCharacter(this);
+            CastingSlow = new StatModification("movementSpeed", -0.75f, StatModType.PercentMult, this);
             transform = new CharacterTransform();
             Stats = new Stats();
             Health = Stats.GetResource("health");
@@ -296,6 +298,16 @@ namespace EcologyRPG.Core.Character
         public virtual void StartMovement()
         {
             canMove = true;
+        }
+
+        public void SlowMovementSpeed()
+        {
+            Stats.AddStatModifier(CastingSlow);
+        }
+
+        public void RestoreMovementSpeed()
+        {
+            Stats.RemoveStatModifier(CastingSlow);
         }
 
         public abstract void Move(Vector3 direction, float speed);

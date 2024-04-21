@@ -1,7 +1,6 @@
 using EcologyRPG.Core.Character;
-using MoonSharp.Interpreter;
 
-namespace EcologyRPG.AbilityTest
+namespace EcologyRPG.AbilityScripting
 {
     public class ResourceContext
     {
@@ -11,9 +10,19 @@ namespace EcologyRPG.AbilityTest
             Resource = resource;
         }
 
+        public bool HaveEnough(float value)
+        {
+            return Resource.CurrentValue >= value;
+        }
+
         public void SetCurrent(float value)
         {
             Resource.CurrentValue = value;
+        }
+
+        public void Consume(float value)
+        {
+            Resource.SetCurrentValue(Resource.CurrentValue - value);
         }
             
         public float GetCurrent()

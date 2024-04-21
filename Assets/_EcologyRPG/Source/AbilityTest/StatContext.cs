@@ -1,7 +1,7 @@
 using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 
-namespace EcologyRPG.AbilityTest
+namespace EcologyRPG.AbilityScripting
 {
     public class StatContext
     {

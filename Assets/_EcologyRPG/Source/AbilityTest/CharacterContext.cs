@@ -1,14 +1,36 @@
+using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 
-namespace EcologyRPG.AbilityTest
+namespace EcologyRPG.AbilityScripting
 {
     public class CharacterContext
     {
         readonly BaseCharacter Character;
+
         public CharacterContext(BaseCharacter character)
         {
             Character = character;
+        }
+
+        public void TriggerAnimation(string animationName)
+        {
+            Character.Animator.SetTrigger(animationName);
+        }
+
+        public void ApplyDamage(float damage, int damageType)
+        {
+            var damageInfo = new DamageInfo()
+            {
+                damage = damage,
+                type = (DamageType)damageType
+            };
+            Character.ApplyDamage(damageInfo);
+        }
+
+        public Vector3Context GetCastPos()
+        {
+            return new Vector3Context(Character.CastPos);
         }
 
         public Vector3Context GetPosition()
@@ -42,12 +64,49 @@ namespace EcologyRPG.AbilityTest
 
         public Resource GetResource(string resourceName)
         {
-            return (Character.Stats.GetResource(resourceName));
+            return Character.Stats.GetResource(resourceName);
         }
 
-        public StatContext GetStat(string statName)
+        public Stat GetStat(string statName)
         {
-            return new StatContext(Character.Stats.GetStat(statName));
+            return Character.Stats.GetStat(statName);
+        }
+
+        public void SlowMovement()
+        {
+            Character.SlowMovementSpeed();
+        }
+
+        public void RemoveSlow()
+        {
+            Character.RestoreMovementSpeed();
+        }
+
+        public void StopRotation()
+        {
+            Character.StopRotation();
+        }
+
+        public void StartRotation()
+        {
+            Character.StartRotation();
+        }
+
+        public void StopMovement()
+        {
+            Character.StopMovement();
+        }
+
+        public void StartMovement()
+        {
+            Character.StartMovement();
+        }
+
+        public void RestoreMovement()
+        {
+            StartMovement();
+            StartRotation();
+            RemoveSlow();
         }
 
     }

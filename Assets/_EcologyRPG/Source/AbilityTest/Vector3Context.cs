@@ -1,7 +1,7 @@
 using MoonSharp.Interpreter;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityTest
+namespace EcologyRPG.AbilityScripting
 {
     public class Vector3Context
     {

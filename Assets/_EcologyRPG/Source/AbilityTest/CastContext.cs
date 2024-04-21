@@ -1,26 +1,32 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
+using MoonSharp.Interpreter;
 
-namespace EcologyRPG.AbilityTest
+namespace EcologyRPG.AbilityScripting
 {
     public class CastContext
     {
-        BaseCharacter owner;
-        Vector3Context castPos;
-        Vector3Context dir;
-        Vector3Context targetPoint;
-
-        public CastContext(CastInfo castInfo)
-        {
-            owner = castInfo.owner;
-            castPos = new Vector3Context(castInfo.castPos);
-            dir = new Vector3Context(castInfo.dir);
-            targetPoint = new Vector3Context(castInfo.targetPoint);
-        }
+        readonly BaseCharacter owner;
+        public Vector3Context castPos;
+        public Vector3Context dir;
+        public Vector3Context targetPoint;
 
         public BaseCharacter GetOwner() => owner;
-        public Vector3Context GetCastPos() => castPos;
-        public Vector3Context GetCastDir() => dir;
-        public Vector3Context GetTargetPoint() => targetPoint;
+
+        public CastContext(BaseCharacter baseCharacter, Vector3Context castPos, Vector3Context dir)
+        {
+            owner = baseCharacter;
+            this.castPos = castPos;
+            this.dir = dir;
+        }
+
+        public CastContext(BaseCharacter baseCharacter, Vector3Context castPos, Vector3Context dir, Vector3Context targetPoint)
+        {
+            owner = baseCharacter;
+            this.castPos = castPos;
+            this.dir = dir;
+            this.targetPoint = targetPoint;
+        }
+
     }
 }
