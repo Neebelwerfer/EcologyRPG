@@ -52,11 +52,6 @@ public class Test : MonoBehaviour
         instance.Globals["Vector3"] = (System.Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
 
         StartCoroutine(TestCoroutine());
-        
-        
-        //var res = instance.Call(fun);
-
-        //DynValue res = Script.RunString(script);
     }
 
     IEnumerator TestCoroutine()
