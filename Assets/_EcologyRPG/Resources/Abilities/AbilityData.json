@@ -1,1 +1,1 @@
-{"IDCounter":3,"data":[{"abilityName":"Fist","Category":1,"ID":1,"Cooldown":2.0,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua"}]}
+{"IDCounter":4,"data":[{"abilityName":"Fist","Category":1,"ID":1,"Cooldown":2.0,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua"},{"abilityName":"Projectile","Category":1,"ID":4,"Cooldown":2.0,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua"}]}

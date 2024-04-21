@@ -177,7 +177,7 @@ namespace EcologyRPG.AbilityScripting.Editor
             return @"
 function PayCost()
     local resource = Context.GetOwner().GetResource(""stamina"")
-    resource:consume(10)
+    resource:Consume(10)
 end
 ";
         }
@@ -187,7 +187,7 @@ end
             return @"
 function CanActivate()
     local resource = Context.GetOwner().GetResource(""stamina"")
-    return resource:has(10)
+    return resource:HaveEnough(10)
 end" + (abilityCategory == AbilityCategory.Player ? PlayerCost() : "") +
 
             @"

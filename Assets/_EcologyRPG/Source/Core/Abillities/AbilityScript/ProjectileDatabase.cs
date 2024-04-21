@@ -33,10 +33,8 @@ namespace EcologyRPG.AbilityScripting
 
         public static void Load()
         {
-            if(Instance == null)
-            {
-                Instance = Resources.Load<ProjectileDatabase>(ResourcePath);
-            }
+            Instance = Resources.Load<ProjectileDatabase>(ResourcePath);
+            Instance.Init();
         }
     }
 }

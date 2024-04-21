@@ -10,9 +10,9 @@ namespace EcologyRPG.AbilityScripting
     {
         public static void AddToGlobal(Script script)
         {
-            script.Globals["CreateBasicProjectile"] = (Action<int, CastContext, float, float, bool>)((int prefabID, CastContext context, float range, float speed, bool destroyOnhit) =>
+            script.Globals["CreateBasicProjectile"] = (Func<int, CastContext, float, float, bool, BasicProjectileBehaviour>)((int prefabID, CastContext context, float range, float speed, bool destroyOnhit) =>
             {
-                CreateBasicProjectile(prefabID, context, range, speed, destroyOnhit);
+                return CreateBasicProjectile(prefabID, context, range, speed, destroyOnhit);
             });
         }
 

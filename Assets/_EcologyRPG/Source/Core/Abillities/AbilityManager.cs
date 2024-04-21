@@ -42,6 +42,7 @@ namespace EcologyRPG.Core.Abilities
             UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => new CharacterContext(c));
             UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
             UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
+            UserData.RegisterProxyType<BasicProjectileContext, BasicProjectileBehaviour>(s => new BasicProjectileContext(s));
             UserData.RegisterType<Vector3Context>();
             UserData.RegisterType<CastContext>();
             UserData.RegisterAssembly();
@@ -144,6 +145,7 @@ namespace EcologyRPG.Core.Abilities
             scriptContext.Globals["Physical"] = DamageType.Physical;
             scriptContext.Globals["Water"] = DamageType.Water;
             scriptContext.Globals["Toxic"] = DamageType.Toxic;
+            ProjectileUtility.AddToGlobal(scriptContext);
             Targets.AddToGlobal(scriptContext);
             return scriptContext;
         }
@@ -188,7 +190,7 @@ namespace EcologyRPG.Core.Abilities
 
         public override void Dispose()
         {
-
+            Current = null;
         }
     }
 }

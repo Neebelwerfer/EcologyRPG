@@ -30,7 +30,6 @@ namespace EcologyRPG.AbilityScripting
         public virtual void Init(BaseCharacter owner)
         {
             Owner = owner;
-            Debug.Log($"{AbilityID}");
             this.abilityData = AbilityManager.Current.GetAbility(AbilityID);
             this.behaviour = abilityData.LoadBehaviour();
         }
@@ -62,7 +61,7 @@ namespace EcologyRPG.AbilityScripting
 
         public virtual bool CanActivate()
         {
-            if(State == CastState.Ready)
+            if(State == CastState.Ready && Owner.state == CharacterStates.active)
             {
                 return true;
                 //var canCast = behaviour.Call(behaviour.Globals["CanActivate"]);

@@ -7,7 +7,7 @@ end
 
 function PayCost()
     local resource = Context.GetOwner().GetResource("stamina")
-    resource:consume(10)
+    resource:Consume(10)
 end
 
 function OnCastCancelled()
@@ -25,8 +25,8 @@ function OnCast()
     indicator = CreateLineIndicator(Context, 2, 4)
     Delay(1)
     indicator.Destroy()
+    indicator = nil
     local targets = GetTargetsInLine(Context, 2, 4)
-    Log("Casting Ability")
     for i, t in ipairs(targets) do
         t.ApplyDamage(10, 2)
     end
