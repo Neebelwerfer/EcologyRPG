@@ -1,7 +1,9 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
+using MoonSharp.Interpreter;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace EcologyRPG.AbilityScripting
 {
@@ -9,7 +11,17 @@ namespace EcologyRPG.AbilityScripting
     {
         static readonly RaycastHit[] rayCastHits = new RaycastHit[5];
 
-        public static void CreateLineIndicator(CastContext context, float width, float range, float LifeTime)
+        public static void AddToGlobal(Script script)
+        {
+            script.Globals["CreateLineIndicator"] = (System.Func<CastContext, float, float, IndicatorMesh>)CreateLineIndicator;
+            script.Globals["CreateConeIndicator"] = (System.Func<CastContext, float, float, IndicatorMesh>)CreateConeIndicator;
+            script.Globals["CreateCircleIndicator"] = (System.Func<CastContext, float, IndicatorMesh>)CreateCircleIndicator;
+            script.Globals["GetTargetsInLine"] = (System.Func<CastContext, float, float, List<BaseCharacter>>)GetTargetsInLine;
+            script.Globals["GetTargetsInRadius"] = (System.Func<CastContext, float, LayerMask, List<BaseCharacter>>)GetTargetsInRadius;
+            script.Globals["GetTargetsInCone"] = (System.Func<CastContext, float, float, LayerMask, List<BaseCharacter>>)GetTargetsInCone;
+        }
+
+        public static IndicatorMesh CreateLineIndicator(CastContext context, float width, float range)
         {
             if(Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
@@ -23,12 +35,59 @@ namespace EcologyRPG.AbilityScripting
                 mesh.Clear();
                 mesh.TriangulateBox(direction, range, width);
                 mesh.Apply();
-                Object.Destroy(mesh.gameObject, LifeTime);
+                return mesh;
             }
             else
             {
                 Debug.Log("CreateLineIndicator failed");
             }
+            return null;
+        }
+
+        public static IndicatorMesh CreateConeIndicator(CastContext context, float angle, float range)
+        {
+            if (Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
+            {
+                var meshPrefab = Core.Abilities.AbilityManager.IndicatorMesh;
+                var mesh = Object.Instantiate(meshPrefab);
+                mesh.transform.position = hit.point;
+                mesh.SetOwner(context.GetOwner());
+                mesh.SetColor(context.GetOwner().Faction == Faction.player ? Color.black : Color.red);
+                var direction = context.dir.Vector;
+
+                mesh.Clear();
+                mesh.TriangulateCone(direction, range, angle);
+                mesh.Apply();
+                return mesh;
+            }
+            else
+            {
+                Debug.Log("CreateConeIndicator failed");
+            }
+            return null;
+        }
+
+        public static IndicatorMesh CreateCircleIndicator(CastContext context, float radius)
+        {
+            if (Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
+            {
+                var meshPrefab = Core.Abilities.AbilityManager.IndicatorMesh;
+                var mesh = Object.Instantiate(meshPrefab);
+                mesh.transform.position = hit.point;
+                mesh.SetOwner(context.GetOwner());
+                mesh.SetColor(context.GetOwner().Faction == Faction.player ? Color.black : Color.red);
+                var direction = context.dir.Vector;
+
+                mesh.Clear();
+                mesh.TriangulateCircle(direction, radius);
+                mesh.Apply();
+                return mesh;
+            }
+            else
+            {
+                Debug.Log("CreateCircleIndicator failed");
+            }
+            return null;
         }
 
         public static List<BaseCharacter> GetTargetsInLine(CastContext context, float width, float range)
@@ -58,8 +117,9 @@ namespace EcologyRPG.AbilityScripting
             return targets;
         }
 
-        public static List<BaseCharacter> GetTargetsInRadius(Vector3 origin, float radius, LayerMask mask)
+        public static List<BaseCharacter> GetTargetsInRadius(CastContext context, float radius, LayerMask mask)
         {
+            var origin = context.castPos.Vector;
             Collider[] colliderHits = new Collider[5];
             var numHits = Physics.OverlapSphereNonAlloc(origin, radius, colliderHits, mask);
             List<BaseCharacter> targets = new();
@@ -75,8 +135,10 @@ namespace EcologyRPG.AbilityScripting
             return targets;
         }
 
-        public static List<BaseCharacter> GetTargetsInCone(Vector3 origin, Vector3 forward, float angle, float radius, LayerMask mask)
+        public static List<BaseCharacter> GetTargetsInCone(CastContext context, float angle, float radius, LayerMask mask)
         {
+            var origin = context.castPos.Vector;
+            var forward = context.dir.Vector;
             Collider[] colliderHits = new Collider[5];
             var numhits = Physics.OverlapSphereNonAlloc(origin, radius, colliderHits, mask);
             List<BaseCharacter> targets = new();

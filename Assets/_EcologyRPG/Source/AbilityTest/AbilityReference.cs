@@ -51,6 +51,16 @@ namespace EcologyRPG.AbilityScripting
             }
         }
 
+        public virtual bool CanActivate()
+        {
+            if(State == CastState.Ready)
+            {
+                var canCast = behaviour.Call(behaviour.Globals["CanActivate"]);
+                return canCast.Boolean;
+            }
+            return false;
+        }
+
         public virtual void HandleCast(CastContext castContext)
         {
             AbilityManager.Current.CastAbility(this, castContext);
@@ -63,15 +73,11 @@ namespace EcologyRPG.AbilityScripting
 
         public void Cast()
         {
-            if (State == CastState.Ready)
+            var castContext = CreateCastContext();
+            behaviour.Globals["Context"] = castContext;
+            if (CanActivate())
             {
-                var castContext = CreateCastContext();
-                behaviour.Globals["Context"] = castContext;
-                var canCast = behaviour.Call(behaviour.Globals["CanActivate"]);
-                if (canCast.Boolean)
-                {
-                    HandleCast(castContext);
-                }
+                HandleCast(castContext);
             }
         }
     }

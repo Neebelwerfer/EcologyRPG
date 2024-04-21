@@ -29,6 +29,7 @@ namespace EcologyRPG.AbilityScripting
             UserData.RegisterProxyType<ResourceContext, Resource>(r => new ResourceContext(r));
             UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => new CharacterContext(c));
             UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
+            UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
             UserData.RegisterType<Vector3Context>();
             UserData.RegisterType<CastContext>();
             UserData.RegisterAssembly();
@@ -113,8 +114,7 @@ namespace EcologyRPG.AbilityScripting
             scriptContext.Globals["Log"] = (Action<string>)Log;
             scriptContext.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
             scriptContext.Globals["Cast"] = (Action<int, CastContext>)Cast;
-            scriptContext.Globals["CreateLineIndicator"] = (Action<CastContext, float, float, float>)Targets.CreateLineIndicator;
-            scriptContext.Globals["GetTargetsInLine"] = (Func<CastContext, float, float, List<BaseCharacter>>)Targets.GetTargetsInLine;
+            Targets.AddToGlobal(scriptContext);
             return scriptContext;
         }
 
