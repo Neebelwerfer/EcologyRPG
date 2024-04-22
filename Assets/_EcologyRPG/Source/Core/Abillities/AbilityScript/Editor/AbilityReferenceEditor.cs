@@ -78,7 +78,6 @@ public class AbilityReferenceEditor : Editor
             GUILayout.EndHorizontal();
         }
 
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         if (GUILayout.Button("Regenerate global variables"))
         {
             foreach (var global in abilityData._DefaultGlobalVariables)
@@ -90,9 +89,10 @@ public class AbilityReferenceEditor : Editor
                 }
             }
         }
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Save"))
+        if (GUILayout.Button("Save Changes"))
         {
             EditorUtility.SetDirty(abilityReference);
             AssetDatabase.SaveAssets();
