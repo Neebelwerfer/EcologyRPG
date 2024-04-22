@@ -41,7 +41,7 @@ MonoBehaviour:
   guid: 32dabfef-5dd9-43ef-92b8-8f1f628bf1bb
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina
-  ResourceCost: 3.5
+  ResourceCost: 4
   Description: 
   AnimationTrigger: 
   ToxicResoureCost: 5

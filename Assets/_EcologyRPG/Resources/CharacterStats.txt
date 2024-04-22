@@ -237,7 +237,7 @@
             "displayName": "Health Regen",
             "DisplayOptions": 0,
             "ShowOptions": 0,
-            "baseValue": 1.5,
+            "baseValue": 1.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 1.0,
             "description": "Governs a how quickly a characters health regens when water and food is available"
