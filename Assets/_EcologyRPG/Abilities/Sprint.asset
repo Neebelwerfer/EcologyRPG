@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Exhaustion
   m_EditorClassIdentifier: 
   ID: 767790d0-fe12-4796-9146-e69f637efe5e
-  displayName: Exhaustion
   duration: 0
   remainingDuration: 0
 --- !u!114 &11400000
@@ -32,15 +31,22 @@ MonoBehaviour:
   Cooldown: 0
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 32dabfef-5dd9-43ef-92b8-8f1f628bf1bb
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina
-  ResourceCost: 5
+  ResourceCost: 3.5
   Description: 
   AnimationTrigger: 
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: 0}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 0
   BlockRotationOnWindup: 0
