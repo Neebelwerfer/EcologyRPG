@@ -19,14 +19,15 @@ namespace EcologyRPG.Core.Abilities
             this.origin = origin;
             this.rotation = rotation;
             projectile = ProjectileDatabase.Instance.GetProjectile(prefabID);
+            projectile.Init(this);
             projectileObj = projectile.gameObject;
+            projectileObj.transform.SetPositionAndRotation(origin, rotation);
         }
 
         public void Fire()
         {
-            projectileObj.transform.SetPositionAndRotation(origin, rotation);
-            projectile.Init(this);
             ProjectileSystem.Instance.AddBehaviour(this);
+            projectileObj.SetActive(true);
         }
 
 

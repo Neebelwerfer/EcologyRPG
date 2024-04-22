@@ -190,7 +190,7 @@ public class AbilityEditor : EditorWindow
 function PayCost()
     local resource = Context.GetOwner().GetResource(""stamina"")
     resource:Consume(10)
-    end
+end
 ";
     }
 
@@ -198,7 +198,7 @@ function PayCost()
     {
         return @"
 function CanActivate()
-    local resource = Context.GetOwner().GetResource(""""stamina"""")
+    local resource = Context.GetOwner().GetResource(""stamina"")
     return resource:HaveEnough(10)
 end
 
@@ -209,8 +209,8 @@ end";
 
     string GenerateScript(AbilityCategory abilityCategory)
     {
-        return (abilityCategory > AbilityCategory.SubAbility ? NotSubAbility() : "") 
-            + (abilityCategory == AbilityCategory.Player ? PlayerCost() : "") +
+        return (abilityCategory == AbilityCategory.Player ? PlayerCost() : "") +
+            (abilityCategory > AbilityCategory.SubAbility ? NotSubAbility() : "") +
 @"
 function OnCast()
     Log(""Casting Ability"")

@@ -14,6 +14,11 @@ namespace EcologyRPG.AbilityScripting
             {
                 return CreateBasicProjectile(prefabID, context, range, speed, destroyOnhit);
             });
+
+            script.Globals["CreateCurvedProjectile"] = (Func<int, CastContext, float, float, CurvedProjectileBehaviour>)((int prefabID, CastContext context, float time, float angle) =>
+            {
+                return CreateCurvedProjectile(prefabID, context, time, angle);
+            });
         }
 
         public static BasicProjectileBehaviour CreateBasicProjectile(int prefabID, CastContext context, float range, float speed, bool destroyOnhit)
@@ -21,9 +26,9 @@ namespace EcologyRPG.AbilityScripting
             return new BasicProjectileBehaviour(prefabID, range, context.castPos.Vector, context.dir.Vector, speed, destroyOnhit, Core.Abilities.AbilityManager.TargetMask, context.GetOwner());
         }
 
-        public static void CreateCurvedProjectile(int prefabID, Vector3 Origin, Vector3 targetPos, float time, float angle, LayerMask IgnoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit)
+        public static CurvedProjectileBehaviour CreateCurvedProjectile(int prefabID, CastContext castContext, float time, float angle)
         {
-            new CurvedProjectileBehaviour(prefabID, Origin, targetPos, time, angle, IgnoreMask, owner, OnGroundHit);
+            return new CurvedProjectileBehaviour(prefabID, castContext.castPos.Vector, castContext.targetPoint.Vector, castContext.GetOwner(), time, -angle);
         }
     }
 }

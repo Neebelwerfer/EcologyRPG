@@ -13,7 +13,7 @@ namespace EcologyRPG.Core.Abilities
         public BaseCharacter owner;
 
         public Action<BaseCharacter> OnHit;
-        public Action<GameObject> OnUpdating;
+        public Action OnUpdating;
 
         float range;
         Vector3 localScale;
@@ -34,7 +34,7 @@ namespace EcologyRPG.Core.Abilities
 
         public override void OnUpdate()
         {
-            OnUpdating?.Invoke(projectileObj);
+            OnUpdating?.Invoke();
             //Vector3 normal = Vector3.up;
             //if(Physics.Raycast(projectileObj.transform.position, Vector3.down, out var hit, LayerMask.NameToLayer("Ground")))
             //{

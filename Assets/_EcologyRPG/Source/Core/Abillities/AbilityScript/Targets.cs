@@ -17,8 +17,9 @@ namespace EcologyRPG.AbilityScripting
             script.Globals["CreateConeIndicator"] = (System.Func<CastContext, float, float, IndicatorMesh>)CreateConeIndicator;
             script.Globals["CreateCircleIndicator"] = (System.Func<CastContext, float, IndicatorMesh>)CreateCircleIndicator;
             script.Globals["GetTargetsInLine"] = (System.Func<CastContext, float, float, List<BaseCharacter>>)GetTargetsInLine;
-            script.Globals["GetTargetsInRadius"] = (System.Func<CastContext, float, LayerMask, List<BaseCharacter>>)GetTargetsInRadius;
+            script.Globals["GetTargetsInRadius"] = (System.Func<CastContext, float, List<BaseCharacter>>)GetTargetsInRadius;
             script.Globals["GetTargetsInCone"] = (System.Func<CastContext, float, float, LayerMask, List<BaseCharacter>>)GetTargetsInCone;
+            script.Globals["GetMousePoint"] = (System.Func<Vector3>)GetMousePoint;
         }
 
         public static IndicatorMesh CreateLineIndicator(CastContext context, float width, float range)
@@ -117,19 +118,20 @@ namespace EcologyRPG.AbilityScripting
             return targets;
         }
 
-        public static List<BaseCharacter> GetTargetsInRadius(CastContext context, float radius, LayerMask mask)
+        public static List<BaseCharacter> GetTargetsInRadius(CastContext context, float radius)
         {
             var origin = context.castPos.Vector;
             Collider[] colliderHits = new Collider[5];
-            var numHits = Physics.OverlapSphereNonAlloc(origin, radius, colliderHits, mask);
+            var numHits = Physics.OverlapSphereNonAlloc(origin, radius, colliderHits, AbilityManager.TargetMask);
             List<BaseCharacter> targets = new();
 
             for (int i = 0; i < numHits; i++)
             {
                 if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
                 {
+                    if (binding.Character.GUID == context.GetOwner().GUID) continue;
                     var character = binding.Character;
-                    targets[i] = character;
+                    targets.Add(character);
                 }
             }
             return targets;
@@ -172,14 +174,14 @@ namespace EcologyRPG.AbilityScripting
         //    return (target - origin).normalized;
         //}
 
-        //public static Vector3 GetMousePoint(Camera camera)
-        //{
-        //    Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        //    if (Physics.Raycast(ray, out RaycastHit hit, 100, AbilityManager.GroundMask))
-        //    {
-        //        return hit.point;
-        //    }
-        //    return Vector3.zero;
-        //}
+        public static Vector3 GetMousePoint()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, AbilityManager.GroundMask))
+            {
+                return hit.point;
+            }
+            return Vector3.zero;
+        }
     }
 }

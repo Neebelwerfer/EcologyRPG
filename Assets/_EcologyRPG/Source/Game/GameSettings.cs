@@ -19,6 +19,7 @@ namespace EcologyRPG.GameSystems
         public LayerMask EntityMask;
         public LayerMask TargetGroundMask;
         public LayerMask WalkableGroundMask;
+        public LayerMask CurvedProjectileIgnoreMask;
 
         [Header("Character settings")]
         public float BaseMoveSpeed = 5f;

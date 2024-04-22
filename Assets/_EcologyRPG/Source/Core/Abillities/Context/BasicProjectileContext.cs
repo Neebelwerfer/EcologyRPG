@@ -22,6 +22,14 @@ namespace EcologyRPG.AbilityScripting
             };
         }
 
+        public void SetOnUpdate(Closure onUpdateAction)
+        {
+            behaviour.OnUpdating = () =>
+            {
+                onUpdateAction.Call();
+            };
+        }
+
         public void Fire()
         {
             behaviour.Fire();

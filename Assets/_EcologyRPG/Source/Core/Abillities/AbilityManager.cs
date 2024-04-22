@@ -30,6 +30,7 @@ namespace EcologyRPG.Core.Abilities
         public static LayerMask TargetMask { get; private set; }
         public static LayerMask GroundMask { get; private set; }
         public static LayerMask WalkableGroundLayer { get; private set; }
+        public static LayerMask CurvedProjectileIgnoreMask { get; private set; }
         public static bool UseToxic { get; set; } = false;
         public static UnityEvent<bool> OnToxicModeChanged;
         public static string ToxicResourceName { get; set; } = "Toxic Water";
@@ -51,6 +52,7 @@ namespace EcologyRPG.Core.Abilities
             UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
             UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
             UserData.RegisterProxyType<BasicProjectileContext, BasicProjectileBehaviour>(s => new BasicProjectileContext(s));
+            UserData.RegisterProxyType<CurvedProjectileContext, CurvedProjectileBehaviour>(s => new CurvedProjectileContext(s));
             UserData.RegisterType<Vector3Context>();
             UserData.RegisterType<CastContext>();
             UserData.RegisterAssembly();
@@ -59,11 +61,12 @@ namespace EcologyRPG.Core.Abilities
             abilities = AbilityData.LoadAll();
         }
 
-        public static void SetSettings(LayerMask targetMask, LayerMask groundMask, LayerMask walkableGroundLayer, IndicatorMesh indicatorMesh)
+        public static void SetSettings(LayerMask targetMask, LayerMask groundMask, LayerMask walkableGroundLayer, LayerMask curvedProjectileIgnoreMask, IndicatorMesh indicatorMesh)
         {
             IndicatorMesh = indicatorMesh;
             TargetMask = targetMask;
             GroundMask = groundMask;
+            CurvedProjectileIgnoreMask = curvedProjectileIgnoreMask;
             WalkableGroundLayer = walkableGroundLayer;
         }
 

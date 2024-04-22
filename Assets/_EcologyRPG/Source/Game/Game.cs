@@ -66,7 +66,7 @@ namespace EcologyRPG.GameSystems
             TaskManager.Init();
             SystemManager.Init();
             AbilityManager.Create();
-            AbilityManager.SetSettings(Settings.EntityMask, Settings.TargetGroundMask, Settings.WalkableGroundMask, Settings.IndicatorMesh);
+            AbilityManager.SetSettings(Settings.EntityMask, Settings.TargetGroundMask, Settings.WalkableGroundMask, Settings.CurvedProjectileIgnoreMask, Settings.IndicatorMesh);
             AbilityManager.ToxicResourceName = Settings.ToxicResourceName;
             Player.Init(Settings.playerSettings);
             Flags = new Flags();

@@ -23,6 +23,9 @@ MonoBehaviour:
   WalkableGroundMask:
     serializedVersion: 2
     m_Bits: 128
+  CurvedProjectileIgnoreMask:
+    serializedVersion: 2
+    m_Bits: 72
   BaseMoveSpeed: 5
   NPCDeadBodyDespawnTime: 3
   ToxicResourceName: toxic water

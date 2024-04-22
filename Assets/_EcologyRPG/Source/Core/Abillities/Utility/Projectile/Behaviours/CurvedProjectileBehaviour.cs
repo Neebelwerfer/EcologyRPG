@@ -1,4 +1,5 @@
-﻿using EcologyRPG.Core.Character;
+﻿using EcologyRPG.AbilityScripting;
+using EcologyRPG.Core.Character;
 using System;
 using UnityEngine;
 
@@ -10,23 +11,20 @@ namespace EcologyRPG.Core.Abilities
         public Vector3 target;
         public float time;
         public float angle;
-        public LayerMask IgnoreMask;
         public BaseCharacter owner;
 
-        public Action<GameObject> OnGroundHit;
+        public Action OnGroundHit;
         readonly Rigidbody rb;
         readonly Collider col;
         readonly float initialVelocity;
 
         float timeElapsed = 0;
-        public CurvedProjectileBehaviour(int prefabID, Vector3 origin, Vector3 target, float time, float angle, LayerMask ignoreMask, BaseCharacter owner, Action<GameObject> OnGroundHit) : base(prefabID, origin, Quaternion.LookRotation((target - origin).normalized))
+        public CurvedProjectileBehaviour(int prefabID, Vector3 origin, Vector3 target, BaseCharacter owner, float time, float angle) : base(prefabID, origin, Quaternion.LookRotation((target - origin).normalized))
         {
             this.target = target;
             this.time = time;
             this.angle = angle;
-            this.IgnoreMask = ignoreMask;
             this.owner = owner;
-            this.OnGroundHit = OnGroundHit;
 
             rb = projectile.Rigidbody;
             rb.isKinematic = false;
@@ -36,10 +34,11 @@ namespace EcologyRPG.Core.Abilities
             rb.angularDrag = 0;
             col = projectile.Collider;
             col.isTrigger = false;
-            col.excludeLayers = IgnoreMask;
+            col.excludeLayers = AbilityManager.CurvedProjectileIgnoreMask;
 
             projectileObj.transform.Rotate(angle, 0, 0);
-            initialVelocity = CalculateInitialVelocity(Vector3.Distance(projectileObj.transform.position, target), time, Mathf.Abs(angle));
+            Debug.DrawRay(origin, projectileObj.transform.forward * 10, Color.red, 10);
+            initialVelocity = CalculateInitialVelocity(Vector3.Distance(origin, target), time, Mathf.Abs(angle));
             Debug.Log($"Initial Velocity: {initialVelocity}");
             rb.velocity = initialVelocity * projectileObj.transform.forward;
         }
@@ -62,11 +61,11 @@ namespace EcologyRPG.Core.Abilities
         public override void OnCollisionEnter(Collision collision)
         {
             Debug.Log($"Hit {collision.collider.name}");
-            OnGroundHit?.Invoke(projectileObj);
+            OnGroundHit?.Invoke();
             Stop();
             rb.isKinematic = true;
             col.isTrigger = true;
-            col.excludeLayers ^= IgnoreMask;
+            col.excludeLayers ^= AbilityManager.CurvedProjectileIgnoreMask;
         }
     }
 }
