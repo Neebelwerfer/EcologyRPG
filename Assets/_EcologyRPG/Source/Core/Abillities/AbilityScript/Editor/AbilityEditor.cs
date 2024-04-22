@@ -20,6 +20,10 @@ public class AbilityEditor : EditorWindow
     Vector2 scrollPos;
     AbilityCategory selectedCategory;
 
+    AbilityCategory searchCategory;
+    bool enableCategorySearch;
+    string searchName = "";
+
     private void OnEnable()
     {
         Load();
@@ -76,6 +80,15 @@ public class AbilityEditor : EditorWindow
         int DeleteIndex = -1;
         GUILayout.Label("Ability Editor", EditorStyles.boldLabel);
 
+        GUILayout.Space(10);
+        GUILayout.BeginHorizontal();
+        searchCategory = (AbilityCategory)EditorGUILayout.EnumPopup("Category", searchCategory);
+        enableCategorySearch = GUILayout.Toggle(enableCategorySearch, "Enable Category Search");
+        GUILayout.EndHorizontal();
+        GUILayout.Space(10);
+        searchName = EditorGUILayout.TextField("Search ", searchName).ToLower();
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
         GUILayout.BeginHorizontal();
         selectedCategory = (AbilityCategory)EditorGUILayout.EnumPopup("Category", selectedCategory);
         if (GUILayout.Button("Create Ability"))
@@ -98,6 +111,8 @@ public class AbilityEditor : EditorWindow
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         for (int i = 0; i < abilityData.data.Length; i++)
         {
+            if (enableCategorySearch && searchCategory != abilityData[i].Category) continue;
+            if (!string.IsNullOrEmpty(searchName) && !abilityData[i].abilityName.ToLower().Contains(searchName)) continue;
             GUILayout.BeginHorizontal();
             foldouts[i] = EditorGUILayout.Foldout(foldouts[i], abilityData[i].abilityName);
             if(GUILayout.Button("Edit"))
