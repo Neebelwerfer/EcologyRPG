@@ -9,11 +9,6 @@ namespace EcologyRPG.AbilityScripting
         public string Name;
         public string Description;
         public Sprite Icon;
-
-        [StatAttribute(StatType.Resource)]
-        public string ResourceName = "Stamina";
-        public float ResourceCost;
-
         public bool useMouseDirection;
 
         public override void Init(BaseCharacter owner)
@@ -21,16 +16,9 @@ namespace EcologyRPG.AbilityScripting
             base.Init(owner);
         }
 
-        public override bool CanActivate()
-        {
-            if (!base.CanActivate()) return false;
-            if (Owner.Stats.GetResource(ResourceName).CurrentValue < ResourceCost) return false;
-            return true;
-        }
-
         public string GetDescription()
         {
-            return $"{Name}\nCooldown: {Cooldown}\n{ResourceName}: {ResourceCost}\n{Description}";
+            return $"{Name}\nCooldown: {Cooldown}\n{Description}";
         }
 
         public override CastContext CreateCastContext()
@@ -50,15 +38,10 @@ namespace EcologyRPG.AbilityScripting
             return new CastContext(Owner, new Vector3Context(Owner.CastPos), dir, new Vector3Context(Mousepoint));
         }
 
-        void UseResource()
-        {
-            var resource = Owner.Stats.GetResource(ResourceName);
-            resource.ModifyCurrentValue(-ResourceCost);
-        }
-
         public override void HandleCast(CastContext castContext)
-        {
-            UseResource();
+        {   
+            var PayCost = behaviour.Globals.Get("PayCost");
+            if(PayCost.IsNotNil()) behaviour.Call(PayCost);
             base.HandleCast(castContext);
         }
     }

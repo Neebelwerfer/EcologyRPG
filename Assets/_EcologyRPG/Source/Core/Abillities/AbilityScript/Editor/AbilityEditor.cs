@@ -169,6 +169,16 @@ public class AbilityEditor : EditorWindow
         }
     }
 
+    string PlayerCost()
+    {
+        return @"
+function PayCost()
+    local resource = Context.GetOwner().GetResource(""stamina"")
+    resource:Consume(10)
+    end
+";
+    }
+
     string NotSubAbility()
     {
         return @"
@@ -184,7 +194,8 @@ end";
 
     string GenerateScript(AbilityCategory abilityCategory)
     {
-        return (abilityCategory > AbilityCategory.SubAbility ? NotSubAbility() : "") +
+        return (abilityCategory > AbilityCategory.SubAbility ? NotSubAbility() : "") 
+            + (abilityCategory == AbilityCategory.Player ? PlayerCost() : "") +
 @"
 function OnCast()
     Log(""Casting Ability"")
