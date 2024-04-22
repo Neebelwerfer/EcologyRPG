@@ -42,6 +42,11 @@ namespace EcologyRPG.Core.Abilities
 
         }
 
+        public Vector3 GetPosition()
+        {
+            return projectileObj.transform.position;
+        }
+
         protected virtual void Stop()
         {
             projectile.Stop();

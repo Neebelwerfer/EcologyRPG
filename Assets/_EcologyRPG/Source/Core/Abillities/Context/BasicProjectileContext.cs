@@ -26,5 +26,10 @@ namespace EcologyRPG.AbilityScripting
         {
             behaviour.Fire();
         }
+
+        public Vector3Context GetPosition()
+        {
+            return new Vector3Context(behaviour.GetPosition());
+        }
     }
 }

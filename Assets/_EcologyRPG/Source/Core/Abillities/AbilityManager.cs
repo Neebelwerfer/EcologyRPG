@@ -11,6 +11,12 @@ using UnityEngine.Events;
 
 namespace EcologyRPG.Core.Abilities
 {
+    class SubAbilityCast
+    {
+        public int AbilityID;
+        public CastContext Context;
+    }
+
     public class AbilityManager : SystemBehavior, IUpdateSystem, IDisposable
     {
         public const string AbilityPath = "Abilities/";
@@ -31,10 +37,12 @@ namespace EcologyRPG.Core.Abilities
 
         public static AbilityManager Current;
 
+
         AbilityData[] abilities;
         List<AbilityReference> OnCooldown = new();
+        Queue<SubAbilityCast> subAbilityCasts = new();
 
-        public bool Enabled => OnCooldown.Count > 0;
+        public bool Enabled => OnCooldown.Count > 0 || subAbilityCasts.Count > 0;
 
         AbilityManager() 
         { 
@@ -80,6 +88,15 @@ namespace EcologyRPG.Core.Abilities
                     OnCooldown.RemoveAt(i);
                 }
             }
+
+            while (subAbilityCasts.Count > 0)
+            {
+                var subAbility = subAbilityCasts.Dequeue();
+                var ability = GetAbility((uint)subAbility.AbilityID);
+                if(ability != null)
+                    CastAbility(ability, subAbility.Context, ability.LoadBehaviour());
+            }
+
         }
 
         public AbilityData GetAbility(uint ID)
@@ -104,7 +121,7 @@ namespace EcologyRPG.Core.Abilities
 
         public void CastAbility(AbilityData Ability, CastContext context, Script scriptContext)
         {
-            scriptContext.Globals["Context"] = context;            
+            scriptContext.Globals["Context"] = context; 
             var OnCast = scriptContext.Globals.Get("OnCast");
             var coroutine = scriptContext.CreateCoroutine(OnCast);
             context.GetOwner().StartCoroutine(Cast(coroutine, Ability));   
@@ -141,18 +158,24 @@ namespace EcologyRPG.Core.Abilities
             scriptContext.Globals["Delay"] = (Func<float, DynValue>)Delay;
             scriptContext.Globals["Log"] = (Action<string>)Log;
             scriptContext.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
-            scriptContext.Globals["Cast"] = (Action<int, CastContext>)Cast;
+            scriptContext.Globals["CastAbility"] = (Action<int, CastContext>)CastSubAbility;
             scriptContext.Globals["Physical"] = DamageType.Physical;
             scriptContext.Globals["Water"] = DamageType.Water;
             scriptContext.Globals["Toxic"] = DamageType.Toxic;
+            scriptContext.Globals["CreateCastContext"] = (Func<BaseCharacter, Vector3Context, Vector3Context, CastContext>)CreateCastContext;
             ProjectileUtility.AddToGlobal(scriptContext);
             Targets.AddToGlobal(scriptContext);
             return scriptContext;
         }
 
-        internal static void Cast(int abilityID, CastContext context)
+        internal static CastContext CreateCastContext(BaseCharacter owner, Vector3Context target, Vector3Context origin)
         {
-            Current.CastAbility(Current.GetAbility((uint)abilityID), context, CreateScriptContext());
+            return new CastContext(owner, target, origin);
+        }
+
+        internal static void CastSubAbility(int abilityID, CastContext context)
+        {
+            Current.subAbilityCasts.Enqueue(new SubAbilityCast() { AbilityID = abilityID, Context = context });
         }
 
         internal static DynValue Delay(float seconds)

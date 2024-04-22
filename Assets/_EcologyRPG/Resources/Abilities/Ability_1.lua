@@ -28,7 +28,7 @@ function OnCast()
     indicator = nil
     local targets = GetTargetsInLine(Context, Width, Range)
     for i, t in ipairs(targets) do
-        t.ApplyDamage(BaseDamage, 2)
+        t.ApplyDamage(BaseDamage, Physical)
     end
     owner.RestoreMovement()
 end
