@@ -13,6 +13,20 @@ MonoBehaviour:
   m_Name: Fist Attack
   m_EditorClassIdentifier: 
   AbilityID: 1
+  Cooldown: 0.5
+  globalVariablesOverride:
+  - Name: Animation
+    Type: 0
+    Value: Is_MeleeAttacking
+  - Name: Width
+    Type: 2
+    Value: 2
+  - Name: Range
+    Type: 2
+    Value: 5
+  - Name: BaseDamage
+    Type: 2
+    Value: 20
   State: 0
   Name: Fist Attack
   Description: Hit with your fist

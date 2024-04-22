@@ -7,9 +7,74 @@ namespace EcologyRPG.AbilityScripting
     [System.Serializable]
     public enum AbilityCategory
     {
-        Extra,
+        SubAbility,
         Player,
         NPC,
+    }
+
+    [System.Serializable]
+    public enum GlobalVariableType
+    {
+        String,
+        Int,
+        Float,
+        Bool,
+    }
+
+    [System.Serializable]
+    public struct GlobalVariable
+    {
+        public string Name;
+        public GlobalVariableType Type;
+        public string Value;
+
+        public GlobalVariable(string name, GlobalVariableType type, string value)
+        {
+            Name = name;
+            Type = type;
+            Value = value;
+        }
+
+        public DynValue GetDynValue()
+        {
+            if(Type == GlobalVariableType.Int)
+            {
+                return DynValue.NewNumber(int.Parse(Value));
+            }
+            else if(Type == GlobalVariableType.Float)
+            {
+                return DynValue.NewNumber(float.Parse(Value));
+            }
+            else if(Type == GlobalVariableType.String)
+            {
+                return DynValue.NewString(Value);
+            }
+            else if(Type == GlobalVariableType.Bool)
+            {
+                return DynValue.NewBoolean(bool.Parse(Value));
+            }
+            return DynValue.NewNil();
+        }
+
+        public string GetString()
+        {
+            return Value;
+        }
+
+        public int GetInt()
+        {
+            return int.Parse(Value);
+        }
+
+        public float GetFloat()
+        {
+            return float.Parse(Value);
+        }
+
+        public bool GetBool()
+        {
+            return bool.Parse(Value);
+        }
     }
 
     [System.Serializable]
@@ -18,23 +83,30 @@ namespace EcologyRPG.AbilityScripting
         public string abilityName;
         public AbilityCategory Category;
         public uint ID;
-        public float Cooldown;
         public string ScriptPath;
+        public GlobalVariable[] _DefaultGlobalVariables;
 
-        public AbilityData(string name, AbilityCategory abilityCategory, uint ID, float cooldown)
+        public AbilityData(string name, AbilityCategory abilityCategory, uint ID)
         {
             abilityName = name;
             Category = abilityCategory;
             this.ID = ID;
-            Cooldown = cooldown;
         }
 
         public Script LoadBehaviour()
         {
             var script = System.IO.File.ReadAllText(ScriptPath);
-            var context = AbilityManager.CreateContext();
+            var context = AbilityManager.CreateScriptContext();
             context.DoString(script);
             return context;
+        }
+
+        public void LoadDefaultVariables(Script context)
+        {
+            foreach (var variable in _DefaultGlobalVariables)
+            {
+                context.Globals[variable.Name] = variable.GetDynValue();
+            }
         }
 
         public static AbilityData[] LoadAll()

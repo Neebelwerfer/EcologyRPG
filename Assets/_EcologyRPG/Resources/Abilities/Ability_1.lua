@@ -18,17 +18,17 @@ end
             
 function OnCast()
     local owner = Context.GetOwner()
-    owner.TriggerAnimation("Is_MeleeAttacking")
+    owner.TriggerAnimation(Animation)
     owner.RotateTowards(Context.dir)
     owner.StopRotation()
     owner.SlowMovement()
-    indicator = CreateLineIndicator(Context, 2, 4)
+    indicator = CreateLineIndicator(Context, Width, Range)
     Delay(1)
     indicator.Destroy()
     indicator = nil
-    local targets = GetTargetsInLine(Context, 2, 4)
+    local targets = GetTargetsInLine(Context, Width, Range)
     for i, t in ipairs(targets) do
-        t.ApplyDamage(10, 2)
+        t.ApplyDamage(BaseDamage, 2)
     end
     owner.RestoreMovement()
 end

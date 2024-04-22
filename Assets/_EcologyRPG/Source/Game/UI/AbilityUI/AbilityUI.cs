@@ -125,8 +125,8 @@ namespace EcologyRPG.GameSystems.UI
         void UpdateAbilityInfo()
         {
             if (ability == null) return;
-            abilityName = ability.AbilityData.abilityName;
-            cooldown = ability.AbilityData.Cooldown;
+            abilityName = ability.Name;
+            cooldown = ability.Cooldown;
             if (ability.Icon != null)
                 abilitySprite = ability.Icon;
             abilityImage.sprite = abilitySprite;
@@ -150,7 +150,7 @@ namespace EcologyRPG.GameSystems.UI
             };
 
             abilityName = ability.Name;
-            cooldown = ability.AbilityData.Cooldown;
+            cooldown = ability.Cooldown;
             if (ability.Icon != null)
                 abilitySprite = ability.Icon;
             abilityImage.sprite = abilitySprite;

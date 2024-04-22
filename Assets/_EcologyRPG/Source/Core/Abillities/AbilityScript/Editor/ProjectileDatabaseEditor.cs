@@ -2,7 +2,6 @@ using EcologyRPG.AbilityScripting;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ProjectileDatabase))]
 public class ProjectileDatabaseEditor : EditorWindow
 {
     SerializedObject serializedObject;

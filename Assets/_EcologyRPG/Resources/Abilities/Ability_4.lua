@@ -3,6 +3,7 @@ function CanActivate()
     local resource = Context.GetOwner().GetResource("stamina")
     return resource:HaveEnough(10)
 end
+
 function PayCost()
     local resource = Context.GetOwner().GetResource("stamina")
     resource:Consume(10)

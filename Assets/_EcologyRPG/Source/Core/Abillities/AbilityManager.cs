@@ -135,7 +135,7 @@ namespace EcologyRPG.Core.Abilities
             }
         }
 
-        public static Script CreateContext()
+        public static Script CreateScriptContext()
         {
             var scriptContext = new Script(CoreModules.Preset_HardSandbox);
             scriptContext.Globals["Delay"] = (Func<float, DynValue>)Delay;
@@ -152,7 +152,7 @@ namespace EcologyRPG.Core.Abilities
 
         internal static void Cast(int abilityID, CastContext context)
         {
-            Current.CastAbility(Current.GetAbility((uint)abilityID), context, CreateContext());
+            Current.CastAbility(Current.GetAbility((uint)abilityID), context, CreateScriptContext());
         }
 
         internal static DynValue Delay(float seconds)

@@ -18,7 +18,7 @@ namespace EcologyRPG.AbilityScripting
 
         public string GetDescription()
         {
-            return $"{Name}\nCooldown: {abilityData.Cooldown}\n{Description}";
+            return $"{Name}\nCooldown: {Cooldown}\n{Description}";
         }
 
         public override CastContext CreateCastContext()

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ProjectileTest
   m_EditorClassIdentifier: 
   AbilityID: 4
+  Cooldown: 2
   State: 0
   Name: Projectile
   Description: Fire Projectile
