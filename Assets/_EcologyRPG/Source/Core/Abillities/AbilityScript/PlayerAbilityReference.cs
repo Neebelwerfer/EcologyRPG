@@ -11,9 +11,24 @@ namespace EcologyRPG.AbilityScripting
         public Sprite Icon;
         public bool useMouseDirection;
 
+        [StatAttribute(StatType.Resource)]
+        public string ResourceName = "stamina";
+        public float ResourceCost = 0;
+        public bool customResourceUsage = false;
+        [TextArea(3, 10)]
+        public string UseResourceString = 
+@"function UseResource()
+    local Owner = Context.GetOwner()
+    local Resource = Owner.GetResource(ResourceName)
+    Resource.Consume(ResourceCost)
+end
+";
+
         public override void Init(BaseCharacter owner)
         {
             base.Init(owner);
+            behaviour.Globals["ResourceCost"] = ResourceCost;
+            behaviour.Globals["ResourceName"] = ResourceName;
         }
 
         public string GetDescription()
@@ -39,9 +54,18 @@ namespace EcologyRPG.AbilityScripting
         }
 
         public override void HandleCast(CastContext castContext)
-        {   
-            var UseResource = behaviour.Globals.Get("UseResource");
-            if(UseResource.IsNotNil()) behaviour.Call(UseResource);
+        {
+            if (customResourceUsage)
+            {
+                var UseResource = behaviour.Globals.Get("UseResource");
+                if (UseResource.IsNotNil()) behaviour.Call(UseResource);
+            }
+            else
+            {
+                var resource = Owner.Stats.GetResource(ResourceName);
+                resource.ModifyCurrentValue(-ResourceCost);
+            }
+
             base.HandleCast(castContext);
         }
     }

@@ -19,6 +19,14 @@ namespace EcologyRPG.AbilityScripting
         [Min(0)]
         public float Cooldown;
 
+        public bool customActivationTest = false;
+        [TextArea(3, 10)]
+        public string CanActivateString = 
+@"function CanActivate()
+    return true
+end
+";
+
         public Script Behaviour => behaviour;
         public AbilityData AbilityData => abilityData;
         public BaseCharacter Owner { get; private set; }
@@ -90,8 +98,10 @@ namespace EcologyRPG.AbilityScripting
         {
             if(State == CastState.Ready && Owner.state == CharacterStates.active)
             {
-                var canCast = behaviour.Call(behaviour.Globals["CanActivate"]);
-                if (canCast.IsNotNil())
+                if(!customActivationTest) return true;
+
+                var canCast = behaviour.DoString(CanActivateString);
+                if (canCast.IsNotNil() && canCast.Boolean)
                 {
                     return canCast.Boolean;
                 } else return true;

@@ -1,15 +1,4 @@
 indicator = nil
-
-function CanActivate()
-    local resource = Context.GetOwner().GetResource("stamina")
-    return resource:HaveEnough(10)
-end
-
-function UseResource()
-    local resource = Context.GetOwner().GetResource("stamina")
-    resource:Consume(10)
-end
-
 function OnCastCancelled()
     if indicator != nil then
         indicator.Destroy()

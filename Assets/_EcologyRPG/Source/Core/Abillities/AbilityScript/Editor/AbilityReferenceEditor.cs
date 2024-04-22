@@ -9,7 +9,20 @@ public class AbilityReferenceEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawAbilityReferenceValues();  
+        DrawCanActivateString();
         serializedObject.ApplyModifiedProperties();
+    }
+
+    public void DrawCanActivateString()
+    {
+        var activateString = serializedObject.FindProperty("customActivationTest");
+        EditorGUILayout.PropertyField(activateString);
+        if(activateString.boolValue == false)
+        {
+            return;
+        }
+        var canActivateString = serializedObject.FindProperty("CanActivateString");
+        EditorGUILayout.PropertyField(canActivateString);
     }
 
     public void DrawAbilityReferenceValues()

@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityID: 4
   Cooldown: 2
+  CanActivateString: "\rfunction CanActivate()\r\n    return true\r\nend\r\n"
+  globalVariablesOverride: []
   State: 0
   Name: Projectile
   Description: Fire Projectile
   Icon: {fileID: 21300000, guid: 4e1bf72f28f587a4ea42f55e9cd7eaf4, type: 3}
   useMouseDirection: 1
+  ResourceName: stamina
+  ResourceCost: 0
+  UseResourceString: "\rfunction UseResource()\r\n    local Owner = Context.GetOwner()\r\n   
+    local Resource = Owner.GetResource(ResourceName)\r\n    Resource.Consume(ResourceCost)\r\nend\r\n"
