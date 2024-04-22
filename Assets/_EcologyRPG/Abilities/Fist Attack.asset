@@ -31,4 +31,6 @@ MonoBehaviour:
   Name: Fist Attack
   Description: Hit with your fist
   Icon: {fileID: 21300000, guid: 936bf0cad00e08848a0d58b0843898a5, type: 3}
+  ResourceName: stamina
+  ResourceCost: 0
   useMouseDirection: 1

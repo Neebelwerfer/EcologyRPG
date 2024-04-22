@@ -6,6 +6,11 @@ public class PlayerAbilityReferenceEditor : AbilityReferenceEditor
 {
     public override void OnInspectorGUI()
     {
+        var resourceName = serializedObject.FindProperty("ResourceName");
+        var resourceCost = serializedObject.FindProperty("ResourceCost");
+        EditorGUILayout.PropertyField(resourceName);
+        EditorGUILayout.PropertyField(resourceCost);
+
         DrawAbilityReferenceValues();
         DrawPlayerReferenceValues();
         DrawGlobalOverrides();
