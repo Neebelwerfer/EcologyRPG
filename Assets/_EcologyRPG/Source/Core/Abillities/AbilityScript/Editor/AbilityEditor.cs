@@ -184,34 +184,24 @@ public class AbilityEditor : EditorWindow
         }
     }
 
-    string PlayerCost()
-    {
-        return @"
-function PayCost()
-    local resource = Context.GetOwner().GetResource(""stamina"")
-    resource:Consume(10)
-end
-";
-    }
 
-    string NotSubAbility()
+    string GenerateScript(AbilityCategory abilityCategory)
     {
-        return @"
-function CanActivate()
+        return $@"
+function UseResource()
     local resource = Context.GetOwner().GetResource(""stamina"")
+    resource: Consume(10)
+end
+
+function CanActivate()
+    local resource = Context.GetOwner().GetResource(""""stamina"""")
     return resource:HaveEnough(10)
 end
 
 function OnCancelledCast()
-    Log(""Ability Cast Cancelled"")
-end";
-    }
+    Log(""""Ability Cast Cancelled"""")
+end""
 
-    string GenerateScript(AbilityCategory abilityCategory)
-    {
-        return (abilityCategory == AbilityCategory.Player ? PlayerCost() : "") +
-            (abilityCategory > AbilityCategory.SubAbility ? NotSubAbility() : "") +
-@"
 function OnCast()
     Log(""Casting Ability"")
     Delay(1)

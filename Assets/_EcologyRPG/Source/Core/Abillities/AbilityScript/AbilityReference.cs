@@ -90,9 +90,11 @@ namespace EcologyRPG.AbilityScripting
         {
             if(State == CastState.Ready && Owner.state == CharacterStates.active)
             {
-                return true;
-                //var canCast = behaviour.Call(behaviour.Globals["CanActivate"]);
-                //return canCast.Boolean;
+                var canCast = behaviour.Call(behaviour.Globals["CanActivate"]);
+                if (canCast.IsNotNil())
+                {
+                    return canCast.Boolean;
+                } else return true;
             }
             return false;
         }

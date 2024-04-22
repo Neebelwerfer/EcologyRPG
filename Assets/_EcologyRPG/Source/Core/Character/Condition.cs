@@ -30,7 +30,7 @@ namespace EcologyRPG.Core.Character
 
         public abstract void OnRemoved(BaseCharacter target);
 
-        protected static DamageInfo CalculateDamage(BaseCharacter Owner, DamageType type, float damage, bool allowVariance = false) => AbilityManager.CalculateDamage(Owner, type, damage, allowVariance);
+        protected static float CalculateDamage(BaseCharacter Owner, float damage, bool allowVariance = false) => AbilityManager.CalculateDamage(Owner, damage, allowVariance);
 
         [ContextMenu("Delete")]
         protected virtual void Delete()

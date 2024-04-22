@@ -40,8 +40,8 @@ namespace EcologyRPG.AbilityScripting
 
         public override void HandleCast(CastContext castContext)
         {   
-            var PayCost = behaviour.Globals.Get("PayCost");
-            if(PayCost.IsNotNil()) behaviour.Call(PayCost);
+            var UseResource = behaviour.Globals.Get("UseResource");
+            if(UseResource.IsNotNil()) behaviour.Call(UseResource);
             base.HandleCast(castContext);
         }
     }

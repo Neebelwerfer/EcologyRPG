@@ -160,11 +160,14 @@ namespace EcologyRPG.Core.Abilities
             var scriptContext = new Script(CoreModules.Preset_HardSandbox);
             scriptContext.Globals["Delay"] = (Func<float, DynValue>)Delay;
             scriptContext.Globals["Log"] = (Action<string>)Log;
+            scriptContext.Globals["DrawLine"] = (Action<Vector3, Vector3, Color, float>)DrawLine;
+            scriptContext.Globals["DrawRay"] = (Action<Vector3, Vector3, Color, float>)DrawRay;
             scriptContext.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
             scriptContext.Globals["CastAbility"] = (Action<int, CastContext>)CastSubAbility;
             scriptContext.Globals["Physical"] = DamageType.Physical;
             scriptContext.Globals["Water"] = DamageType.Water;
             scriptContext.Globals["Toxic"] = DamageType.Toxic;
+            scriptContext.Globals["CalculateDamage"] = (Func<BaseCharacter, float, bool, bool, float>)CalculateDamage;
             scriptContext.Globals["CreateCastContext"] = (Func<BaseCharacter, Vector3Context, Vector3Context, CastContext>)CreateCastContext;
             ProjectileUtility.AddToGlobal(scriptContext);
             Targets.AddToGlobal(scriptContext);
@@ -186,19 +189,23 @@ namespace EcologyRPG.Core.Abilities
             return DynValue.NewYieldReq(new DynValue[] { DynValue.NewNumber(seconds) });
         }
 
+        static void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+        {
+            Debug.DrawLine(start, end, color, duration);
+        }
+
+        static void DrawRay(Vector3 start, Vector3 dir, Color color, float duration = 0.2f)
+        {
+            Debug.DrawRay(start, dir, color, duration);
+        }
+
         internal static void Log(string message)
         {
             Debug.Log(message);
         }
 
-        public static DamageInfo CalculateDamage(BaseCharacter caster, DamageType damageType, float BaseDamage, bool allowVariance = true, bool useWeaponDamage = false)
+        public static float CalculateDamage(BaseCharacter caster, float BaseDamage, bool allowVariance = true, bool useWeaponDamage = false)
         {
-            DamageInfo damageInfo = new()
-            {
-                type = damageType,
-                source = caster
-            };
-
             Stat ad;
             if (useWeaponDamage)
             {
@@ -209,9 +216,7 @@ namespace EcologyRPG.Core.Abilities
                 ad = caster.Stats.GetStat("abilityDamage");
             }
             var damageVariance = allowVariance ? caster.Random.NextFloat(0.9f, 1.1f) : 1;
-            damageInfo.damage = (BaseDamage * ad.Value) * damageVariance;
-
-            return damageInfo;
+            return (BaseDamage * ad.Value) * damageVariance;
         }
 
         public override void Dispose()
