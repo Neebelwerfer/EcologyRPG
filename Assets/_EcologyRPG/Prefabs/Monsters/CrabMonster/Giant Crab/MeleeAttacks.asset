@@ -23,12 +23,13 @@ MonoBehaviour:
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 
   minRange: 0
   AnimationTrigger: 
   Ability: {fileID: 0}
   changeMode: 0
   abilities:
-  - {fileID: 11400000, guid: dc8f03fbee46e244ab3454face3835ba, type: 2}
   - {fileID: 11400000, guid: 8901e33f1587abe46b482f99b00dc0b1, type: 2}
   - {fileID: 11400000, guid: f8c59436ddf32a946b6bf529b6fcee4d, type: 2}
   - {fileID: 11400000, guid: a188250cd85acee40b1c1e1486122e95, type: 2}
+  - {fileID: 11400000, guid: dc8f03fbee46e244ab3454face3835ba, type: 2}

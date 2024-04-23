@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
   m_Name: MeleeAttack(Clone)
   m_EditorClassIdentifier: 
-  Range: 7
+  Range: 4
   OnCastEffects: []
   useMouseDirection: 0
   OnFirstHit: []
@@ -21,8 +21,8 @@ MonoBehaviour:
   - {fileID: 8894933809299342320}
   displayFirstHitEffects: 1
   targetType: 0
-  showIndicator: 0
-  width: 2
+  showIndicator: 1
+  width: 1
   angle: 45
 --- !u!114 &11400000
 MonoBehaviour:
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: DotCondition
   m_EditorClassIdentifier: 
   ID: a9695809-252d-473c-9898-1a42fefb2661
-  duration: 3
+  duration: 5
   remainingDuration: 0
   damagePerTick: 1
   DamageType: 2

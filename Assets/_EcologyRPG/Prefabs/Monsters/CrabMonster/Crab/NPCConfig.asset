@@ -23,7 +23,7 @@ MonoBehaviour:
     Value: 0
     ModType: 100
   - StatName: maxHP
-    Value: 1
+    Value: 1.1
     ModType: 300
   - StatName: abilityDamage
     Value: 0
