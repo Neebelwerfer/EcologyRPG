@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: 
   Cooldown: 2
-  CastWindupTime: 0.8
+  CastWindupTime: 0.55
   Icon: {fileID: 0}
   AbilityChanged:
     m_PersistentCalls:
@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
   m_Name: AbilityDamageComponent
   m_EditorClassIdentifier: 
-  BaseDamage: 15
+  BaseDamage: 12
   DamageType: 0
   AllowVariance: 1
 --- !u!114 &5024363294668434562
@@ -62,6 +62,6 @@ MonoBehaviour:
   - {fileID: 4315462255966043598}
   displayFirstHitEffects: 1
   targetType: 0
-  showIndicator: 0
-  width: 2
+  showIndicator: 1
+  width: 0.75
   angle: 45
