@@ -155,6 +155,8 @@ namespace EcologyRPG.Core.Abilities
             scriptContext.Globals["Toxic"] = DamageType.Toxic;
             scriptContext.Globals["CalculateDamage"] = (Func<BaseCharacter, float, bool, bool, float>)CalculateDamage;
             scriptContext.Globals["CreateCastContext"] = (Func<BaseCharacter, Vector3Context, Vector3Context, CastContext>)CreateCastContext;
+            VisualUtility.Register(scriptContext);
+            
             return scriptContext;
         }
 

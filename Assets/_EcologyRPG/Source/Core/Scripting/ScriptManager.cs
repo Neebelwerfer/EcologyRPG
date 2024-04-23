@@ -25,6 +25,7 @@ namespace EcologyRPG.Core.Scripting
             UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
             UserData.RegisterProxyType<BasicProjectileContext, BasicProjectileBehaviour>(s => new BasicProjectileContext(s));
             UserData.RegisterProxyType<CurvedProjectileContext, CurvedProjectileBehaviour>(s => new CurvedProjectileContext(s));
+            UserData.RegisterType<QuaternionContext>();
             UserData.RegisterType<Vector3Context>();
             UserData.RegisterType<CastContext>();
             UserData.RegisterAssembly();
@@ -36,6 +37,7 @@ namespace EcologyRPG.Core.Scripting
             var script = new Script(CoreModules.Preset_HardSandbox);
             ScriptUtility.AddContext(script);
             script.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
+            QuaternionContext.Register(script);
             ProjectileUtility.AddToGlobal(script);
             Targets.AddToGlobal(script);
 

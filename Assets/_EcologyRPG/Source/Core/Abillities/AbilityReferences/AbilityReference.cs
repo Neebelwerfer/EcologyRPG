@@ -53,17 +53,15 @@ end
 
         void LoadGlobals()
         {
-            foreach (var global in abilityData._DefaultGlobalVariables)
+            if(globalVariablesOverride == null)
             {
-                if(globalVariablesOverride == null || !HasOverride(global.Name))
-                {
-                    behaviour.Globals[global.Name] = global.GetDynValue();
-                }
-                else
-                {
-                    var overriden = Array.Find(globalVariablesOverride, element => element.Name == global.Name);
-                    behaviour.Globals[global.Name] = overriden.GetDynValue();
-                }
+                abilityData.LoadDefaultVariables(behaviour);
+                return;
+            }
+
+            foreach (var global in globalVariablesOverride)
+            {
+                behaviour.Globals[global.Name] = global.GetDynValue();
             }
         }
 
