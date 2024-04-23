@@ -1,4 +1,5 @@
 using EcologyRPG.AbilityScripting;
+using EcologyRPG.Core.Abilities;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -72,22 +73,7 @@ public class AbilityReferenceEditor : Editor
             GUILayout.BeginHorizontal();
             var global = abilityReference.globalVariablesOverride[i];
             EditorGUILayout.LabelField(global.Name);
-            if(global.Type == GlobalVariableType.Float)
-            {
-                global.Value = EditorGUILayout.FloatField(global.GetFloat()).ToString();
-            }
-            else if (global.Type == GlobalVariableType.Int)
-            {
-                global.Value = EditorGUILayout.IntField(global.GetInt()).ToString();
-            }
-            else if (global.Type == GlobalVariableType.String)
-            {
-                global.Value = EditorGUILayout.TextField(global.Value);
-            }
-            else if (global.Type == GlobalVariableType.Bool)
-            {
-                global.Value = EditorGUILayout.Toggle(global.GetBool()).ToString();
-            }
+            global.DrawEditableValue();
             GUILayout.EndHorizontal();
         }
 

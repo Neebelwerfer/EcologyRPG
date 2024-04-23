@@ -4,8 +4,6 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-
-
 public class AbilityEditor : EditorWindow
 {
     [MenuItem("Game/Ability Editor")]
@@ -34,6 +32,8 @@ public class AbilityEditor : EditorWindow
         var jsonObj = AssetDatabase.LoadAssetAtPath<TextAsset>(AbilityManager.AbilityDataPath);
         if (jsonObj != null)
         {
+         
+            
             abilityData = JsonUtility.FromJson<SerializedDataArray>(jsonObj.text);
             abilityData ??= new SerializedDataArray();
         }
@@ -54,7 +54,7 @@ public class AbilityEditor : EditorWindow
     public void Save()
     {
         abilityData.IDCounter = idCounter;
-        var json = JsonUtility.ToJson(abilityData);
+        var json = JsonUtility.ToJson(abilityData, true);
         StreamWriter writer = new StreamWriter(AbilityManager.AbilityDataPath);
         writer.Write(json);
         writer.Close();
@@ -144,7 +144,7 @@ public class AbilityEditor : EditorWindow
                     EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
                     GUILayout.BeginHorizontal();
                     GUILayout.Label(variable.Name);
-                    GUILayout.Label(variable.Value);
+                    variable.DrawValueLabel();
                     GUILayout.EndHorizontal();
                 }
 

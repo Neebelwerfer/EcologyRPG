@@ -1,1 +1,114 @@
-{"IDCounter":6,"data":[{"abilityName":"Fist","Category":1,"ID":1,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua","_DefaultGlobalVariables":[{"Name":"Animation","Type":0,"Value":"Is_MeleeAttacking"},{"Name":"Width","Type":2,"Value":"2"},{"Name":"Range","Type":2,"Value":"5"},{"Name":"BaseDamage","Type":2,"Value":"20"}]},{"abilityName":"Projectile","Category":1,"ID":4,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua","_DefaultGlobalVariables":[]},{"abilityName":"Test","Category":0,"ID":5,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_5.lua","_DefaultGlobalVariables":[]},{"abilityName":"LoppedTest","Category":1,"ID":6,"ScriptPath":"Assets/_EcologyRPG/Resources/Abilities/Ability_6.lua","_DefaultGlobalVariables":[]}]}
+{
+    "IDCounter": 6,
+    "data": [
+        {
+            "abilityName": "Fist",
+            "Category": 1,
+            "ID": 1,
+            "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua",
+            "_DefaultGlobalVariables": [
+                {
+                    "rid": 1000
+                },
+                {
+                    "rid": 1001
+                },
+                {
+                    "rid": 1002
+                },
+                {
+                    "rid": 1003
+                },
+                {
+                    "rid": 1004
+                }
+            ]
+        },
+        {
+            "abilityName": "Projectile",
+            "Category": 1,
+            "ID": 4,
+            "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua",
+            "_DefaultGlobalVariables": []
+        },
+        {
+            "abilityName": "Test",
+            "Category": 0,
+            "ID": 5,
+            "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_5.lua",
+            "_DefaultGlobalVariables": []
+        },
+        {
+            "abilityName": "LoppedTest",
+            "Category": 1,
+            "ID": 6,
+            "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_6.lua",
+            "_DefaultGlobalVariables": []
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "StringGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Animation",
+                    "Value": "Is_MeleeAttacking"
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Width",
+                    "Value": 2.0
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Range",
+                    "Value": 5.0
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "BaseDamage",
+                    "Value": 20.0
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "DamageTypeGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "DamageType",
+                    "Value": 0
+                }
+            }
+        ]
+    }
+}

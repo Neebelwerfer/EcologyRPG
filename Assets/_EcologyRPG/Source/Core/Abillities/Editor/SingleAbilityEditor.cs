@@ -1,4 +1,5 @@
 using EcologyRPG.AbilityScripting;
+using EcologyRPG.Core.Abilities;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -79,36 +80,12 @@ public class SingleAbilityEditor : EditorWindow
             globalVariable.Name = GUILayout.TextField(ability._DefaultGlobalVariables[j].Name);
             GUILayout.EndHorizontal();
 
-            if (ability._DefaultGlobalVariables[j].Type == GlobalVariableType.String)
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Global Variable Value");
-                globalVariable.Value = GUILayout.TextField(globalVariable.GetString());
-                GUILayout.EndHorizontal();
-            }
-            else if (ability._DefaultGlobalVariables[j].Type == GlobalVariableType.Int)
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Global Variable Value");
-                globalVariable.Value = EditorGUILayout.IntField(globalVariable.GetInt()).ToString();
-                GUILayout.EndHorizontal();
-            }
-            else if (ability._DefaultGlobalVariables[j].Type == GlobalVariableType.Float)
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Global Variable Value");
-                globalVariable.Value = EditorGUILayout.FloatField(globalVariable.GetFloat()).ToString();
-                GUILayout.EndHorizontal();
-            }
-            else if (ability._DefaultGlobalVariables[j].Type == GlobalVariableType.Bool)
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("Global Variable Value");
-                globalVariable.Value = EditorGUILayout.Toggle(globalVariable.GetBool()).ToString();
-                GUILayout.EndHorizontal();
-            }
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Global Variable Value");
+            globalVariable.DrawEditableValue();
+            GUILayout.EndHorizontal();
 
-            if(GUILayout.Button("Delete Global Variable"))
+            if (GUILayout.Button("Delete Global Variable"))
             {
                 var newVar = new GlobalVariable[ability._DefaultGlobalVariables.Length - 1];
                 for (int k = 0; k < ability._DefaultGlobalVariables.Length; k++)
@@ -118,7 +95,6 @@ public class SingleAbilityEditor : EditorWindow
                 }
                 ability._DefaultGlobalVariables = newVar;
             }
-            ability._DefaultGlobalVariables[j] = globalVariable;
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         }
 
@@ -132,11 +108,15 @@ public class SingleAbilityEditor : EditorWindow
                 newVar[j] = ability._DefaultGlobalVariables[j];
             }
             if (selectedGlobalVariableType == GlobalVariableType.String)
-                newVar[ability._DefaultGlobalVariables.Length] = new GlobalVariable(name, selectedGlobalVariableType, "");
+                newVar[ability._DefaultGlobalVariables.Length] = new StringGlobalVariable(name, "");
             else if (selectedGlobalVariableType == GlobalVariableType.Int)
-                newVar[ability._DefaultGlobalVariables.Length] = new GlobalVariable(name, selectedGlobalVariableType, "0");
+                newVar[ability._DefaultGlobalVariables.Length] = new IntGlobalVariable(name, 0);
             else if (selectedGlobalVariableType == GlobalVariableType.Float)
-                newVar[ability._DefaultGlobalVariables.Length] = new GlobalVariable(name, selectedGlobalVariableType, "0.0");
+                newVar[ability._DefaultGlobalVariables.Length] = new FloatGlobalVariable(name, 0f);
+            else if (selectedGlobalVariableType == GlobalVariableType.Bool)
+                newVar[ability._DefaultGlobalVariables.Length] = new BoolGlobalVariable(name, false);
+            else if (selectedGlobalVariableType == GlobalVariableType.DamageType)
+                newVar[ability._DefaultGlobalVariables.Length] = new DamageTypeGlobalVariable(name, DamageType.Physical);
             ability._DefaultGlobalVariables = newVar;
         }
         GUILayout.EndHorizontal();

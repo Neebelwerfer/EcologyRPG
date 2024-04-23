@@ -34,6 +34,7 @@ end
 
         protected Script behaviour;
         protected AbilityData abilityData;
+        [SerializeReference]
         public GlobalVariable[] globalVariablesOverride;
         [HideInInspector]  public CastState State = CastState.Ready;
 

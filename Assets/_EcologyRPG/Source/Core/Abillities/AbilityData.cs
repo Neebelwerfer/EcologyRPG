@@ -1,5 +1,6 @@
 using EcologyRPG.Core.Abilities;
 using MoonSharp.Interpreter;
+using System;
 using UnityEngine;
 
 namespace EcologyRPG.AbilityScripting
@@ -13,77 +14,14 @@ namespace EcologyRPG.AbilityScripting
     }
 
     [System.Serializable]
-    public enum GlobalVariableType
-    {
-        String,
-        Int,
-        Float,
-        Bool,
-    }
-
-    [System.Serializable]
-    public struct GlobalVariable
-    {
-        public string Name;
-        public GlobalVariableType Type;
-        public string Value;
-
-        public GlobalVariable(string name, GlobalVariableType type, string value)
-        {
-            Name = name;
-            Type = type;
-            Value = value;
-        }
-
-        public DynValue GetDynValue()
-        {
-            if(Type == GlobalVariableType.Int)
-            {
-                return DynValue.NewNumber(int.Parse(Value));
-            }
-            else if(Type == GlobalVariableType.Float)
-            {
-                return DynValue.NewNumber(float.Parse(Value));
-            }
-            else if(Type == GlobalVariableType.String)
-            {
-                return DynValue.NewString(Value);
-            }
-            else if(Type == GlobalVariableType.Bool)
-            {
-                return DynValue.NewBoolean(bool.Parse(Value));
-            }
-            return DynValue.NewNil();
-        }
-
-        public string GetString()
-        {
-            return Value;
-        }
-
-        public int GetInt()
-        {
-            return int.Parse(Value);
-        }
-
-        public float GetFloat()
-        {
-            return float.Parse(Value);
-        }
-
-        public bool GetBool()
-        {
-            return bool.Parse(Value);
-        }
-    }
-
-    [System.Serializable]
     public class AbilityData
     {
         public string abilityName;
         public AbilityCategory Category;
         public uint ID;
         public string ScriptPath;
+
+        [SerializeReference]
         public GlobalVariable[] _DefaultGlobalVariables;
 
         public AbilityData(string name, AbilityCategory abilityCategory, uint ID)
