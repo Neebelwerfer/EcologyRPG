@@ -7,7 +7,6 @@ function OnCast()
     owner.SlowMovement()
     CreateLineIndicator(Context, Width, Range, Windup)
     Delay(Windup)
-    indicator.Destroy()
     local targets = GetTargetsInLine(Context, Width, Range)
     for i, t in ipairs(targets) do
         t.ApplyDamage(BaseDamage, DamageType)
