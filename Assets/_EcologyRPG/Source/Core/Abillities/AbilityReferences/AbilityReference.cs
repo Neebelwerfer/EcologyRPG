@@ -16,6 +16,7 @@ namespace EcologyRPG.AbilityScripting
 
     public class AbilityReference : ScriptableObject
     {
+        [AbilityAttribute]
         public uint AbilityID;
         [Min(0)]
         public float Cooldown;

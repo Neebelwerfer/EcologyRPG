@@ -27,3 +27,6 @@ MonoBehaviour:
   customResourceUsage: 0
   UseResourceString: "function UseResource()\r\n    local Owner = Context.GetOwner()\r\n   
     local Resource = Owner.GetResource(ResourceName)\r\n    Resource.Consume(ResourceCost)\r\nend\r\n"
+  references:
+    version: 2
+    RefIds: []

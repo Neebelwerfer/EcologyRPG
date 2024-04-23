@@ -13,10 +13,16 @@ namespace EcologyRPG.AbilityScripting
         NPC,
     }
 
+    public class AbilityAttribute : PropertyAttribute
+    {
+
+    }
+
     [System.Serializable]
     public class AbilityData
     {
         public string abilityName;
+        public string Description;
         public AbilityCategory Category;
         public uint ID;
         public string ScriptPath;
