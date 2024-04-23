@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EcologyRPG.Core.Character
 {
-    public abstract class Condition : ScriptableObject
+    public abstract class ConditionReference : ScriptableObject
     {
         protected const string CharacterEffectPath = "Condition/";
 
@@ -17,7 +17,7 @@ namespace EcologyRPG.Core.Character
         [HideInInspector] public float remainingDuration;
         [HideInInspector] public BaseCharacter Owner;
 
-        public Condition()
+        public ConditionReference()
         {
             ID = Guid.NewGuid().ToString();
         }

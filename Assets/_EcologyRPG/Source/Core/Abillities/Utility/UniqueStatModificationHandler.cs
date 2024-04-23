@@ -8,7 +8,7 @@ namespace EcologyRPG.Core.Abilities
     {
         class Value
         {
-            public Condition effect;
+            public ConditionReference effect;
             public float value;
         }
 
@@ -32,7 +32,7 @@ namespace EcologyRPG.Core.Abilities
             this.shouldFindMax = shouldFindMax;
         }
 
-        public void AddValue(BaseCharacter target, Condition effect, float value)
+        public void AddValue(BaseCharacter target, ConditionReference effect, float value)
         {
             UniqueStatMap ??= new Dictionary<BaseCharacter, UniqueStatModification>();
 
@@ -55,7 +55,7 @@ namespace EcologyRPG.Core.Abilities
             Recalculate(target);
         }
 
-        public void RemoveValue(BaseCharacter target, Condition effect)
+        public void RemoveValue(BaseCharacter target, ConditionReference effect)
         {
             if (!UniqueStatMap.ContainsKey(target)) return;
 
@@ -75,7 +75,7 @@ namespace EcologyRPG.Core.Abilities
 
         }
 
-        public void UpdateValue(BaseCharacter target, Condition effect, float value)
+        public void UpdateValue(BaseCharacter target, ConditionReference effect, float value)
         {
             if (!UniqueStatMap.ContainsKey(target)) return;
 

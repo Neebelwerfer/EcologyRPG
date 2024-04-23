@@ -24,7 +24,10 @@ namespace EcologyRPG.Core.Abilities
         public const string AbilityPath = "Abilities/";
         public const string AbilityFullpath = "Assets/_EcologyRPG/Resources/Abilities/";
         public const string AbilityDataPath = "Assets/_EcologyRPG/Resources/Abilities/AbilityData.json";
-        public const string AbilityScriptExtension = ".lua";
+        public const string CnditionPath = "Conditions/";
+        public const string ConditionFullpath = "Assets/_EcologyRPG/Resources/Conditions/";
+        public const string ConditionDataPath = "Assets/_EcologyRPG/Resources/Abilities/ConditionData.json";
+        public const string ScriptExtension = ".lua";
 
         public static Vector3 IndicatorOffset = new Vector3(0, 0.2f, 0);
 

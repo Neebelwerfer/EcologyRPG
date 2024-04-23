@@ -69,7 +69,7 @@ public class AbilityEditor : EditorWindow
 
     public void CreateScript(int i)
     {
-        var path = AbilityManager.AbilityFullpath + "Ability_" + abilityData[i].ID + AbilityManager.AbilityScriptExtension;
+        var path = AbilityManager.AbilityFullpath + "Ability_" + abilityData[i].ID + AbilityManager.ScriptExtension;
         File.WriteAllText(path, GenerateScript(abilityData[i].Category));
         abilityData[i].ScriptPath = path;
         Save();

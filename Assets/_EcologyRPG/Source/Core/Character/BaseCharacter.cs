@@ -76,8 +76,8 @@ namespace EcologyRPG.Core.Character
         protected bool IsPaused { get { return CharacterBinding == null || state == CharacterStates.dead; } }
 
         public UnityEvent<BaseCharacter> OnCharacterCollision = new();
-        readonly List<Condition> effects = new();
-        readonly List<Condition> fixedUpdateEffects = new();
+        readonly List<ConditionReference> effects = new();
+        readonly List<ConditionReference> fixedUpdateEffects = new();
 
         protected int level;
         protected AttributeModification[] levelMods;
@@ -190,7 +190,7 @@ namespace EcologyRPG.Core.Character
             }
         }
 
-        public virtual void ApplyCondition(CastContext caster, Condition effect)
+        public virtual void ApplyCondition(CastContext caster, ConditionReference effect)
         {
             if(state == CharacterStates.dead)
             {
@@ -226,7 +226,7 @@ namespace EcologyRPG.Core.Character
             effect.OnApply(caster, this);
         }
 
-        public virtual void RemoveCondition(Condition effect)
+        public virtual void RemoveCondition(ConditionReference effect)
         {
             if(effect is IUpdateCondition)
             {
@@ -253,12 +253,12 @@ namespace EcologyRPG.Core.Character
             effect.OnRemoved(this);
         }
 
-        public virtual Condition[] GetCondition()
+        public virtual ConditionReference[] GetCondition()
         {
             return effects.ToArray();
         }
 
-        public virtual Condition GetCondition(BaseCharacter owner, string ID)
+        public virtual ConditionReference GetCondition(BaseCharacter owner, string ID)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -270,7 +270,7 @@ namespace EcologyRPG.Core.Character
             return null;
         }
 
-        public virtual Condition GetCondition(BaseCharacter owner, Type type)
+        public virtual ConditionReference GetCondition(BaseCharacter owner, Type type)
         {
             for (int i = 0; i < effects.Count; i++)
             {
@@ -320,7 +320,7 @@ namespace EcologyRPG.Core.Character
             if (IsPaused || effects.Count == 0) return;
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
-                Condition effect = effects[i];
+                ConditionReference effect = effects[i];
                 effect.OnUpdate(this, Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)
@@ -335,7 +335,7 @@ namespace EcologyRPG.Core.Character
             if (IsPaused || fixedUpdateEffects.Count == 0) return;
             for (int i = fixedUpdateEffects.Count - 1; i >= 0; i--)
             {
-                Condition effect = fixedUpdateEffects[i];
+                ConditionReference effect = fixedUpdateEffects[i];
                 effect.OnUpdate(this, Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)

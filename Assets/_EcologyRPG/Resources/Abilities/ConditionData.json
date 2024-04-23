@@ -1,0 +1,13 @@
+{
+    "IDCounter": 1,
+    "data": [
+        {
+            "updateType": 0,
+            "ID": 1,
+            "ConditionName": "Slow",
+            "ConditionDescription": "",
+            "ScriptPath": "",
+            "_DefaultGlobalVariables": []
+        }
+    ]
+}
