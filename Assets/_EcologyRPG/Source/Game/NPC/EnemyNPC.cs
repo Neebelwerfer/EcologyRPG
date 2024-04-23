@@ -108,6 +108,11 @@ namespace EcologyRPG.GameSystems.NPC
             Agent.SetDestination(position);
         }
 
+        override public void RotateTowards(Vector3 direction)
+        {
+            Agent.transform.rotation = Quaternion.LookRotation(direction);
+        }
+
         public override void Move(Vector3 direction, float speed)
         {
 
@@ -121,7 +126,7 @@ namespace EcologyRPG.GameSystems.NPC
         public override void StopMovement()
         {
             base.StopMovement();
-            Agent.isStopped = true;
+            Agent.ResetPath();
         }
 
         public void LateUpdate()

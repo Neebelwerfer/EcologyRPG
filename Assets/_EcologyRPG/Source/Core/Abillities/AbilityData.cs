@@ -8,8 +8,8 @@ namespace EcologyRPG.Core.Abilities
     public enum AbilityCategory
     {
         SubAbility,
-        Player,
-        NPC,
+        Combat,
+        Utility,
     }
 
     public class AbilityAttribute : PropertyAttribute

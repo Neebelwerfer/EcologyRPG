@@ -13,7 +13,6 @@ namespace EcologyRPG.GameSystems.NPC
 
         public bool InMinRange(float distance) => distance >= minRange;
 
-
         public CastContext CreateCastContext(Vector3 targetPoint)
         {
             return new CastContext(Owner, new Vector3Context(Owner.CastPos), new Vector3Context((targetPoint - Owner.Transform.Position).normalized), new Vector3Context(targetPoint));
@@ -25,7 +24,7 @@ namespace EcologyRPG.GameSystems.NPC
             behaviour.Globals["Context"] = castContext;
             if (CanActivate())
             {
-                Owner.Transform.LookAt(TargetPoint);
+                //Owner.Transform.LookAt(TargetPoint);
                 HandleCast(castContext);
             }
         }

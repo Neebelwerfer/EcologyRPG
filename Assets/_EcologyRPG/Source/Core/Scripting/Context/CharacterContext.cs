@@ -32,7 +32,7 @@ namespace EcologyRPG.Core.Scripting
 
         public void RotateTowards(Vector3Context target)
         {
-            Character.Rigidbody.MoveRotation(Quaternion.LookRotation(target.Vector));
+            Character.RotateTowards(target.Vector);
         }
 
         public Vector3Context GetCastPos()

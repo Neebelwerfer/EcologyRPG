@@ -1,8 +1,3 @@
-
-function OnCancelledCast()
-    Log("Ability Cast Cancelled")
-end
-
 function OnCast()
     local owner = Context.GetOwner()
     owner.TriggerAnimation("Water_SingleShot")

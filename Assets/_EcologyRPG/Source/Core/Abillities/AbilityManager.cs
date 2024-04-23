@@ -74,6 +74,11 @@ namespace EcologyRPG.Core.Abilities
             Current = null;
         }
 
+        public void RegisterCooldown(AbilityReference ability)
+        {
+            OnCooldown.Add(ability);
+        }
+
         public void OnUpdate()
         {
             for (int i = OnCooldown.Count - 1; i >= 0; i--)
@@ -137,7 +142,6 @@ namespace EcologyRPG.Core.Abilities
             }
             context.GetOwner().state = CharacterStates.active;
             reference.StartCooldown();
-            OnCooldown.Add(reference);
         }
 
         IEnumerator CastDiscrete(DynValue abilityContext, AbilityData data)

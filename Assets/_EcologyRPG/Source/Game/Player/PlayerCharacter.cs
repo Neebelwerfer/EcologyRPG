@@ -23,6 +23,11 @@ namespace EcologyRPG.GameSystems.PlayerSystems
 
         }
 
+        public override void RotateTowards(Vector3 direction)
+        {
+            Rigidbody.MoveRotation(Quaternion.LookRotation(direction));
+        }
+
         public override void Move(Vector3 direction, float speed)
         {
 

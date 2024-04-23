@@ -188,20 +188,6 @@ public class AbilityEditor : EditorWindow
     string GenerateScript(AbilityCategory abilityCategory)
     {
         return $@"
-function UseResource()
-    local resource = Context.GetOwner().GetResource(""stamina"")
-    resource: Consume(10)
-end
-
-function CanActivate()
-    local resource = Context.GetOwner().GetResource(""""stamina"""")
-    return resource:HaveEnough(10)
-end
-
-function OnCancelledCast()
-    Log(""""Ability Cast Cancelled"""")
-end""
-
 function OnCast()
     Log(""Casting Ability"")
     Delay(1)

@@ -313,6 +313,7 @@ namespace EcologyRPG.Core.Character
         }
 
         public abstract void Move(Vector3 direction, float speed);
+        public abstract void RotateTowards(Vector3 direction);
 
         public virtual void Update()
         {

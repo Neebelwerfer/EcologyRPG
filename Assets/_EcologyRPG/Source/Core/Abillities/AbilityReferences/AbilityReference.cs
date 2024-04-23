@@ -73,6 +73,7 @@ end
         {
             State = CastState.Cooldown;
             remainingCooldown = cooldown;
+            AbilityManager.Current.RegisterCooldown(this);
             Debug.Log("Cooldown started");
         }
 
@@ -111,7 +112,6 @@ end
 
         public virtual void OnCastCancelled()
         {
-            behaviour.Call(behaviour.Globals["OnCastCancelled"]);
             State = CastState.Ready;
         }
 

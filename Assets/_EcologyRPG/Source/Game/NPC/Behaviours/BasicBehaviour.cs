@@ -78,7 +78,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 var dist = Vector3.Distance(npc.Transform.Position, target.Transform.Position);
                 GetAbility(dist);
                 var range = attackAbility.Range;
-                return dist < (range < 10 ? range : range * 0.75f);
+                return dist < (range < 10 ? range : range * 0.85f);
 
             }, Attack, Chase);
 

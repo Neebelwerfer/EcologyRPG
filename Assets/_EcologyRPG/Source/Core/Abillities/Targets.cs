@@ -13,16 +13,16 @@ namespace EcologyRPG.AbilityScripting
 
         public static void AddToGlobal(Script script)
         {
-            script.Globals["CreateLineIndicator"] = (System.Func<CastContext, float, float, IndicatorMesh>)CreateLineIndicator;
-            script.Globals["CreateConeIndicator"] = (System.Func<CastContext, float, float, IndicatorMesh>)CreateConeIndicator;
-            script.Globals["CreateCircleIndicator"] = (System.Func<CastContext, float, IndicatorMesh>)CreateCircleIndicator;
+            script.Globals["CreateLineIndicator"] = (System.Action<CastContext, float, float, float>)CreateLineIndicator;
+            script.Globals["CreateConeIndicator"] = (System.Action<CastContext, float, float, float>)CreateConeIndicator;
+            script.Globals["CreateCircleIndicator"] = (System.Action<CastContext, float, float>)CreateCircleIndicator;
             script.Globals["GetTargetsInLine"] = (System.Func<CastContext, float, float, List<BaseCharacter>>)GetTargetsInLine;
             script.Globals["GetTargetsInRadius"] = (System.Func<CastContext, float, List<BaseCharacter>>)GetTargetsInRadius;
             script.Globals["GetTargetsInCone"] = (System.Func<CastContext, float, float, LayerMask, List<BaseCharacter>>)GetTargetsInCone;
             script.Globals["GetMousePoint"] = (System.Func<Vector3>)GetMousePoint;
         }
 
-        public static IndicatorMesh CreateLineIndicator(CastContext context, float width, float range)
+        public static void CreateLineIndicator(CastContext context, float width, float range, float duration)
         {
             if(Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
@@ -36,16 +36,15 @@ namespace EcologyRPG.AbilityScripting
                 mesh.Clear();
                 mesh.TriangulateBox(direction, range, width);
                 mesh.Apply();
-                return mesh;
+                Object.Destroy(mesh.gameObject, duration);
             }
             else
             {
                 Debug.Log("CreateLineIndicator failed");
             }
-            return null;
         }
 
-        public static IndicatorMesh CreateConeIndicator(CastContext context, float angle, float range)
+        public static void CreateConeIndicator(CastContext context, float angle, float range, float duration)
         {
             if (Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
@@ -59,16 +58,15 @@ namespace EcologyRPG.AbilityScripting
                 mesh.Clear();
                 mesh.TriangulateCone(direction, range, angle);
                 mesh.Apply();
-                return mesh;
+                Object.Destroy(mesh.gameObject, duration);
             }
             else
             {
                 Debug.Log("CreateConeIndicator failed");
             }
-            return null;
         }
 
-        public static IndicatorMesh CreateCircleIndicator(CastContext context, float radius)
+        public static void CreateCircleIndicator(CastContext context, float radius, float duration)
         {
             if (Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
@@ -82,13 +80,12 @@ namespace EcologyRPG.AbilityScripting
                 mesh.Clear();
                 mesh.TriangulateCircle(direction, radius);
                 mesh.Apply();
-                return mesh;
+                Object.Destroy(mesh.gameObject, duration);
             }
             else
             {
                 Debug.Log("CreateCircleIndicator failed");
             }
-            return null;
         }
 
         public static List<BaseCharacter> GetTargetsInLine(CastContext context, float width, float range)

@@ -1,11 +1,7 @@
-function OnCancelledCast()
-    Log("Ability Cast Cancelled")
-end
-
-
 function OnCast()
     local owner = Context.GetOwner()
     owner.TriggerAnimation(Animation)
+    owner.RotateTowards(Context.dir)
     owner.StopRotation()
     owner.SlowMovement()
     Delay(Windup)
