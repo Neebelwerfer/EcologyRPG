@@ -38,6 +38,11 @@ namespace EcologyRPG.Core.Abilities
         {
 
         }
+
+        public virtual GlobalVariable Clone()
+        {
+            return null;
+        }
     }
 
     [Serializable]
@@ -64,6 +69,11 @@ namespace EcologyRPG.Core.Abilities
         {
             return DynValue.NewString(Value);
         }
+
+        public override GlobalVariable Clone()
+        {
+            return new StringGlobalVariable(Name, Value);
+        }
     }
 
     [Serializable]
@@ -88,6 +98,11 @@ namespace EcologyRPG.Core.Abilities
         public override void DrawValueLabel()
         {
             EditorGUILayout.LabelField(Value.ToString());
+        }
+
+        public override GlobalVariable Clone()
+        {
+            return new IntGlobalVariable(Name, Value);
         }
     }
 
@@ -114,6 +129,11 @@ namespace EcologyRPG.Core.Abilities
         {
             EditorGUILayout.LabelField(Value.ToString());
         }
+
+        public override GlobalVariable Clone()
+        {
+            return new FloatGlobalVariable(Name, Value);
+        }
     }
 
     [Serializable]
@@ -139,6 +159,11 @@ namespace EcologyRPG.Core.Abilities
         {
             EditorGUILayout.LabelField(Value.ToString());
         }
+
+        public override GlobalVariable Clone()
+        {
+            return new BoolGlobalVariable(Name, Value);
+        }
     }
 
     [Serializable]
@@ -163,6 +188,11 @@ namespace EcologyRPG.Core.Abilities
         public override void DrawValueLabel()
         {
             EditorGUILayout.LabelField(Value.ToString());
+        }
+
+        public override GlobalVariable Clone()
+        {
+            return new DamageTypeGlobalVariable(Name, Value);
         }
     }
 }

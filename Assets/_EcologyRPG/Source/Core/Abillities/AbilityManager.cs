@@ -43,6 +43,7 @@ namespace EcologyRPG.Core.Abilities
         AbilityData[] abilities;
         List<AbilityReference> OnCooldown = new();
         Queue<SubAbilityCast> subAbilityCasts = new();
+        CoroutineHolder CoroutineHolder;
 
         public bool Enabled => OnCooldown.Count > 0 || subAbilityCasts.Count > 0;
 
@@ -50,6 +51,8 @@ namespace EcologyRPG.Core.Abilities
         {
             ProjectileDatabase.Load();
             abilities = AbilityData.LoadAll();
+            var obj = new GameObject("AbilityCoroutineHolder");
+            CoroutineHolder = obj.AddComponent<CoroutineHolder>();
         }
 
         public static void SetSettings(LayerMask targetMask, LayerMask groundMask, LayerMask walkableGroundLayer, LayerMask curvedProjectileIgnoreMask, IndicatorMesh indicatorMesh)
@@ -88,7 +91,7 @@ namespace EcologyRPG.Core.Abilities
                 var subAbility = subAbilityCasts.Dequeue();
                 var ability = GetAbility((uint)subAbility.AbilityID);
                 if(ability != null)
-                    CastAbility(ability, subAbility.Context, ability.LoadBehaviour());
+                    CastAbilityDiscrete(ability, subAbility.Context, ability.LoadBehaviour());
             }
 
         }
@@ -110,19 +113,20 @@ namespace EcologyRPG.Core.Abilities
             var scriptContext = ability.Behaviour;
             var OnCast = scriptContext.Globals.Get("OnCast");
             var res = scriptContext.CreateCoroutine(OnCast);
-            context.GetOwner().StartCoroutine(Cast(res, ability));
+            context.GetOwner().StartCoroutine(Cast(res, ability, context));
         }
 
-        public void CastAbility(AbilityData Ability, CastContext context, Script scriptContext)
+        public void CastAbilityDiscrete(AbilityData Ability, CastContext context, Script scriptContext)
         {
             scriptContext.Globals["Context"] = context; 
             var OnCast = scriptContext.Globals.Get("OnCast");
             var coroutine = scriptContext.CreateCoroutine(OnCast);
-            context.GetOwner().StartCoroutine(Cast(coroutine, Ability));   
+            CoroutineHolder.StartCoroutine(CastDiscrete(coroutine, Ability));   
         }
 
-        IEnumerator Cast(DynValue abilityContext, AbilityReference reference)
+        IEnumerator Cast(DynValue abilityContext, AbilityReference reference, CastContext context)
         {
+            context.GetOwner().state = CharacterStates.casting;
             reference.State = CastState.Casting;
             foreach (var res in abilityContext.Coroutine.AsTypedEnumerable())
             {
@@ -131,11 +135,12 @@ namespace EcologyRPG.Core.Abilities
                     yield return new WaitForSeconds((float)res.Number);
                 }
             }
+            context.GetOwner().state = CharacterStates.active;
             reference.StartCooldown();
             OnCooldown.Add(reference);
         }
 
-        IEnumerator Cast(DynValue abilityContext, AbilityData data)
+        IEnumerator CastDiscrete(DynValue abilityContext, AbilityData data)
         {
             foreach (var res in abilityContext.Coroutine.AsTypedEnumerable())
             {
@@ -189,5 +194,10 @@ namespace EcologyRPG.Core.Abilities
         {
             Current = null;
         }
+    }
+
+    class CoroutineHolder : MonoBehaviour 
+    { 
+        
     }
 }

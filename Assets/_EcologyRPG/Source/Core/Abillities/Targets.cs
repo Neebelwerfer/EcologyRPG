@@ -109,7 +109,7 @@ namespace EcologyRPG.AbilityScripting
                 Debug.Log($"Hit {colliderHits[i].gameObject.name}");
                 if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
                 {
-                    if (binding.Character.GUID == context.GetOwner().GUID) continue;
+                    if (binding.Character.Faction == context.GetOwner().Faction) continue;
                     Debug.Log("Hit");
                     var character = binding.Character;
                     targets.Add(character);
@@ -129,7 +129,7 @@ namespace EcologyRPG.AbilityScripting
             {
                 if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
                 {
-                    if (binding.Character.GUID == context.GetOwner().GUID) continue;
+                    if (binding.Character.Faction == context.GetOwner().Faction) continue;
                     var character = binding.Character;
                     targets.Add(character);
                 }
@@ -151,6 +151,7 @@ namespace EcologyRPG.AbilityScripting
                 {
                     if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
                     {
+                        if (binding.Character.Faction == context.GetOwner().Faction) continue;
                         var character = binding.Character;
                         targets[i] = character;
                     }

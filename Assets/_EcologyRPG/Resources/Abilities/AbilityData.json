@@ -3,6 +3,7 @@
     "data": [
         {
             "abilityName": "Fist",
+            "Description": "",
             "Category": 1,
             "ID": 1,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_1.lua",
@@ -21,18 +22,36 @@
                 },
                 {
                     "rid": 1004
+                },
+                {
+                    "rid": 1005
                 }
             ]
         },
         {
             "abilityName": "Projectile",
+            "Description": "",
             "Category": 1,
             "ID": 4,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua",
-            "_DefaultGlobalVariables": []
+            "_DefaultGlobalVariables": [
+                {
+                    "rid": 1006
+                },
+                {
+                    "rid": 1007
+                },
+                {
+                    "rid": 1008
+                },
+                {
+                    "rid": 1009
+                }
+            ]
         },
         {
             "abilityName": "Test",
+            "Description": "",
             "Category": 0,
             "ID": 5,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_5.lua",
@@ -40,6 +59,7 @@
         },
         {
             "abilityName": "LoppedTest",
+            "Description": "",
             "Category": 1,
             "ID": 6,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_6.lua",
@@ -107,6 +127,66 @@
                 "data": {
                     "Name": "DamageType",
                     "Value": 0
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Windup",
+                    "Value": 1.0
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "StringGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Animation",
+                    "Value": "Water_SingleShot"
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Range",
+                    "Value": 10.0
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Speed",
+                    "Value": 7.0
+                }
+            },
+            {
+                "rid": 1009,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Windup",
+                    "Value": 1.0
                 }
             }
         ]

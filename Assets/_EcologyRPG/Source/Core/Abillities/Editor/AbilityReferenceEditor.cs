@@ -60,14 +60,18 @@ public class AbilityReferenceEditor : Editor
                 {
                     AbilityEditor.Load();
                 }
-                abilityReference.globalVariablesOverride = abilityData._DefaultGlobalVariables;
+                abilityReference.globalVariablesOverride =  new GlobalVariable[abilityData._DefaultGlobalVariables.Length];
+                for (int i = 0; i < abilityData._DefaultGlobalVariables.Length; i++)
+                {
+                    abilityReference.globalVariablesOverride[i] = abilityData._DefaultGlobalVariables[i].Clone();
+                }
                 EditorUtility.SetDirty(abilityReference);
             }
             return;
         }
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        EditorGUILayout.LabelField("Global Variable Overrides", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Ability Settings overrides", EditorStyles.boldLabel);
         for (int i = 0; i < abilityReference.globalVariablesOverride.Length; i++)
         {
             GUILayout.BeginHorizontal();
@@ -77,14 +81,15 @@ public class AbilityReferenceEditor : Editor
             GUILayout.EndHorizontal();
         }
 
-        if (GUILayout.Button("Regenerate global variables"))
+        if (GUILayout.Button("Regenerate Settings"))
         {
             foreach (var global in abilityData._DefaultGlobalVariables)
             {
                 if(!Array.Exists(abilityReference.globalVariablesOverride, element => element.Name == global.Name))
                 {
                     Array.Resize(ref abilityReference.globalVariablesOverride, abilityReference.globalVariablesOverride.Length + 1);
-                    abilityReference.globalVariablesOverride[^1] = global;
+                    abilityReference.globalVariablesOverride[^1] = global.Clone();
+                    EditorUtility.SetDirty(abilityReference);
                 }
             }
         }
@@ -97,7 +102,7 @@ public class AbilityReferenceEditor : Editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-        if(GUILayout.Button("Clear global variable overrides"))
+        if(GUILayout.Button("Clear Setting overrides"))
         {
             abilityReference.globalVariablesOverride = new GlobalVariable[0];
             EditorUtility.SetDirty(abilityReference);

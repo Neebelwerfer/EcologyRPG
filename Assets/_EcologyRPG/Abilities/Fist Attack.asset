@@ -17,11 +17,12 @@ MonoBehaviour:
   customActivationTest: 0
   CanActivateString: "function CanActivate()\r\n    return true\r\nend\r\n"
   globalVariablesOverride:
-  - rid: 8665159302457065472
-  - rid: 8665159302457065473
-  - rid: 8665159302457065474
-  - rid: 8665159302457065475
-  - rid: 8665159302457065476
+  - rid: 8665159302457065490
+  - rid: 8665159302457065491
+  - rid: 8665159302457065492
+  - rid: 8665159302457065493
+  - rid: 8665159302457065494
+  - rid: 8665159302457065495
   State: 0
   Name: Fist Attack
   Description: Attack with Fist
@@ -35,28 +36,33 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8665159302457065472
+    - rid: 8665159302457065490
       type: {class: StringGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
       data:
         Name: Animation
         Value: Is_MeleeAttacking
-    - rid: 8665159302457065473
+    - rid: 8665159302457065491
       type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
       data:
         Name: Width
         Value: 2
-    - rid: 8665159302457065474
+    - rid: 8665159302457065492
       type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
       data:
         Name: Range
         Value: 5
-    - rid: 8665159302457065475
+    - rid: 8665159302457065493
       type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
       data:
         Name: BaseDamage
         Value: 20
-    - rid: 8665159302457065476
+    - rid: 8665159302457065494
       type: {class: DamageTypeGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
       data:
         Name: DamageType
         Value: 0
+    - rid: 8665159302457065495
+      type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Windup
+        Value: 1

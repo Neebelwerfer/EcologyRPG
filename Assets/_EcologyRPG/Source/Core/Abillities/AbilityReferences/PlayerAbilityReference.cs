@@ -1,10 +1,11 @@
+using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Scripting;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Abilities
 {
-    [CreateAssetMenu(menuName = "Abilities/Player Ability Reference")]
+    [CreateAssetMenu(menuName = "Ability/Player Ability Reference")]
     public class PlayerAbilityReference : AbilityReference
     {
         public string Name;

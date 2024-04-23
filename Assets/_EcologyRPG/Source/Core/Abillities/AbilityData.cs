@@ -1,9 +1,8 @@
-using EcologyRPG.Core.Abilities;
 using MoonSharp.Interpreter;
 using System;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Abilities
 {
     [System.Serializable]
     public enum AbilityCategory

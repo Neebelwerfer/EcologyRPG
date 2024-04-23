@@ -1,11 +1,10 @@
-using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Scripting;
 using MoonSharp.Interpreter;
 using System;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Abilities
 {
     public enum CastState
     {

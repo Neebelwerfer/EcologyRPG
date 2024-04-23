@@ -1,4 +1,4 @@
-﻿using EcologyRPG.AbilityScripting;
+﻿using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using UnityEngine;
 

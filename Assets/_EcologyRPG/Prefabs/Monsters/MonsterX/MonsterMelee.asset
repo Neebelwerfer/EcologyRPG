@@ -35,21 +35,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4169a8fdda19d4f8dd0ca9fe695f11, type: 3}
   m_Name: MonsterMelee
   m_EditorClassIdentifier: 
-  DisplayName: 
+  AbilityID: 1
   Cooldown: 2
-  CastWindupTime: 0.4
-  Icon: {fileID: 0}
-  AbilityChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  BuffsOnCast: []
-  remainingCooldown: 0
-  state: 0
-  CastWindUp: []
-  guid: 
+  customActivationTest: 0
+  CanActivateString: "function CanActivate()\r\n    return true\r\nend\r\n"
+  globalVariablesOverride:
+  - rid: 8665159302457065484
+  - rid: 8665159302457065485
+  - rid: 8665159302457065486
+  - rid: 8665159302457065487
+  - rid: 8665159302457065488
+  - rid: 8665159302457065489
+  State: 0
+  Range: 5
   minRange: 0
-  AnimationTrigger: Attack
-  Ability: {fileID: -6761183876930618398}
+  references:
+    version: 2
+    RefIds:
+    - rid: 8665159302457065484
+      type: {class: StringGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Animation
+        Value: Attack
+    - rid: 8665159302457065485
+      type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Width
+        Value: 2
+    - rid: 8665159302457065486
+      type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Range
+        Value: 5
+    - rid: 8665159302457065487
+      type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: BaseDamage
+        Value: 20
+    - rid: 8665159302457065488
+      type: {class: DamageTypeGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: DamageType
+        Value: 0
+    - rid: 8665159302457065489
+      type: {class: FloatGlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Windup
+        Value: 0.5
 --- !u!114 &2165584115140826151
 MonoBehaviour:
   m_ObjectHideFlags: 0

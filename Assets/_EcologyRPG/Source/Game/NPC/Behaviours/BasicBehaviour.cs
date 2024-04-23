@@ -38,6 +38,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 initialisedAbilities[i] = Instantiate(abilities[i]);
                 initialisedAbilities[i].Init(character);
             }
+            Debug.Log($"Initialised {initialisedAbilities.Length} abilities");
 
             var aggroState = new State("Aggro");
             var passiveState = new State("Passive");
@@ -69,7 +70,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 npc.Agent.ResetPath();
                 if (attackAbility.State != CastState.Ready) return;
                 npc.Agent.velocity = Vector3.zero;
-                CastAbility(npc, attackAbility, target.Transform.Position + (target.Velocity));
+                CastAbility(npc, attackAbility, target.Transform.Position + (target.Velocity) * Time.deltaTime);
             });
 
             var inAttackRange = new DecisionNode((npc) =>
@@ -188,12 +189,14 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             {
                 if (a.State == CastState.Ready && a.InMinRange(dist))
                 {
+                    Debug.Log($"Setting attack ability to {a.name}");
                     attackAbility = a;
                     return;
                 }
             }
             if (attackAbility == null)
             {
+                Debug.Log($"Setting attack ability to default {initialisedAbilities[0].name}");
                 attackAbility = initialisedAbilities[0];
             }
         }
