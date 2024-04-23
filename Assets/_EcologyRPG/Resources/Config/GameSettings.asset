@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 11400000, guid: 5b7e033480d8b514e983bb0cc7a34239, type: 2}
   ItemDatabase: {fileID: 0}
+  ReloadScriptAction: {fileID: -7905339405525035377, guid: d845ac9316e93d841aad5e9d3451edb0,
+    type: 3}
   EntityMask:
     serializedVersion: 2
     m_Bits: 8

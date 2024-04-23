@@ -29,13 +29,18 @@ end
         public override void Init(BaseCharacter owner)
         {
             base.Init(owner);
+        }
+
+        protected override void LoadBehaviour()
+        {
+            base.LoadBehaviour();
             behaviour.Globals["ResourceCost"] = ResourceCost;
             behaviour.Globals["ResourceName"] = ResourceName;
         }
 
         public string GetDescription()
         {
-            return $"{Name}\nCooldown: {Cooldown}\n{Description}";
+            return $"Cooldown: {Cooldown}\n{Description}";
         }
 
         public override CastContext CreateCastContext()

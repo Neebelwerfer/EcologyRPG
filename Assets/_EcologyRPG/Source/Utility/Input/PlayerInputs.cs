@@ -143,6 +143,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReloadScripts"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac203cbf-e200-4097-b393-0299a6cbf68c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -332,6 +341,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleToxicMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93909d76-5d67-4fe7-95c6-1ee43363a977"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReloadScripts"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -353,6 +373,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_InGame_Interact = m_InGame.FindAction("Interact", throwIfNotFound: true);
         m_InGame_IngameMenu = m_InGame.FindAction("IngameMenu", throwIfNotFound: true);
         m_InGame_ToggleToxicMode = m_InGame.FindAction("ToggleToxicMode", throwIfNotFound: true);
+        m_InGame_ReloadScripts = m_InGame.FindAction("ReloadScripts", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -427,6 +448,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Interact;
     private readonly InputAction m_InGame_IngameMenu;
     private readonly InputAction m_InGame_ToggleToxicMode;
+    private readonly InputAction m_InGame_ReloadScripts;
     public struct InGameActions
     {
         private @PlayerInputs m_Wrapper;
@@ -444,6 +466,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_InGame_Interact;
         public InputAction @IngameMenu => m_Wrapper.m_InGame_IngameMenu;
         public InputAction @ToggleToxicMode => m_Wrapper.m_InGame_ToggleToxicMode;
+        public InputAction @ReloadScripts => m_Wrapper.m_InGame_ReloadScripts;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -492,6 +515,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @ToggleToxicMode.started += instance.OnToggleToxicMode;
             @ToggleToxicMode.performed += instance.OnToggleToxicMode;
             @ToggleToxicMode.canceled += instance.OnToggleToxicMode;
+            @ReloadScripts.started += instance.OnReloadScripts;
+            @ReloadScripts.performed += instance.OnReloadScripts;
+            @ReloadScripts.canceled += instance.OnReloadScripts;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -535,6 +561,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @ToggleToxicMode.started -= instance.OnToggleToxicMode;
             @ToggleToxicMode.performed -= instance.OnToggleToxicMode;
             @ToggleToxicMode.canceled -= instance.OnToggleToxicMode;
+            @ReloadScripts.started -= instance.OnReloadScripts;
+            @ReloadScripts.performed -= instance.OnReloadScripts;
+            @ReloadScripts.canceled -= instance.OnReloadScripts;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -567,5 +596,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnIngameMenu(InputAction.CallbackContext context);
         void OnToggleToxicMode(InputAction.CallbackContext context);
+        void OnReloadScripts(InputAction.CallbackContext context);
     }
 }

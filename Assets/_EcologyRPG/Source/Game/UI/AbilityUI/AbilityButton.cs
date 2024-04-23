@@ -49,12 +49,13 @@ namespace EcologyRPG.GameSystems.UI
 
         public TooltipData GetTooltipData()
         {
+            if(ability == null) return new TooltipData() { Title = "No Ability", Subtitle = "", Icon = null, Description = "´Missing Ability" };
             //if(AbilityManager.UseToxic && ability.ToxicAbility != null)
             //{
             //    return new TooltipData() { Title = ability.DisplayName, Subtitle = "Toxic Ability", Icon = ability.Icon, Description = ability.GetDescription() };
 
             //}
-            return new TooltipData() { Title = ability.AbilityData.abilityName, Subtitle = "Normal Ability", Icon = ability.Icon, Description = ability.GetDescription() };
+            return new TooltipData() { Title = ability.Name, Subtitle = "Normal Ability", Icon = ability.Icon, Description = ability.GetDescription() };
         }
 
         protected override void OnDestroy()

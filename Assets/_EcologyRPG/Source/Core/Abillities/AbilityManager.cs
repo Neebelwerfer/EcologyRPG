@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace EcologyRPG.Core.Abilities
 {
@@ -18,7 +19,7 @@ namespace EcologyRPG.Core.Abilities
         public CastContext Context;
     }
 
-    public class AbilityManager : SystemBehavior, IUpdateSystem, IDisposable
+    public sealed class AbilityManager : SystemBehavior, IUpdateSystem, IDisposable
     {
         public const string AbilityPath = "Abilities/";
         public const string AbilityFullpath = "Assets/_EcologyRPG/Resources/Abilities/";
@@ -36,14 +37,18 @@ namespace EcologyRPG.Core.Abilities
         public static UnityEvent<bool> OnToxicModeChanged;
         public static string ToxicResourceName { get; set; } = "Toxic Water";
 
+        
+
 
         public static AbilityManager Current;
 
 
-        AbilityData[] abilities;
-        List<AbilityReference> OnCooldown = new();
-        Queue<SubAbilityCast> subAbilityCasts = new();
-        CoroutineHolder CoroutineHolder;
+        readonly AbilityData[] abilities;
+        readonly List<AbilityReference> OnCooldown = new();
+        readonly Queue<SubAbilityCast> subAbilityCasts = new();
+        readonly List<AbilityReference> abilityReferences = new();
+        readonly CoroutineHolder CoroutineHolder;
+        InputActionReference ReloadAction;
 
         public bool Enabled => OnCooldown.Count > 0 || subAbilityCasts.Count > 0;
 
@@ -53,6 +58,37 @@ namespace EcologyRPG.Core.Abilities
             abilities = AbilityData.LoadAll();
             var obj = new GameObject("AbilityCoroutineHolder");
             CoroutineHolder = obj.AddComponent<CoroutineHolder>();
+        }
+
+        public void RegisterAbilityReference(AbilityReference reference)
+        {
+            abilityReferences.Add(reference);
+        }
+
+        public void UnregisterAbilityReference(AbilityReference reference)
+        {
+            abilityReferences.Remove(reference);
+        }
+
+        public void SetReloadAction(InputActionReference action)
+        {
+            if (ReloadAction != null)
+            {
+                ReloadAction.action.performed -= ReloadAbilities;
+                ReloadAction.action.Disable();
+            }
+            ReloadAction = action;
+            ReloadAction.action.performed += ReloadAbilities;
+            action.action.Enable();
+        }
+
+        public void ReloadAbilities(InputAction.CallbackContext ct)
+        {
+            foreach (var reference in abilityReferences)
+            {
+                Debug.Log("Reloading " + reference.AbilityData.abilityName);
+                reference.RefreshBehaviour();
+            }
         }
 
         public static void SetSettings(LayerMask targetMask, LayerMask groundMask, LayerMask walkableGroundLayer, LayerMask curvedProjectileIgnoreMask, IndicatorMesh indicatorMesh)
@@ -94,14 +130,14 @@ namespace EcologyRPG.Core.Abilities
             while (subAbilityCasts.Count > 0)
             {
                 var subAbility = subAbilityCasts.Dequeue();
-                var ability = GetAbility((uint)subAbility.AbilityID);
+                var ability = GetAbility((int)subAbility.AbilityID);
                 if(ability != null)
                     CastAbilityDiscrete(ability, subAbility.Context, ability.LoadBehaviour());
             }
 
         }
 
-        public AbilityData GetAbility(uint ID)
+        public AbilityData GetAbility(int ID)
         {
             foreach (var ability in abilities)
             {
@@ -197,6 +233,12 @@ namespace EcologyRPG.Core.Abilities
         public override void Dispose()
         {
             Current = null;
+            if(ReloadAction != null)
+            {
+                ReloadAction.action.performed -= ReloadAbilities;
+                ReloadAction.action.Disable();
+            }
+            base.Dispose();
         }
     }
 

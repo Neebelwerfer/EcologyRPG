@@ -1,6 +1,8 @@
 ﻿using MoonSharp.Interpreter;
 using System;
+using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities
 {
@@ -9,6 +11,7 @@ namespace EcologyRPG.Core.Abilities
     {
         String,
         Int,
+        AbilityID,
         Float,
         Bool,
         DamageType,
@@ -29,6 +32,7 @@ namespace EcologyRPG.Core.Abilities
             return DynValue.NewNil();
         }
 
+#if UNITY_EDITOR
         public virtual void DrawEditableValue()
         {
 
@@ -38,6 +42,7 @@ namespace EcologyRPG.Core.Abilities
         {
 
         }
+#endif
 
         public virtual GlobalVariable Clone()
         {
@@ -55,6 +60,7 @@ namespace EcologyRPG.Core.Abilities
             Value = value;
         }
 
+#if UNITY_EDITOR
         public override void DrawEditableValue()
         {
             Value = EditorGUILayout.TextField(Value);
@@ -64,6 +70,7 @@ namespace EcologyRPG.Core.Abilities
         {
             EditorGUILayout.LabelField(Value);
         }
+#endif
 
         public override DynValue GetDynValue()
         {
@@ -84,27 +91,67 @@ namespace EcologyRPG.Core.Abilities
         {
             Value = value;
         }
-
-        public override void DrawEditableValue()
-        {
-             Value = EditorGUILayout.IntField(Value);
-        }
-
         public override DynValue GetDynValue()
         {
             return DynValue.NewNumber(Value);
+        }
+
+#if UNITY_EDITOR
+        public override void DrawEditableValue()
+        {
+             Value = EditorGUILayout.IntField(Value);
         }
 
         public override void DrawValueLabel()
         {
             EditorGUILayout.LabelField(Value.ToString());
         }
+#endif
 
         public override GlobalVariable Clone()
         {
             return new IntGlobalVariable(Name, Value);
         }
     }
+
+    public class AbilityIDGlobalVariable : IntGlobalVariable
+    {
+        public AbilityIDGlobalVariable(string name, int value) : base(name, value)
+        {
+        }
+
+        public override void DrawEditableValue()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            if(AbilityEditor.abilityData == null)
+            {
+                AbilityEditor.Load();
+            }
+            var data = AbilityEditor.abilityData.data;
+            if(data == null)
+            {
+                EditorGUILayout.LabelField("No abilities found");
+            }
+            else
+            {
+                var ability = Array.Find(data, x => x.ID == Value);
+                if (ability == null)
+                {
+                    EditorGUILayout.LabelField("Ability not found");
+                }
+                else EditorGUILayout.LabelField(ability.abilityName);
+
+                if (GUILayout.Button("Select"))
+                {
+                    var field = GetType().GetField("Value");
+                    AbilitySelectorEditor.Open(field, this);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+
 
     [Serializable]
     public class FloatGlobalVariable : GlobalVariable
@@ -114,21 +161,22 @@ namespace EcologyRPG.Core.Abilities
         {
             Value = value;
         }
-
-        public override void DrawEditableValue()
-        {
-            Value = EditorGUILayout.FloatField(Value);
-        }
-
         public override DynValue GetDynValue()
         {
             return DynValue.NewNumber(Value);
+        }
+
+#if UNITY_EDITOR
+        public override void DrawEditableValue()
+        {
+            Value = EditorGUILayout.FloatField(Value);
         }
 
         public override void DrawValueLabel()
         {
             EditorGUILayout.LabelField(Value.ToString());
         }
+#endif
 
         public override GlobalVariable Clone()
         {
@@ -144,21 +192,22 @@ namespace EcologyRPG.Core.Abilities
         {
             Value = value;
         }
-
-        public override void DrawEditableValue()
-        {
-            Value = EditorGUILayout.Toggle(Value);
-        }
-
         public override DynValue GetDynValue()
         {
             return DynValue.NewBoolean(Value);
+        }
+
+#if UNITY_EDITOR
+        public override void DrawEditableValue()
+        {
+            Value = EditorGUILayout.Toggle(Value);
         }
 
         public override void DrawValueLabel()
         {
             EditorGUILayout.LabelField(Value.ToString());
         }
+#endif
 
         public override GlobalVariable Clone()
         {
@@ -174,21 +223,22 @@ namespace EcologyRPG.Core.Abilities
         {
             Value = value;
         }
-
-        public override void DrawEditableValue()
-        {
-            Value = (DamageType)EditorGUILayout.EnumPopup(Value);
-        }
-
         public override DynValue GetDynValue()
         {
             return DynValue.NewNumber((int)Value);
+        }
+
+#if UNITY_EDITOR
+        public override void DrawEditableValue()
+        {
+            Value = (DamageType)EditorGUILayout.EnumPopup(Value);
         }
 
         public override void DrawValueLabel()
         {
             EditorGUILayout.LabelField(Value.ToString());
         }
+#endif
 
         public override GlobalVariable Clone()
         {

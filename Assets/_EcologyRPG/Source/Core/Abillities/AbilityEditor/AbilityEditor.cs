@@ -1,4 +1,4 @@
-using EcologyRPG.AbilityScripting;
+#if UNITY_EDITOR
 using EcologyRPG.Core.Abilities;
 using System.IO;
 using UnityEditor;
@@ -13,7 +13,7 @@ public class AbilityEditor : EditorWindow
     }
 
     public static SerializedDataArray abilityData;
-    static uint idCounter = 0;
+    static int idCounter = 0;
     static bool[] foldouts;
     Vector2 scrollPos;
     AbilityCategory selectedCategory;
@@ -196,3 +196,4 @@ end
 ";
     }
 }
+#endif

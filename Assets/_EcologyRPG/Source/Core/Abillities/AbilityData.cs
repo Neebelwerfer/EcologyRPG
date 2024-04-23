@@ -23,13 +23,13 @@ namespace EcologyRPG.Core.Abilities
         public string abilityName;
         public string Description;
         public AbilityCategory Category;
-        public uint ID;
+        public int ID;
         public string ScriptPath;
 
         [SerializeReference]
         public GlobalVariable[] _DefaultGlobalVariables;
 
-        public AbilityData(string name, AbilityCategory abilityCategory, uint ID)
+        public AbilityData(string name, AbilityCategory abilityCategory, int ID)
         {
             abilityName = name;
             Category = abilityCategory;
@@ -63,7 +63,7 @@ namespace EcologyRPG.Core.Abilities
     [System.Serializable]
     public class SerializedDataArray
     {
-        public uint IDCounter;
+        public int IDCounter;
         public AbilityData[] data;
 
         public AbilityData this[int index]

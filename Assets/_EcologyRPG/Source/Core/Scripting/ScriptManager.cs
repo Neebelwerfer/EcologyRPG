@@ -3,6 +3,7 @@ using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 using System;
+using System.Collections.Generic;
 
 namespace EcologyRPG.Core.Scripting
 {

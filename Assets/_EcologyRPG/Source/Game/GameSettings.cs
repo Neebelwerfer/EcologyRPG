@@ -5,6 +5,7 @@ using EcologyRPG.GameSystems.Abilities;
 using EcologyRPG.GameSystems.PlayerSystems;
 using EcologyRPG.Utility;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace EcologyRPG.GameSystems
 {
@@ -13,7 +14,7 @@ namespace EcologyRPG.GameSystems
         public const string GroundHazardName = "GroundHazard";
 
         public PlayerSettings playerSettings;
-        public ItemDatabase ItemDatabase;
+        public InputActionReference ReloadScriptAction;
 
         [Header("Layer settings")]
         public LayerMask EntityMask;

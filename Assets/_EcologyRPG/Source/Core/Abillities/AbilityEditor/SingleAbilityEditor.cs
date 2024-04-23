@@ -1,4 +1,4 @@
-using EcologyRPG.AbilityScripting;
+#if UNITY_EDITOR
 using EcologyRPG.Core.Abilities;
 using System.IO;
 using UnityEditor;
@@ -117,6 +117,8 @@ public class SingleAbilityEditor : EditorWindow
                 newVar[ability._DefaultGlobalVariables.Length] = new BoolGlobalVariable(name, false);
             else if (selectedGlobalVariableType == GlobalVariableType.DamageType)
                 newVar[ability._DefaultGlobalVariables.Length] = new DamageTypeGlobalVariable(name, DamageType.Physical);
+            else if (selectedGlobalVariableType == GlobalVariableType.AbilityID)
+                newVar[ability._DefaultGlobalVariables.Length] = new AbilityIDGlobalVariable(name, 0);
             ability._DefaultGlobalVariables = newVar;
         }
         GUILayout.EndHorizontal();
@@ -127,3 +129,4 @@ public class SingleAbilityEditor : EditorWindow
         }
     }
 }
+#endif

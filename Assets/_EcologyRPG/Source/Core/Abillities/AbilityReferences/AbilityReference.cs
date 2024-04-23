@@ -16,7 +16,7 @@ namespace EcologyRPG.Core.Abilities
     public class AbilityReference : ScriptableObject
     {
         [AbilityAttribute]
-        public uint AbilityID;
+        public int AbilityID;
         [Min(0)]
         public float Cooldown;
 
@@ -46,22 +46,46 @@ end
         {
             Owner = owner;
             this.abilityData = AbilityManager.Current.GetAbility(AbilityID);
-            this.behaviour = abilityData.LoadBehaviour();
+            LoadBehaviour();
+            AbilityManager.Current.RegisterAbilityReference(this);
+        }
+
+        protected virtual void LoadBehaviour()
+        {
+            behaviour = abilityData.LoadBehaviour();
             LoadGlobals();
+        }
+
+        public void RefreshBehaviour()
+        {
+            State = CastState.Ready;
+            remainingCooldown = 0;
+            LoadBehaviour();
         }
 
         void LoadGlobals()
         {
-            if(globalVariablesOverride == null)
+            for (int i = 0; i < abilityData._DefaultGlobalVariables.Length; i++)
             {
-                abilityData.LoadDefaultVariables(behaviour);
-                return;
+                if (!HasOverride(abilityData._DefaultGlobalVariables[i].Name))
+                {
+                    behaviour.Globals[abilityData._DefaultGlobalVariables[i].Name] = abilityData._DefaultGlobalVariables[i].GetDynValue();
+                }
+                else
+                {
+                    behaviour.Globals[abilityData._DefaultGlobalVariables[i].Name] = globalVariablesOverride[i].GetDynValue();
+                }
             }
+            //if(globalVariablesOverride == null)
+            //{
+            //    abilityData.LoadDefaultVariables(behaviour);
+            //    return;
+            //}
 
-            foreach (var global in globalVariablesOverride)
-            {
-                behaviour.Globals[global.Name] = global.GetDynValue();
-            }
+            //foreach (var global in globalVariablesOverride)
+            //{
+            //    behaviour.Globals[global.Name] = global.GetDynValue();
+            //}
         }
 
         bool HasOverride(string name)
@@ -133,6 +157,12 @@ end
             {
                 HandleCast(castContext);
             }
+        }
+
+        private void OnDestroy()
+        {
+            if(AbilityManager.Current != null)
+                AbilityManager.Current.UnregisterAbilityReference(this);
         }
     }
 }
