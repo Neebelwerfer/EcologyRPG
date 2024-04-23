@@ -3,7 +3,7 @@ using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 using System;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Scripting
 {
     public class BasicProjectileContext
     {

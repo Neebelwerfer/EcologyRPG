@@ -3,7 +3,7 @@ using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Scripting
 {
     public class CharacterContext
     {

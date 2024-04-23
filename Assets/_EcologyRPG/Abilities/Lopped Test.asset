@@ -9,19 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a895d9cd43204b6479c556d1d8e84f54, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ce8662de0768b24c8e82d62f8154e43, type: 3}
   m_Name: Lopped Test
   m_EditorClassIdentifier: 
   AbilityID: 6
   Cooldown: 2
-  CanActivateString: "\rfunction CanActivate()\r\n    return true\r\nend\r\n"
+  customActivationTest: 0
+  CanActivateString: "function CanActivate()\r\n    return true\r\nend\r\n"
   globalVariablesOverride: []
   State: 0
-  Name: Lopped
-  Description: 
+  Name: Lopped Projectile
+  Description: Lopped
   Icon: {fileID: 21300000, guid: fd079c1b046517645b832a1a30d5d551, type: 3}
-  useMouseDirection: 0
+  useMouseDirection: 1
   ResourceName: water
-  ResourceCost: 10
-  UseResourceString: "\rfunction UseResource()\r\n    local Owner = Context.GetOwner()\r\n   
+  ResourceCost: 20
+  customResourceUsage: 0
+  UseResourceString: "function UseResource()\r\n    local Owner = Context.GetOwner()\r\n   
     local Resource = Owner.GetResource(ResourceName)\r\n    Resource.Consume(ResourceCost)\r\nend\r\n"

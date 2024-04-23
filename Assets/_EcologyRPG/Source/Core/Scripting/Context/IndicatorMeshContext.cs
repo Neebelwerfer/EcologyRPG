@@ -1,7 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using UnityEngine;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Scripting
 {
     public class IndicatorMeshContext
     {

@@ -1,9 +1,9 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Scripting;
 using MoonSharp.Interpreter;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace EcologyRPG.AbilityScripting
 {
@@ -26,7 +26,7 @@ namespace EcologyRPG.AbilityScripting
         {
             if(Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
-                var meshPrefab = Core.Abilities.AbilityManager.IndicatorMesh;
+                var meshPrefab = AbilityManager.IndicatorMesh;
                 var mesh = Object.Instantiate(meshPrefab);
                 mesh.transform.position = hit.point;
                 mesh.SetOwner(context.GetOwner());
@@ -49,7 +49,7 @@ namespace EcologyRPG.AbilityScripting
         {
             if (Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
-                var meshPrefab = Core.Abilities.AbilityManager.IndicatorMesh;
+                var meshPrefab = AbilityManager.IndicatorMesh;
                 var mesh = Object.Instantiate(meshPrefab);
                 mesh.transform.position = hit.point;
                 mesh.SetOwner(context.GetOwner());
@@ -72,7 +72,7 @@ namespace EcologyRPG.AbilityScripting
         {
             if (Physics.Raycast(context.castPos.Vector, Vector3.down, out RaycastHit hit, 1000, Core.Abilities.AbilityManager.WalkableGroundLayer))
             {
-                var meshPrefab = Core.Abilities.AbilityManager.IndicatorMesh;
+                var meshPrefab = AbilityManager.IndicatorMesh;
                 var mesh = Object.Instantiate(meshPrefab);
                 mesh.transform.position = hit.point;
                 mesh.SetOwner(context.GetOwner());

@@ -1,6 +1,7 @@
 using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Scripting;
 using EcologyRPG.Core.Systems;
 using MoonSharp.Interpreter;
 using System;
@@ -46,18 +47,8 @@ namespace EcologyRPG.Core.Abilities
         public bool Enabled => OnCooldown.Count > 0 || subAbilityCasts.Count > 0;
 
         AbilityManager() 
-        { 
-            UserData.RegisterProxyType<ResourceContext, Resource>(r => new ResourceContext(r));
-            UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => new CharacterContext(c));
-            UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
-            UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
-            UserData.RegisterProxyType<BasicProjectileContext, BasicProjectileBehaviour>(s => new BasicProjectileContext(s));
-            UserData.RegisterProxyType<CurvedProjectileContext, CurvedProjectileBehaviour>(s => new CurvedProjectileContext(s));
-            UserData.RegisterType<Vector3Context>();
-            UserData.RegisterType<CastContext>();
-            UserData.RegisterAssembly();
+        {
             ProjectileDatabase.Load();
-            
             abilities = AbilityData.LoadAll();
         }
 
@@ -157,20 +148,13 @@ namespace EcologyRPG.Core.Abilities
 
         public static Script CreateScriptContext()
         {
-            var scriptContext = new Script(CoreModules.Preset_HardSandbox);
-            scriptContext.Globals["Delay"] = (Func<float, DynValue>)Delay;
-            scriptContext.Globals["Log"] = (Action<string>)Log;
-            scriptContext.Globals["DrawLine"] = (Action<Vector3, Vector3, Color, float>)DrawLine;
-            scriptContext.Globals["DrawRay"] = (Action<Vector3, Vector3, Color, float>)DrawRay;
-            scriptContext.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
+            var scriptContext = ScriptManager.Current.CreateScript();
             scriptContext.Globals["CastAbility"] = (Action<int, CastContext>)CastSubAbility;
             scriptContext.Globals["Physical"] = DamageType.Physical;
             scriptContext.Globals["Water"] = DamageType.Water;
             scriptContext.Globals["Toxic"] = DamageType.Toxic;
             scriptContext.Globals["CalculateDamage"] = (Func<BaseCharacter, float, bool, bool, float>)CalculateDamage;
             scriptContext.Globals["CreateCastContext"] = (Func<BaseCharacter, Vector3Context, Vector3Context, CastContext>)CreateCastContext;
-            ProjectileUtility.AddToGlobal(scriptContext);
-            Targets.AddToGlobal(scriptContext);
             return scriptContext;
         }
 
@@ -182,26 +166,6 @@ namespace EcologyRPG.Core.Abilities
         internal static void CastSubAbility(int abilityID, CastContext context)
         {
             Current.subAbilityCasts.Enqueue(new SubAbilityCast() { AbilityID = abilityID, Context = context });
-        }
-
-        internal static DynValue Delay(float seconds)
-        {
-            return DynValue.NewYieldReq(new DynValue[] { DynValue.NewNumber(seconds) });
-        }
-
-        static void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
-        {
-            Debug.DrawLine(start, end, color, duration);
-        }
-
-        static void DrawRay(Vector3 start, Vector3 dir, Color color, float duration = 0.2f)
-        {
-            Debug.DrawRay(start, dir, color, duration);
-        }
-
-        internal static void Log(string message)
-        {
-            Debug.Log(message);
         }
 
         public static float CalculateDamage(BaseCharacter caster, float BaseDamage, bool allowVariance = true, bool useWeaponDamage = false)

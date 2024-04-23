@@ -1,6 +1,6 @@
 using EcologyRPG.AbilityScripting;
-using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Scripting;
 using UnityEngine;
 
 namespace EcologyRPG.GameSystems.NPC
@@ -25,6 +25,7 @@ namespace EcologyRPG.GameSystems.NPC
 
         public void Cast(Vector3 TargetPoint)
         {
+            Owner.Transform.LookAt(TargetPoint);
             var castContext = CreateCastContext(TargetPoint);
             behaviour.Globals["Context"] = castContext;
             if (CanActivate())
@@ -38,24 +39,5 @@ namespace EcologyRPG.GameSystems.NPC
             TriggerHash = Animator.StringToHash(AnimationTrigger);
             base.Init(owner);
         }
-
-        //public override void CastStarted(CastInfo caster)
-        //{
-        //    if (TriggerHash != 0)
-        //    {
-        //        caster.owner.Animator.SetTrigger(TriggerHash);
-        //    }
-        //    base.CastStarted(caster);
-        //    caster.owner.Transform.LookAt(caster.targetPoint);
-        //    Ability.Windup(caster, CastWindupTime);
-        //}
-
-        //public override void CastFinished(CastInfo caster)
-        //{
-        //    base.CastFinished(caster);
-        //    caster.castPos = caster.owner.CastPos;
-        //    caster.dir = caster.owner.Transform.Forward;
-        //    Ability.Cast(caster);
-        //}
     }
 }

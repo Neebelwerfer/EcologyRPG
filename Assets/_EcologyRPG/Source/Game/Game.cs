@@ -2,6 +2,7 @@ using EcologyRPG.Core;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Items;
+using EcologyRPG.Core.Scripting;
 using EcologyRPG.Core.Systems;
 using EcologyRPG.Utility;
 using UnityEngine;
@@ -65,6 +66,7 @@ namespace EcologyRPG.GameSystems
             if(initialized) return;
             TaskManager.Init();
             SystemManager.Init();
+            ScriptManager.Create();
             AbilityManager.Create();
             AbilityManager.SetSettings(Settings.EntityMask, Settings.TargetGroundMask, Settings.WalkableGroundMask, Settings.CurvedProjectileIgnoreMask, Settings.IndicatorMesh);
             AbilityManager.ToxicResourceName = Settings.ToxicResourceName;

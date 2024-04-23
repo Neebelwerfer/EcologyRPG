@@ -1,6 +1,6 @@
 using EcologyRPG.Core.Character;
 
-namespace EcologyRPG.AbilityScripting
+namespace EcologyRPG.Core.Scripting
 {
     public class ResourceContext
     {

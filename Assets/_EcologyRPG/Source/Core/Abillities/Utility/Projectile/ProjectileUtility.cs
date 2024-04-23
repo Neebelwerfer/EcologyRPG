@@ -1,5 +1,6 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
+using EcologyRPG.Core.Scripting;
 using MoonSharp.Interpreter;
 using System;
 using UnityEngine;

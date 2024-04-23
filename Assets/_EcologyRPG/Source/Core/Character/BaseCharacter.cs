@@ -1,6 +1,7 @@
 using EcologyRPG.AbilityScripting;
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Events;
+using EcologyRPG.Core.Scripting;
 using EcologyRPG.Utility;
 using System;
 using System.Collections;
