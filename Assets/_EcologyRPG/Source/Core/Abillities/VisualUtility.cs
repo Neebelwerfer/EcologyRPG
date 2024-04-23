@@ -1,6 +1,8 @@
+using EcologyRPG.Core.Character;
 using EcologyRPG.Core.Scripting;
 using MoonSharp.Interpreter;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace EcologyRPG.Core.Abilities
 {
@@ -8,26 +10,42 @@ namespace EcologyRPG.Core.Abilities
     {
         public static void Register(Script script)
         {
-            script.Globals["SpawnObject"] = (System.Action<uint, Vector3Context, float>)SpawnObject;
-            script.Globals["SpawnObjectRotated"] = (System.Action<uint, Vector3Context, QuaternionContext, float>)SpawnObject;
+            script.Globals["SpawnVFX"] = (System.Action<uint, Vector3Context, float>)SpawnVFX;
+            script.Globals["SpawnVFXRotated"] = (System.Action<uint, Vector3Context, QuaternionContext, float>)SpawnVFX;
+            script.Globals["SpawnVFXOnTarget"] = (System.Action<uint, BaseCharacter, float>)SpawnVFXOnTarget;
+
         }
 
-        public static void SpawnObject(uint id, Vector3Context position, float duration)
+        public static void SpawnVFX(uint id, Vector3Context position, float duration)
         {
-            SpawnObject(id, position, new QuaternionContext(Quaternion.identity), duration);
+            SpawnVFX(id, position, new QuaternionContext(Quaternion.identity), duration);
         }
 
-        public static void SpawnObject(uint id, Vector3Context position, QuaternionContext rotation, float duration)
+        public static void SpawnVFX(uint id, Vector3Context position, QuaternionContext rotation, float duration)
         {
-            var db = VFXObjectDatabase.Instance;
+            var db = VFXDatabase.Instance;
             if (db == null)
             {
-                VFXObjectDatabase.Load();
-                db = VFXObjectDatabase.Instance;
+                VFXDatabase.Load();
+                db = VFXDatabase.Instance;
             }
             if(id < db.vfxObjects.Length)
             {
                 db.Spawn((int)id, position.Vector, rotation.Value, duration);
+            }
+        }
+
+        public static void SpawnVFXOnTarget(uint id, BaseCharacter target, float duration)
+        {
+            var db = VFXDatabase.Instance;
+            if (db == null)
+            {
+                VFXDatabase.Load();
+                db = VFXDatabase.Instance;
+            }
+            if (id < db.vfxObjects.Length)
+            {
+                db.Spawn((int)id, target, duration);
             }
         }
     }

@@ -6,23 +6,23 @@ public class VFXObjectDatabaseEditor : EditorWindow
     [MenuItem("Game/VFX Object Database")]
     public static void ShowWindow()
     {
-        GetWindow<VFXObjectDatabaseEditor>("VFX Object Database");
+        GetWindow<VFXObjectDatabaseEditor>("VFX Database");
     }
 
     SerializedObject serializedObject;
 
     private void OnEnable()
     {
-        if(VFXObjectDatabase.Instance == null)
+        if(VFXDatabase.Instance == null)
         {
-            VFXObjectDatabase.Load();
+            VFXDatabase.Load();
         }
-        if(VFXObjectDatabase.Instance == null)
+        if(VFXDatabase.Instance == null)
         {
-            VFXObjectDatabase.Instance = CreateInstance<VFXObjectDatabase>();
-            AssetDatabase.CreateAsset(VFXObjectDatabase.Instance, VFXObjectDatabase.ResourceFullPath);
+            VFXDatabase.Instance = CreateInstance<VFXDatabase>();
+            AssetDatabase.CreateAsset(VFXDatabase.Instance, VFXDatabase.ResourceFullPath);
         }
-        serializedObject = new SerializedObject(VFXObjectDatabase.Instance);
+        serializedObject = new SerializedObject(VFXDatabase.Instance);
     }
 
     private void OnGUI()

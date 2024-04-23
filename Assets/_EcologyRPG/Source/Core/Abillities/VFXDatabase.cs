@@ -1,13 +1,14 @@
 using EcologyRPG.AbilityScripting;
+using EcologyRPG.Core.Character;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Abilities
 {
-    public class VFXObjectDatabase : ScriptableObject
+    public class VFXDatabase : ScriptableObject
     {
-        public static VFXObjectDatabase Instance;
-        public const string ResourcePath = "VFXObjectDatabase";
+        public static VFXDatabase Instance;
+        public const string ResourcePath = "VFXDatabase";
         public const string ResourceFullPath = "Assets/_EcologyRPG/Resources/" + ResourcePath + ".asset";
 
         public VFXBinder[] vfxObjects = new VFXBinder[0];
@@ -19,6 +20,23 @@ namespace EcologyRPG.Core.Abilities
             for (int i = 0; i < vfxObjects.Length; i++)
             {
                 pools[i] = new VFXPool(vfxObjects[i]);
+            }
+        }
+
+        public void Spawn(int id, BaseCharacter target, float duration)
+        {
+            if (id < vfxObjects.Length)
+            {
+                var obj = vfxObjects[id];
+                var go = pools[id].GetVFX();
+                go.transform.SetPositionAndRotation(target.Transform.Position, target.Transform.Rotation);
+                go.transform.SetParent(target.GameObject.transform);
+                go.gameObject.SetActive(true);
+                go.Start();
+                TaskManager.Add(this, () =>
+                {
+                    pools[id].ReturnVFX(go);
+                }, duration);
             }
         }
 
@@ -41,7 +59,7 @@ namespace EcologyRPG.Core.Abilities
 
         public static void Load()
         {
-            Instance = Resources.Load<VFXObjectDatabase>(ResourcePath);
+            Instance = Resources.Load<VFXDatabase>(ResourcePath);
             Instance.Init();
         }
     }
@@ -74,6 +92,7 @@ namespace EcologyRPG.Core.Abilities
         public void ReturnVFX(VFXBinder vfx)
         {
             vfx.End();
+            vfx.transform.SetParent(null);
             vfx.gameObject.SetActive(false);
             pool.Push(vfx);
         }
