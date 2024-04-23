@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8319c216d593d408a6cb2b8df82dc2, type: 3}
   m_Name: MeleeAttack(Clone)
   m_EditorClassIdentifier: 
-  Range: 7
+  Range: 5
   OnCastEffects: []
   useMouseDirection: 0
   OnFirstHit: []
