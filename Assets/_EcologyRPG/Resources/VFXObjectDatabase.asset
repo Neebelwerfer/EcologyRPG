@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: VFXObjectDatabase
   m_EditorClassIdentifier: 
   vfxObjects:
-  - {fileID: 8179646377062506047, guid: aa5d963cc83e5b140af7b09c3b1a00ca, type: 3}
-  - {fileID: 4600952382713385280, guid: e66119b6871f3524daeab582e56611ac, type: 3}
+  - {fileID: 4497115627086101268, guid: aa5d963cc83e5b140af7b09c3b1a00ca, type: 3}
+  - {fileID: 1911686017715750788, guid: e66119b6871f3524daeab582e56611ac, type: 3}
+  - {fileID: 2136619793922361029, guid: 814d86a2da242414d88e56ff86afe516, type: 3}

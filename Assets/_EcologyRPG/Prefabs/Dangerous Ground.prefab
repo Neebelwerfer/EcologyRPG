@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 584689712750011209}
   - component: {fileID: 8039149900947578104}
   - component: {fileID: 4541202535375743847}
+  - component: {fileID: 1911686017715750788}
   m_Layer: 9
   m_Name: Dangerous Ground
   m_TagString: Untagged
@@ -140,3 +141,21 @@ MonoBehaviour:
   damagePerTick: 5
   damageInterval: 1
   damageType: 2
+--- !u!114 &1911686017715750788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4600952382713385280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb080e4ed3d47c4fbdc6dd3811b5ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd:
+    m_PersistentCalls:
+      m_Calls: []

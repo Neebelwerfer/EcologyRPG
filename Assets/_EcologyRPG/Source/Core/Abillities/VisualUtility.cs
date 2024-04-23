@@ -27,9 +27,7 @@ namespace EcologyRPG.Core.Abilities
             }
             if(id < db.vfxObjects.Length)
             {
-                var obj = db.vfxObjects[id];
-                var go = Object.Instantiate(obj, position.Vector, rotation.Value);
-                Object.Destroy(go, duration);
+                db.Spawn((int)id, position.Vector, rotation.Value, duration);
             }
         }
     }

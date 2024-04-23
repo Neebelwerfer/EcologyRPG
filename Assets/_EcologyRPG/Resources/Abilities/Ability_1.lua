@@ -18,6 +18,7 @@ function OnCast()
     local targets = GetTargetsInLine(Context, Width, Range)
     for i, t in ipairs(targets) do
         t.ApplyDamage(BaseDamage, DamageType)
+        SpawnObject(0, t.GetPosition(), 2)
     end
     owner.RestoreMovement()
 end
