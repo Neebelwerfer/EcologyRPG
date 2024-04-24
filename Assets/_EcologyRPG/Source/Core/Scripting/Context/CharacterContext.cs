@@ -29,6 +29,26 @@ namespace EcologyRPG.Core.Scripting
             Character.ApplyDamage(damageInfo);
         }
 
+        public void ApplyStatModifier(StatModifierContext modifier)
+        {
+            Character.AddStatModifier(modifier.Modifier);
+        }
+
+        public void RemoveStatModifier(StatModifierContext modifier)
+        {
+            Character.RemoveStatModifier(modifier.Modifier);
+        }
+
+        public void ApplyUniqueStatModifier(StatModifierContext modifier, bool minVal)
+        {
+            Character.AddUniqueStatModifier(modifier.Modifier, minVal);
+        }
+
+        public void RemoveUniqueStatModifier(StatModifierContext modifier)
+        {
+            Character.RemoveUniqueStatModifier(modifier.Modifier);
+        }
+
 
         public void RotateTowards(Vector3Context target)
         {

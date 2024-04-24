@@ -89,6 +89,8 @@ namespace EcologyRPG.Core.Character
         protected CharacterBinding CharacterBinding { get; private set; }
         StatModification CastingSlow;
 
+        protected List<StatModification> statMods = new List<StatModification>();
+
 
         public BaseCharacter()
         {
@@ -139,6 +141,48 @@ namespace EcologyRPG.Core.Character
             {
                 Die();
             }
+        }
+
+        //TODO: Add the old uniquestatmodifierhandler to this
+        public void AddUniqueStatModifier(StatModification mod, bool minVal)
+        {
+            var existingMod = statMods.Find(x => x.StatName == mod.StatName);
+            if(existingMod != null)
+            {
+                if (minVal && mod.Value > existingMod.Value) return;
+                else if (!minVal && mod.Value < existingMod.Value) return;
+
+                Stats.RemoveStatModifier(existingMod);
+                Stats.AddStatModifier(mod);
+                statMods.Remove(existingMod);
+                statMods.Add(mod);
+            }
+            else
+            {
+                Stats.AddStatModifier(mod);
+                statMods.Add(mod);
+            }
+
+        }
+
+        public void RemoveUniqueStatModifier(StatModification mod)
+        {
+            var existingMod = statMods.Find(x => x.StatName == mod.StatName);
+            if(existingMod != null)
+            {
+                Stats.RemoveStatModifier(existingMod);
+                statMods.Remove(existingMod);
+            }
+        }
+
+        public void AddStatModifier(StatModification mod)
+        {
+            Stats.AddStatModifier(mod);
+        }
+
+        public void RemoveStatModifier(StatModification mod)
+        {
+            Stats.RemoveStatModifier(mod);
         }
 
         protected virtual float CalculateDamage(DamageInfo damageInfo)

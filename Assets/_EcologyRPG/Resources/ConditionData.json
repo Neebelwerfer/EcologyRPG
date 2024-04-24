@@ -1,0 +1,34 @@
+{
+    "IDCounter": 1,
+    "data": [
+        {
+            "updateType": 0,
+            "ID": 1,
+            "ConditionName": "Slow",
+            "ConditionDescription": "",
+            "ScriptPath": "Assets/_EcologyRPG/Resources/Conditions/Condition_1.lua",
+            "_DefaultGlobalVariables": [
+                {
+                    "rid": 1000
+                }
+            ]
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "FloatGlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "SlowAmount",
+                    "Value": 0.5
+                }
+            }
+        ]
+    }
+}

@@ -26,6 +26,7 @@ namespace EcologyRPG.Core.Scripting
             UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
             UserData.RegisterProxyType<BasicProjectileContext, BasicProjectileBehaviour>(s => new BasicProjectileContext(s));
             UserData.RegisterProxyType<CurvedProjectileContext, CurvedProjectileBehaviour>(s => new CurvedProjectileContext(s));
+            UserData.RegisterProxyType<StatModifierContext, StatModification>(s => new StatModifierContext(s));
             UserData.RegisterType<QuaternionContext>();
             UserData.RegisterType<Vector3Context>();
             UserData.RegisterType<CastContext>();
@@ -38,11 +39,18 @@ namespace EcologyRPG.Core.Scripting
             var script = new Script(CoreModules.Preset_HardSandbox);
             ScriptUtility.AddContext(script);
             script.Globals["Vector3"] = (Func<float, float, float, Vector3Context>)Vector3Context._Vector3;
+            script.Globals["StatModifier"] = (Func<CastContext, string, float, int, StatModifierContext>)CreateStatModifier;
             QuaternionContext.Register(script);
             ProjectileUtility.AddToGlobal(script);
             Targets.AddToGlobal(script);
 
             return script;
+        }
+
+
+        static StatModifierContext CreateStatModifier(CastContext context, string StatName, float Value, int ModType)
+        {
+            return new StatModifierContext(new StatModification(StatName, Value, (StatModType)ModType, context.GetOwner()));
         }
     }
 }
