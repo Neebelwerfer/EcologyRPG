@@ -8,6 +8,8 @@ namespace EcologyRPG.GameSystems.Abilities
         [Header("Lopped Projectile")]
         [Tooltip("The prefab of the projectile")]
         public GameObject ProjectilePrefab;
+        [Tooltip("The audio clip of the projectile")]
+        public AudioClip clip;
         [Tooltip("The layer mask of the colliders the projectile can travel through")]
         public LayerMask ignoreMask;
         [Tooltip("The angle of the projectile")]
@@ -17,6 +19,7 @@ namespace EcologyRPG.GameSystems.Abilities
 
         public override void Cast(CastInfo caster)
         {
+            base.Cast(caster);
             Debug.DrawRay(caster.targetPoint, Vector3.up * 1, Color.red, 5);
             ProjectileUtility.CreateCurvedProjectile(ProjectilePrefab, caster.castPos, caster.targetPoint, TravelTime, -Angle, ignoreMask, caster.owner, (projectileObject) =>
             {
@@ -26,7 +29,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 {
                     effect.ApplyEffect(newInfo, null);
                 }
-            });
+            }, clip);
         }
     }
 }

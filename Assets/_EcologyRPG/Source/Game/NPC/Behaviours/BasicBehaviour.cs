@@ -20,6 +20,9 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         public float chaseSpeedModifier = 0.5f;
         public float ResetSpeedModifier = 1f;
 
+        public AudioClip WanderSound;
+        public AudioClip AggroSound;
+
         BaseCharacter target;
         NPCAbility attackAbility;
         float targetSearchTimer = 0f;
@@ -30,6 +33,7 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
         public override void Init(EnemyNPC character)
         {
             speedMod = new StatModification("movementSpeed", wanderSpeedModifer, StatModType.PercentMult, this);
+            character.AudioSource.loop = true;
             character.Stats.AddStatModifier(speedMod);
             initialisedAbilities = new NPCAbility[abilities.Count];
             for (int i = 0; i < abilities.Count; i++)
@@ -49,6 +53,11 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             aggroState.SetOnEnterAction((npc) =>
             {
                 speedMod.Value = chaseSpeedModifier;
+                if(AggroSound != null)
+                {
+                    npc.AudioSource.clip = AggroSound;
+                    npc.AudioSource.Play();
+                }
             });
 
             var Chase = new ActionNode((npc) =>
@@ -105,6 +114,11 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 target = null;
                 npc.Agent.ResetPath();
                 speedMod.Value = wanderSpeedModifer;
+                if(WanderSound != null)
+                {
+                    npc.AudioSource.clip = WanderSound;
+                    npc.AudioSource.Play();
+                }
             });
 
             var Wander = new ActionNode((npc) =>
@@ -158,6 +172,11 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
                 var health = npc.Stats.GetResource("health");
                 health.CurrentValue = health.MaxValue;
                 npc.Invunerable = true;
+                if(WanderSound != null)
+                {
+                    npc.AudioSource.clip = WanderSound;
+                    npc.AudioSource.Play();
+                }
                 Debug.Log("Resetting");
             });
 

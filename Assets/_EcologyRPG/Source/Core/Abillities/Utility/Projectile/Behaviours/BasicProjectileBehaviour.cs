@@ -19,8 +19,8 @@ namespace EcologyRPG.Core.Abilities
         Vector3 localScale;
         Quaternion rotation;
 
-        public BasicProjectileBehaviour(GameObject Prefab, float range, Vector3 origin, Vector3 dir, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner, Action<BaseCharacter> OnHit, Action<GameObject> OnUpdate)
-            : base(Prefab, origin, Quaternion.LookRotation(dir))
+        public BasicProjectileBehaviour(GameObject Prefab, float range, Vector3 origin, Vector3 dir, float speed, bool DestroyOnHit, LayerMask layerMask, BaseCharacter owner, AudioClip audioClip, Action<BaseCharacter> OnHit, Action<GameObject> OnUpdate)
+            : base(Prefab, origin, Quaternion.LookRotation(dir), audioClip)
         {
             this.range = range;
             this.dir = dir;

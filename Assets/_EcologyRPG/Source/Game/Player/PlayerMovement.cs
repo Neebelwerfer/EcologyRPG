@@ -47,6 +47,14 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             {
                 animator.SetBool(isStill, false);
                 animator.SetBool(isWalking, true);
+                if(player.playerSettings.Walking != null)
+                {
+                    if(player.AudioSource.clip != player.playerSettings.Walking)
+                        player.AudioSource.clip = player.playerSettings.Walking;
+                    if(!player.AudioSource.isPlaying) 
+                        player.AudioSource.Play();
+
+                }
                 var speed = MovementSpeed.Value * Characters.BaseMoveSpeed;
                 var dir = (movement.y * forward + movement.x * right).normalized;
                 if(Physics.Raycast(transform.Position, Vector3.down, out RaycastHit hit, 100, Game.Settings.TargetGroundMask))
@@ -63,6 +71,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             }
             else
             {
+                if(player.AudioSource.isPlaying) player.AudioSource.Stop();
                 animator.SetBool(isWalking, false);
                 animator.SetBool(isStill, true);
                 if(player.CanRotate)

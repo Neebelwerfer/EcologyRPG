@@ -21,6 +21,7 @@ MonoBehaviour:
     type: 3}
   SprintMultiplier: 0.5
   rotationSpeed: 4
+  Walking: {fileID: 0}
   GlobalCooldown: 0.5
   SprintAbility: {fileID: 11400000, guid: 34ffa0ff51f46fb439c20abcfdff51ca, type: 2}
   DodgeAbility: {fileID: 11400000, guid: 23d7b1d1678030f499cfb49d2b6ae21a, type: 2}

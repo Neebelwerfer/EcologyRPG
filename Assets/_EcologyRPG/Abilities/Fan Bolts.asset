@@ -73,10 +73,14 @@ MonoBehaviour:
   Cooldown: 3.2
   CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: c3f3e1ed30d931f47a38d933305d5a3c, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 13e0866e-6c69-43a2-b551-6d334e6fb071
   Ability: {fileID: 3584150840985782839}
   ResourceName: water
   ResourceCost: 10

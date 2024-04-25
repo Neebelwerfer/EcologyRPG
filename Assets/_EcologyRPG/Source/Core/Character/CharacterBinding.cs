@@ -7,6 +7,7 @@ namespace EcologyRPG.Core.Character
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
+    [RequireComponent(typeof(AudioSource))]
     public class CharacterBinding : MonoBehaviour
     {
         public Transform CastingPoint;
@@ -31,6 +32,13 @@ namespace EcologyRPG.Core.Character
             }
         }
 
+        public AudioSource AudioSource { get
+            {
+                audioSource ??= GetComponent<AudioSource>();
+                return audioSource;
+            }
+        }
+
         public UnityEvent CharacterUpdated = new UnityEvent();
 
         public UnityEvent<Collision> OnCollisionEnterEvent = new UnityEvent<Collision>();
@@ -43,6 +51,7 @@ namespace EcologyRPG.Core.Character
         Rigidbody rb;
         Animator anim;
         CapsuleCollider col;
+        AudioSource audioSource;
 
         public void SetCharacter(BaseCharacter character)
         {
