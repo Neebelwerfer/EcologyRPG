@@ -11,6 +11,7 @@ public class ProjectileAbilityEditor : AttackAbilityEditor
 
         ProjectileAbility ability = (ProjectileAbility)target;
         EditorGUILayout.PropertyField(serializedObject.FindProperty("destroyOnHit"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("clip"));
     }
 }
 #endif

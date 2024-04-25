@@ -49,6 +49,7 @@ namespace EcologyRPG.Core.Character
         public virtual Vector3 Velocity { get { return Rigidbody.velocity; }  set { Rigidbody.velocity = value; } }
         public CapsuleCollider Collider { get { return CharacterBinding.Collider; } }
         public Animator Animator { get { return CharacterBinding.Animator; } }
+        public AudioSource AudioSource { get { return CharacterBinding.AudioSource; } }
         public Stats Stats { get; private set; }
 
         public Random Random { get 

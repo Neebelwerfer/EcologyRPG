@@ -4,10 +4,12 @@ namespace EcologyRPG.Core.Abilities
 {
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(AudioSource))]
     public class Projectile : MonoBehaviour
     {
         public Collider Collider;
         public Rigidbody Rigidbody;
+        public AudioSource AudioSource;
         ProjectileBehaviour behaviour;
 
         public virtual void Init(ProjectileBehaviour behaviour)
@@ -15,9 +17,20 @@ namespace EcologyRPG.Core.Abilities
             this.behaviour = behaviour;
             Collider = GetComponent<Collider>();
             Rigidbody = GetComponent<Rigidbody>();
+            AudioSource = GetComponent<AudioSource>();
             Collider.isTrigger = true;
             Rigidbody.isKinematic = true;
             gameObject.layer = LayerMask.NameToLayer("Projectile");
+
+            AudioSource.loop = true;
+        }
+
+        private void OnEnable()
+        {
+            if(AudioSource.clip != null)
+            {
+                AudioSource.Play();
+            }
         }
 
         protected void Update()
@@ -40,6 +53,8 @@ namespace EcologyRPG.Core.Abilities
             behaviour = null;
             Collider.isTrigger = true;
             Rigidbody.isKinematic = true;
+            AudioSource.Stop();
+            AudioSource.clip = null;
         }
     }
 }

@@ -22,6 +22,9 @@ namespace EcologyRPG.GameSystems.PlayerSystems
         public float SprintMultiplier = 1.2f;
         public float rotationSpeed = 4f;
 
+        [Header("Sound Settings")]
+        public AudioClip Walking;
+
         [Header("Ability Settings")]
         public float GlobalCooldown = 0.5f;
         public PlayerAbilityDefinition SprintAbility;

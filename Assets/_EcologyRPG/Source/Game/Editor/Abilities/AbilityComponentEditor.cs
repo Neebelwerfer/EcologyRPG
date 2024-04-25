@@ -51,7 +51,8 @@ public class AbilityComponentEditor : EditorWindow
         new DisplayComponent { name = "Condition", ClassType = typeof(ConditionAbilityComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "Ability Cast", ClassType = typeof(CastAbilityComponent), DisplayType = DisplayComponentType.Combat },
         new DisplayComponent { name = "Dangerous Terrain", ClassType = typeof(DangerousTerrainComponent), DisplayType = DisplayComponentType.Visual },
-        new DisplayComponent { name = "VFX", ClassType = typeof(VFXAbilityComponent), DisplayType = DisplayComponentType.Visual}
+        new DisplayComponent { name = "VFX", ClassType = typeof(VFXAbilityComponent), DisplayType = DisplayComponentType.Visual},
+        new DisplayComponent { name = "Sound", ClassType = typeof(SoundComponent), DisplayType = DisplayComponentType.Visual }
     };
 
     DisplayComponent[] displayEffects;

@@ -6,11 +6,14 @@ namespace EcologyRPG.Core.Abilities
     {
         protected GameObject projectileObj;
         protected Projectile projectile;
+        
+        AudioClip clip;
 
-        public ProjectileBehaviour(GameObject prefab, Vector3 origin, Quaternion rotation)
+
+        public ProjectileBehaviour(GameObject prefab, Vector3 origin, Quaternion rotation, AudioClip clip)
         {
             projectileObj = ProjectilePoolHandler.Instance.GetProjectile(prefab, origin, rotation);
-            if(projectileObj.TryGetComponent<Projectile>(out var proj))
+            if (projectileObj.TryGetComponent<Projectile>(out var proj))
             {
                 projectile = proj;
             }
@@ -21,8 +24,14 @@ namespace EcologyRPG.Core.Abilities
             }
             projectile.Init(this);
             ProjectileSystem.Instance.AddBehaviour(this);
-        }
+            this.clip = clip;
 
+            if(clip != null)
+            {
+                projectile.AudioSource.clip = clip;
+                projectile.AudioSource.Play();
+            }
+        }
 
         public abstract void OnUpdate();
 

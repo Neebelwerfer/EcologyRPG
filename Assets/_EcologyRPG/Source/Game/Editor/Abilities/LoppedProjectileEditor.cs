@@ -13,6 +13,7 @@ public class LoppedProjectileEditor : AttackAbilityEditor
         base.OnInspectorGUI();
 
         ability.ProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", ability.ProjectilePrefab, typeof(GameObject), false);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("clip"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("ignoreMask"));
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Angle"));

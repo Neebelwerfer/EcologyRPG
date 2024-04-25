@@ -19,7 +19,7 @@ namespace EcologyRPG.GameSystems.Abilities
             base.Cast(castInfo);
             var dir = GetDir(castInfo);
             firstHit = true;
-            ProjectileUtility.CreateBasicProjectile(ProjectilePrefab, castInfo.castPos, dir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, castInfo.owner, (target) =>
+            ProjectileUtility.CreateBasicProjectile(ProjectilePrefab, castInfo.castPos, dir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, castInfo.owner, clip, (target) =>
             {
                 var newCastInfo = new CastInfo { owner = castInfo.owner, castPos = target.Transform.Position, dir = dir, targetPoint = Vector3.zero };
                 DefaultOnHitAction()(newCastInfo, target);

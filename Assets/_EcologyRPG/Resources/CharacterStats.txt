@@ -10,7 +10,7 @@
                     "statName": "movementSpeed",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 0.05000000074505806
+                    "changePerPoint": 0.07500000298023224
                 }
             ]
         },
@@ -30,7 +30,7 @@
                     "statName": "maxStamina",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 0.05000000074505806
+                    "changePerPoint": 0.07500000298023224
                 }
             ]
         },
@@ -62,7 +62,7 @@
             "statProgressions": [
                 {
                     "statName": "abilityDamage",
-                    "modType": 100,
+                    "modType": 200,
                     "startValue": 0.0,
                     "changePerPoint": 0.05000000074505806
                 }
@@ -78,7 +78,7 @@
                     "statName": "armor",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 0.05000000074505806
+                    "changePerPoint": 0.17499999701976777
                 }
             ]
         },
@@ -92,7 +92,7 @@
                     "statName": "waterArmor",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 0.05000000074505806
+                    "changePerPoint": 0.125
                 }
             ]
         },
@@ -106,7 +106,7 @@
                     "statName": "toxicProtection",
                     "modType": 200,
                     "startValue": 0.0,
-                    "changePerPoint": 0.05000000074505806
+                    "changePerPoint": 0.10000000149011612
                 }
             ]
         }
@@ -147,7 +147,7 @@
             "displayName": "Stamina Gain",
             "DisplayOptions": 0,
             "ShowOptions": 0,
-            "baseValue": 10.0,
+            "baseValue": 12.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
             "description": "Governs a characters stamina recovery"
@@ -197,7 +197,7 @@
             "displayName": "Food Drain",
             "DisplayOptions": 0,
             "ShowOptions": 1,
-            "baseValue": 0.10000000149011612,
+            "baseValue": 0.15000000596046449,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters nutrition drains at baseline, while not moving"
@@ -217,7 +217,7 @@
             "displayName": "water Drain",
             "DisplayOptions": 0,
             "ShowOptions": 1,
-            "baseValue": 0.05000000074505806,
+            "baseValue": 0.07500000298023224,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": -3.4028234663852887e38,
             "description": "Governs a how quickly a characters water drains when not using abilities"
@@ -227,7 +227,7 @@
             "displayName": "Toxic Water",
             "DisplayOptions": 0,
             "ShowOptions": 0,
-            "baseValue": 200.0,
+            "baseValue": 100.0,
             "MaxValue": 3.4028234663852887e38,
             "MinValue": 0.0,
             "description": "Governs a characters toxic water"

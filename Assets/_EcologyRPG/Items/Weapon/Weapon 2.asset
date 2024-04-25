@@ -190,7 +190,7 @@ MonoBehaviour:
     AttributeName: 
     type: 1
     modType: 100
-    minValue: 5
+    minValue: 6
     maxValue: 10
     GrowthPerLevel: 2
     growthType: 0

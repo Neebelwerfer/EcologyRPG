@@ -44,10 +44,14 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: a73aec25-aa98-4509-b8d6-18e1740b1098
   Ability: {fileID: -1452769123730355576}
 --- !u!114 &-3507227463433355515
 MonoBehaviour:
@@ -82,6 +86,7 @@ MonoBehaviour:
   - {fileID: 9103281277816228108}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   type: 1
   numberOfProjectiles: 8
   ConeAngle: 120
@@ -105,10 +110,14 @@ MonoBehaviour:
   Cooldown: 1.2
   CastWindupTime: 0.7
   Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: a775ceb5-2d6c-4403-8788-e1ef648f2ec7
   Ability: {fileID: 6692371911492626149}
   ResourceName: water
   ResourceCost: 10
@@ -142,6 +151,7 @@ MonoBehaviour:
   - {fileID: 8494733662436896113}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   type: 1
   numberOfProjectiles: 8
   ConeAngle: 120
@@ -170,6 +180,7 @@ MonoBehaviour:
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 0}
   Speed: 8
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
@@ -189,10 +200,14 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: ff8147f5-b7fb-4d24-b09d-62d29174d060
   Ability: {fileID: 2558229272347364360}
 --- !u!114 &6158336926422640208
 MonoBehaviour:
@@ -230,6 +245,7 @@ MonoBehaviour:
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 0}
   Speed: 9
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}

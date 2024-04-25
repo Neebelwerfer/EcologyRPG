@@ -23,6 +23,7 @@ namespace EcologyRPG.GameSystems.Abilities
 
         public override void Cast(CastInfo caster)
         {
+            base.Cast(caster);
             var dir = GetDir(caster);
             if (type == ProjectileType.Cone)
             {
@@ -45,7 +46,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 for (int i = 0; i < numberOfProjectiles; i++)
                 {
                     var pos = start + i * LineWidth * -left / (numberOfProjectiles - 1);
-                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, pos, dir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, caster.owner, (target) =>
+                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, pos, dir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, caster.owner, clip, (target) =>
                     {
                         OnHit(caster, target, dir);
                     });
@@ -57,7 +58,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 for (int i = 0; i < numberOfProjectiles; i++)
                 {
                     var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * start;
-                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, caster.castPos, newDir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, caster.owner, (target) =>
+                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, caster.castPos, newDir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, caster.owner, clip, (target) =>
                     {
                         OnHit(caster, target, newDir);
                     });
@@ -68,7 +69,7 @@ namespace EcologyRPG.GameSystems.Abilities
                 for (int i = 0; i < numberOfProjectiles; i++)
                 {
                     var newDir = Quaternion.Euler(0, angleBetweenProjectiles * i, 0) * dir;
-                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, caster.castPos, newDir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, caster.owner, (target) =>
+                    ProjectileUtility.CreateBasicProjectile(projectilePrefab, caster.castPos, newDir, Range, Speed, destroyOnHit, AbilityManager.TargetMask, caster.owner, clip, (target) =>
                     {
                         OnHit(caster, target, newDir);
                     });

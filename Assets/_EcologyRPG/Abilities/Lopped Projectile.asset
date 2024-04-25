@@ -22,6 +22,7 @@ MonoBehaviour:
   displayFirstHitEffects: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+  clip: {fileID: 0}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 265
@@ -150,6 +151,7 @@ MonoBehaviour:
   displayFirstHitEffects: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+  clip: {fileID: 0}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 264
