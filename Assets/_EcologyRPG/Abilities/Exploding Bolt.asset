@@ -13,11 +13,106 @@ MonoBehaviour:
   m_Name: KnockCondition
   m_EditorClassIdentifier: 
   ID: 12f4e01c-f43a-4faa-96a8-de48d4f2b195
-  displayName: KnockCondition
   duration: 1
   remainingDuration: 0
   KnockBackDistance: 5
   knockType: 0
+--- !u!114 &-8535997557407915844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent(Clone)
+  m_EditorClassIdentifier: 
+  BaseDamage: 5
+  DamageType: 1
+  AllowVariance: 1
+--- !u!114 &-7005888183491858920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055c0c93801b573419251bfadefde6f8, type: 3}
+  m_Name: ExpandingProjectile(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Range: 0.01
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit: []
+  OnHitEffects:
+  - {fileID: -865894738987615266}
+  - {fileID: -2520439199238793429}
+  displayFirstHitEffects: 1
+  destroyOnHit: 0
+  clip: {fileID: 0}
+  Speed: 0.015
+  GrowthRate: {x: 3, y: 3, z: 3}
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+--- !u!114 &-6510129280818831947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1929aaa2c1fa3b4ca156d7b37714255, type: 3}
+  m_Name: KnockCondition(Clone)
+  m_EditorClassIdentifier: 
+  ID: 12f4e01c-f43a-4faa-96a8-de48d4f2b195
+  duration: 1
+  remainingDuration: 0
+  KnockBackDistance: 5
+  knockType: 0
+--- !u!114 &-4592662390603430749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8902e734154038d48a611503b1653304, type: 3}
+  m_Name: New Ability(Clone)
+  m_EditorClassIdentifier: 
+  DisplayName: ExpandingProjectile
+  Cooldown: 0.5
+  CastWindupTime: 0
+  Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  BuffsOnCast: []
+  remainingCooldown: 0
+  state: 0
+  CastWindUp: []
+  guid: 377b4118-091b-45de-9b2b-bdbb82d25a44
+  Ability: {fileID: -7005888183491858920}
+--- !u!114 &-2520439199238793429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efab051de131248b363777dd124906, type: 3}
+  m_Name: ConditionAbilityComponent
+  m_EditorClassIdentifier: 
+  DebuffCondition: {fileID: -6510129280818831947}
 --- !u!114 &-2057631771875263104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,6 +139,37 @@ MonoBehaviour:
   m_Name: CastAbilityComponent
   m_EditorClassIdentifier: 
   _ability: {fileID: 7915159216236265921}
+--- !u!114 &-865894738987615266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed60ba2f3cb93e44488e987400544f23, type: 3}
+  m_Name: AbilityDamageComponent(Clone)
+  m_EditorClassIdentifier: 
+  BaseDamage: 25
+  DamageType: 1
+  AllowVariance: 1
+--- !u!114 &-330371933827406553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,16 +186,23 @@ MonoBehaviour:
   Cooldown: 8
   CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 3fe2083427ec7f44aa0bb802a109a868, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: ebbb31eb-cec4-4ddb-903a-ecc56ce8685a
   Ability: {fileID: 700960781163589716}
   ResourceName: water
   ResourceCost: 10
   Description: Shoot a Pressurized bolt that expands quickly upon making contact
     with enemies
   AnimationTrigger: Water_SingleShot
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: 4229410735592275891}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
@@ -118,17 +251,74 @@ MonoBehaviour:
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 15
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 6831146957664180363}
   useMouseDirection: 0
   OnFirstHit:
   - {fileID: 578131841104737425}
   - {fileID: -1223565900871052742}
-  OnHitEffects: []
+  OnHitEffects:
+  - {fileID: -330371933827406553}
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 8
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+--- !u!114 &955806205752046799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf80c58fd18d3409e2909e69222e6c, type: 3}
+  m_Name: CastAbilityComponent
+  m_EditorClassIdentifier: 
+  _ability: {fileID: -4592662390603430749}
+--- !u!114 &4229410735592275891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78cf7ab1cbe048945976889ad5719ccc, type: 3}
+  m_Name: BasicProjectile(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  Range: 15
+  OnCastEffects: []
+  useMouseDirection: 0
+  OnFirstHit:
+  - {fileID: -8535997557407915844}
+  - {fileID: 955806205752046799}
+  OnHitEffects: []
+  displayFirstHitEffects: 1
+  destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
+  Speed: 8
+  ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
+    type: 3}
+--- !u!114 &6831146957664180363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &7915159216236265921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,11 +335,31 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 377b4118-091b-45de-9b2b-bdbb82d25a44
   Ability: {fileID: 9177974547239822766}
+--- !u!114 &8851291705013157691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 0798f1f601651d948be1e76b6b9ec82e, type: 3}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &9177974547239822766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +373,8 @@ MonoBehaviour:
   m_Name: ExpandingProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 0.01
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 8851291705013157691}
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
@@ -171,6 +382,7 @@ MonoBehaviour:
   - {fileID: -2057631771875263104}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   Speed: 0.015
   GrowthRate: {x: 3, y: 3, z: 3}
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,

@@ -35,6 +35,7 @@ MonoBehaviour:
   - {fileID: -2106257811069373054}
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   type: 1
   numberOfProjectiles: 9
   ConeAngle: 63
@@ -42,6 +43,22 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
   Speed: 7
+--- !u!114 &-3839581924967245192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 1
+  Pitch: 0.65
+  Loop: 0
 --- !u!114 &-2106257811069373054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +111,22 @@ MonoBehaviour:
   BlockRotationOnWindup: 1
   UseMouseDirection: 1
   RotatePlayerTowardsMouse: 1
+--- !u!114 &3161566095049670267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 1
+  Pitch: 1.2
+  Loop: 0
 --- !u!114 &3584150840985782839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,13 +140,16 @@ MonoBehaviour:
   m_Name: MultipleProjectiles(Clone)
   m_EditorClassIdentifier: 
   Range: 12.5
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 3161566095049670267}
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
   - {fileID: -7082343921410831746}
+  - {fileID: -3839581924967245192}
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   type: 1
   numberOfProjectiles: 9
   ConeAngle: 63

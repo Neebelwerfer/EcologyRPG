@@ -35,6 +35,7 @@ MonoBehaviour:
   - {fileID: -9038128604637068494}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   Speed: 20
   ProjectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
     type: 3}
@@ -54,10 +55,14 @@ MonoBehaviour:
   Cooldown: 1.6
   CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 335ffe9620fa71243a018c4690c86b8c, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 53d65f48-d35c-4cd1-be46-681a1ef08f6d
   Ability: {fileID: 8385981959401375504}
   ResourceName: water
   ResourceCost: 5
@@ -72,6 +77,22 @@ MonoBehaviour:
   BlockRotationOnWindup: 1
   UseMouseDirection: 1
   RotatePlayerTowardsMouse: 1
+--- !u!114 &3061416191555651608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 0.87
+  Pitch: 1.5
+  Loop: 0
 --- !u!114 &3166507671519717230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +108,22 @@ MonoBehaviour:
   BaseDamage: 18
   DamageType: 1
   AllowVariance: 1
+--- !u!114 &6972759532104170157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 0.2
+  Pitch: 1.5
+  Loop: 0
 --- !u!114 &8385981959401375504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,13 +137,16 @@ MonoBehaviour:
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 30
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 3061416191555651608}
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 3166507671519717230}
+  - {fileID: 6972759532104170157}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 20
   ProjectilePrefab: {fileID: 8808507583449147345, guid: b00c3c753e197e6429903c2340d53653,
     type: 3}

@@ -15,6 +15,22 @@ MonoBehaviour:
   ID: 767790d0-fe12-4796-9146-e69f637efe5e
   duration: 0
   remainingDuration: 0
+--- !u!114 &-2195679450572538874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 0064191e8aa6fc945aefce68dc3e44ad, type: 3}
+  Volume: 0.1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,7 +53,8 @@ MonoBehaviour:
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp: []
+  CastWindUp:
+  - {fileID: -2195679450572538874}
   guid: 32dabfef-5dd9-43ef-92b8-8f1f628bf1bb
   Ability: {fileID: 8200451567496563987}
   ResourceName: stamina

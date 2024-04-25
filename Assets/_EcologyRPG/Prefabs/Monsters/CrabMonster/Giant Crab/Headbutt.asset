@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8963470010914225657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: d29f999526f8fe046913c214ae24c837, type: 3}
+  Volume: 0.4
+  Pitch: 1
+  Loop: 0
 --- !u!114 &-6761183876930618398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,6 +35,7 @@ MonoBehaviour:
   OnHitEffects:
   - {fileID: 2165584115140826151}
   - {fileID: -4662469757275057360}
+  - {fileID: -8963470010914225657}
   displayFirstHitEffects: 1
   targetType: 0
   showIndicator: 1
@@ -59,7 +76,8 @@ MonoBehaviour:
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp: []
+  CastWindUp:
+  - {fileID: 4450424053424738277}
   guid: 
   minRange: 2
   AnimationTrigger: Headbutt
@@ -79,6 +97,22 @@ MonoBehaviour:
   BaseDamage: 50
   DamageType: 0
   AllowVariance: 1
+--- !u!114 &4450424053424738277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: af49055fec5d3c7479cac76349f27fcf, type: 3}
+  Volume: 0.45
+  Pitch: 0.1
+  Loop: 0
 --- !u!114 &7485982058008701274
 MonoBehaviour:
   m_ObjectHideFlags: 0

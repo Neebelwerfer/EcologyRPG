@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2765647671745530350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: af49055fec5d3c7479cac76349f27fcf, type: 3}
+  Volume: 0.9
+  Pitch: 1
+  Loop: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22,11 +38,28 @@ MonoBehaviour:
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp: []
+  CastWindUp:
+  - {fileID: -2765647671745530350}
   guid: 
   minRange: 0
   AnimationTrigger: Attack1
   Ability: {fileID: 5024363294668434562}
+--- !u!114 &1661698613683649597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: d29f999526f8fe046913c214ae24c837, type: 3}
+  Volume: 0.4
+  Pitch: 1.3
+  Loop: 0
 --- !u!114 &4315462255966043598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +93,7 @@ MonoBehaviour:
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 4315462255966043598}
+  - {fileID: 1661698613683649597}
   displayFirstHitEffects: 1
   targetType: 0
   showIndicator: 1

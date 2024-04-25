@@ -18,12 +18,30 @@ MonoBehaviour:
   OnFirstHit:
   - {fileID: -5741911886191026748}
   - {fileID: -7741392564128674262}
-  OnHitEffects: []
+  OnHitEffects:
+  - {fileID: 3567471471245345518}
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 9
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+--- !u!114 &-8410062708045240927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 1
+  Pitch: 0.25
+  Loop: 0
 --- !u!114 &-7741392564128674262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,10 +86,15 @@ MonoBehaviour:
   Cooldown: 10
   CastWindupTime: 0.5
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp: []
+  CastWindUp:
+  - {fileID: -8410062708045240927}
+  guid: 
   minRange: 4
   AnimationTrigger: Shout
   Ability: {fileID: -8898575638431154396}
@@ -88,7 +111,6 @@ MonoBehaviour:
   m_Name: SlowCondition
   m_EditorClassIdentifier: 
   ID: af952178-b3f1-4839-af28-03369db90a44
-  displayName: SlowCondition
   duration: 1
   remainingDuration: 0
   slowType: 0
@@ -117,3 +139,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3567471471245345518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 0.4
+  Pitch: 0.75
+  Loop: 0

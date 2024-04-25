@@ -17,7 +17,6 @@ namespace EcologyRPG.Core.Abilities.AbilityComponents
                 Debug.LogError("SoundComponent: No clip assigned");
                 return;
             }
-
             AudioSource.PlayClipAtPoint(Clip, cast.castPos, Volume);
         }
     }

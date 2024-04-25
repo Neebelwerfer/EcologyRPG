@@ -16,10 +16,14 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: c73d755d-dca8-455b-a7d1-6e16a940ff34
   Ability: {fileID: -578620955406757914}
 --- !u!114 &-6833321112446081449
 MonoBehaviour:
@@ -36,6 +40,38 @@ MonoBehaviour:
   BaseDamage: 12
   DamageType: 2
   AllowVariance: 1
+--- !u!114 &-4816188140842558756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 0.25
+  Pitch: 2
+  Loop: 0
+--- !u!114 &-3981021236912606890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 0.875
+  Pitch: 0.5
+  Loop: 0
 --- !u!114 &-3769787897727463450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,8 +90,10 @@ MonoBehaviour:
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 7623929056138889883}
+  - {fileID: -4816188140842558756}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   type: 2
   numberOfProjectiles: 15
   ConeAngle: 0
@@ -89,6 +127,22 @@ MonoBehaviour:
   m_Name: CastAbilityComponent
   m_EditorClassIdentifier: 
   _ability: {fileID: 6654066095997820088}
+--- !u!114 &-579835572296311082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 1
+  Pitch: 0.87
+  Loop: 0
 --- !u!114 &-578620955406757914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +163,7 @@ MonoBehaviour:
   - {fileID: -6833321112446081449}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   type: 2
   numberOfProjectiles: 15
   ConeAngle: 0
@@ -132,10 +187,14 @@ MonoBehaviour:
   Cooldown: 6
   CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: 3fe2083427ec7f44aa0bb802a109a868, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 1e656bc7-bcb8-41f3-b6c9-f21e471623fb
   Ability: {fileID: 3405211106958746377}
   ResourceName: water
   ResourceCost: 15
@@ -163,14 +222,17 @@ MonoBehaviour:
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 15
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: -579835572296311082}
   useMouseDirection: 0
   OnFirstHit:
   - {fileID: 4906663420938511619}
   - {fileID: -1341353167292185610}
-  OnHitEffects: []
+  OnHitEffects:
+  - {fileID: -3981021236912606890}
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 12
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
@@ -210,6 +272,7 @@ MonoBehaviour:
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 12
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
@@ -229,10 +292,14 @@ MonoBehaviour:
   Cooldown: 0.5
   CastWindupTime: 0
   Icon: {fileID: 0}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 89e3a53c-0edf-461d-9bd9-7c07cc3896f2
   Ability: {fileID: -3769787897727463450}
 --- !u!114 &7035373507643139186
 MonoBehaviour:

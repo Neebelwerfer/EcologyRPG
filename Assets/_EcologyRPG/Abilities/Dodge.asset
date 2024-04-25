@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 8cbb6104-1acc-4fd5-a564-b4b136dbede1
-  displayName: DashCondition
   duration: 0.3
   remainingDuration: 0
   directionMode: 1
@@ -37,20 +36,44 @@ MonoBehaviour:
   Cooldown: 1.25
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp: []
+  CastWindUp:
+  - {fileID: 84341836739054503}
+  guid: cb3dba40-11a9-4670-ac3c-39d2508fae43
   Ability: {fileID: 7549747444647114460}
   ResourceName: stamina
   ResourceCost: 30
   Description: 
   AnimationTrigger: 
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: 0}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
   UseMouseDirection: 0
   RotatePlayerTowardsMouse: 0
+--- !u!114 &84341836739054503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 916cee97fb8915a42a4a74478ad4c629, type: 3}
+  Volume: 1
+  Pitch: 2
+  Loop: 0
 --- !u!114 &7549747444647114460
 MonoBehaviour:
   m_ObjectHideFlags: 0

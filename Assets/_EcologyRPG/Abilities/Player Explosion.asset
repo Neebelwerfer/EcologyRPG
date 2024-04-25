@@ -13,11 +13,26 @@ MonoBehaviour:
   m_Name: KnockCondition(Clone)
   m_EditorClassIdentifier: 
   ID: 2ac9690f-8108-4886-a1d8-67a51e86ce91
-  displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
   KnockBackDistance: 8
   knockType: 0
+--- !u!114 &-6447075348002114675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 0798f1f601651d948be1e76b6b9ec82e, type: 3}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &-4830978739927171413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,10 +64,14 @@ MonoBehaviour:
   Cooldown: 6
   CastWindupTime: 1
   Icon: {fileID: 21300000, guid: 7ee537a46b126124689c38b2f16ea7da, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 228e6de7-5b31-403b-b6ed-f4ba915e480f
   Ability: {fileID: 3082562889586705759}
   ResourceName: water
   ResourceCost: 10
@@ -94,6 +113,7 @@ MonoBehaviour:
   Range: 0
   OnCastEffects:
   - {fileID: -4830978739927171413}
+  - {fileID: -6447075348002114675}
   Radius: 8
   OnHitEffects:
   - {fileID: 7810403523279891257}
@@ -154,7 +174,6 @@ MonoBehaviour:
   m_Name: KnockCondition
   m_EditorClassIdentifier: 
   ID: 2ac9690f-8108-4886-a1d8-67a51e86ce91
-  displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
   KnockBackDistance: 8

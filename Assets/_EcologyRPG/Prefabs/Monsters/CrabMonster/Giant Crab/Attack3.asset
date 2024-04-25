@@ -19,11 +19,28 @@ MonoBehaviour:
   OnHitEffects:
   - {fileID: 2165584115140826151}
   - {fileID: -4957430119073879325}
+  - {fileID: 5590167115602156627}
   displayFirstHitEffects: 1
   targetType: 0
   showIndicator: 1
   width: 2
   angle: 45
+--- !u!114 &-5912511480933595455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: af49055fec5d3c7479cac76349f27fcf, type: 3}
+  Volume: 0.25
+  Pitch: 0.6
+  Loop: 0
 --- !u!114 &-4957430119073879325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +76,8 @@ MonoBehaviour:
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
-  CastWindUp: []
+  CastWindUp:
+  - {fileID: -5912511480933595455}
   guid: 
   minRange: 0
   AnimationTrigger: Attack4
@@ -94,3 +112,19 @@ MonoBehaviour:
   BaseDamage: 30
   DamageType: 0
   AllowVariance: 1
+--- !u!114 &5590167115602156627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: d29f999526f8fe046913c214ae24c837, type: 3}
+  Volume: 0.25
+  Pitch: 1
+  Loop: 0
