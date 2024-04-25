@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: LoppedProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 100
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 7455455097045458476}
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
   - {fileID: -2291687266812242251}
   - {fileID: 1816107293234764699}
+  - {fileID: -6471539915991750892}
   displayFirstHitEffects: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 265
@@ -45,6 +47,22 @@ MonoBehaviour:
   remainingDuration: 0
   KnockBackDistance: 4
   knockType: 0
+--- !u!114 &-6471539915991750892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 0798f1f601651d948be1e76b6b9ec82e, type: 3}
+  Volume: 1
+  Pitch: 0.45
+  Loop: 0
 --- !u!114 &-5912069827332510943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +131,7 @@ MonoBehaviour:
   Range: 0
   OnCastEffects:
   - {fileID: -5912069827332510943}
+  - {fileID: -1348608129888750213}
   Radius: 4
   OnHitEffects:
   - {fileID: 3924641026455156315}
@@ -151,7 +170,7 @@ MonoBehaviour:
   displayFirstHitEffects: 0
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 264
@@ -172,6 +191,22 @@ MonoBehaviour:
   BaseDamage: 20
   DamageType: 0
   AllowVariance: 1
+--- !u!114 &-1348608129888750213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 0798f1f601651d948be1e76b6b9ec82e, type: 3}
+  Volume: 1
+  Pitch: 0.45
+  Loop: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +362,22 @@ MonoBehaviour:
   m_Name: CastAbilityComponent
   m_EditorClassIdentifier: 
   _ability: {fileID: -3312835879975769015}
+--- !u!114 &7455455097045458476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 1
+  Pitch: 0.1
+  Loop: 0
 --- !u!114 &8300871661839526486
 MonoBehaviour:
   m_ObjectHideFlags: 0

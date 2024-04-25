@@ -66,6 +66,22 @@ MonoBehaviour:
   m_Name: CastAbilityEffect
   m_EditorClassIdentifier: 
   _ability: {fileID: -4037135379477274119}
+--- !u!114 &-1561195231663291832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b33954a3768d5c44b9caa3e4bca72eaf, type: 3}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &-1452769123730355576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4455c039a8e33e345b1f3af1e51ed505, type: 3}
   m_Name: MultiProjectile
   m_EditorClassIdentifier: 
-  DisplayName: Basic Projectile
+  DisplayName: Fan Projecetile
   Cooldown: 1.2
   CastWindupTime: 0.7
   Icon: {fileID: 21300000, guid: 640cb9e373eb53e41a8e1785f348e9d2, type: 3}
@@ -121,7 +137,8 @@ MonoBehaviour:
   Ability: {fileID: 6692371911492626149}
   ResourceName: water
   ResourceCost: 10
-  Description: 
+  Description: Water bolt that scatters into a small fan of bolts when it hits an
+    enemy.
   AnimationTrigger: Water_SingleShot
   ToxicResoureCost: 5
   ToxicSelfDamage: 10
@@ -180,10 +197,26 @@ MonoBehaviour:
   OnHitEffects: []
   displayFirstHitEffects: 1
   destroyOnHit: 1
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 8
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}
+--- !u!114 &4223299964850992572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 0.9
+  Pitch: 0.75
+  Loop: 0
 --- !u!114 &5136911751342109848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,15 +270,17 @@ MonoBehaviour:
   m_Name: BasicProjectile(Clone)
   m_EditorClassIdentifier: 
   Range: 15
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 4223299964850992572}
   useMouseDirection: 1
   OnFirstHit:
   - {fileID: -3507227463433355515}
   - {fileID: 6158336926422640208}
-  OnHitEffects: []
+  OnHitEffects:
+  - {fileID: -1561195231663291832}
   displayFirstHitEffects: 1
   destroyOnHit: 1
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   Speed: 9
   ProjectilePrefab: {fileID: 8808507583449147345, guid: 72e38f5dd4fb55d4a8cf205278bad73b,
     type: 3}

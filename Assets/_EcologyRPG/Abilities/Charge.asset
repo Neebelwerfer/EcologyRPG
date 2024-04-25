@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: ChargeAttack(Clone)
   m_EditorClassIdentifier: 
   Range: 10
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 3746396838646013171}
   useMouseDirection: 1
   OnFirstHit: []
   OnHitEffects:
   - {fileID: 1344285647382033925}
   - {fileID: 2765209726981876797}
   - {fileID: 7850948500378500201}
+  - {fileID: -3170118275863821671}
   displayFirstHitEffects: 1
   dash: {fileID: -3317710680887479378}
 --- !u!114 &-4685705558122471581
@@ -35,7 +37,6 @@ MonoBehaviour:
   m_Name: KnockCondition
   m_EditorClassIdentifier: 
   ID: aa48c43d-78d5-4195-9282-e4a43d838fc3
-  displayName: KnockCondition
   duration: 0.8
   remainingDuration: 0
   KnockBackDistance: 6
@@ -53,7 +54,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: a32f3608-6ec6-44d2-a946-2e674a8b5c04
-  displayName: DashCondition
   duration: 0.6
   remainingDuration: 0
   directionMode: 0
@@ -64,6 +64,22 @@ MonoBehaviour:
   - {fileID: 1344285647382033925}
   - {fileID: 2765209726981876797}
   - {fileID: 7850948500378500201}
+--- !u!114 &-3170118275863821671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 80fb4a5b399f4244895377f5ff3a005f, type: 3}
+  Volume: 1
+  Pitch: 0.1
+  Loop: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,15 +96,22 @@ MonoBehaviour:
   Cooldown: 3
   CastWindupTime: 0
   Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 20021f65-c0f6-486d-8f29-b798aa468363
   Ability: {fileID: -6419718447561464767}
   ResourceName: stamina
   ResourceCost: 20
   Description: 
   AnimationTrigger: 
+  ToxicResoureCost: 5
+  ToxicSelfDamage: 10
+  ToxicAbility: {fileID: 0}
   BlockMovementOnWindup: 0
   ReducedSpeedOnWindup: 1
   BlockRotationOnWindup: 1
@@ -122,6 +145,22 @@ MonoBehaviour:
   m_Name: ConditionAbilityComponent
   m_EditorClassIdentifier: 
   DebuffCondition: {fileID: -4685705558122471581}
+--- !u!114 &3746396838646013171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 0}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &6446087363475107628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +174,6 @@ MonoBehaviour:
   m_Name: StunCondition
   m_EditorClassIdentifier: 
   ID: 2969b107-7fb2-4e92-afaa-e2e1a4041c4c
-  displayName: Stun
   duration: 1
   remainingDuration: 0
 --- !u!114 &7850948500378500201

@@ -26,7 +26,8 @@ MonoBehaviour:
   m_Name: MultipleProjectiles(Clone)
   m_EditorClassIdentifier: 
   Range: 15
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: -3545968314420784449}
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
@@ -35,6 +36,7 @@ MonoBehaviour:
   - {fileID: 327443220205701702}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 0}
   type: 0
   numberOfProjectiles: 10
   ConeAngle: 0
@@ -57,6 +59,22 @@ MonoBehaviour:
   BaseDamage: 8
   DamageType: 1
   AllowVariance: 1
+--- !u!114 &-3545968314420784449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: b4fa2563ea8b777459c73be92d6b2944, type: 3}
+  Volume: 0.275
+  Pitch: 0.8
+  Loop: 0
 --- !u!114 &-3380114120946616629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +88,6 @@ MonoBehaviour:
   m_Name: KnockCondition(Clone)
   m_EditorClassIdentifier: 
   ID: 1c2fdc4d-9982-4383-8881-7ab151dac7d8
-  displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
   KnockBackDistance: 10
@@ -88,7 +105,6 @@ MonoBehaviour:
   m_Name: KnockCondition
   m_EditorClassIdentifier: 
   ID: d5d25c1a-0364-4ccc-96e2-38625b0be38f
-  displayName: KnockCondition
   duration: 0.25
   remainingDuration: 0
   KnockBackDistance: 4
@@ -106,7 +122,8 @@ MonoBehaviour:
   m_Name: MultipleProjectiles(Clone)(Clone)
   m_EditorClassIdentifier: 
   Range: 15
-  OnCastEffects: []
+  OnCastEffects:
+  - {fileID: 4825515909267818108}
   useMouseDirection: 0
   OnFirstHit: []
   OnHitEffects:
@@ -115,6 +132,7 @@ MonoBehaviour:
   - {fileID: 7030226362590598415}
   displayFirstHitEffects: 1
   destroyOnHit: 0
+  clip: {fileID: 8300000, guid: 18bddfe234e3d47479a19d75d0b0203c, type: 3}
   type: 0
   numberOfProjectiles: 10
   ConeAngle: 0
@@ -135,7 +153,6 @@ MonoBehaviour:
   m_Name: SlowCondition
   m_EditorClassIdentifier: 
   ID: 460f5b09-b56f-411c-9431-48cccf36a0b7
-  displayName: SlowCondition
   duration: 5
   remainingDuration: 0
   slowType: 0
@@ -180,10 +197,14 @@ MonoBehaviour:
   Cooldown: 6
   CastWindupTime: 0.8
   Icon: {fileID: 21300000, guid: bcae74d586d690a489a88365c67a8d5d, type: 3}
+  AbilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
   BuffsOnCast: []
   remainingCooldown: 0
   state: 0
   CastWindUp: []
+  guid: 42b29722-59b7-4a9e-944f-0cbafda70bed
   Ability: {fileID: -7077114156724734056}
   ResourceName: water
   ResourceCost: 5
@@ -236,11 +257,26 @@ MonoBehaviour:
   m_Name: KnockCondition
   m_EditorClassIdentifier: 
   ID: 1c2fdc4d-9982-4383-8881-7ab151dac7d8
-  displayName: KnockCondition
   duration: 0.4
   remainingDuration: 0
   KnockBackDistance: 10
   knockType: 0
+--- !u!114 &4825515909267818108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
+  m_Name: SoundComponent
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 0}
+  Volume: 1
+  Pitch: 1
+  Loop: 0
 --- !u!114 &7030226362590598415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +303,6 @@ MonoBehaviour:
   m_Name: SlowCondition(Clone)
   m_EditorClassIdentifier: 
   ID: 460f5b09-b56f-411c-9431-48cccf36a0b7
-  displayName: SlowCondition
   duration: 5
   remainingDuration: 0
   slowType: 0
