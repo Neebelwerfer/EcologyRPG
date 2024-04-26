@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71dbd75c58e089468b2a61e001881e9, type: 3}
   m_Name: SoundComponent
   m_EditorClassIdentifier: 
-  Clip: {fileID: 0}
+  Clip: {fileID: 8300000, guid: 916cee97fb8915a42a4a74478ad4c629, type: 3}
   Volume: 1
-  Pitch: 1
+  Pitch: -1
   Loop: 0
 --- !u!114 &6446087363475107628
 MonoBehaviour:
