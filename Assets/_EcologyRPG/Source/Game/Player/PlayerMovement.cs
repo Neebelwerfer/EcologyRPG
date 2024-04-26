@@ -57,7 +57,7 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                 }
                 var speed = MovementSpeed.Value * Characters.BaseMoveSpeed;
                 var dir = (movement.y * forward + movement.x * right).normalized;
-                if(Physics.Raycast(transform.Position, Vector3.down, out RaycastHit hit, 100, Game.Settings.TargetGroundMask))
+                if(Physics.Raycast(transform.Position, Vector3.down, out RaycastHit hit, 100, Game.Settings.WalkableGroundMask))
                 {
                     dir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
                 }
@@ -66,8 +66,8 @@ namespace EcologyRPG.GameSystems.PlayerSystems
                 {
                     Move(dir, speed);
                 }
-                else rb.velocity = Vector3.zero;
-                if (player.CanRotate) rb.MoveRotation(Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation(dir), TimeManager.IngameDeltaTime * rotationSpeed));
+                else rb.velocity = Physics.gravity;
+                if (player.CanRotate) rb.MoveRotation(Quaternion.Slerp(transform.Rotation, Quaternion.LookRotation((movement.y * forward + movement.x * right)), TimeManager.IngameDeltaTime * rotationSpeed));
             }
             else
             {

@@ -395,7 +395,7 @@ namespace EcologyRPG.Core.Character
             var checkPos = origin + dir * (speed * 2);
             checkPos.y += 1f;
             Debug.DrawRay(checkPos, Vector3.down * 1, Color.red);
-            if (Physics.Raycast(checkPos, Vector3.down, out var hit, 30, AbilityManager.GroundMask))
+            if (Physics.Raycast(checkPos, Vector3.down, out var hit, 30, AbilityManager.WalkableGroundLayer))
             {
                 if (hit.distance < 2f)
                     return true;
