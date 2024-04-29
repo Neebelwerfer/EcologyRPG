@@ -58,7 +58,7 @@ public class SeeThroughSync : MonoBehaviour
         var dir = Camera.transform.position - transform.position;
         Ray ray = new Ray(transform.position, dir.normalized);
 
-        var numHits = Physics.SphereCastNonAlloc(ray, SphereCastRadius, hits, dir.magnitude - (SphereCastRadius * 2), Mask);
+        var numHits = Physics.SphereCastNonAlloc(ray, SphereCastRadius, hits, dir.magnitude - (SphereCastRadius * 2));
         
         if(numHits > 0)
         {
@@ -69,6 +69,7 @@ public class SeeThroughSync : MonoBehaviour
                 if (hit.collider.isTrigger) continue;
                 if (!_MaterialsByName.ContainsKey(hit.collider) && hit.collider.gameObject.TryGetComponent<MeshRenderer>(out var meshRenderer))
                 {
+                    Debug.Log("success");
                     Material mat = meshRenderer.material;
                     _MaterialsByName.Add(hit.collider, new SeeThroughMaterial(this, mat, CircleSize));
                 }
