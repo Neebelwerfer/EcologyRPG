@@ -15,6 +15,11 @@ namespace EcologyRPG.Core.Scripting
             Character = character;
         }
 
+        ~CharacterContext()
+        {
+            characterContexts.Remove(Character.GUID);
+        }
+
         public static CharacterContext GetOrCreate(BaseCharacter character)
         {
             characterContexts ??= new();
