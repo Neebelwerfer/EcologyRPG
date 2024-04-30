@@ -52,7 +52,7 @@ namespace EcologyRPG.Core.Scripting
                 {
                     if(characterBinding.Character.Faction != context.GetOwner().Faction)
                     {
-                        characters[j] = new CharacterContext(characterBinding.Character);
+                        characters[j] = CharacterContext.GetOrCreate(characterBinding.Character);
                         j++;
                     }
                 }
@@ -81,7 +81,7 @@ namespace EcologyRPG.Core.Scripting
                 {
                     if (characterBinding.Character.Faction != context.GetOwner().Faction)
                     {
-                        characters[i] = new CharacterContext(characterBinding.Character);
+                        characters[i] = CharacterContext.GetOrCreate(characterBinding.Character);
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace EcologyRPG.Core.Scripting
                 {
                     if(characterBinding.Character.Faction != context.GetOwner().Faction)
                     {
-                        return new CharacterContext(characterBinding.Character);
+                        return CharacterContext.GetOrCreate(characterBinding.Character);
                     }
                 }
             }

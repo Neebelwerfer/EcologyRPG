@@ -50,7 +50,7 @@ namespace EcologyRPG.Core.Character
         {
             Debug.Log("Applying condition " + data.name);
             CastContext = Context;
-            this.target = new CharacterContext(target);
+            this.target = CharacterContext.GetOrCreate(target);
             scriptContext.Globals["Context"] = Context;
             scriptContext.Globals["Target"] = this.target;
 

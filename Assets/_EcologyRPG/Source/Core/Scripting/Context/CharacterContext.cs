@@ -1,18 +1,33 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
-using MoonSharp.Interpreter;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Scripting
 {
     public class CharacterContext
     {
+        static Dictionary<string, CharacterContext> characterContexts;
         readonly BaseCharacter Character;
 
         public CharacterContext(BaseCharacter character)
         {
             Character = character;
+        }
+
+        public static CharacterContext GetOrCreate(BaseCharacter character)
+        {
+            characterContexts ??= new();
+            
+            var existing = characterContexts.GetValueOrDefault(character.GUID);
+            if(existing != null)
+            {
+                return existing;
+            }
+            var context = new CharacterContext(character);
+            characterContexts.Add(character.GUID, context);
+            Debug.Log("Creating new character context for " + character.GUID);
+            return context;
         }
 
         public void TriggerAnimation(string animationName)

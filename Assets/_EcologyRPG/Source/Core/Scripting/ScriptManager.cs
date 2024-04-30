@@ -21,7 +21,7 @@ namespace EcologyRPG.Core.Scripting
         public void Initialize()
         {
             UserData.RegisterProxyType<ResourceContext, Resource>(r => new ResourceContext(r));
-            UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => new CharacterContext(c));
+            UserData.RegisterProxyType<CharacterContext, BaseCharacter>(c => CharacterContext.GetOrCreate(c));
             UserData.RegisterProxyType<StatContext, Stat>(s => new StatContext(s));
             UserData.RegisterProxyType<IndicatorMeshContext, IndicatorMesh>(s => new IndicatorMeshContext(s));
             UserData.RegisterProxyType<BasicProjectileContext, BasicProjectileBehaviour>(s => new BasicProjectileContext(s));

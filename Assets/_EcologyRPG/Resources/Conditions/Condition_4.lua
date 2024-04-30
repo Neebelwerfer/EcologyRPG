@@ -1,8 +1,8 @@
 
 function OnApply()
-timer = 0
-BaseDamagePerTick = Basedamage
-TickRate = 1 / Frequency
+    timer = 0
+    BaseDamagePerTick = Basedamage
+    TickRate = 1 / Frequency
 end
 
 function OnReapply()
