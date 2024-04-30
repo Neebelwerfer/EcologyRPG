@@ -7,7 +7,7 @@ namespace EcologyRPG.Core.Scripting
 {
     public class ColliderArrayPool
     {
-        Stack<Collider[]> pool = new Stack<Collider[]>();
+        readonly Stack<Collider[]> pool = new();
 
         readonly int Size;
 
@@ -33,7 +33,7 @@ namespace EcologyRPG.Core.Scripting
 
     public class PhysicsContext
     {
-        static readonly ColliderArrayPool colliderArrayPool = new ColliderArrayPool(10);
+        static readonly ColliderArrayPool colliderArrayPool = new(10);
 
         public static CharacterContext[] OverlapSphere(CastContext context, Vector3Context position, float radius)
         {
