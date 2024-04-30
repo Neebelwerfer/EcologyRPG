@@ -99,15 +99,12 @@ namespace EcologyRPG.AbilityScripting
             var halfExtents = Size / 2;
             var numHits = Physics.OverlapBoxNonAlloc(origin + (direction * halfExtents.z), halfExtents, colliderHits, Quaternion.LookRotation(direction, Vector3.up), Core.Abilities.AbilityManager.TargetMask, QueryTriggerInteraction.Ignore);
             List<BaseCharacter> targets = new();
-            Debug.Log($"Hits: {numHits}");
 
             for (int i = 0; i < numHits; i++)
             {
-                Debug.Log($"Hit {colliderHits[i].gameObject.name}");
                 if (colliderHits[i].TryGetComponent<CharacterBinding>(out var binding))
                 {
                     if (binding.Character.Faction == context.GetOwner().Faction) continue;
-                    Debug.Log("Hit");
                     var character = binding.Character;
                     targets.Add(character);
                 }

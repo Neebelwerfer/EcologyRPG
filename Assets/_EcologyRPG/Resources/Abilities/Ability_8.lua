@@ -1,6 +1,4 @@
 
 function OnCast()
-    Log("Casting Ability")
-    Delay(1)
-    Log("Ability Casted")
+    Context.GetOwner().ApplyCondition(Context, 3)
 end

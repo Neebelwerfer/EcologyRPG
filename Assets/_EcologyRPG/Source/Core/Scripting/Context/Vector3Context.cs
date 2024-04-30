@@ -5,6 +5,9 @@ namespace EcologyRPG.Core.Scripting
 {
     public class Vector3Context
     {
+        public static Vector3Context Zero => new Vector3Context(Vector3.zero);
+        public static Vector3Context One => new Vector3Context(Vector3.one);
+
         float x;
         float y;
         float z;
@@ -54,6 +57,21 @@ namespace EcologyRPG.Core.Scripting
         public Vector3Context Normalize()
         {
             return new Vector3Context(Vector3.Normalize(Vector));
+        }
+
+        public float Dot(Vector3Context other)
+        {
+            return Vector3.Dot(Vector, other.Vector);
+        }
+
+        public Vector3Context Cross(Vector3Context other)
+        {
+            return new Vector3Context(Vector3.Cross(Vector, other.Vector));
+        }
+
+        public float Distance(Vector3Context other)
+        {
+            return Vector3.Distance(Vector, other.Vector);
         }
 
         public static Vector3Context _Vector3(float x, float y, float z)

@@ -189,14 +189,12 @@ namespace EcologyRPG.GameSystems.NPC.Behaviours
             {
                 if (a.State == CastState.Ready && a.InMinRange(dist))
                 {
-                    Debug.Log($"Setting attack ability to {a.name}");
                     attackAbility = a;
                     return;
                 }
             }
             if (attackAbility == null)
             {
-                Debug.Log($"Setting attack ability to default {initialisedAbilities[0].name}");
                 attackAbility = initialisedAbilities[0];
             }
         }

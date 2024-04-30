@@ -98,7 +98,6 @@ end
             State = CastState.Cooldown;
             remainingCooldown = cooldown;
             AbilityManager.Current.RegisterCooldown(this);
-            Debug.Log("Cooldown started");
         }
 
         public void StartCooldown()
@@ -114,7 +113,6 @@ end
                 if (remainingCooldown <= 0)
                 {
                     State = CastState.Ready;
-                    Debug.Log("Cooldown finished");
                 }
             }
         }

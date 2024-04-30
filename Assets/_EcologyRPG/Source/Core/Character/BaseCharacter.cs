@@ -234,37 +234,49 @@ namespace EcologyRPG.Core.Character
             }
         }
 
+        public ConditionReference GetConditionReference(int ID)
+        {
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].ID == ID)
+                {
+                    return effects[i];
+                }
+            }
+            return null;
+        }
+
         public virtual void ApplyCondition(CastContext caster, ConditionReference effect)
         {
             if(state == CharacterStates.dead)
             {
                 return;
             }
-            effect.Owner = caster.GetOwner();
+            effect.CastContext = caster;
 
-            if(effect is IUpdateCondition)
-            {
-                for (int i = 0; i < effects.Count; i++)
-                {
-                    if (effects[i].Owner == caster.GetOwner() && effects[i].ID.Equals(effect.ID))
-                    {
-                        effects[i].OnReapply(this);
-                        return;
-                    }
-                }
-                effects.Add(effect);
-            }
-            else if(effect is IFixedUpdateCondition)
+            if (effect.useFixedUpdate)
             {
                 for (int i = 0; i < fixedUpdateEffects.Count; i++)
                 {
-                    if (fixedUpdateEffects[i].Owner == caster.GetOwner() && fixedUpdateEffects[i].ID.Equals(effect.ID))
+                    if (fixedUpdateEffects[i].CastContext.GetOwner() == caster.GetOwner() && fixedUpdateEffects[i].ID == effect.ID)
                     {
-                        fixedUpdateEffects[i].OnReapply(this);
+                        fixedUpdateEffects[i].OnReapply();
                         return;
                     }
                 }
                 fixedUpdateEffects.Add(effect);
+            }
+            else
+            {
+                for (int i = 0; i < effects.Count; i++)
+                {
+                    if (effects[i].CastContext.GetOwner() == caster.GetOwner() && effects[i].ID == effect.ID)
+                    {
+                        effects[i].OnReapply();
+                        return;
+                    }
+                }
+                effects.Add(effect);
             }
             effect.remainingDuration = effect.duration;
             effect.OnApply(caster, this);
@@ -272,29 +284,29 @@ namespace EcologyRPG.Core.Character
 
         public virtual void RemoveCondition(ConditionReference effect)
         {
-            if(effect is IUpdateCondition)
+            if(!effect.useFixedUpdate)
             {
                 for (int i = 0; i < effects.Count; i++)
                 {
-                    if (effects[i].ID.Equals(effect.ID) && effects[i].Owner == effect.Owner)
+                    if (effects[i].ID.Equals(effect.ID) && effects[i].CastContext.GetOwner() == effect.CastContext.GetOwner())
                     {
                         effects.RemoveAt(i);
                         break;
                     }
                 }
             }
-            else if (effect is IFixedUpdateCondition)
+            else
             {
                 for(int i = 0; i < fixedUpdateEffects.Count; i++)
                 {
-                    if (fixedUpdateEffects[i].ID.Equals(effect.ID) && fixedUpdateEffects[i].Owner == effect.Owner)
+                    if (fixedUpdateEffects[i].ID.Equals(effect.ID) && fixedUpdateEffects[i].CastContext.GetOwner() == effect.CastContext.GetOwner())
                     {
                         fixedUpdateEffects.RemoveAt(i);
                         break;
                     }
                 }
             }
-            effect.OnRemoved(this);
+            effect.OnRemoved();
         }
 
         public virtual ConditionReference[] GetCondition()
@@ -306,7 +318,7 @@ namespace EcologyRPG.Core.Character
         {
             for (int i = 0; i < effects.Count; i++)
             {
-                if (effects[i].ID.Equals(ID) && effects[i].Owner == owner)
+                if (effects[i].ID.Equals(ID) && effects[i].CastContext.GetOwner() == owner)
                 {
                     return effects[i];
                 }
@@ -318,7 +330,7 @@ namespace EcologyRPG.Core.Character
         {
             for (int i = 0; i < effects.Count; i++)
             {
-                if (effects[i].GetType() == type && effects[i].Owner == owner)
+                if (effects[i].GetType() == type && effects[i].CastContext.GetOwner() == owner)
                 {
                     return effects[i];
                 }
@@ -365,7 +377,7 @@ namespace EcologyRPG.Core.Character
             for (int i = effects.Count -1 ; i >= 0; i--)
             {
                 ConditionReference effect = effects[i];
-                effect.OnUpdate(this, Time.deltaTime);
+                effect.OnUpdate(Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)
                 {
@@ -380,7 +392,7 @@ namespace EcologyRPG.Core.Character
             for (int i = fixedUpdateEffects.Count - 1; i >= 0; i--)
             {
                 ConditionReference effect = fixedUpdateEffects[i];
-                effect.OnUpdate(this, Time.deltaTime);
+                effect.OnUpdate(Time.deltaTime);
                 effect.remainingDuration -= Time.deltaTime;
                 if (effect.remainingDuration <= 0)
                 {
@@ -445,6 +457,18 @@ namespace EcologyRPG.Core.Character
             }
 
             return CharacterBinding.TryGetComponent(out component);
+        }
+
+        public virtual void IgnoreCollision()
+        {
+            if(CharacterBinding == null) return;
+            Rigidbody.excludeLayers = AbilityManager.TargetMask;
+        }
+
+        public virtual void RestoreCollision()
+        {
+            if(CharacterBinding == null) return;
+            Rigidbody.excludeLayers = 0;
         }
 
         public static bool IsLegalMove(BaseCharacter character, Vector3 dir, float speed)

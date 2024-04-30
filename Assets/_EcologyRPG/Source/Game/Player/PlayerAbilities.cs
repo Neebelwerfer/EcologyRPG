@@ -31,8 +31,8 @@ namespace EcologyRPG.GameSystems.PlayerSystems
             this.settings = settings;
 
             abilitySlots[4] = Init(settings.FistAttackAbility);
-            //abilitySlots[5] = Init(settings.DodgeAbility);
-            //abilitySlots[6] = Init(settings.SprintAbility);
+            abilitySlots[5] = Init(settings.DodgeAbility);
+            abilitySlots[6] = Init(settings.SprintAbility);
 
             inventory.equipment.EquipmentUpdated.AddListener(OnEquipmentChange);
         }

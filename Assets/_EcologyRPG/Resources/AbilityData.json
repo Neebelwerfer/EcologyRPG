@@ -1,5 +1,5 @@
 {
-    "IDCounter": 8,
+    "IDCounter": 9,
     "data": [
         {
             "abilityName": "Fist",
@@ -79,6 +79,14 @@
             "Category": 2,
             "ID": 8,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_8.lua",
+            "_DefaultGlobalVariables": []
+        },
+        {
+            "abilityName": "Sprint",
+            "Description": "",
+            "Category": 2,
+            "ID": 9,
+            "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_9.lua",
             "_DefaultGlobalVariables": []
         }
     ],

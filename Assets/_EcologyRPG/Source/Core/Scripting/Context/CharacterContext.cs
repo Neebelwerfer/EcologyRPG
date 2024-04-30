@@ -1,6 +1,7 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Character;
 using MoonSharp.Interpreter;
+using System;
 using UnityEngine;
 
 namespace EcologyRPG.Core.Scripting
@@ -27,6 +28,41 @@ namespace EcologyRPG.Core.Scripting
                 type = (DamageType)damageType
             };
             Character.ApplyDamage(damageInfo);
+        }
+
+
+
+        public void ApplyCondition(CastContext context, int conditionID)
+        {
+            var existing = Character.GetConditionReference(conditionID);
+            if(existing != null)
+            {
+                existing.OnReapply();
+                return;
+            }
+            var condition = ConditionReferenceDatabase.Instance.GetCondition(conditionID);
+            if(condition != null)
+            {
+                Character.ApplyCondition(context, condition);
+            }
+            else
+            {
+                Debug.LogError("Condition with ID " + conditionID + " not found");
+            }
+        }
+
+        public bool Compare(CharacterContext other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+            return Character.GUID == other.Character.GUID;
+        }
+
+        public bool IsLegalMove(Vector3Context dir, float speed)
+        {
+            return BaseCharacter.IsLegalMove(Character, dir.Vector, speed);
         }
 
         public void ApplyStatModifier(StatModifierContext modifier)
@@ -129,12 +165,21 @@ namespace EcologyRPG.Core.Scripting
             Character.StartMovement();
         }
 
+        public void IgnoreCollision()
+        {
+            Character.IgnoreCollision();
+        }
+
+        public void RestoreCollision()
+        {
+            Character.RestoreCollision();
+        }
+
         public void RestoreMovement()
         {
             StartMovement();
             StartRotation();
             RemoveSlow();
         }
-
     }
 }

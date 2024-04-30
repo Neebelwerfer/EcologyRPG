@@ -20,6 +20,11 @@ namespace EcologyRPG.Core.Abilities
         {
             data = new ConditionData[0];
         }
+
+        public static SerializedConditionArray Load()
+        {
+            return JsonUtility.FromJson<SerializedConditionArray>(System.IO.File.ReadAllText(AbilityManager.ConditionDataPath));
+        }
     }
 
     [System.Serializable]
@@ -54,6 +59,13 @@ namespace EcologyRPG.Core.Abilities
             {
                 context.Globals[variable.Name] = variable.GetDynValue();
             }
+        }
+
+        public static ConditionData[] LoadAll()
+        {
+            var data = SerializedConditionArray.Load();
+            Debug.Log("Loaded Conditions: " + data.data.Length);
+            return data.data;
         }
     }
 }

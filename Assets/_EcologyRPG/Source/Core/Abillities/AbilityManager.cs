@@ -47,6 +47,7 @@ namespace EcologyRPG.Core.Abilities
 
 
         readonly AbilityData[] abilities;
+        readonly ConditionData[] conditionData;
         readonly List<AbilityReference> OnCooldown = new();
         readonly Queue<SubAbilityCast> subAbilityCasts = new();
         readonly List<AbilityReference> abilityReferences = new();
@@ -59,6 +60,8 @@ namespace EcologyRPG.Core.Abilities
         {
             ProjectileDatabase.Load();
             abilities = AbilityData.LoadAll();
+            conditionData = ConditionData.LoadAll();
+            ConditionReferenceDatabase.Load();
             var obj = new GameObject("AbilityCoroutineHolder");
             CoroutineHolder = obj.AddComponent<CoroutineHolder>();
         }
@@ -152,6 +155,18 @@ namespace EcologyRPG.Core.Abilities
             return null;
         }
 
+        public ConditionData GetCondition(int ID)
+        {
+            foreach (var condition in conditionData)
+            {
+                if (condition.ID == ID)
+                {
+                    return condition;
+                }
+            }
+            return null;
+        }
+
         public void CastAbility(AbilityReference ability, CastContext context)
         {
             var scriptContext = ability.Behaviour;
@@ -198,6 +213,7 @@ namespace EcologyRPG.Core.Abilities
         {
             var scriptContext = ScriptManager.Current.CreateScript();
             scriptContext.Globals["CastAbility"] = (Action<int, CastContext>)CastSubAbility;
+            scriptContext.Globals["ApplyCondition"] = (Action<int, CastContext, BaseCharacter>)ApplyCondition;
             scriptContext.Globals["Physical"] = DamageType.Physical;
             scriptContext.Globals["Water"] = DamageType.Water;
             scriptContext.Globals["Toxic"] = DamageType.Toxic;
@@ -206,6 +222,20 @@ namespace EcologyRPG.Core.Abilities
             VisualUtility.Register(scriptContext);
             
             return scriptContext;
+        }
+
+        public static void ApplyCondition(int conditionID, CastContext context, BaseCharacter target)
+        {
+            context = new CastContext(target, context.castPos, context.dir);
+            var conditionReference = ConditionReferenceDatabase.Instance.GetCondition(conditionID);
+            if (conditionReference != null)
+            {
+                target.ApplyCondition(context, conditionReference);
+            }
+            else
+            {
+                Debug.LogWarning("Condition reference not found for condition " + conditionID);
+            }
         }
 
         internal static CastContext CreateCastContext(BaseCharacter owner, Vector3Context target, Vector3Context origin)

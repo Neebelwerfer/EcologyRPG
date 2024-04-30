@@ -1,52 +1,130 @@
 using EcologyRPG.Core.Abilities;
 using EcologyRPG.Core.Scripting;
 using EcologyRPG.Utility;
+using MoonSharp.Interpreter;
 using System;
 using UnityEngine;
 
 
 namespace EcologyRPG.Core.Character
 {
-    public abstract class ConditionReference : ScriptableObject
+    public class ConditionReference
     {
-        protected const string CharacterEffectPath = "Condition/";
+        readonly ConditionReferenceData data;
 
-        [ReadOnlyString]
-        public string ID;
-        [Min(0)] public float duration;
-        [HideInInspector] public float remainingDuration;
-        [HideInInspector] public BaseCharacter Owner;
+        public float remainingDuration;
+        public CastContext CastContext;
+        public int ID => data.ID;
+        public int ConditionBehaviourID => data.ConditionBehaviourID;
+        public bool useFixedUpdate => data.useFixedUpdate;
+        public float duration => data.duration;
 
-        public ConditionReference()
+        ConditionData conditionData;
+        Script scriptContext;
+
+        CharacterContext target;
+
+        DynValue OnApplyFunction;
+        DynValue OnReapplyFunction;
+        DynValue OnUpdateFunction;
+        DynValue OnRemovedFunction;
+
+        public ConditionReference(ConditionReferenceData data)
         {
-            ID = Guid.NewGuid().ToString();
+            this.data = data;
+            conditionData = AbilityManager.Current.GetCondition(data.ConditionBehaviourID);
+            scriptContext = conditionData.LoadBehaviour();
+
+            scriptContext.Globals["Duration"] = data.duration;
+            scriptContext.Globals["SetRemainingDuration"] = (Action<float>)SetRemainingDuration;
+
+            OnApplyFunction = scriptContext.Globals.Get("OnApply");
+            OnReapplyFunction = scriptContext.Globals.Get("OnReapply");
+            OnUpdateFunction = scriptContext.Globals.Get("OnUpdate");
+            OnRemovedFunction = scriptContext.Globals.Get("OnRemoved");
+
+            LoadGlobalVariables();
         }
 
-        public abstract void OnApply(CastContext Caster, BaseCharacter target);
-
-        public abstract void OnReapply(BaseCharacter target);
-
-        public abstract void OnUpdate(BaseCharacter target, float deltaTime);
-
-        public abstract void OnRemoved(BaseCharacter target);
-
-        protected static float CalculateDamage(BaseCharacter Owner, float damage, bool allowVariance = false) => AbilityManager.CalculateDamage(Owner, damage, allowVariance);
-
-        [ContextMenu("Delete")]
-        protected virtual void Delete()
+        public void OnApply(CastContext Context, BaseCharacter target)
         {
-            DestroyImmediate(this, true);
+            Debug.Log("Applying condition " + data.name);
+            CastContext = Context;
+            this.target = new CharacterContext(target);
+            scriptContext.Globals["Context"] = Context;
+            scriptContext.Globals["Target"] = this.target;
+
+            if (OnApplyFunction.Type == DataType.Function)
+            {
+                scriptContext.Call(OnApplyFunction);
+            } 
+            else
+            {
+                Debug.LogWarning("OnApply function not found for condition " + data.name);
+            }
         }
-    }
 
-    public interface IUpdateCondition
-    {
-    }
+        public void OnReapply()
+        {
+            if (OnReapplyFunction.Type == DataType.Function)
+            {
+                scriptContext.Call(OnReapplyFunction);
+            }
+            else
+            {
+                Debug.LogWarning("OnReapply function not found for condition " + data.name);
+            }
+        }
 
-    public interface IFixedUpdateCondition
-    {
-    }
+        public void OnUpdate(float deltaTime)
+        {
+            scriptContext.Globals["RemainingDuration"] = remainingDuration;
+            if (OnUpdateFunction.Type == DataType.Function)
+            {
+                scriptContext.Call(OnUpdateFunction, deltaTime);
+            }
+            else
+            {
+                Debug.LogWarning("OnUpdate function not found for condition " + data.name);
+            }
+        }
 
-#if UNITY_EDITOR
-#endif
+        public void OnRemoved()
+        {
+            if (OnRemovedFunction.Type == DataType.Function)
+            {
+                scriptContext.Call(OnRemovedFunction);
+            }
+            else
+            {
+                Debug.LogWarning("OnRemoved function not found for condition " + data.name);
+            }
+            ConditionReferenceDatabase.ReturnCondition(this);
+        }
+
+        public void SetRemainingDuration(float duration)
+        {
+            remainingDuration = duration;
+        }
+
+        void LoadGlobalVariables()
+        {
+            foreach (var variable in conditionData._DefaultGlobalVariables)
+            {
+                if(Array.Exists(data.variableOverrides, x => x.Name == variable.Name))
+                {
+                    var overrideVariable = Array.Find(data.variableOverrides, x => x.Name == variable.Name);
+                    scriptContext.Globals[variable.Name] = overrideVariable.GetDynValue();
+                }
+                else
+                {
+                    scriptContext.Globals[variable.Name] = variable.GetDynValue();
+                }
+            }
+        }
+
+
+        protected float CalculateDamage(BaseCharacter Owner, float damage, bool allowVariance = false) => AbilityManager.CalculateDamage(Owner, damage, allowVariance);
+
+    }
 }
