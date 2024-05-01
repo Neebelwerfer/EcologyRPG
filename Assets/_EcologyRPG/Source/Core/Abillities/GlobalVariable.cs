@@ -1,8 +1,10 @@
 ﻿using MoonSharp.Interpreter;
+using MoonSharp.Interpreter.Interop.StandardDescriptors.HardwiredDescriptors;
 using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace EcologyRPG.Core.Abilities
 {
@@ -21,228 +23,247 @@ namespace EcologyRPG.Core.Abilities
     public class GlobalVariable
     {
         public string Name;
+        public GlobalVariableType Type;
+        public string Value;
 
-        public GlobalVariable(string name)
+        public GlobalVariable(string name, GlobalVariableType type) : this(name, type, DefaultValue(type))
+        {
+        }
+
+        internal GlobalVariable(string name, GlobalVariableType type, string value)
         {
             Name = name;
+            Type = type;
+            Value = value;
+        }
+
+        public static string DefaultValue(GlobalVariableType type)
+        {
+            return type switch
+            {
+                GlobalVariableType.String => "",
+                GlobalVariableType.Int => "0",
+                GlobalVariableType.AbilityID => "0",
+                GlobalVariableType.Float => "0",
+                GlobalVariableType.Bool => "false",
+                GlobalVariableType.DamageType => "0",
+                _ => "",
+            };
         }
 
         public virtual DynValue GetDynValue()
         {
-            return DynValue.NewNil();
+            return Type switch
+            {
+                GlobalVariableType.String => DynValue.NewString(Value),
+                GlobalVariableType.Int => DynValue.NewNumber(int.Parse(Value)),
+                GlobalVariableType.AbilityID => DynValue.NewNumber(int.Parse(Value)),
+                GlobalVariableType.Float => DynValue.NewNumber(float.Parse(Value)),
+                GlobalVariableType.Bool => DynValue.NewBoolean(bool.Parse(Value)),
+                GlobalVariableType.DamageType => DynValue.NewNumber(int.Parse(Value)),
+                _ => DynValue.NewString(Value),
+            };
         }
-
-#if UNITY_EDITOR
-        public virtual void DrawEditableValue()
-        {
-
-        }
-
-        public virtual void DrawValueLabel()
-        {
-
-        }
-#endif
 
         public virtual GlobalVariable Clone()
         {
-            return null;
+            return new GlobalVariable(Name, Type, Value);
         }
     }
 
-    [Serializable]
-    public class StringGlobalVariable : GlobalVariable
-    {
-        public string Value;
+//    [Serializable]
+//    public class StringGlobalVariable : GlobalVariable
+//    {
+//        public string Value;
 
-        public StringGlobalVariable(string name, string value) : base(name)
-        {
-            Value = value;
-        }
+//        public StringGlobalVariable(string name, string value) : base(name)
+//        {
+//            Value = value;
+//        }
 
-#if UNITY_EDITOR
-        public override void DrawEditableValue()
-        {
-            Value = EditorGUILayout.TextField(Value);
-        }
+//#if UNITY_EDITOR
+//        public override void DrawEditableValue()
+//        {
+//            Value = EditorGUILayout.TextField(Value);
+//        }
 
-        public override void DrawValueLabel()
-        {
-            EditorGUILayout.LabelField(Value);
-        }
-#endif
+//        public override void DrawValueLabel()
+//        {
+//            EditorGUILayout.LabelField(Value);
+//        }
+//#endif
 
-        public override DynValue GetDynValue()
-        {
-            return DynValue.NewString(Value);
-        }
+//        public override DynValue GetDynValue()
+//        {
+//            return DynValue.NewString(Value);
+//        }
 
-        public override GlobalVariable Clone()
-        {
-            return new StringGlobalVariable(Name, Value);
-        }
-    }
+//        public override GlobalVariable Clone()
+//        {
+//            return new StringGlobalVariable(Name, Value);
+//        }
+//    }
 
-    [Serializable]
-    public class IntGlobalVariable : GlobalVariable
-    {
-        public int Value;
-        public IntGlobalVariable(string name, int value) : base(name)
-        {
-            Value = value;
-        }
-        public override DynValue GetDynValue()
-        {
-            return DynValue.NewNumber(Value);
-        }
+//    [Serializable]
+//    public class IntGlobalVariable : GlobalVariable
+//    {
+//        public int Value;
+//        public IntGlobalVariable(string name, int value) : base(name)
+//        {
+//            Value = value;
+//        }
+//        public override DynValue GetDynValue()
+//        {
+//            return DynValue.NewNumber(Value);
+//        }
 
-#if UNITY_EDITOR
-        public override void DrawEditableValue()
-        {
-             Value = EditorGUILayout.IntField(Value);
-        }
+//#if UNITY_EDITOR
+//        public override void DrawEditableValue()
+//        {
+//             Value = EditorGUILayout.IntField(Value);
+//        }
 
-        public override void DrawValueLabel()
-        {
-            EditorGUILayout.LabelField(Value.ToString());
-        }
-#endif
+//        public override void DrawValueLabel()
+//        {
+//            EditorGUILayout.LabelField(Value.ToString());
+//        }
+//#endif
 
-        public override GlobalVariable Clone()
-        {
-            return new IntGlobalVariable(Name, Value);
-        }
-    }
+//        public override GlobalVariable Clone()
+//        {
+//            return new IntGlobalVariable(Name, Value);
+//        }
+//    }
 
-    public class AbilityIDGlobalVariable : IntGlobalVariable
-    {
-        public AbilityIDGlobalVariable(string name, int value) : base(name, value)
-        {
-        }
+//    public class AbilityIDGlobalVariable : IntGlobalVariable
+//    {
+//        public AbilityIDGlobalVariable(string name, int value) : base(name, value)
+//        {
+//        }
 
-        public override void DrawEditableValue()
-        {
-            EditorGUILayout.BeginHorizontal();
+//        public override void DrawEditableValue()
+//        {
+//            EditorGUILayout.BeginHorizontal();
 
-            if(AbilityEditor.abilityData == null)
-            {
-                AbilityEditor.Load();
-            }
-            var data = AbilityEditor.abilityData.data;
-            if(data == null)
-            {
-                EditorGUILayout.LabelField("No abilities found");
-            }
-            else
-            {
-                var ability = Array.Find(data, x => x.ID == Value);
-                if (ability == null)
-                {
-                    EditorGUILayout.LabelField("Ability not found");
-                }
-                else EditorGUILayout.LabelField(ability.abilityName);
+//            if(AbilityEditor.abilityData == null)
+//            {
+//                AbilityEditor.Load();
+//            }
+//            var data = AbilityEditor.abilityData.data;
+//            if(data == null)
+//            {
+//                EditorGUILayout.LabelField("No abilities found");
+//            }
+//            else
+//            {
+//                var ability = Array.Find(data, x => x.ID == Value);
+//                if (ability == null)
+//                {
+//                    EditorGUILayout.LabelField("Ability not found");
+//                }
+//                else EditorGUILayout.LabelField(ability.abilityName);
 
-                if (GUILayout.Button("Select"))
-                {
-                    var field = GetType().GetField("Value");
-                    AbilitySelectorEditor.Open(field, this);
-                }
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-    }
+//                if (GUILayout.Button("Select"))
+//                {
+//                    var field = GetType().GetField("Value");
+//                    AbilitySelectorEditor.Open(field, this);
+//                }
+//            }
+//            EditorGUILayout.EndHorizontal();
+//        }
+//    }
 
 
-    [Serializable]
-    public class FloatGlobalVariable : GlobalVariable
-    {
-        public float Value;
-        public FloatGlobalVariable(string name, float value) : base(name)
-        {
-            Value = value;
-        }
-        public override DynValue GetDynValue()
-        {
-            return DynValue.NewNumber(Value);
-        }
+//    [Serializable]
+//    public class FloatGlobalVariable : GlobalVariable
+//    {
+//        public float Value;
+//        public FloatGlobalVariable(string name, float value) : base(name)
+//        {
+//            Value = value;
+//        }
+//        public override DynValue GetDynValue()
+//        {
+//            return DynValue.NewNumber(Value);
+//        }
 
-#if UNITY_EDITOR
-        public override void DrawEditableValue()
-        {
-            Value = EditorGUILayout.FloatField(Value);
-        }
+//#if UNITY_EDITOR
+//        public override void DrawEditableValue()
+//        {
+//            Value = EditorGUILayout.FloatField(Value);
+//        }
 
-        public override void DrawValueLabel()
-        {
-            EditorGUILayout.LabelField(Value.ToString());
-        }
-#endif
+//        public override void DrawValueLabel()
+//        {
+//            EditorGUILayout.LabelField(Value.ToString());
+//        }
+//#endif
 
-        public override GlobalVariable Clone()
-        {
-            return new FloatGlobalVariable(Name, Value);
-        }
-    }
+//        public override GlobalVariable Clone()
+//        {
+//            return new FloatGlobalVariable(Name, Value);
+//        }
+//    }
 
-    [Serializable]
-    public class BoolGlobalVariable : GlobalVariable
-    {
-        public bool Value;
-        public BoolGlobalVariable(string name, bool value) : base(name)
-        {
-            Value = value;
-        }
-        public override DynValue GetDynValue()
-        {
-            return DynValue.NewBoolean(Value);
-        }
+//    [Serializable]
+//    public class BoolGlobalVariable : GlobalVariable
+//    {
+//        public bool Value;
+//        public BoolGlobalVariable(string name, bool value) : base(name)
+//        {
+//            Value = value;
+//        }
+//        public override DynValue GetDynValue()
+//        {
+//            return DynValue.NewBoolean(Value);
+//        }
 
-#if UNITY_EDITOR
-        public override void DrawEditableValue()
-        {
-            Value = EditorGUILayout.Toggle(Value);
-        }
+//#if UNITY_EDITOR
+//        public override void DrawEditableValue()
+//        {
+//            Value = EditorGUILayout.Toggle(Value);
+//        }
 
-        public override void DrawValueLabel()
-        {
-            EditorGUILayout.LabelField(Value.ToString());
-        }
-#endif
+//        public override void DrawValueLabel()
+//        {
+//            EditorGUILayout.LabelField(Value.ToString());
+//        }
+//#endif
 
-        public override GlobalVariable Clone()
-        {
-            return new BoolGlobalVariable(Name, Value);
-        }
-    }
+//        public override GlobalVariable Clone()
+//        {
+//            return new BoolGlobalVariable(Name, Value);
+//        }
+//    }
 
-    [Serializable]
-    public class DamageTypeGlobalVariable : GlobalVariable
-    {
-        public DamageType Value;
-        public DamageTypeGlobalVariable(string name, DamageType value) : base(name)
-        {
-            Value = value;
-        }
-        public override DynValue GetDynValue()
-        {
-            return DynValue.NewNumber((int)Value);
-        }
+//    [Serializable]
+//    public class DamageTypeGlobalVariable : GlobalVariable
+//    {
+//        public DamageType Value;
+//        public DamageTypeGlobalVariable(string name, DamageType value) : base(name)
+//        {
+//            Value = value;
+//        }
+//        public override DynValue GetDynValue()
+//        {
+//            return DynValue.NewNumber((int)Value);
+//        }
 
-#if UNITY_EDITOR
-        public override void DrawEditableValue()
-        {
-            Value = (DamageType)EditorGUILayout.EnumPopup(Value);
-        }
+//#if UNITY_EDITOR
+//        public override void DrawEditableValue()
+//        {
+//            Value = (DamageType)EditorGUILayout.EnumPopup(Value);
+//        }
 
-        public override void DrawValueLabel()
-        {
-            EditorGUILayout.LabelField(Value.ToString());
-        }
-#endif
+//        public override void DrawValueLabel()
+//        {
+//            EditorGUILayout.LabelField(Value.ToString());
+//        }
+//#endif
 
-        public override GlobalVariable Clone()
-        {
-            return new DamageTypeGlobalVariable(Name, Value);
-        }
-    }
+//        public override GlobalVariable Clone()
+//        {
+//            return new DamageTypeGlobalVariable(Name, Value);
+//        }
+//    }
 }

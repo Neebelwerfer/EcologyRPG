@@ -11,23 +11,41 @@ public class SingleAbilityEditor : EditorWindow
         var singleAbilityEditor = GetWindow<SingleAbilityEditor>("Single Ability Editor");
         singleAbilityEditor.abilityIndex = abilityIndex;
         singleAbilityEditor.editor = editor;
+
+        if(AbilityEditor.abilityData == null)
+        {
+            AbilityEditor.Load();
+        }
+        singleAbilityEditor.abilityData = AbilityEditor.abilityData.data;
+        singleAbilityEditor.serializedObject = new SerializedObject(singleAbilityEditor);
+        singleAbilityEditor.SerializedAbility = singleAbilityEditor.serializedObject.FindProperty("abilityData").GetArrayElementAtIndex(abilityIndex);
+        singleAbilityEditor.globalArray = singleAbilityEditor.SerializedAbility.FindPropertyRelative("_DefaultGlobalVariables");
+
     }
 
     AbilityEditor editor;
+    [SerializeField]
+    AbilityData[] abilityData;
+    [SerializeField]
     int abilityIndex;
     GlobalVariableType selectedGlobalVariableType;
     bool[] foldouts;
 
+    SerializedObject serializedObject;
+    SerializedProperty SerializedAbility;
+    SerializedProperty globalArray;
 
     private void OnGUI()
     {
+
         if (editor == null)
         {
             Close();
             return;
         }
 
-        var ability = AbilityEditor.abilityData.data[abilityIndex];
+        serializedObject.Update();
+        var ability = abilityData[abilityIndex];
         if (GUILayout.Button("Edit Script Behaviour"))
         {
             if (ability.ScriptPath == null || ability.ScriptPath == "")
@@ -74,16 +92,7 @@ public class SingleAbilityEditor : EditorWindow
             {
                 continue;
             }
-            var globalVariable = ability._DefaultGlobalVariables[j];
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Global Variable Name");
-            globalVariable.Name = GUILayout.TextField(ability._DefaultGlobalVariables[j].Name);
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Global Variable Value");
-            globalVariable.DrawEditableValue();
-            GUILayout.EndHorizontal();
+            EditorGUILayout.PropertyField(globalArray.GetArrayElementAtIndex(j));
 
             if (GUILayout.Button("Delete Global Variable"))
             {
@@ -107,18 +116,8 @@ public class SingleAbilityEditor : EditorWindow
             {
                 newVar[j] = ability._DefaultGlobalVariables[j];
             }
-            if (selectedGlobalVariableType == GlobalVariableType.String)
-                newVar[ability._DefaultGlobalVariables.Length] = new StringGlobalVariable(name, "");
-            else if (selectedGlobalVariableType == GlobalVariableType.Int)
-                newVar[ability._DefaultGlobalVariables.Length] = new IntGlobalVariable(name, 0);
-            else if (selectedGlobalVariableType == GlobalVariableType.Float)
-                newVar[ability._DefaultGlobalVariables.Length] = new FloatGlobalVariable(name, 0f);
-            else if (selectedGlobalVariableType == GlobalVariableType.Bool)
-                newVar[ability._DefaultGlobalVariables.Length] = new BoolGlobalVariable(name, false);
-            else if (selectedGlobalVariableType == GlobalVariableType.DamageType)
-                newVar[ability._DefaultGlobalVariables.Length] = new DamageTypeGlobalVariable(name, DamageType.Physical);
-            else if (selectedGlobalVariableType == GlobalVariableType.AbilityID)
-                newVar[ability._DefaultGlobalVariables.Length] = new AbilityIDGlobalVariable(name, 0);
+            newVar[ability._DefaultGlobalVariables.Length] = new GlobalVariable("", selectedGlobalVariableType);
+
             ability._DefaultGlobalVariables = newVar;
         }
         GUILayout.EndHorizontal();

@@ -13,18 +13,6 @@
                 },
                 {
                     "rid": 1001
-                },
-                {
-                    "rid": 1002
-                },
-                {
-                    "rid": 1003
-                },
-                {
-                    "rid": 1004
-                },
-                {
-                    "rid": 1005
                 }
             ]
         },
@@ -34,20 +22,7 @@
             "Category": 1,
             "ID": 4,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua",
-            "_DefaultGlobalVariables": [
-                {
-                    "rid": 1006
-                },
-                {
-                    "rid": 1007
-                },
-                {
-                    "rid": 1008
-                },
-                {
-                    "rid": 1009
-                }
-            ]
+            "_DefaultGlobalVariables": []
         },
         {
             "abilityName": "Test",
@@ -96,121 +71,27 @@
             {
                 "rid": 1000,
                 "type": {
-                    "class": "StringGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Animation",
-                    "Value": "Is_MeleeAttacking"
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Width",
-                    "Value": 2.0
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Range",
-                    "Value": 5.0
-                }
-            },
-            {
-                "rid": 1003,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "BaseDamage",
-                    "Value": 20.0
-                }
-            },
-            {
-                "rid": 1004,
-                "type": {
-                    "class": "DamageTypeGlobalVariable",
+                    "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
                     "asm": "Core"
                 },
                 "data": {
                     "Name": "DamageType",
-                    "Value": 0
+                    "Type": 5,
+                    "Value": "Physical"
                 }
             },
             {
-                "rid": 1005,
+                "rid": 1001,
                 "type": {
-                    "class": "FloatGlobalVariable",
+                    "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
                     "asm": "Core"
                 },
                 "data": {
-                    "Name": "Windup",
-                    "Value": 1.0
-                }
-            },
-            {
-                "rid": 1006,
-                "type": {
-                    "class": "StringGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Animation",
-                    "Value": "Water_SingleShot"
-                }
-            },
-            {
-                "rid": 1007,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Range",
-                    "Value": 10.0
-                }
-            },
-            {
-                "rid": 1008,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Speed",
-                    "Value": 7.0
-                }
-            },
-            {
-                "rid": 1009,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Windup",
-                    "Value": 1.0
+                    "Name": "Ability",
+                    "Type": 2,
+                    "Value": "1"
                 }
             }
         ]

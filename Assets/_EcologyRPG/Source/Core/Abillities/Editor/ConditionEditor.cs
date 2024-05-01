@@ -117,8 +117,16 @@ public class ConditionEditor : EditorWindow
                 {
                     EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label(variable.Name);
-                    variable.DrawValueLabel();
+                    
+                    //var obj = new SerializedObject(variable);
+                    //var name = obj.FindProperty("Name");
+                    //var type = obj.FindProperty("Type");
+                    //var value = obj.FindProperty("Value");
+                    //EditorGUILayout.LabelField("Name", name.name);
+                    //var enumNames = type.enumNames;
+                    //var enumName = enumNames[type.enumValueIndex];
+                    //EditorGUILayout.LabelField("Type", enumName);
+                    //EditorGUILayout.LabelField("Value", value.stringValue);
                     GUILayout.EndHorizontal();
                 }
 

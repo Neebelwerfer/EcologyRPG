@@ -38,6 +38,7 @@ public class AbilityReferenceEditor : Editor
     public void DrawGlobalOverrides()
     {
         var abilityReference = (AbilityReference)target;
+        serializedObject.Update();
 
         if (AbilityEditor.abilityData == null)
         {
@@ -72,13 +73,32 @@ public class AbilityReferenceEditor : Editor
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         EditorGUILayout.LabelField("Ability Settings overrides", EditorStyles.boldLabel);
-        for (int i = 0; i < abilityReference.globalVariablesOverride.Length; i++)
-        {
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Name", GUILayout.Width(200));
+        EditorGUILayout.LabelField("Type", GUILayout.Width(200));
+        EditorGUILayout.LabelField("Value", GUILayout.Width(200));
+        GUILayout.EndHorizontal();
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+        var array = serializedObject.FindProperty("globalVariablesOverride");
+        for (int i = 0; i < array.arraySize; i++)
+        { 
+            var global = array.GetArrayElementAtIndex(i);
+            var name = global.FindPropertyRelative("Name");
+            var type = global.FindPropertyRelative("Type");
+            var value = global.FindPropertyRelative("Value");
+            var enumNames = type.enumNames;
+            var enumName = enumNames[type.enumValueIndex];
             GUILayout.BeginHorizontal();
-            var global = abilityReference.globalVariablesOverride[i];
-            EditorGUILayout.LabelField(global.Name);
-            global.DrawEditableValue();
+            EditorGUILayout.LabelField(name.stringValue, GUILayout.Width(200));
+            EditorGUILayout.LabelField(enumName, GUILayout.Width(200));
+            GlobalVariableDrawer.DrawValueEditor(type, value);
             GUILayout.EndHorizontal();
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(abilityReference);
+                serializedObject.ApplyModifiedProperties();
+            }
         }
 
         if (GUILayout.Button("Regenerate Settings"))

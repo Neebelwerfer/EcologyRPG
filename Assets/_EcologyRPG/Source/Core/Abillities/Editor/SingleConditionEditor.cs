@@ -18,6 +18,9 @@ public class SingleConditionEditor : EditorWindow
     GlobalVariableType selectedGlobalVariableType;
     SerializedConditionArray conditions;
     bool[] foldouts;
+    SerializedObject serializedObject;
+    SerializedProperty condition;
+    SerializedProperty globalArray;
 
     private void OnEnable()
     {
@@ -26,6 +29,9 @@ public class SingleConditionEditor : EditorWindow
             ConditionEditor.Load();
         }
         conditions = ConditionEditor.conditionData;
+        serializedObject = new SerializedObject(this);
+        condition = serializedObject.FindProperty("conditions").GetArrayElementAtIndex(index);
+        globalArray = condition.FindPropertyRelative("_DefaultGlobalVariables");
     }
 
     private void OnGUI()
@@ -79,15 +85,7 @@ public class SingleConditionEditor : EditorWindow
                 continue;
             }
             var globalVariable = condition._DefaultGlobalVariables[j];
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Global Variable Name");
-            globalVariable.Name = GUILayout.TextField(condition._DefaultGlobalVariables[j].Name);
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Global Variable Value");
-            globalVariable.DrawEditableValue();
-            GUILayout.EndHorizontal();
+            EditorGUILayout.PropertyField(globalArray.GetArrayElementAtIndex(j));
 
             if (GUILayout.Button("Delete Global Variable"))
             {
@@ -112,17 +110,7 @@ public class SingleConditionEditor : EditorWindow
                 newVar[j] = condition._DefaultGlobalVariables[j];
             }
             if (selectedGlobalVariableType == GlobalVariableType.String)
-                newVar[condition._DefaultGlobalVariables.Length] = new StringGlobalVariable(name, "");
-            else if (selectedGlobalVariableType == GlobalVariableType.Int)
-                newVar[condition._DefaultGlobalVariables.Length] = new IntGlobalVariable(name, 0);
-            else if (selectedGlobalVariableType == GlobalVariableType.Float)
-                newVar[condition._DefaultGlobalVariables.Length] = new FloatGlobalVariable(name, 0f);
-            else if (selectedGlobalVariableType == GlobalVariableType.Bool)
-                newVar[condition._DefaultGlobalVariables.Length] = new BoolGlobalVariable(name, false);
-            else if (selectedGlobalVariableType == GlobalVariableType.DamageType)
-                newVar[condition._DefaultGlobalVariables.Length] = new DamageTypeGlobalVariable(name, DamageType.Physical);
-            else if (selectedGlobalVariableType == GlobalVariableType.AbilityID)
-                newVar[condition._DefaultGlobalVariables.Length] = new AbilityIDGlobalVariable(name, 0);
+                newVar[condition._DefaultGlobalVariables.Length] = new GlobalVariable(name, selectedGlobalVariableType);
             condition._DefaultGlobalVariables = newVar;
         }
         GUILayout.EndHorizontal();

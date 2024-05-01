@@ -144,7 +144,8 @@ public class AbilityEditor : EditorWindow
                     EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
                     GUILayout.BeginHorizontal();
                     GUILayout.Label(variable.Name);
-                    variable.DrawValueLabel();
+                    GUILayout.Label(variable.Type.ToString());
+                    GUILayout.Label(variable.Value);
                     GUILayout.EndHorizontal();
                 }
 

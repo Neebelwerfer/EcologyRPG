@@ -61,8 +61,9 @@ public class AbilitySelectorEditor : EditorWindow
                     }
                     else
                     {
-                        property.intValue = data[i].ID;
+                        property.stringValue = data[i].ID.ToString();
                     }
+                    property.serializedObject.ApplyModifiedProperties();
                     Close();
                 }
                 EditorGUI.indentLevel--;
