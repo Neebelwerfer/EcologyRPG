@@ -60,7 +60,7 @@ namespace EcologyRPG.Core.Abilities
                 GlobalVariableType.AbilityID => DynValue.NewNumber(int.Parse(Value)),
                 GlobalVariableType.Float => DynValue.NewNumber(float.Parse(Value)),
                 GlobalVariableType.Bool => DynValue.NewBoolean(bool.Parse(Value)),
-                GlobalVariableType.DamageType => DynValue.NewNumber(int.Parse(Value)),
+                GlobalVariableType.DamageType => DynValue.NewNumber((int)Enum.Parse(typeof(DamageType), Value)),
                 _ => DynValue.NewString(Value),
             };
         }

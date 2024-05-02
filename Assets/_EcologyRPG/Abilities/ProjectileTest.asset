@@ -16,7 +16,12 @@ MonoBehaviour:
   Cooldown: 2
   customActivationTest: 0
   CanActivateString: "function CanActivate()\r\n    return true\r\nend\r\n"
-  globalVariablesOverride: []
+  globalVariablesOverride:
+  - rid: 365669004408258675
+  - rid: 365669004408258676
+  - rid: 365669004408258677
+  - rid: 365669004408258678
+  - rid: 365669004408258679
   State: 0
   Name: Projectile
   Description: Projectile
@@ -27,3 +32,36 @@ MonoBehaviour:
   customResourceUsage: 0
   UseResourceString: "function UseResource()\r\n    local Owner = Context.GetOwner()\r\n   
     local Resource = Owner.GetResource(ResourceName)\r\n    Resource.Consume(ResourceCost)\r\nend\r\n"
+  references:
+    version: 2
+    RefIds:
+    - rid: 365669004408258675
+      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Animation
+        Type: 0
+        Value: Water_SingleShot
+    - rid: 365669004408258676
+      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Range
+        Type: 3
+        Value: 10
+    - rid: 365669004408258677
+      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Speed
+        Type: 3
+        Value: 7
+    - rid: 365669004408258678
+      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: Windup
+        Type: 3
+        Value: 1
+    - rid: 365669004408258679
+      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: DamageType
+        Type: 5
+        Value: Water

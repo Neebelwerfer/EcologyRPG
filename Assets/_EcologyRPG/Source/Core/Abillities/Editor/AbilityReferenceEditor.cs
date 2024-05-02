@@ -37,6 +37,7 @@ public class AbilityReferenceEditor : Editor
 
     public void DrawGlobalOverrides()
     {
+        bool isInvalid = false;
         var abilityReference = (AbilityReference)target;
         serializedObject.Update();
 
@@ -82,9 +83,13 @@ public class AbilityReferenceEditor : Editor
 
         var array = serializedObject.FindProperty("globalVariablesOverride");
         for (int i = 0; i < array.arraySize; i++)
-        { 
+        {
             var global = array.GetArrayElementAtIndex(i);
             var name = global.FindPropertyRelative("Name");
+            if (!isInvalid)
+            {
+                isInvalid = !Array.Exists(Array.FindAll(abilityData._DefaultGlobalVariables, element => element.Name == name.stringValue), element => element.Name == name.stringValue);
+            }
             var type = global.FindPropertyRelative("Type");
             var value = global.FindPropertyRelative("Value");
             var enumNames = type.enumNames;
@@ -93,6 +98,15 @@ public class AbilityReferenceEditor : Editor
             EditorGUILayout.LabelField(name.stringValue, GUILayout.Width(200));
             EditorGUILayout.LabelField(enumName, GUILayout.Width(200));
             GlobalVariableDrawer.DrawValueEditor(type, value);
+            if(GUILayout.Button("Reset", GUILayout.Width(100)))
+            {
+                var defaultGlobal = Array.Find(abilityData._DefaultGlobalVariables, element => element.Name == name.stringValue);
+                if(defaultGlobal != null)
+                {
+                    value.stringValue = defaultGlobal.Value;
+                }
+            }
+
             GUILayout.EndHorizontal();
             if (GUI.changed)
             {
@@ -112,6 +126,20 @@ public class AbilityReferenceEditor : Editor
                     EditorUtility.SetDirty(abilityReference);
                 }
             }
+
+            for (int i = abilityReference.globalVariablesOverride.Length - 1; i >= 0; i--)
+            {
+                if(!Array.Exists(abilityData._DefaultGlobalVariables, element => element.Name == abilityReference.globalVariablesOverride[i].Name))
+                {
+                    ArrayUtility.RemoveAt(ref abilityReference.globalVariablesOverride, i);
+                    EditorUtility.SetDirty(abilityReference);
+                }
+            }
+        }
+
+        if(isInvalid)
+        {
+            EditorGUILayout.HelpBox("Some of the global variables are not present in the default ability settings.\nPlease Regenerate.", MessageType.Error);
         }
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
