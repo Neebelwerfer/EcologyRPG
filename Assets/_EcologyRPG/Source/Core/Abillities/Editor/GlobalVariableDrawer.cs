@@ -1,4 +1,5 @@
 using EcologyRPG.Core.Abilities;
+using MoonSharp.Interpreter;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -7,8 +8,10 @@ using UnityEngine.UIElements;
 [CustomPropertyDrawer(typeof(GlobalVariable))]
 public class GlobalVariableDrawer : PropertyDrawer
 {
+    float height = 0;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        height = 0;
         EditorGUI.BeginProperty(position, label, property);
         var name = property.FindPropertyRelative("Name");
         var type = property.FindPropertyRelative("Type");
@@ -20,7 +23,8 @@ public class GlobalVariableDrawer : PropertyDrawer
         EditorGUI.LabelField(new Rect(position.x + 50, position.y + 30, 200, 20), type.enumNames[type.enumValueIndex]);
         
         GUI.Label(new Rect(position.x, position.y + 60, 40, 20), "Value: ");
-        DrawValueEditor(new Rect(position.x + 50, position.y + 60, 200, 20), type, value);
+        DrawValueEditor(new Rect(position.x + 50, position.y + 60, 200, 20), type, value, ref height);
+        height += 80;
 
         if(GUI.changed)
         {
@@ -29,7 +33,7 @@ public class GlobalVariableDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
-    public static void DrawValueEditor(Rect position, SerializedProperty type, SerializedProperty value)
+    public static void DrawValueEditor(Rect position, SerializedProperty type, SerializedProperty value, ref float height)
     {
         if (type.enumValueIndex == -1)
         {
@@ -38,11 +42,18 @@ public class GlobalVariableDrawer : PropertyDrawer
 
         var enumVal = (GlobalVariableType)type.enumValueIndex;
 
-        if (enumVal == GlobalVariableType.AbilityID)
+        if (enumVal is GlobalVariableType.AbilityID or GlobalVariableType.ConditionID)
         {
-            DrawIDSelections(enumVal, value);
+            DrawIDSelections(position, enumVal, value, ref height);
             return;
         }
+
+        if(enumVal == GlobalVariableType.Function)
+        {
+            DrawFunction(position, value, ref height);
+            return;
+        }
+
         value.stringValue = enumVal switch
         {
             GlobalVariableType.String => GUI.TextField(position, value.stringValue),
@@ -54,6 +65,17 @@ public class GlobalVariableDrawer : PropertyDrawer
         };
     }
 
+    public static void DrawFunction(Rect position, SerializedProperty value, ref float height)
+    {
+        height += 20;
+        if(GUI.Button(position, "Edit"))
+        {
+            FunctionEditor.Open(value);
+        }
+    }
+
+
+
     public static void DrawValueEditor(SerializedProperty type, SerializedProperty value)
     {
         if(type.enumValueIndex == -1)
@@ -63,9 +85,18 @@ public class GlobalVariableDrawer : PropertyDrawer
 
         var enumVal = (GlobalVariableType)type.enumValueIndex;
 
-        if(enumVal == GlobalVariableType.AbilityID)
+        if (enumVal is GlobalVariableType.AbilityID or GlobalVariableType.ConditionID)
         {
             DrawIDSelections(enumVal, value);
+            return;
+        }
+
+        if (enumVal == GlobalVariableType.Function)
+        {
+            if(GUILayout.Button("Edit"))
+            {
+                FunctionEditor.Open(value);
+            }
             return;
         }
 
@@ -80,9 +111,9 @@ public class GlobalVariableDrawer : PropertyDrawer
         };
     }
 
-    public static void DrawIDSelections(Rect position, GlobalVariableType type, SerializedProperty value)
+    public static void DrawIDSelections(Rect position, GlobalVariableType type, SerializedProperty value, ref float height)
     {
-        if(type == GlobalVariableType.AbilityID)
+        if(type is GlobalVariableType.AbilityID)
         {
             var abilityData = AbilityEditor.abilityData;
             if(abilityData == null)
@@ -101,6 +132,28 @@ public class GlobalVariableDrawer : PropertyDrawer
                 AbilitySelectorEditor.Open(value);
             }
         }
+
+        if(type is GlobalVariableType.ConditionID)
+        {
+            var conditionData = ConditionEditor.conditionData;
+            if(conditionData == null)
+            {
+                ConditionEditor.Load();
+                conditionData = ConditionEditor.conditionData;
+            }
+
+            var index = int.Parse(value.stringValue);
+            var condition = Array.Find(conditionData.data, element => element.ID == index);
+            var name = condition == null ? "Condition not found" : condition.ConditionName;
+
+            EditorGUI.LabelField(new Rect(position.x, position.y, position.width / 2, position.height), name);
+            if(GUI.Button(new Rect(position.x + position.width / 2 + 10, position.y, position.width / 2, 20), "Select"))
+            {
+                ConditionSelectorEditor.Open(value);
+            }
+        }
+
+        height += position.height;
 
     }
 
@@ -128,10 +181,31 @@ public class GlobalVariableDrawer : PropertyDrawer
             GUILayout.EndHorizontal();
         }
 
+        if(type is GlobalVariableType.ConditionID)
+        {
+            var conditionData = ConditionEditor.conditionData;
+            if(conditionData == null)
+            {
+                ConditionEditor.Load();
+                conditionData = ConditionEditor.conditionData;
+            }
+
+            var index = int.Parse(value.stringValue);
+            var condition = Array.Find(conditionData.data, element => element.ID == index);
+            var name = condition == null ? "Condition not found" : condition.ConditionName;
+
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(name);
+            if(GUILayout.Button("Select"))
+            {
+                ConditionSelectorEditor.Open(value);
+            }
+            GUILayout.EndHorizontal();
+        }
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return 80;
+        return height;
     }
 }

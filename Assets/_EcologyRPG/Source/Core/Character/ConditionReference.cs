@@ -114,11 +114,11 @@ namespace EcologyRPG.Core.Character
                 if(Array.Exists(data.variableOverrides, x => x.Name == variable.Name))
                 {
                     var overrideVariable = Array.Find(data.variableOverrides, x => x.Name == variable.Name);
-                    scriptContext.Globals[variable.Name] = overrideVariable.GetDynValue();
+                    scriptContext.Globals[variable.Name] = overrideVariable.GetDynValue(scriptContext);
                 }
                 else
                 {
-                    scriptContext.Globals[variable.Name] = variable.GetDynValue();
+                    scriptContext.Globals[variable.Name] = variable.GetDynValue(scriptContext);
                 }
             }
         }

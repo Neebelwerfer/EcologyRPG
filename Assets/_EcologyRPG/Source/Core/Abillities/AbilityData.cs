@@ -48,7 +48,7 @@ namespace EcologyRPG.Core.Abilities
         {
             foreach (var variable in _DefaultGlobalVariables)
             {
-                context.Globals[variable.Name] = variable.GetDynValue();
+                context.Globals[variable.Name] = variable.GetDynValue(context);
             }
         }
 

@@ -187,25 +187,66 @@ namespace EcologyRPG.Core.Abilities
         {
             context.GetOwner().state = CharacterStates.casting;
             reference.State = CastState.Casting;
-            foreach (var res in abilityContext.Coroutine.AsTypedEnumerable())
+            var enumerator = abilityContext.Coroutine.AsTypedEnumerable().GetEnumerator();
+            float waitTime = 0;
+            while (true)
             {
-                if (res.Type == DataType.Number)
+                try
                 {
-                    yield return new WaitForSeconds((float)res.Number);
+                    if(enumerator.MoveNext() == false)
+                    {
+                        break;
+                    }
+                    var res = enumerator.Current;
+                    if(res.Type == DataType.Number)
+                        waitTime = (float)res.Number;
+
                 }
+                catch (ScriptRuntimeException e)
+                {
+                    Debug.LogError(e.DecoratedMessage);
+                    break;
+                }
+                catch (SyntaxErrorException e)
+                {
+                    Debug.LogError(e.DecoratedMessage);
+                    break;
+                }
+                yield return new WaitForSeconds(waitTime);
             }
+
             context.GetOwner().state = CharacterStates.active;
             reference.StartCooldown();
         }
 
         IEnumerator CastDiscrete(DynValue abilityContext, AbilityData data)
         {
-            foreach (var res in abilityContext.Coroutine.AsTypedEnumerable())
+            var enumerator = abilityContext.Coroutine.AsTypedEnumerable().GetEnumerator();
+            float waitTime = 0;
+            while (true)
             {
-                if (res.Type == DataType.Number)
+                try
                 {
-                    yield return new WaitForSeconds((float)res.Number);
+                    if (enumerator.MoveNext() == false)
+                    {
+                        break;
+                    }
+                    var res = enumerator.Current;
+                    if (res.Type == DataType.Number)
+                        waitTime = (float)res.Number;
+
                 }
+                catch (ScriptRuntimeException e)
+                {
+                    Debug.LogError(e.DecoratedMessage);
+                    yield break;
+                }
+                catch (SyntaxErrorException e)
+                {
+                    Debug.LogError(e.DecoratedMessage);
+                    yield break;
+                }
+                yield return new WaitForSeconds(waitTime);
             }
         }
 

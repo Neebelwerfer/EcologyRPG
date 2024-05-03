@@ -1,6 +1,7 @@
       
 function OnCast()
     local owner = Context.GetOwner()
+    OnHit(owner)
     owner.TriggerAnimation(Animation)
     owner.RotateTowards(Context.dir)
     owner.StopRotation()

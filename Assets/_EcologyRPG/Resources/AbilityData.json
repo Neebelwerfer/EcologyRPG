@@ -25,6 +25,9 @@
                 },
                 {
                     "rid": 1005
+                },
+                {
+                    "rid": 1006
                 }
             ]
         },
@@ -36,9 +39,6 @@
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua",
             "_DefaultGlobalVariables": [
                 {
-                    "rid": 1006
-                },
-                {
                     "rid": 1007
                 },
                 {
@@ -49,6 +49,9 @@
                 },
                 {
                     "rid": 1010
+                },
+                {
+                    "rid": 1011
                 }
             ]
         },
@@ -97,7 +100,7 @@
                 },
                 "data": {
                     "Name": "DamageType",
-                    "Type": 5,
+                    "Type": 6,
                     "Value": "Physical"
                 }
             },
@@ -123,7 +126,7 @@
                 },
                 "data": {
                     "Name": "Width",
-                    "Type": 3,
+                    "Type": 4,
                     "Value": "2"
                 }
             },
@@ -136,7 +139,7 @@
                 },
                 "data": {
                     "Name": "Range",
-                    "Type": 3,
+                    "Type": 4,
                     "Value": "5"
                 }
             },
@@ -149,7 +152,7 @@
                 },
                 "data": {
                     "Name": "BaseDamage",
-                    "Type": 3,
+                    "Type": 4,
                     "Value": "20"
                 }
             },
@@ -162,12 +165,25 @@
                 },
                 "data": {
                     "Name": "Windup",
-                    "Type": 3,
+                    "Type": 4,
                     "Value": "1"
                 }
             },
             {
                 "rid": 1006,
+                "type": {
+                    "class": "GlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "OnHit",
+                    "Type": 7,
+                    "Value": "\r\nfunction OnHit(target)\r\n    target.ApplyDamage(10, DamageType)\r\nend"
+                }
+            },
+            {
+                "rid": 1007,
                 "type": {
                     "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
@@ -180,19 +196,6 @@
                 }
             },
             {
-                "rid": 1007,
-                "type": {
-                    "class": "GlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Range",
-                    "Type": 3,
-                    "Value": "10"
-                }
-            },
-            {
                 "rid": 1008,
                 "type": {
                     "class": "GlobalVariable",
@@ -200,9 +203,9 @@
                     "asm": "Core"
                 },
                 "data": {
-                    "Name": "Speed",
-                    "Type": 3,
-                    "Value": "7"
+                    "Name": "Range",
+                    "Type": 4,
+                    "Value": "10"
                 }
             },
             {
@@ -213,9 +216,9 @@
                     "asm": "Core"
                 },
                 "data": {
-                    "Name": "Windup",
-                    "Type": 3,
-                    "Value": "1"
+                    "Name": "Speed",
+                    "Type": 4,
+                    "Value": "7"
                 }
             },
             {
@@ -226,8 +229,21 @@
                     "asm": "Core"
                 },
                 "data": {
+                    "Name": "Windup",
+                    "Type": 4,
+                    "Value": "1"
+                }
+            },
+            {
+                "rid": 1011,
+                "type": {
+                    "class": "GlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
                     "Name": "DamageType",
-                    "Type": 5,
+                    "Type": 6,
                     "Value": "Water"
                 }
             }

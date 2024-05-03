@@ -69,23 +69,13 @@ end
             {
                 if (!HasOverride(abilityData._DefaultGlobalVariables[i].Name))
                 {
-                    behaviour.Globals[abilityData._DefaultGlobalVariables[i].Name] = abilityData._DefaultGlobalVariables[i].GetDynValue();
+                    behaviour.Globals[abilityData._DefaultGlobalVariables[i].Name] = abilityData._DefaultGlobalVariables[i].GetDynValue(behaviour);
                 }
                 else
                 {
-                    behaviour.Globals[abilityData._DefaultGlobalVariables[i].Name] = globalVariablesOverride[i].GetDynValue();
+                    behaviour.Globals[abilityData._DefaultGlobalVariables[i].Name] = globalVariablesOverride[i].GetDynValue(behaviour);
                 }
             }
-            //if(globalVariablesOverride == null)
-            //{
-            //    abilityData.LoadDefaultVariables(behaviour);
-            //    return;
-            //}
-
-            //foreach (var global in globalVariablesOverride)
-            //{
-            //    behaviour.Globals[global.Name] = global.GetDynValue();
-            //}
         }
 
         bool HasOverride(string name)
