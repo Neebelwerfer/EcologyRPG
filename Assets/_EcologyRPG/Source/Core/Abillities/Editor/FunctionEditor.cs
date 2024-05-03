@@ -24,7 +24,7 @@ public class FunctionEditor : EditorWindow
         property.serializedObject.ApplyModifiedProperties();
     }
 
-    public static void TestFunction(string value)
+    public void TestFunction(string value)
     {
         try
         {
@@ -37,7 +37,7 @@ public class FunctionEditor : EditorWindow
         }
     }
 
-    static IEnumerator ErrorMessage(string message)
+    IEnumerator ErrorMessage(string message)
     {
         EditorGUILayout.HelpBox(message, MessageType.Error);
         yield return new WaitForSeconds(3);

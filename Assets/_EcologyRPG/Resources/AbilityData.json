@@ -179,7 +179,7 @@
                 "data": {
                     "Name": "OnHit",
                     "Type": 7,
-                    "Value": "\r\nfunction OnHit(target)\r\n    target.ApplyDamage(10, DamageType)\r\nend"
+                    "Value": "function OnHit(target)\r\n    target.ApplyDamage(BaseDamage, DamageType)\r\n    target.ApplyCondition(Context, 4)\r\t\nend"
                 }
             },
             {

@@ -1,7 +1,6 @@
       
 function OnCast()
     local owner = Context.GetOwner()
-    OnHit(owner)
     owner.TriggerAnimation(Animation)
     owner.RotateTowards(Context.dir)
     owner.StopRotation()
@@ -10,8 +9,7 @@ function OnCast()
     Delay(Windup)
     local targets = GetTargetsInLine(Context, Width, Range)
     for i, t in ipairs(targets) do
-        t.ApplyDamage(BaseDamage, DamageType)
-        t.ApplyCondition(Context, 4)
+        OnHit(t)
     end
     owner.RestoreMovement()
 end

@@ -55,6 +55,18 @@ end",
 
         public virtual DynValue GetDynValue(Script context)
         {
+            if(Type is GlobalVariableType.Function)
+            {
+                context.DoString(Value);
+                var function = context.Globals.Get(Name);
+
+                if(function.Type != DataType.Function)
+                {
+                    throw new Exception($"Global variable {Name} is not a function");
+                }
+                return function;
+            }
+
             return Type switch
             {
                 GlobalVariableType.String => DynValue.NewString(Value),
@@ -64,7 +76,6 @@ end",
                 GlobalVariableType.Float => DynValue.NewNumber(float.Parse(Value)),
                 GlobalVariableType.Bool => DynValue.NewBoolean(bool.Parse(Value)),
                 GlobalVariableType.DamageType => DynValue.NewNumber((int)Enum.Parse(typeof(DamageType), Value)),
-                GlobalVariableType.Function => context.DoString(Value),
                 _ => DynValue.NewString(Value),
             };
         }
