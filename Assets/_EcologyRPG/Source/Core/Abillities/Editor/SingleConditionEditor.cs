@@ -16,7 +16,7 @@ public class SingleConditionEditor : EditorWindow
     }
 
     GlobalVariableType selectedGlobalVariableType;
-    SerializedConditionArray conditions;
+    ConditionData[] conditions;
     bool[] foldouts;
     SerializedObject serializedObject;
     SerializedProperty condition;
@@ -28,7 +28,7 @@ public class SingleConditionEditor : EditorWindow
         {
             ConditionEditor.Load();
         }
-        conditions = ConditionEditor.conditionData;
+        conditions = ConditionEditor.conditionData.data;
         serializedObject = new SerializedObject(this);
         condition = serializedObject.FindProperty("conditions").GetArrayElementAtIndex(index);
         globalArray = condition.FindPropertyRelative("_DefaultGlobalVariables");
@@ -36,11 +36,22 @@ public class SingleConditionEditor : EditorWindow
 
     private void OnGUI()
     {
-        var condition = conditions.data[index];
+        if(conditions == null || conditions == null || conditions.Length <= index)
+        {
+            Close();
+            return;
+        }
+
+        var condition = conditions[index];
         if (condition == null)
         {
             Close();
             return;
+        }
+
+        if(condition._DefaultGlobalVariables == null)
+        {
+            condition._DefaultGlobalVariables = new GlobalVariable[0];
         }
 
         if (GUILayout.Button("Edit Script Behaviour"))

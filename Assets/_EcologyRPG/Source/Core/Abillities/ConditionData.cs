@@ -43,6 +43,7 @@ namespace EcologyRPG.Core.Abilities
             ConditionName = name;
             this.updateType = updateType;
             this.ID = ID;
+            _DefaultGlobalVariables = new GlobalVariable[0];
         }
 
         public Script LoadBehaviour()

@@ -1,3 +1,4 @@
+using EcologyRPG.Core.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,13 +13,16 @@ public class ConditionSelectorEditor : EditorWindow
         editor.Show();
     }
 
+    ConditionReferenceDatabase db;
+
+    private void OnEnable()
+    {
+        db = ConditionReferenceDatabase.LoadConditions();
+    }
+
     private void OnGUI()
     {
-        if (ConditionEditor.conditionData == null)
-        {
-            ConditionEditor.Load();
-        }
-        var data = ConditionEditor.conditionData.data;
+        var data = db.conditions;
 
         if (data == null)
         {
@@ -28,9 +32,10 @@ public class ConditionSelectorEditor : EditorWindow
 
         for (int i = 0; i < data.Length; i++)
         {
-            if (GUILayout.Button(data[i].ConditionName))
+            if (GUILayout.Button(data[i].name))
             {
-                property.intValue = data[i].ID;
+                property.stringValue = data[i].ID.ToString();
+                property.serializedObject.ApplyModifiedProperties();
                 Close();
             }
         }

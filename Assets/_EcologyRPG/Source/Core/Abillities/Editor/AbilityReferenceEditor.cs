@@ -95,8 +95,8 @@ public class AbilityReferenceEditor : Editor
             var enumNames = type.enumNames;
             var enumName = enumNames[type.enumValueIndex];
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(name.stringValue, GUILayout.Width(200));
-            EditorGUILayout.LabelField(enumName, GUILayout.Width(200));
+            EditorGUILayout.LabelField(name.stringValue, GUILayout.Width(150));
+            EditorGUILayout.LabelField(enumName, GUILayout.Width(150));
             GlobalVariableDrawer.DrawValueEditor(type, value);
             if(GUILayout.Button("Reset", GUILayout.Width(100)))
             {

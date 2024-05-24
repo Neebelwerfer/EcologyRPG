@@ -28,6 +28,9 @@
                 },
                 {
                     "rid": 1006
+                },
+                {
+                    "rid": 1007
                 }
             ]
         },
@@ -39,9 +42,6 @@
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_4.lua",
             "_DefaultGlobalVariables": [
                 {
-                    "rid": 1007
-                },
-                {
                     "rid": 1008
                 },
                 {
@@ -52,6 +52,9 @@
                 },
                 {
                     "rid": 1011
+                },
+                {
+                    "rid": 1012
                 }
             ]
         },
@@ -85,7 +88,11 @@
             "Category": 2,
             "ID": 9,
             "ScriptPath": "Assets/_EcologyRPG/Resources/Abilities/Ability_9.lua",
-            "_DefaultGlobalVariables": []
+            "_DefaultGlobalVariables": [
+                {
+                    "rid": 1013
+                }
+            ]
         }
     ],
     "references": {
@@ -190,13 +197,26 @@
                     "asm": "Core"
                 },
                 "data": {
+                    "Name": "DoT",
+                    "Type": 3,
+                    "Value": "4"
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "GlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
                     "Name": "Animation",
                     "Type": 0,
                     "Value": "Water_SingleShot"
                 }
             },
             {
-                "rid": 1008,
+                "rid": 1009,
                 "type": {
                     "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
@@ -209,7 +229,7 @@
                 }
             },
             {
-                "rid": 1009,
+                "rid": 1010,
                 "type": {
                     "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
@@ -222,7 +242,7 @@
                 }
             },
             {
-                "rid": 1010,
+                "rid": 1011,
                 "type": {
                     "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
@@ -235,7 +255,7 @@
                 }
             },
             {
-                "rid": 1011,
+                "rid": 1012,
                 "type": {
                     "class": "GlobalVariable",
                     "ns": "EcologyRPG.Core.Abilities",
@@ -245,6 +265,19 @@
                     "Name": "DamageType",
                     "Type": 6,
                     "Value": "Water"
+                }
+            },
+            {
+                "rid": 1013,
+                "type": {
+                    "class": "GlobalVariable",
+                    "ns": "EcologyRPG.Core.Abilities",
+                    "asm": "Core"
+                },
+                "data": {
+                    "Name": "Sprint",
+                    "Type": 3,
+                    "Value": "2"
                 }
             }
         ]

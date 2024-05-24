@@ -30,6 +30,11 @@ namespace EcologyRPG.Core.Abilities
             return null;
         }
 
+        public static ConditionReferenceDatabase LoadConditions()
+        {
+            return Resources.Load<ConditionReferenceDatabase>("ConditionReferenceDatabase");
+        }
+
         public static void Load()
         {
             Instance = Resources.Load<ConditionReferenceDatabase>("ConditionReferenceDatabase");

@@ -43,7 +43,7 @@ namespace EcologyRPG.Core.Character
             OnUpdateFunction = scriptContext.Globals.Get("OnUpdate");
             OnRemovedFunction = scriptContext.Globals.Get("OnRemoved");
 
-            LoadGlobalVariables();
+            LoadGlobalVariables(scriptContext);
         }
 
         public void OnApply(CastContext Context, BaseCharacter target)
@@ -107,18 +107,18 @@ namespace EcologyRPG.Core.Character
             remainingDuration = duration;
         }
 
-        void LoadGlobalVariables()
+        void LoadGlobalVariables(Script context)
         {
             foreach (var variable in conditionData._DefaultGlobalVariables)
             {
-                if(Array.Exists(data.variableOverrides, x => x.Name == variable.Name))
+                if(data.variableOverrides != null && Array.Exists(data.variableOverrides, x => x.Name == variable.Name))
                 {
                     var overrideVariable = Array.Find(data.variableOverrides, x => x.Name == variable.Name);
-                    scriptContext.Globals[variable.Name] = overrideVariable.GetDynValue(scriptContext);
+                    context.Globals[variable.Name] = overrideVariable.GetDynValue(context);
                 }
                 else
                 {
-                    scriptContext.Globals[variable.Name] = variable.GetDynValue(scriptContext);
+                    context.Globals[variable.Name] = variable.GetDynValue(context);
                 }
             }
         }

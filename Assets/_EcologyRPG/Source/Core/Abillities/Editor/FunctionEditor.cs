@@ -1,4 +1,5 @@
 using MoonSharp.Interpreter;
+using System;
 using System.Collections;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -7,6 +8,8 @@ using UnityEngine;
 public class FunctionEditor : EditorWindow
 {
     SerializedProperty property;
+    Vector2 scrollPos;
+
     public static void Open(SerializedProperty property)
     {
         var window = GetWindow<FunctionEditor>();
@@ -16,30 +19,42 @@ public class FunctionEditor : EditorWindow
 
     private void OnGUI()
     {
-        property.stringValue = EditorGUILayout.TextArea(property.stringValue, GUILayout.Height(400));
-        if(GUILayout.Button("Test"))
+        if (property == null)
         {
-            TestFunction(property.stringValue);
+            Close();
+            return;
         }
-        property.serializedObject.ApplyModifiedProperties();
+
+
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+        property.stringValue =  WithoutSelectAll(() => EditorGUILayout.TextArea(property.stringValue, new GUILayoutOption[] { GUILayout.Height(600), GUILayout.ExpandHeight(true) }));
+        EditorGUILayout.EndScrollView();
+        GUILayout.BeginHorizontal();
+        if(GUILayout.Button("Save"))
+        {
+            property.serializedObject.ApplyModifiedProperties();
+        }
+        if(GUILayout.Button("Close"))
+        {
+            Close();
+        }
+        GUILayout.EndHorizontal();
     }
 
-    public void TestFunction(string value)
+    private T WithoutSelectAll<T>(Func<T> guiCall)
     {
-        try
-        {
-            Script.RunString(value);
-        }
-        catch (SyntaxErrorException e)
-        {
-            Debug.LogError(e.Message);
-            EditorCoroutineUtility.StartCoroutineOwnerless(ErrorMessage(e.Message));
-        }
-    }
+        bool preventSelection = (Event.current.type == EventType.MouseDown);
 
-    IEnumerator ErrorMessage(string message)
-    {
-        EditorGUILayout.HelpBox(message, MessageType.Error);
-        yield return new WaitForSeconds(3);
+        Color oldCursorColor = GUI.skin.settings.cursorColor;
+
+        if (preventSelection)
+            GUI.skin.settings.cursorColor = new Color(0, 0, 0, 0);
+
+        T value = guiCall();
+
+        if (preventSelection)
+            GUI.skin.settings.cursorColor = oldCursorColor;
+
+        return value;
     }
 }

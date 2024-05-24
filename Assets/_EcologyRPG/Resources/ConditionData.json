@@ -8,9 +8,6 @@
             "ConditionDescription": "",
             "ScriptPath": "Assets/_EcologyRPG/Resources/Conditions/Condition_1.lua",
             "_DefaultGlobalVariables": [
-                {
-                    "rid": 1000
-                }
             ]
         },
         {
@@ -20,9 +17,6 @@
             "ConditionDescription": "",
             "ScriptPath": "Assets/_EcologyRPG/Resources/Conditions/Condition_2.lua",
             "_DefaultGlobalVariables": [
-                {
-                    "rid": 1001
-                }
             ]
         },
         {
@@ -32,12 +26,6 @@
             "ConditionDescription": "",
             "ScriptPath": "Assets/_EcologyRPG/Resources/Conditions/Condition_3.lua",
             "_DefaultGlobalVariables": [
-                {
-                    "rid": 1002
-                },
-                {
-                    "rid": 1003
-                }
             ]
         },
         {
@@ -47,105 +35,7 @@
             "ConditionDescription": "",
             "ScriptPath": "Assets/_EcologyRPG/Resources/Conditions/Condition_4.lua",
             "_DefaultGlobalVariables": [
-                {
-                    "rid": 1004
-                },
-                {
-                    "rid": 1005
-                },
-                {
-                    "rid": 1006
-                }
             ]
         }
-    ],
-    "references": {
-        "version": 2,
-        "RefIds": [
-            {
-                "rid": 1000,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "SlowAmount",
-                    "Value": 0.5
-                }
-            },
-            {
-                "rid": 1001,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "modifier",
-                    "Value": 1.0
-                }
-            },
-            {
-                "rid": 1002,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Strength",
-                    "Value": 10.0
-                }
-            },
-            {
-                "rid": 1003,
-                "type": {
-                    "class": "BoolGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "StopOnHit",
-                    "Value": true
-                }
-            },
-            {
-                "rid": 1004,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Basedamage",
-                    "Value": 10.0
-                }
-            },
-            {
-                "rid": 1005,
-                "type": {
-                    "class": "FloatGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "Frequency",
-                    "Value": 1.0
-                }
-            },
-            {
-                "rid": 1006,
-                "type": {
-                    "class": "DamageTypeGlobalVariable",
-                    "ns": "EcologyRPG.Core.Abilities",
-                    "asm": "Core"
-                },
-                "data": {
-                    "Name": "DamageType",
-                    "Value": 1
-                }
-            }
-        ]
-    }
+    ]    
 }

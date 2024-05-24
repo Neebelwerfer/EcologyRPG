@@ -30,6 +30,7 @@ public class SingleAbilityEditor : EditorWindow
     int abilityIndex;
     GlobalVariableType selectedGlobalVariableType;
     bool[] foldouts;
+    Vector2 scrollPos;
 
     SerializedObject serializedObject;
     SerializedProperty SerializedAbility;
@@ -38,7 +39,7 @@ public class SingleAbilityEditor : EditorWindow
     private void OnGUI()
     {
 
-        if (editor == null)
+        if (editor == null || serializedObject == null || globalArray == null)
         {
             Close();
             return;
@@ -74,6 +75,8 @@ public class SingleAbilityEditor : EditorWindow
         GUILayout.Label("Category");
         ability.Category = (AbilityCategory)EditorGUILayout.EnumPopup(ability.Category);
         GUILayout.EndHorizontal();
+
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
 
         if (ability._DefaultGlobalVariables == null)
         {
@@ -126,6 +129,7 @@ public class SingleAbilityEditor : EditorWindow
         {
             editor.Save();
         }
+        GUILayout.EndScrollView();
     }
 }
 #endif

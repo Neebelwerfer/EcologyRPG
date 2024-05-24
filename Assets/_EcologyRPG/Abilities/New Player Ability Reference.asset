@@ -10,30 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ce8662de0768b24c8e82d62f8154e43, type: 3}
-  m_Name: Sprint
+  m_Name: New Player Ability Reference
   m_EditorClassIdentifier: 
-  AbilityID: 9
+  AbilityID: 0
   Cooldown: 0
   customActivationTest: 0
   CanActivateString: "function CanActivate()\r\n    return true\r\nend\r\n"
-  globalVariablesOverride:
-  - rid: 365669052543664257
+  globalVariablesOverride: []
   State: 0
-  Name: Sprint
-  Description: Run
-  Icon: {fileID: 21300000, guid: cfede8b6fd0ee174ab8256ed45fb3b4f, type: 3}
+  Name: 
+  Description: 
+  Icon: {fileID: 0}
   useMouseDirection: 0
   ResourceName: stamina
-  ResourceCost: 2
+  ResourceCost: 0
   customResourceUsage: 0
   UseResourceString: "function UseResource()\r\n    local Owner = Context.GetOwner()\r\n   
     local Resource = Owner.GetResource(ResourceName)\r\n    Resource.Consume(ResourceCost)\r\nend\r\n"
   references:
     version: 2
-    RefIds:
-    - rid: 365669052543664257
-      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
-      data:
-        Name: Sprint
-        Type: 3
-        Value: 2
+    RefIds: []

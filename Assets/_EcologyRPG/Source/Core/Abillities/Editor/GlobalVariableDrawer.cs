@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 [CustomPropertyDrawer(typeof(GlobalVariable))]
 public class GlobalVariableDrawer : PropertyDrawer
 {
+    const float valueWidth = 400;
     float height = 0;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -93,7 +94,7 @@ public class GlobalVariableDrawer : PropertyDrawer
 
         if (enumVal == GlobalVariableType.Function)
         {
-            if(GUILayout.Button("Edit"))
+            if(GUILayout.Button("Edit", GUILayout.Width(valueWidth)))
             {
                 FunctionEditor.Open(value);
             }
@@ -102,12 +103,12 @@ public class GlobalVariableDrawer : PropertyDrawer
 
         value.stringValue = enumVal switch
         {
-            GlobalVariableType.String => EditorGUILayout.TextField(value.stringValue),
-            GlobalVariableType.Int => EditorGUILayout.IntField(int.Parse(value.stringValue)).ToString(),
-            GlobalVariableType.Float => EditorGUILayout.FloatField(float.Parse(value.stringValue)).ToString(),
-            GlobalVariableType.Bool => EditorGUILayout.Toggle(bool.Parse(value.stringValue)).ToString(),
-            GlobalVariableType.DamageType => EditorGUILayout.EnumPopup((Enum)Enum.Parse(typeof(DamageType), value.stringValue)).ToString(),
-            _ => EditorGUILayout.TextField(value.stringValue),
+            GlobalVariableType.String => EditorGUILayout.TextField(value.stringValue, GUILayout.Width(valueWidth)),
+            GlobalVariableType.Int => EditorGUILayout.IntField(int.Parse(value.stringValue), GUILayout.Width(valueWidth)).ToString(),
+            GlobalVariableType.Float => EditorGUILayout.FloatField(float.Parse(value.stringValue), GUILayout.Width(valueWidth)).ToString(),
+            GlobalVariableType.Bool => EditorGUILayout.Toggle(bool.Parse(value.stringValue), GUILayout.Width(valueWidth)).ToString(),
+            GlobalVariableType.DamageType => EditorGUILayout.EnumPopup((Enum)Enum.Parse(typeof(DamageType), value.stringValue), GUILayout.Width(valueWidth)).ToString(),
+            _ => EditorGUILayout.TextField(value.stringValue, GUILayout.Width(valueWidth)),
         };
     }
 
@@ -135,16 +136,18 @@ public class GlobalVariableDrawer : PropertyDrawer
 
         if(type is GlobalVariableType.ConditionID)
         {
-            var conditionData = ConditionEditor.conditionData;
+            var db = ConditionReferenceDatabase.LoadConditions();
+            var conditionData = db.conditions;
+
             if(conditionData == null)
             {
-                ConditionEditor.Load();
-                conditionData = ConditionEditor.conditionData;
+                Debug.LogError("Condition data is null");
+                return;
             }
 
             var index = int.Parse(value.stringValue);
-            var condition = Array.Find(conditionData.data, element => element.ID == index);
-            var name = condition == null ? "Condition not found" : condition.ConditionName;
+            var condition = Array.Find(conditionData, element => element.ID == index);
+            var name = condition == null ? "Condition not found" : condition.name;
 
             EditorGUI.LabelField(new Rect(position.x, position.y, position.width / 2, position.height), name);
             if(GUI.Button(new Rect(position.x + position.width / 2 + 10, position.y, position.width / 2, 20), "Select"))
@@ -173,7 +176,7 @@ public class GlobalVariableDrawer : PropertyDrawer
             var name = ability == null ? "Ability not found" : ability.abilityName;
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(name);
+            EditorGUILayout.LabelField(name, GUILayout.Width(valueWidth));
             if(GUILayout.Button("Select"))
             {
                 AbilitySelectorEditor.Open(value);
@@ -183,19 +186,21 @@ public class GlobalVariableDrawer : PropertyDrawer
 
         if(type is GlobalVariableType.ConditionID)
         {
-            var conditionData = ConditionEditor.conditionData;
-            if(conditionData == null)
+            var db = ConditionReferenceDatabase.LoadConditions();
+            var conditionData = db.conditions;
+
+            if (conditionData == null)
             {
-                ConditionEditor.Load();
-                conditionData = ConditionEditor.conditionData;
+                Debug.LogError("Condition data is null");
+                return;
             }
 
             var index = int.Parse(value.stringValue);
-            var condition = Array.Find(conditionData.data, element => element.ID == index);
-            var name = condition == null ? "Condition not found" : condition.ConditionName;
+            var condition = Array.Find(conditionData, element => element.ID == index);
+            var name = condition == null ? "Condition not found" : condition.name;
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(name);
+            EditorGUILayout.LabelField(name, GUILayout.MaxWidth(valueWidth));
             if(GUILayout.Button("Select"))
             {
                 ConditionSelectorEditor.Open(value);

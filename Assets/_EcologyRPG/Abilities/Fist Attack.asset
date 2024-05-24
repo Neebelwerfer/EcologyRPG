@@ -24,6 +24,7 @@ MonoBehaviour:
   - rid: 365669004408258790
   - rid: 365669004408258791
   - rid: 365669004408258792
+  - rid: 365669052543664228
   State: 0
   Name: Fist Attack
   Description: Attack with Fist
@@ -78,4 +79,11 @@ MonoBehaviour:
       data:
         Name: OnHit
         Type: 7
-        Value: "\r\nfunction OnHit(target)\r\n    target.ApplyDamage(10, DamageType)\r\nend"
+        Value: "function OnHit(target)\r\n    target.ApplyDamage(BaseDamage, DamageType)\r\n   
+          target.ApplyCondition(Context, DoT)\r\t\nend"
+    - rid: 365669052543664228
+      type: {class: GlobalVariable, ns: EcologyRPG.Core.Abilities, asm: Core}
+      data:
+        Name: DoT
+        Type: 3
+        Value: 4
